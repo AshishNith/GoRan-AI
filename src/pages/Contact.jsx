@@ -53,8 +53,8 @@ export default function Contact() {
   return (
     <main className="w-full min-h-screen bg-white relative overflow-hidden pt-36 pb-24 font-body">
       <div className="absolute inset-0 pointer-events-none z-0">
-        <div className="absolute top-[5%] left-[-8%] w-[500px] h-[500px] rounded-full bg-brand-yellow/[0.04] blur-[100px]" />
-        <div className="absolute bottom-[10%] right-[-8%] w-[600px] h-[600px] rounded-full bg-purple-500/[0.03] blur-[120px]" />
+        <div className="absolute top-[5%] left-[-8%] w-125 h-125 rounded-full bg-brand-yellow/4 blur-[100px]" />
+        <div className="absolute bottom-[10%] right-[-8%] w-150 h-150 rounded-full bg-purple-500/3 blur-[120px]" />
         <div
           className="absolute inset-0 opacity-30"
           style={{
@@ -65,7 +65,7 @@ export default function Contact() {
         />
       </div>
 
-      <div className="w-full max-w-[1200px] mx-auto px-6 relative z-10">
+      <div className="w-full max-w-300 mx-auto px-6 relative z-10">
         {/* Header */}
         <div className="mb-14 max-w-2xl">
           <h1 className="text-4xl md:text-5xl font-heading font-bold text-brand-dark leading-[1.05] tracking-tight mb-4">
@@ -117,7 +117,7 @@ export default function Contact() {
                   <div key={idx} className="flex gap-5 pb-8 last:pb-0 relative group">
                     {/* Vertical line connector */}
                     {idx < 2 && (
-                      <div className="absolute left-[15px] top-9 bottom-0 w-px bg-brand-border group-last:hidden" />
+                      <div className="absolute left-3.75 top-9 bottom-0 w-px bg-brand-border group-last:hidden" />
                     )}
                     <span className="font-heading text-sm font-bold text-brand-yellow select-none bg-brand-yellow/10 w-8 h-8 rounded-lg flex items-center justify-center shrink-0 relative z-10">
                       {step.num}
@@ -375,7 +375,7 @@ export default function Contact() {
 
       {/* Voice Agent Section */}
       <div className="w-full mt-28">
-        <div className="w-full max-w-[1200px] mx-auto px-6 mb-12 flex items-center justify-center">
+        <div className="w-full max-w-300 mx-auto px-6 mb-12 flex items-center justify-center">
           <div className="h-px bg-brand-border flex-1" />
           <span className="px-6 text-[10px] font-bold uppercase tracking-widest text-brand-text-muted select-none">
             or speak with us directly

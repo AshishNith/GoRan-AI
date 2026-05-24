@@ -75,10 +75,10 @@ export default function Home() {
         <LampContainer className="absolute inset-0" />
 
         {/* Decorative background elements */}
-        <div className="absolute top-[10%] left-[-5%] w-[400px] h-[400px] rounded-full bg-brand-yellow/[0.04] blur-[100px] pointer-events-none" />
-        <div className="absolute bottom-[15%] right-[-5%] w-[350px] h-[350px] rounded-full bg-purple-500/[0.04] blur-[100px] pointer-events-none" />
+        <div className="absolute top-[10%] left-[-5%] w-100 h-100 rounded-full bg-brand-yellow/4 blur-[100px] pointer-events-none" />
+        <div className="absolute bottom-[15%] right-[-5%] w-87.5 h-87.5 rounded-full bg-purple-500/4 blur-[100px] pointer-events-none" />
 
-        <div className="w-full max-w-[1200px] mx-auto px-6 relative z-10 flex flex-col items-center">
+        <div className="w-full max-w-300 mx-auto px-6 relative z-10 flex flex-col items-center">
           {/* Eyebrow */}
           <div className="inline-flex items-center gap-2 mb-6">
             <span className="w-1.5 h-1.5 rounded-full bg-brand-yellow animate-pulse" />
@@ -88,16 +88,16 @@ export default function Home() {
           </div>
 
           {/* Headline */}
-          <h1 className="font-heading font-bold text-brand-dark leading-[1.0] text-[clamp(2.5rem,7vw,5rem)] tracking-tight max-w-[900px]">
+          <h1 className="font-heading font-bold text-brand-dark leading-none text-[clamp(2.5rem,7vw,5rem)] tracking-tight max-w-225">
             The AI agency that{' '}
             <span className="relative inline-block">
               <span className="text-brand-yellow">builds for you.</span>
-              <span className="absolute -bottom-1 left-0 right-0 h-[3px] bg-brand-yellow/30 rounded-full hidden md:block" />
+              <span className="absolute -bottom-1 left-0 right-0 h-0.75 bg-brand-yellow/30 rounded-full hidden md:block" />
             </span>
           </h1>
 
           {/* Subtext */}
-          <p className="text-brand-text-muted text-base md:text-lg max-w-[540px] leading-relaxed mt-5 mb-8">
+          <p className="text-brand-text-muted text-base md:text-lg max-w-135 leading-relaxed mt-5 mb-8">
             Describe the workflow you need automated. We construct, test, and deploy production-grade agents connected to your tools — in days, not months.
           </p>
 
@@ -121,13 +121,13 @@ export default function Home() {
           </div>
 
           {/* Sandbox Interactive Box */}
-          <div className="w-full max-w-[680px] rounded-2xl border border-brand-border bg-white shadow-[0_8px_30px_rgba(0,0,0,0.04)] transition-all duration-300 focus-within:shadow-[0_8px_30px_rgba(0,0,0,0.08)] focus-within:border-brand-yellow/40">
+          <div className="w-full max-w-170 rounded-2xl border border-brand-border bg-white shadow-[0_8px_30px_rgba(0,0,0,0.04)] transition-all duration-300 focus-within:shadow-[0_8px_30px_rgba(0,0,0,0.08)] focus-within:border-brand-yellow/40">
             <div className="p-5 flex flex-col gap-4">
               <textarea
                 value={promptText}
                 onChange={(e) => setPromptText(e.target.value)}
                 placeholder="Describe what you want to automate... (e.g. Build an AI agent that monitors incoming emails, extracts contract metadata, saves it to Google Sheets, and alerts Slack)"
-                className="w-full border-none outline-none resize-none font-body text-base text-brand-text-main min-h-[80px] leading-relaxed placeholder:text-brand-text-muted/60"
+                className="w-full border-none outline-none resize-none font-body text-base text-brand-text-main min-h-20 leading-relaxed placeholder:text-brand-text-muted/60"
               />
               <div className="flex items-center justify-between border-t border-brand-border pt-4 flex-wrap gap-3">
                 <div className="flex items-center gap-1.5">
@@ -161,7 +161,7 @@ export default function Home() {
 
           {/* Compiler Output Console */}
           {showOutput && (
-            <div className="w-full max-w-[680px] mt-4 overflow-hidden text-left animate-fadeIn" ref={outputRef}>
+            <div className="w-full max-w-170 mt-4 overflow-hidden text-left animate-fadeIn" ref={outputRef}>
               <div className="bg-[#0E0E0E] rounded-t-xl px-4 py-2.5 border-b border-white/10 flex items-center justify-between">
                 <div className="flex gap-1.5">
                   <div className="w-2.5 h-2.5 rounded-full bg-[#FF5F56]" />
@@ -171,7 +171,7 @@ export default function Home() {
                 <div className="font-body text-[11px] font-medium text-white/40 tracking-wide">SYNAPSE COMPILER v1.2</div>
                 <div />
               </div>
-              <div className="p-5 font-mono text-sm text-white/80 bg-[#0E0E0E] max-h-[280px] overflow-y-auto space-y-2.5">
+              <div className="p-5 font-mono text-sm text-white/80 bg-[#0E0E0E] max-h-70 overflow-y-auto space-y-2.5">
                 {isCompiling && (
                   <div className="flex items-center gap-2.5 text-white/40 text-xs">
                     <span className="inline-block w-1.5 h-1.5 rounded-full bg-brand-yellow animate-pulse" />
@@ -218,7 +218,7 @@ export default function Home() {
 
       {/* Delivery Process Section */}
       <section className="py-24 bg-white" id="steps">
-        <div className="w-full max-w-[1200px] mx-auto px-6">
+        <div className="w-full max-w-300 mx-auto px-6">
           <StepsShowcase />
         </div>
       </section>
@@ -228,7 +228,7 @@ export default function Home() {
 
       {/* Services Section */}
       <section className="py-24 bg-white border-t border-brand-border" id="services">
-        <div className="w-full max-w-[1200px] mx-auto px-6 flex flex-col md:flex-row gap-12 md:gap-20 items-start">
+        <div className="w-full max-w-300 mx-auto px-6 flex flex-col md:flex-row gap-12 md:gap-20 items-start">
           <div className="md:w-[35%] md:sticky md:top-32 flex flex-col gap-5 z-10">
             <h2 className="text-3xl md:text-5xl font-heading font-bold text-brand-dark leading-tight">What we do for you</h2>
             <p className="text-brand-text-muted text-base md:text-lg leading-relaxed">From strategy to execution — we embed AI into your business across every stage.</p>
@@ -241,7 +241,7 @@ export default function Home() {
                     <span className="font-heading text-[4rem] md:text-[5.5rem] font-bold leading-none text-brand-border select-none transition-colors duration-300 group-hover:text-brand-yellow">01</span>
                     <div className="flex flex-col gap-3 pt-3 flex-1">
                       <h3 className="text-xl md:text-2xl font-heading font-semibold text-brand-dark tracking-tight">AI Audit</h3>
-                      <p className="text-[0.9rem] text-brand-text-muted leading-relaxed max-w-[520px]">We analyse your existing stack, workflows, and data pipelines to identify exactly where AI can cut costs, reduce manual effort, and unlock untapped leverage — with a clear implementation roadmap.</p>
+                      <p className="text-[0.9rem] text-brand-text-muted leading-relaxed max-w-130">We analyse your existing stack, workflows, and data pipelines to identify exactly where AI can cut costs, reduce manual effort, and unlock untapped leverage — with a clear implementation roadmap.</p>
                       <span className="inline-flex items-center gap-2 text-sm font-medium text-brand-text-muted mt-2 transition-colors duration-200 group-hover:text-brand-dark">
                         Explore
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-300 group-hover:translate-x-1.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
@@ -257,7 +257,7 @@ export default function Home() {
                     <span className="font-heading text-[4rem] md:text-[5.5rem] font-bold leading-none text-brand-border select-none transition-colors duration-300 group-hover:text-brand-yellow">02</span>
                     <div className="flex flex-col gap-3 pt-3 flex-1">
                       <h3 className="text-xl md:text-2xl font-heading font-semibold text-brand-dark tracking-tight">Product Development</h3>
-                      <p className="text-[0.9rem] text-brand-text-muted leading-relaxed max-w-[520px]">We design and build AI-powered products end-to-end — from LLM integration and agentic backends to polished user interfaces — so you go from idea to production without growing an in-house team.</p>
+                      <p className="text-[0.9rem] text-brand-text-muted leading-relaxed max-w-130">We design and build AI-powered products end-to-end — from LLM integration and agentic backends to polished user interfaces — so you go from idea to production without growing an in-house team.</p>
                       <span className="inline-flex items-center gap-2 text-sm font-medium text-brand-text-muted mt-2 transition-colors duration-200 group-hover:text-brand-dark">
                         Explore
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-300 group-hover:translate-x-1.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
@@ -273,7 +273,7 @@ export default function Home() {
                     <span className="font-heading text-[4rem] md:text-[5.5rem] font-bold leading-none text-brand-border select-none transition-colors duration-300 group-hover:text-brand-yellow">03</span>
                     <div className="flex flex-col gap-3 pt-3 flex-1">
                       <h3 className="text-xl md:text-2xl font-heading font-semibold text-brand-dark tracking-tight">Product Management</h3>
-                      <p className="text-[0.9rem] text-brand-text-muted leading-relaxed max-w-[520px]">Embed an experienced AI product manager into your team. We own the roadmap, prioritise features, manage delivery, and ensure every sprint moves your product closer to measurable business outcomes.</p>
+                      <p className="text-[0.9rem] text-brand-text-muted leading-relaxed max-w-130">Embed an experienced AI product manager into your team. We own the roadmap, prioritise features, manage delivery, and ensure every sprint moves your product closer to measurable business outcomes.</p>
                       <span className="inline-flex items-center gap-2 text-sm font-medium text-brand-text-muted mt-2 transition-colors duration-200 group-hover:text-brand-dark">
                         Explore
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-300 group-hover:translate-x-1.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
@@ -289,7 +289,7 @@ export default function Home() {
                     <span className="font-heading text-[4rem] md:text-[5.5rem] font-bold leading-none text-brand-border select-none transition-colors duration-300 group-hover:text-brand-yellow">04</span>
                     <div className="flex flex-col gap-3 pt-3 flex-1">
                       <h3 className="text-xl md:text-2xl font-heading font-semibold text-brand-dark tracking-tight">AI Training & Enablement</h3>
-                      <p className="text-[0.9rem] text-brand-text-muted leading-relaxed max-w-[520px]">Upskill your team with hands-on workshops, live walkthroughs, and custom learning programmes — from prompt engineering fundamentals to building internal AI tools your staff will actually use.</p>
+                      <p className="text-[0.9rem] text-brand-text-muted leading-relaxed max-w-130">Upskill your team with hands-on workshops, live walkthroughs, and custom learning programmes — from prompt engineering fundamentals to building internal AI tools your staff will actually use.</p>
                       <span className="inline-flex items-center gap-2 text-sm font-medium text-brand-text-muted mt-2 transition-colors duration-200 group-hover:text-brand-dark">
                         Explore
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-300 group-hover:translate-x-1.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
@@ -305,9 +305,9 @@ export default function Home() {
 
       {/* Trust Ratings Section */}
       <section className="py-20 border-t border-brand-border bg-white text-center" id="trust">
-        <div className="w-full max-w-[1200px] mx-auto px-6">
+        <div className="w-full max-w-300 mx-auto px-6">
           <h4 className="text-xs font-semibold uppercase tracking-wider text-brand-text-muted mb-10">Engineered to industry leading standards</h4>
-          <div className="grid grid-cols-3 gap-6 max-w-[800px] mx-auto max-sm:grid-cols-1 max-sm:gap-8">
+          <div className="grid grid-cols-3 gap-6 max-w-200 mx-auto max-sm:grid-cols-1 max-sm:gap-8">
             <div className="flex flex-col gap-2">
               <div className="font-heading text-4xl md:text-5xl font-bold text-brand-dark leading-none">99.9%</div>
               <div className="text-sm text-brand-text-muted font-medium">System Uptime</div>
@@ -327,10 +327,10 @@ export default function Home() {
       {/* FAQ Section */}
       <section className="py-20 md:py-28 bg-white relative overflow-hidden" id="faq">
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/2 left-[-10%] w-[600px] h-[600px] rounded-full bg-brand-yellow/[0.03] blur-[120px]" />
-          <div className="absolute bottom-0 right-[-10%] w-[500px] h-[500px] rounded-full bg-purple-500/[0.03] blur-[100px]" />
+          <div className="absolute top-1/2 left-[-10%] w-150 h-150 rounded-full bg-brand-yellow/3 blur-[120px]" />
+          <div className="absolute bottom-0 right-[-10%] w-125 h-125 rounded-full bg-purple-500/3 blur-[100px]" />
         </div>
-        <div className="w-full max-w-[900px] mx-auto px-6 relative z-10">
+        <div className="w-full max-w-225 mx-auto px-6 relative z-10">
           <div className="text-center mb-14">
             
             <h2 className="text-3xl md:text-4xl font-heading font-bold text-brand-dark leading-tight">
@@ -392,7 +392,7 @@ function FaqChatList() {
             key={i}
             className={`rounded-2xl border transition-all duration-300 cursor-pointer ${
               isOpen
-                ? 'border-transparent shadow-xl shadow-black/[0.04]'
+                ? 'border-transparent shadow-xl shadow-black/4'
                 : 'border-brand-border hover:border-brand-text-muted/30'
             }`}
             style={{ background: isOpen ? '#0E0E0E' : '#FAFAFA' }}
@@ -438,7 +438,7 @@ function FaqChatList() {
               }`}
             >
               <div className="px-6 pb-6 pt-0">
-                <div className="w-full h-px bg-white/[0.08] mb-5" />
+                <div className="w-full h-px bg-white/8 mb-5" />
                 <p className="text-sm leading-relaxed text-white/70">
                   {faq.a}
                 </p>

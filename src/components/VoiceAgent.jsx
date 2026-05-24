@@ -167,9 +167,9 @@ export default function VoiceAgent() {
     <section className="py-24 bg-white border-t border-brand-border relative overflow-hidden" id="voice-agent">
       {/* Background layers */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-brand-yellow/[0.05] rounded-full blur-[160px]" />
-        <div className="absolute top-[20%] right-[10%] w-[300px] h-[300px] bg-purple-500/[0.04] rounded-full blur-[120px]" />
-        <div className="absolute bottom-[10%] left-[5%] w-[250px] h-[250px] bg-blue-500/[0.03] rounded-full blur-[100px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-175 h-175 bg-brand-yellow/5 rounded-full blur-[160px]" />
+        <div className="absolute top-[20%] right-[10%] w-75 h-75 bg-purple-500/4 rounded-full blur-[120px]" />
+        <div className="absolute bottom-[10%] left-[5%] w-62.5 h-62.5 bg-blue-500/3 rounded-full blur-[100px]" />
 
         {/* Animated wave lines */}
         <svg className="absolute bottom-0 left-0 w-full h-auto opacity-[0.06]" viewBox="0 0 1440 120" preserveAspectRatio="none" style={{ filter: 'blur(1px)' }}>
@@ -200,7 +200,7 @@ export default function VoiceAgent() {
         }
       `}</style>
 
-      <div className="w-full max-w-[720px] mx-auto px-6 relative z-10 flex flex-col items-center gap-8">
+      <div className="w-full max-w-180 mx-auto px-6 relative z-10 flex flex-col items-center gap-8">
 
         {/* Header */}
         <div className="text-center">
@@ -249,7 +249,7 @@ export default function VoiceAgent() {
           {callState === 'IDLE' && (
             <>
               {/* Orbits */}
-              <div className="absolute w-[320px] h-[320px]" style={{ animation: 'orbit-spin 20s linear infinite' }}>
+              <div className="absolute w-[320px] h-80" style={{ animation: 'orbit-spin 20s linear infinite' }}>
                 {Array.from({ length: 6 }).map((_, i) => (
                   <div
                     key={i}
@@ -263,7 +263,7 @@ export default function VoiceAgent() {
                   />
                 ))}
               </div>
-              <div className="absolute w-[260px] h-[260px]" style={{ animation: 'orbit-spin 25s linear infinite reverse' }}>
+              <div className="absolute w-65 h-65" style={{ animation: 'orbit-spin 25s linear infinite reverse' }}>
                 {Array.from({ length: 4 }).map((_, i) => (
                   <div
                     key={i}
@@ -279,23 +279,23 @@ export default function VoiceAgent() {
 
               {/* Pulsing rings */}
               <div
-                className="absolute w-[280px] h-[280px] rounded-full border border-brand-yellow/20 transition-all duration-300"
+                className="absolute w-70 h-70 rounded-full border border-brand-yellow/20 transition-all duration-300"
                 style={{ transform: `scale(${idlePulseScale})` }}
               />
-              <div className="absolute w-[260px] h-[260px] rounded-full border border-brand-yellow/10" />
-              <div className="absolute w-[300px] h-[300px] rounded-full border border-brand-yellow/5 animate-ping" style={{ animationDuration: '4s' }} />
+              <div className="absolute w-65 h-65 rounded-full border border-brand-yellow/10" />
+              <div className="absolute w-75 h-75 rounded-full border border-brand-yellow/5 animate-ping" style={{ animationDuration: '4s' }} />
             </>
           )}
 
           {/* ── CONNECTING STATE ── */}
           {callState === 'CONNECTING' && (
             <>
-              <div className="absolute w-[300px] h-[300px] rounded-full border-2 border-black/5 border-t-brand-yellow animate-spin" style={{ animationDuration: '0.8s' }} />
-              <div className="absolute w-[280px] h-[280px] rounded-full border border-black/5 border-b-brand-yellow/50 animate-spin" style={{ animationDuration: '1.2s', animationDirection: 'reverse' }} />
+              <div className="absolute w-75 h-75 rounded-full border-2 border-black/5 border-t-brand-yellow animate-spin" style={{ animationDuration: '0.8s' }} />
+              <div className="absolute w-70 h-70 rounded-full border border-black/5 border-b-brand-yellow/50 animate-spin" style={{ animationDuration: '1.2s', animationDirection: 'reverse' }} />
               {Array.from({ length: 3 }).map((_, i) => (
                 <div
                   key={i}
-                  className="absolute w-[260px] h-[260px] rounded-full border border-brand-yellow/10"
+                  className="absolute w-65 h-65 rounded-full border border-brand-yellow/10"
                   style={{
                     animation: `ping 1.5s ease-in-out infinite`,
                     animationDelay: `${i * 0.4}s`,
@@ -309,7 +309,7 @@ export default function VoiceAgent() {
           {callState === 'CONNECTED' && !isMuted && (
             <>
               {/* Outer orbit rings */}
-              <div className="absolute w-[340px] h-[340px]" style={{ animation: 'orbit-spin 15s linear infinite' }}>
+              <div className="absolute w-85 h-85" style={{ animation: 'orbit-spin 15s linear infinite' }}>
                 {Array.from({ length: 8 }).map((_, i) => (
                   <div
                     key={i}
@@ -325,11 +325,11 @@ export default function VoiceAgent() {
                   />
                 ))}
               </div>
-              <div className="absolute w-[300px] h-[300px]" style={{ animation: 'orbit-spin 22s linear infinite reverse' }}>
+              <div className="absolute w-75 h-75" style={{ animation: 'orbit-spin 22s linear infinite reverse' }}>
                 {Array.from({ length: 6 }).map((_, i) => (
                   <div
                     key={i}
-                    className="absolute w-[3px] h-[3px] rounded-full"
+                    className="absolute w-0.75 h-0.75 rounded-full"
                     style={{
                       top: '50%',
                       left: '50%',
@@ -343,21 +343,21 @@ export default function VoiceAgent() {
 
               {/* Expanding rings */}
               <div
-                className="absolute w-[280px] h-[280px] rounded-full border transition-all duration-500"
+                className="absolute w-70 h-70 rounded-full border transition-all duration-500"
                 style={{
                   borderColor: activeSpeech === 'agent' ? 'rgba(246,199,68,0.3)' : 'rgba(246,199,68,0.08)',
                   transform: activeSpeech === 'agent' ? 'scale(1.08)' : 'scale(1)',
                 }}
               />
               <div
-                className="absolute w-[320px] h-[320px] rounded-full border transition-all duration-500"
+                className="absolute w-[320px] h-80 rounded-full border transition-all duration-500"
                 style={{
                   borderColor: activeSpeech === 'agent' ? 'rgba(246,199,68,0.15)' : 'rgba(246,199,68,0.04)',
                   transform: activeSpeech === 'agent' ? 'scale(1.06)' : 'scale(1)',
                 }}
               />
               <div
-                className="absolute w-[360px] h-[360px] rounded-full border transition-all duration-500"
+                className="absolute w-90 h-90 rounded-full border transition-all duration-500"
                 style={{
                   borderColor: activeSpeech === 'agent' ? 'rgba(246,199,68,0.08)' : 'rgba(246,199,68,0.02)',
                   transform: activeSpeech === 'agent' ? 'scale(1.04)' : 'scale(1)',
@@ -366,28 +366,28 @@ export default function VoiceAgent() {
 
               {/* Pulse wave */}
               {activeSpeech !== 'none' && (
-                <div className="absolute w-[260px] h-[260px] rounded-full border border-brand-yellow/20 animate-ping" style={{ animationDuration: '1.5s' }} />
+                <div className="absolute w-65 h-65 rounded-full border border-brand-yellow/20 animate-ping" style={{ animationDuration: '1.5s' }} />
               )}
             </>
           )}
 
           {/* Muted state — dimmed */}
           {callState === 'CONNECTED' && isMuted && (
-            <div className="absolute w-[260px] h-[260px] rounded-full border border-red-500/20" />
+            <div className="absolute w-65 h-65 rounded-full border border-red-500/20" />
           )}
 
           {/* Main circle */}
-          <div className="relative w-[240px] h-[240px] rounded-full flex items-center justify-center bg-white border border-brand-border shadow-lg">
+          <div className="relative w-60 h-60 rounded-full flex items-center justify-center bg-white border border-brand-border shadow-lg">
             {/* Inner glow */}
-            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-brand-yellow/[0.03] to-transparent pointer-events-none" />
+            <div className="absolute inset-0 rounded-full bg-linear-to-br from-brand-yellow/3 to-transparent pointer-events-none" />
 
             {/* Visualizer ring — connected */}
             {callState === 'CONNECTED' && !isMuted && (
-              <div className="absolute inset-5 rounded-full flex items-center justify-center gap-[2px]">
+              <div className="absolute inset-5 rounded-full flex items-center justify-center gap-0.5">
                 {barHeights.map((h, i) => (
                   <span
                     key={i}
-                    className="w-[4px] rounded-full transition-all duration-100"
+                    className="w-1 rounded-full transition-all duration-100"
                     style={{
                       height: `${h}px`,
                       background: activeSpeech === 'agent'
@@ -415,7 +415,7 @@ export default function VoiceAgent() {
             {/* Central button */}
             <button
               onClick={callState === 'IDLE' ? startCall : endCall}
-              className={`relative z-10 w-[72px] h-[72px] rounded-full flex flex-col items-center justify-center transition-all duration-300 cursor-pointer active:scale-90 ${
+              className={`relative z-10 w-18 h-18 rounded-full flex flex-col items-center justify-center transition-all duration-300 cursor-pointer active:scale-90 ${
                 callState === 'CONNECTED'
                   ? 'bg-red-500 text-white hover:bg-red-600 shadow-lg shadow-red-500/20'
                   : 'bg-brand-yellow text-brand-dark hover:bg-brand-yellow-hover shadow-lg shadow-brand-yellow/20 hover:scale-105'
@@ -459,7 +459,7 @@ export default function VoiceAgent() {
               {isMuted ? <MicOff size={14} /> : <Mic size={14} />}
             </button>
             <div className="w-px h-4 bg-brand-border" />
-            <span className="text-xs font-mono text-brand-text-muted tabular-nums tracking-wider min-w-[36px] text-center">
+            <span className="text-xs font-mono text-brand-text-muted tabular-nums tracking-wider min-w-9 text-center">
               {formatTime(callDuration)}
             </span>
             <div className="w-px h-4 bg-brand-border" />
@@ -474,7 +474,7 @@ export default function VoiceAgent() {
         )}
 
         {/* Status / Caption */}
-        <div className="w-full min-h-[90px] flex flex-col items-center justify-center">
+        <div className="w-full min-h-22.5 flex flex-col items-center justify-center">
           {callState === 'CONNECTING' ? (
             <div className="flex items-center gap-3 text-xs text-brand-text-muted">
               <span className="relative flex w-2 h-2">
@@ -487,7 +487,7 @@ export default function VoiceAgent() {
             activeText ? (
               <div
                 ref={captionRef}
-                className="w-full max-w-[540px] bg-gradient-to-br from-brand-bg-light to-white border border-brand-border rounded-xl px-5 py-4 text-center shadow-sm"
+                className="w-full max-w-135 bg-linear-to-br from-brand-bg-light to-white border border-brand-border rounded-xl px-5 py-4 text-center shadow-sm"
               >
                 <div className="flex items-center justify-center gap-2 mb-2">
                   <span

@@ -23,12 +23,12 @@ export function CalBookingProvider({ children }) {
     <CalBookingContext.Provider value={{ openCalBooking, closeCalBooking }}>
       {children}
       {isOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center">
+        <div className="fixed inset-0 z-100 flex items-center justify-center">
           <div
             className="absolute inset-0 bg-black/50 backdrop-blur-sm"
             onClick={closeCalBooking}
           />
-          <div className="relative z-10 w-full max-w-[800px] mx-4 bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[95vh]">
+          <div className="relative z-10 w-full max-w-200 mx-4 bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[95vh]">
             {/* Header */}
             <div className="flex items-center justify-between px-6 py-4 border-b border-brand-border">
               <div className="flex items-center gap-3">
@@ -46,10 +46,10 @@ export function CalBookingProvider({ children }) {
             </div>
 
             {/* Iframe */}
-            <div className="flex-1 min-h-[650px] overflow-y-auto">
+            <div className="flex-1 min-h-162.5 overflow-y-auto">
               <iframe
                 src={CAL_BOOKING_URL}
-                className="w-full h-[650px] border-none"
+                className="w-full h-162.5 border-none"
                 title="Book a Scoping Call"
                 allow="calendar"
               />

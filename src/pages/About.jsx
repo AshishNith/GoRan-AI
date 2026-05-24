@@ -49,9 +49,9 @@ export default function About() {
           }}
         />
         {/* Soft yellow glow */}
-        <div className="absolute top-[5%] right-[-8%] w-[500px] h-[500px] rounded-full bg-brand-yellow/5 blur-[90px] pointer-events-none" />
+        <div className="absolute top-[5%] right-[-8%] w-125 h-125 rounded-full bg-brand-yellow/5 blur-[90px] pointer-events-none" />
 
-        <div className="w-full max-w-[1100px] mx-auto px-6 relative z-10">
+        <div className="w-full max-w-275 mx-auto px-6 relative z-10">
           {/* Back link */}
           <Link
             to="/"
@@ -107,7 +107,7 @@ export default function About() {
 
       {/* ── Mission & Vision — editorial two-column ── */}
       <section className="py-20 border-t border-brand-border">
-        <div className="w-full max-w-[1100px] mx-auto px-6 grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-16">
+        <div className="w-full max-w-275 mx-auto px-6 grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-16">
 
           {/* Left: narrative copy */}
           <div className="flex flex-col gap-14">
@@ -155,7 +155,7 @@ export default function About() {
               <div className="flex flex-col gap-0">
                 {milestones.map((m, idx) => (
                   <div key={idx} className="flex items-start gap-4 py-4 border-b border-brand-border last:border-b-0">
-                    <span className="font-heading text-lg font-bold text-brand-yellow select-none bg-brand-yellow/10 min-w-[48px] h-8 rounded-lg flex items-center justify-center shrink-0 text-sm">
+                    <span className="font-heading font-bold text-brand-yellow select-none bg-brand-yellow/10 min-w-12 h-8 rounded-lg flex items-center justify-center shrink-0 text-sm">
                       {m.year}
                     </span>
                     <div>
@@ -210,7 +210,7 @@ export default function About() {
 
       {/* ── Principles — numbered editorial list (same style as Home services) ── */}
       <section className="py-20 border-t border-brand-border">
-        <div className="w-full max-w-[1100px] mx-auto px-6 flex flex-col md:flex-row gap-12 md:gap-20 items-start">
+        <div className="w-full max-w-275 mx-auto px-6 flex flex-col md:flex-row gap-12 md:gap-20 items-start">
 
           {/* Sticky heading — same pattern as Home "What we do for you" */}
           <div className="md:w-[35%] md:sticky md:top-32 flex flex-col gap-5 z-10">
@@ -231,7 +231,7 @@ export default function About() {
                 </span>
                 <div className="flex flex-col gap-3 pt-3 flex-1">
                   <h3 className="text-xl md:text-2xl font-heading font-semibold text-brand-dark tracking-tight">{p.title}</h3>
-                  <p className="text-[0.9rem] text-brand-text-muted leading-relaxed max-w-[520px]">{p.body}</p>
+                  <p className="text-[0.9rem] text-brand-text-muted leading-relaxed max-w-130">{p.body}</p>
                 </div>
               </div>
             ))}
@@ -241,7 +241,7 @@ export default function About() {
 
       {/* ── Bottom CTA strip ── */}
       <section className="py-20 border-t border-brand-border text-center">
-        <div className="w-full max-w-[1100px] mx-auto px-6">
+        <div className="w-full max-w-275 mx-auto px-6">
           <h4 className="text-xs font-semibold uppercase tracking-wider text-brand-text-muted mb-6">Ready to automate?</h4>
           <h2 className="text-3xl md:text-5xl font-heading font-bold text-brand-dark leading-tight mb-6 max-w-2xl mx-auto">
             Let's build something <span className="text-brand-yellow">autonomous.</span>

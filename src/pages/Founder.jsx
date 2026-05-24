@@ -57,9 +57,9 @@ export default function Founder() {
             backgroundSize: '48px 48px',
           }}
         />
-        <div className="absolute top-[5%] right-[-8%] w-[500px] h-[500px] rounded-full bg-brand-yellow/5 blur-[90px] pointer-events-none" />
+        <div className="absolute top-[5%] right-[-8%] w-125 h-125 rounded-full bg-brand-yellow/5 blur-[90px] pointer-events-none" />
 
-        <div className="w-full max-w-[1100px] mx-auto px-6 relative z-10">
+        <div className="w-full max-w-275 mx-auto px-6 relative z-10">
           <div className="inline-flex items-center gap-2 mb-6">
             <span className="w-2 h-2 rounded-full bg-brand-yellow" />
             <span className="text-xs font-semibold uppercase tracking-widest text-brand-text-muted">Founder</span>
@@ -71,7 +71,7 @@ export default function Founder() {
                 Alex<br />Venter
               </h1>
 
-              <div className="h-px w-full max-w-[300px] bg-brand-border mb-4" />
+              <div className="h-px w-full max-w-75 bg-brand-border mb-4" />
 
               <p className="text-sm md:text-base font-medium text-brand-text-muted tracking-wide uppercase mb-6">
                 Founder &amp; Principal Architect
@@ -85,7 +85,7 @@ export default function Founder() {
               </motion.p>
             </div>
 
-            <div className="w-full aspect-[3/4] max-h-[500px] border border-brand-border bg-brand-bg-light overflow-hidden">
+            <div className="w-full aspect-3/4 max-h-125 border border-brand-border bg-brand-bg-light overflow-hidden">
               <img
                 src="/hero_bg.png"
                 alt="Founder portrait placeholder"
@@ -100,7 +100,7 @@ export default function Founder() {
       {/* CORE ARCHITECTURE — Biography */}
       {/* ──────────────────────────────────────── */}
       <section className="py-24 border-t border-brand-border relative">
-        <div className="w-full max-w-[1100px] mx-auto px-6">
+        <div className="w-full max-w-275 mx-auto px-6">
           <div className="inline-flex items-center gap-2 mb-8">
             <span className="w-2 h-2 rounded-full bg-brand-yellow" />
             <span className="text-xs font-semibold uppercase tracking-widest text-brand-text-muted">Core Architecture</span>
@@ -110,7 +110,7 @@ export default function Founder() {
             <motion.div className="relative" {...fadeUp}>
               <div className="sticky top-32">
                 <div className="flex flex-col items-start gap-6">
-                  <div className="w-full aspect-square max-w-[200px] border border-brand-border bg-brand-bg-light flex items-center justify-center">
+                  <div className="w-full aspect-square max-w-50 border border-brand-border bg-brand-bg-light flex items-center justify-center">
                     <div className="flex flex-col items-center gap-2">
                       <div className="w-12 h-12 rounded-full border-2 border-brand-yellow flex items-center justify-center">
                         <span className="font-heading font-bold text-brand-dark text-xl">AV</span>
@@ -160,7 +160,7 @@ export default function Founder() {
       {/* EXECUTION LOG — Timeline (terminal style) */}
       {/* ──────────────────────────────────────── */}
       <section className="py-24 border-t border-brand-border" style={{ background: '#0E0E0E' }}>
-        <div className="w-full max-w-[1100px] mx-auto px-6">
+        <div className="w-full max-w-275 mx-auto px-6">
           <motion.div {...fadeUp}>
             <div className="inline-flex items-center gap-2 mb-8">
               <span className="w-2 h-2 rounded-full bg-brand-yellow" />
@@ -182,7 +182,7 @@ export default function Founder() {
                 viewport={{ once: true, margin: '-60px' }}
                 transition={{ duration: 0.5, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
               >
-                <span className="font-mono text-xs font-semibold text-brand-yellow min-w-[56px] shrink-0 pt-0.5 select-none tracking-wider">
+                <span className="font-mono text-xs font-semibold text-brand-yellow min-w-14 shrink-0 pt-0.5 select-none tracking-wider">
                   [{entry.stamp}]
                 </span>
                 <span className="w-px h-auto bg-white/10 self-stretch shrink-0" />
@@ -211,7 +211,7 @@ export default function Founder() {
               'radial-gradient(circle at 25% 50%, #F6C744 0%, transparent 50%), radial-gradient(circle at 75% 50%, #F6C744 0%, transparent 50%)',
           }}
         />
-        <div className="w-full max-w-[1100px] mx-auto px-6 relative z-10">
+        <div className="w-full max-w-275 mx-auto px-6 relative z-10">
           <motion.div {...fadeUp}>
             <div className="inline-flex items-center gap-2 mb-4">
               <span className="w-2 h-2 rounded-full bg-brand-yellow" />
@@ -248,7 +248,7 @@ export default function Founder() {
                     <span className="font-heading font-bold text-sm text-brand-dark">{String(idx + 1).padStart(2, '0')}</span>
                   </div>
                   <h3 className="font-heading font-semibold text-brand-dark text-sm mb-2">{s.label}</h3>
-                  <p className="text-xs text-brand-text-muted leading-relaxed max-w-[220px]">{s.desc}</p>
+                  <p className="text-xs text-brand-text-muted leading-relaxed max-w-55">{s.desc}</p>
                 </motion.div>
               ))}
             </div>
@@ -260,7 +260,7 @@ export default function Founder() {
       {/* THE STACK — Vertical stack diagram */}
       {/* ──────────────────────────────────────── */}
       <section className="py-24 border-t border-brand-border bg-brand-bg-light">
-        <div className="w-full max-w-[1100px] mx-auto px-6">
+        <div className="w-full max-w-275 mx-auto px-6">
           <motion.div {...fadeUp}>
             <div className="inline-flex items-center gap-2 mb-4">
               <span className="w-2 h-2 rounded-full bg-brand-yellow" />
@@ -288,7 +288,7 @@ export default function Founder() {
                   transition={{ duration: 0.5, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
                 >
                   <div
-                    className={`w-full sm:w-[140px] shrink-0 flex items-center justify-center px-4 py-3 sm:py-4 ${isEven ? 'bg-brand-yellow/10' : 'bg-transparent'}`}
+                    className={`w-full sm:w-35 shrink-0 flex items-center justify-center px-4 py-3 sm:py-4 ${isEven ? 'bg-brand-yellow/10' : 'bg-transparent'}`}
                   >
                     <span className={`font-heading font-bold text-xs tracking-[0.2em] ${isEven ? 'text-brand-yellow' : 'text-brand-text-muted'}`}>
                       {s.layer}
@@ -314,7 +314,7 @@ export default function Founder() {
       {/* CTA */}
       {/* ──────────────────────────────────────── */}
       <section className="py-20 border-t border-brand-border text-center">
-        <div className="w-full max-w-[1100px] mx-auto px-6">
+        <div className="w-full max-w-275 mx-auto px-6">
           <motion.div {...fadeUp}>
             <h4 className="text-xs font-semibold uppercase tracking-wider text-brand-text-muted mb-6">Work with the founder</h4>
             <h2 className="text-3xl md:text-5xl font-heading font-bold text-brand-dark leading-tight mb-6 max-w-2xl mx-auto">
