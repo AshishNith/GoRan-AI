@@ -12,72 +12,45 @@ export default function Home() {
 
 
   return (
-    <main className="w-full">
+    <main className="w-full bg-white">
       {/* Hero Section */}
-      <section className="section-hero pt-36 pb-24 text-center relative min-h-screen flex items-center overflow-hidden" id="sandbox">
-        {/* Subtle lamp glow behind headline */}
-        <LampContainer className="absolute inset-0" />
+      <section className="pt-40 pb-20 text-center relative min-h-screen flex items-center justify-center bg-white" id="hero">
+        <div className="w-full max-w-[1000px] mx-auto px-6 relative z-10 flex flex-col items-center">
+          
+          {/* Headline and Image wrapper */}
+          <div className="relative mb-6 flex justify-center items-center w-full">
+            {/* Image Behind Text */}
+            <div className="absolute inset-0 flex justify-center items-center pointer-events-none z-0">
+               <img src="/man.png" alt="Running Man" className="h-[150%] md:h-[180%] object-contain" />
+            </div>
 
-        {/* Decorative background elements */}
-        <div className="absolute top-[10%] left-[-5%] w-100 h-100 rounded-full bg-brand-yellow/4 blur-[100px] pointer-events-none" />
-        <div className="absolute bottom-[15%] right-[-5%] w-87.5 h-87.5 rounded-full bg-purple-500/4 blur-[100px] pointer-events-none" />
-
-        <div className="w-full max-w-300 mx-auto px-6 relative z-10 flex flex-col items-center">
-          {/* Eyebrow */}
-          <div className="inline-flex items-center gap-2 mb-6">
-            <span className="w-1.5 h-1.5 rounded-full bg-brand-yellow animate-pulse" />
-            <span className="text-[11px] font-semibold uppercase tracking-[0.15em] text-brand-text-muted">
-              Trusted AI Agency
-            </span>
+            {/* Headline */}
+            <h1 
+              className="font-heading font-black text-[#111] leading-[0.85] text-[clamp(4.5rem,11.5vw,9rem)] tracking-tighter z-10 relative uppercase text-center w-full"
+              style={{ WebkitTextStroke: '2px #111' }}
+            >
+              RUN ON<br />AUTOPILOT
+            </h1>
           </div>
-
-          {/* Headline */}
-          <h1 className="font-heading font-bold text-brand-dark leading-none text-[clamp(2.5rem,7vw,5rem)] tracking-tight max-w-225">
-            The AI agency that{' '}
-            <span className="relative inline-block">
-              <span className="text-brand-yellow">builds for you.</span>
-              <span className="absolute -bottom-1 left-0 right-0 h-0.75 bg-brand-yellow/30 rounded-full hidden md:block" />
-            </span>
-          </h1>
 
           {/* Subtext */}
-          <p className="text-brand-text-muted text-base md:text-lg max-w-135 leading-relaxed mt-5 mb-8">
-            Describe the workflow you need automated. We construct, test, and deploy production-grade agents connected to your tools — in days, not months.
+          <p className="text-[#111] font-medium text-lg md:text-xl max-w-[600px] leading-relaxed mt-6 mb-10 z-10 relative">
+            Powerful software that works so you don't have to
           </p>
 
-          {/* Capability badges */}
-          <div className="inline-flex flex-wrap justify-center gap-2 mb-8">
-            {[
-              { label: 'Custom Agents', color: '#E28C00', bg: 'rgba(245,166,35,0.1)' },
-              { label: 'Workflows', color: '#A855F7', bg: 'rgba(192,132,252,0.1)' },
-              { label: 'Databases', color: '#16A34A', bg: 'rgba(74,222,128,0.1)' },
-              { label: 'APIs', color: '#3B82F6', bg: 'rgba(59,130,246,0.1)' },
-              { label: 'Slack', color: '#B45309', bg: 'rgba(180,83,9,0.1)' },
-            ].map((badge) => (
-              <span
-                key={badge.label}
-                className="inline-flex items-center gap-1.5 py-1.5 px-3 rounded-full text-xs font-semibold border border-transparent transition-all duration-200 hover:scale-105 cursor-default select-none"
-                style={{ background: badge.bg, color: badge.color }}
-              >
-                {badge.label}
-              </span>
-            ))}
-          </div>
-
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 w-full z-10 relative">
             <Link
-              to="/contact"
-              className="inline-flex items-center gap-2 bg-brand-yellow text-brand-text-main font-semibold text-sm py-3 px-7 rounded-xl transition-all duration-300 hover:bg-brand-yellow-hover hover:-translate-y-0.5 active:translate-y-0"
+              to="/waitlist"
+              className="bg-[#f9fafb] text-brand-dark border border-brand-border font-medium text-[15px] py-2.5 px-7 rounded-md flex items-center justify-center transition-all hover:bg-gray-100 min-w-[160px] sm:min-w-0"
             >
-              Start a Project
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+              Join waitlist
             </Link>
             <Link
-              to="/case-studies"
-              className="inline-flex items-center gap-2 border-2 border-brand-dark text-brand-dark font-semibold text-sm py-3 px-7 rounded-xl transition-all duration-300 hover:bg-brand-dark hover:text-white hover:-translate-y-0.5 active:translate-y-0"
+              to="/access"
+              className="bg-brand-dark text-white font-medium text-[15px] py-2.5 px-7 rounded-md flex items-center justify-center transition-all hover:bg-brand-dark-hover min-w-[160px] sm:min-w-0"
             >
-              See Our Work
+              Get access now
             </Link>
           </div>
         </div>
