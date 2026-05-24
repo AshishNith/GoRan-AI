@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Phone, PhoneOff, Mic, MicOff, Volume2, Radio } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Phone, PhoneOff, Mic, MicOff } from 'lucide-react';
 
 const DIALOG_EN = [
   { time: 1.5, sender: 'user', text: "Hi, how fast can you build a custom document automation agent?" },
@@ -19,19 +19,44 @@ const DIALOG_HI = [
   { time: 26.0, sender: 'agent', text: "आप इस सेक्शन के ठीक नीचे दिए गए फॉर्म को भरकर स्कोपिंग कॉल का अनुरोध कर सकते हैं, या फिर अपना ईमेल छोड़ दें तो मैं आपके लिए कॉल शेड्यूल कर दूँगी!" }
 ];
 
+function OrbitingDot({ index, total, radius, size, color, duration, delay }) {
+  const angle = (index / total) * 360;
+  return (
+    <div
+      className="absolute top-1/2 left-1/2 pointer-events-none"
+      style={{
+        animation: `orbit-spin ${duration}s linear infinite`,
+        animationDelay: `${delay}s`,
+      }}
+    >
+      <div
+        className="rounded-full"
+        style={{
+          width: size,
+          height: size,
+          background: color,
+          boxShadow: `0 0 6px ${color}`,
+          transform: `translate(${Math.cos(angle * Math.PI / 180) * radius}px, ${Math.sin(angle * Math.PI / 180) * radius}px)`,
+        }}
+      />
+    </div>
+  );
+}
+
 export default function VoiceAgent() {
-  const [callState, setCallState] = useState('IDLE'); // IDLE, CONNECTING, CONNECTED
-  const [language, setLanguage] = useState('en'); // en, hi
+  const [callState, setCallState] = useState('IDLE');
+  const [language, setLanguage] = useState('en');
   const [isMuted, setIsMuted] = useState(false);
-  const [activeSpeech, setActiveSpeech] = useState('none'); // none, user, agent
+  const [activeSpeech, setActiveSpeech] = useState('none');
   const [activeText, setActiveText] = useState('');
   const [callDuration, setCallDuration] = useState(0);
   const [statusLog, setStatusLog] = useState('Ready to connect');
+  const [pulsePhase, setPulsePhase] = useState(0);
+  const [barHeights, setBarHeights] = useState([4, 4, 4, 4, 4, 4, 4, 4]);
+  const captionRef = useRef(null);
 
-  // Select dialogue dataset
   const activeDialog = language === 'en' ? DIALOG_EN : DIALOG_HI;
 
-  // Handle call timer
   useEffect(() => {
     let timer;
     if (callState === 'CONNECTED') {
@@ -45,15 +70,13 @@ export default function VoiceAgent() {
     return () => clearInterval(timer);
   }, [callState]);
 
-  // Dialogue simulation logic based on call duration
   useEffect(() => {
     if (callState !== 'CONNECTED') return;
 
     const logInterval = setInterval(() => {
       const timeElapsed = callDuration;
-      
-      // Find the current active dialog line
-      const activeLine = activeDialog.find(line => 
+
+      const activeLine = activeDialog.find(line =>
         timeElapsed >= line.time && timeElapsed < (line.time + 3.5)
       );
 
@@ -61,16 +84,16 @@ export default function VoiceAgent() {
         setActiveSpeech(activeLine.sender);
         setActiveText(activeLine.text);
         setStatusLog(
-          activeLine.sender === 'agent' 
-            ? (language === 'en' ? 'Agent is speaking...' : 'एजेंट बोल रहा है...') 
+          activeLine.sender === 'agent'
+            ? (language === 'en' ? 'Agent is speaking...' : 'एजेंट बोल रहा है...')
             : (language === 'en' ? 'Listening...' : 'सुन रहा हूँ...')
         );
       } else {
         setActiveSpeech('none');
         setActiveText('');
         setStatusLog(
-          language === 'en' 
-            ? 'Listening... Ask a question about Synapse.' 
+          language === 'en'
+            ? 'Listening... Ask a question about Synapse.'
             : 'सुन रहा हूँ... साइनेप्स के बारे में कुछ भी पूछें।'
         );
       }
@@ -79,10 +102,37 @@ export default function VoiceAgent() {
     return () => clearInterval(logInterval);
   }, [callState, callDuration, activeDialog, language]);
 
+  // Continuous pulse phase for idle ring
+  useEffect(() => {
+    if (callState !== 'IDLE') return;
+    const interval = setInterval(() => {
+      setPulsePhase(prev => (prev + 1) % 100);
+    }, 50);
+    return () => clearInterval(interval);
+  }, [callState]);
+
+  // Animate bar heights based on speech activity
+  useEffect(() => {
+    if (callState !== 'CONNECTED') {
+      setBarHeights([4, 4, 4, 4, 4, 4, 4, 4]);
+      return;
+    }
+
+    const interval = setInterval(() => {
+      if (activeSpeech !== 'none') {
+        setBarHeights(Array.from({ length: 8 }, () => Math.floor(Math.random() * 60) + 8));
+      } else {
+        setBarHeights(prev => prev.map(h => Math.max(4, h - 2)));
+      }
+    }, 120);
+
+    return () => clearInterval(interval);
+  }, [callState, activeSpeech]);
+
   const startCall = () => {
     setCallState('CONNECTING');
     setStatusLog(language === 'en' ? 'Connecting to Synapse network...' : 'साइनेप्स नेटवर्क से जुड़ रहा है...');
-    
+
     setTimeout(() => {
       setCallState('CONNECTED');
       setStatusLog(language === 'en' ? 'Connected' : 'कनेक्टेड');
@@ -99,11 +149,10 @@ export default function VoiceAgent() {
 
   const toggleMute = () => {
     setIsMuted(!isMuted);
-    if (language === 'en') {
-      setStatusLog(isMuted ? 'Connected' : 'Muted');
-    } else {
-      setStatusLog(isMuted ? 'कनेक्टेड' : 'म्यूट किया गया');
-    }
+    setStatusLog(isMuted
+      ? (language === 'en' ? 'Connected' : 'कनेक्टेड')
+      : (language === 'en' ? 'Muted' : 'म्यूट किया गया')
+    );
   };
 
   const formatTime = (secs) => {
@@ -112,198 +161,365 @@ export default function VoiceAgent() {
     return `${m}:${s}`;
   };
 
-  return (
-    <section className="py-24 bg-white border-t border-brand-border relative overflow-hidden text-brand-text-main" id="voice-agent">
-      {/* Background glowing gradients */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#F6C744]/8 rounded-full filter blur-[120px] pointer-events-none" />
+  const idlePulseScale = 1 + Math.sin(pulsePhase * 0.1) * 0.03;
 
-      {/* Background Animated Waves */}
-      <div className="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-none pointer-events-none z-0 opacity-25 h-[80px]">
-        <svg viewBox="0 0 2880 120" preserveAspectRatio="none" className="relative block h-full" style={{ width: '200%' }}>
+  return (
+    <section className="py-24 bg-white border-t border-brand-border relative overflow-hidden" id="voice-agent">
+      {/* Background layers */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-brand-yellow/[0.05] rounded-full blur-[160px]" />
+        <div className="absolute top-[20%] right-[10%] w-[300px] h-[300px] bg-purple-500/[0.04] rounded-full blur-[120px]" />
+        <div className="absolute bottom-[10%] left-[5%] w-[250px] h-[250px] bg-blue-500/[0.03] rounded-full blur-[100px]" />
+
+        {/* Animated wave lines */}
+        <svg className="absolute bottom-0 left-0 w-full h-auto opacity-[0.06]" viewBox="0 0 1440 120" preserveAspectRatio="none" style={{ filter: 'blur(1px)' }}>
           <defs>
-            <style>{`
-              @keyframes wave-slide-left {
-                0% { transform: translateX(0); }
-                100% { transform: translateX(-50%); }
-              }
-              @keyframes wave-slide-right {
-                0% { transform: translateX(-50%); }
-                100% { transform: translateX(0); }
-              }
-              .wave-group-1 {
-                animation: wave-slide-left 25s linear infinite;
-              }
-              .wave-group-2 {
-                animation: wave-slide-right 35s linear infinite;
-              }
-            `}</style>
+            <linearGradient id="wave-grad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stopColor="#F6C744" stopOpacity="0" />
+              <stop offset="50%" stopColor="#F6C744" stopOpacity="1" />
+              <stop offset="100%" stopColor="#F6C744" stopOpacity="0" />
+            </linearGradient>
           </defs>
-          <g className="wave-group-1">
-            <path
-              d="M 0 60 C 360 20, 360 100, 720 60 C 1080 20, 1080 100, 1440 60 C 1800 20, 1800 100, 2160 60 C 2520 20, 2520 100, 2880 60 L 2880 120 L 0 120 Z"
-              fill="var(--color-brand-yellow)"
-              opacity="0.1"
-            />
+          <g style={{ animation: 'wave-drift 12s ease-in-out infinite alternate' }}>
+            <path d="M0,60 C240,20 480,100 720,60 C960,20 1200,100 1440,60 L1440,120 L0,120 Z" fill="url(#wave-grad)" />
           </g>
-          <g className="wave-group-2">
-            <path
-              d="M 0 80 C 360 110, 360 50, 720 80 C 1080 110, 1080 50, 1440 80 C 1800 110, 1800 50, 2160 80 C 2520 110, 2520 50, 2880 80 L 2880 120 L 0 120 Z"
-              fill="var(--color-brand-yellow)"
-              opacity="0.06"
-            />
+          <g style={{ animation: 'wave-drift 18s ease-in-out infinite alternate-reverse' }}>
+            <path d="M0,80 C240,100 480,40 720,80 C960,120 1200,60 1440,80 L1440,120 L0,120 Z" fill="url(#wave-grad)" opacity="0.5" />
           </g>
         </svg>
       </div>
 
-      <div className="w-full max-w-[800px] mx-auto px-6 flex flex-col items-center justify-center text-center gap-7 relative z-10">
-        
-        {/* Text Header */}
-        <div className="flex flex-col items-center gap-2">
-          <h2 className="text-2xl md:text-4xl font-heading font-bold text-brand-dark leading-tight tracking-tight">
-            Talk to our support agent.
+      <style>{`
+        @keyframes orbit-spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+        @keyframes wave-drift {
+          0% { transform: translateX(-3%) scaleX(1); }
+          100% { transform: translateX(3%) scaleX(1.05); }
+        }
+      `}</style>
+
+      <div className="w-full max-w-[720px] mx-auto px-6 relative z-10 flex flex-col items-center gap-8">
+
+        {/* Header */}
+        <div className="text-center">
+          <div className="inline-flex items-center gap-2 mb-3">
+            <span className="w-1.5 h-1.5 rounded-full bg-brand-yellow animate-pulse" />
+            <span className="text-[10px] font-semibold uppercase tracking-[0.15em] text-brand-text-muted">
+              Customer Support 24 X 7
+            </span>
+          </div>
+          <h2 className="text-2xl md:text-3xl font-heading font-bold text-brand-dark leading-tight">
+            Speak with our AI agent
           </h2>
-          <p className="text-brand-text-muted text-sm md:text-base leading-relaxed max-w-md">
-            Select your preferred language, click below, and start speaking.
-          </p>
         </div>
 
-        {/* Language Selector Pills */}
-        <div className="flex bg-black/5 border border-black/5 p-1 rounded-xl backdrop-blur-md relative z-30">
+        {/* Language selector */}
+        <div className="flex bg-black/5 p-0.5 rounded-lg border border-black/5">
           <button
-            onClick={() => { console.log('Language changed to: EN'); setLanguage('en'); }}
+            type="button"
+            onClick={() => setLanguage('en')}
             disabled={callState !== 'IDLE'}
-            className={`px-4 py-1.5 rounded-lg text-xs font-semibold cursor-pointer transition-all duration-300 relative z-30 hover:bg-black/5 active:scale-95 ${
+            className={`px-4 py-1.5 rounded-[7px] text-xs font-semibold cursor-pointer transition-all duration-200 ${
               language === 'en'
-                ? 'bg-brand-yellow text-brand-dark shadow-md'
+                ? 'bg-white text-brand-dark shadow-sm'
                 : 'text-brand-text-muted hover:text-brand-dark disabled:opacity-50 disabled:cursor-not-allowed'
             }`}
           >
             English
           </button>
           <button
-            onClick={() => { console.log('Language changed to: HI'); setLanguage('hi'); }}
+            type="button"
+            onClick={() => setLanguage('hi')}
             disabled={callState !== 'IDLE'}
-            className={`px-4 py-1.5 rounded-lg text-xs font-semibold cursor-pointer transition-all duration-300 relative z-30 hover:bg-black/5 active:scale-95 ${
+            className={`px-4 py-1.5 rounded-[7px] text-xs font-semibold cursor-pointer transition-all duration-200 ${
               language === 'hi'
-                ? 'bg-brand-yellow text-brand-dark shadow-md'
+                ? 'bg-white text-brand-dark shadow-sm'
                 : 'text-brand-text-muted hover:text-brand-dark disabled:opacity-50 disabled:cursor-not-allowed'
             }`}
           >
-            हिंदी (Hindi)
+            हिंदी
           </button>
         </div>
 
-        {/* Voice Core Circle */}
-        <div className="flex flex-col items-center justify-center mt-1">
-          <div className="relative w-60 h-60 rounded-full flex items-center justify-center bg-white border border-brand-border backdrop-blur-md shadow-card-hover">
-            
-            {/* Concentric pulsing rings (Idle state) */}
-            {callState === 'IDLE' && (
-              <>
-                <div className="absolute inset-0 rounded-full border border-brand-yellow/20 animate-ping" style={{ animationDuration: '3s' }} />
-                <div className="absolute inset-4 rounded-full border border-brand-yellow/30 animate-pulse" />
-              </>
-            )}
+        {/* Voice circle */}
+        <div className="relative flex items-center justify-center mt-2">
+          {/* ── IDLE STATE ── */}
+          {callState === 'IDLE' && (
+            <>
+              {/* Orbits */}
+              <div className="absolute w-[320px] h-[320px]" style={{ animation: 'orbit-spin 20s linear infinite' }}>
+                {Array.from({ length: 6 }).map((_, i) => (
+                  <div
+                    key={i}
+                    className="absolute w-1.5 h-1.5 rounded-full bg-brand-yellow/30"
+                    style={{
+                      top: '50%',
+                      left: '50%',
+                      transform: `rotate(${i * 60}deg) translateX(160px)`,
+                      boxShadow: '0 0 4px rgba(246,199,68,0.3)',
+                    }}
+                  />
+                ))}
+              </div>
+              <div className="absolute w-[260px] h-[260px]" style={{ animation: 'orbit-spin 25s linear infinite reverse' }}>
+                {Array.from({ length: 4 }).map((_, i) => (
+                  <div
+                    key={i}
+                    className="absolute w-1 h-1 rounded-full bg-purple-400/20"
+                    style={{
+                      top: '50%',
+                      left: '50%',
+                      transform: `rotate(${i * 90 + 45}deg) translateX(130px)`,
+                    }}
+                  />
+                ))}
+              </div>
 
-            {/* Glowing animated visualizer rings (Connected state) */}
+              {/* Pulsing rings */}
+              <div
+                className="absolute w-[280px] h-[280px] rounded-full border border-brand-yellow/20 transition-all duration-300"
+                style={{ transform: `scale(${idlePulseScale})` }}
+              />
+              <div className="absolute w-[260px] h-[260px] rounded-full border border-brand-yellow/10" />
+              <div className="absolute w-[300px] h-[300px] rounded-full border border-brand-yellow/5 animate-ping" style={{ animationDuration: '4s' }} />
+            </>
+          )}
+
+          {/* ── CONNECTING STATE ── */}
+          {callState === 'CONNECTING' && (
+            <>
+              <div className="absolute w-[300px] h-[300px] rounded-full border-2 border-black/5 border-t-brand-yellow animate-spin" style={{ animationDuration: '0.8s' }} />
+              <div className="absolute w-[280px] h-[280px] rounded-full border border-black/5 border-b-brand-yellow/50 animate-spin" style={{ animationDuration: '1.2s', animationDirection: 'reverse' }} />
+              {Array.from({ length: 3 }).map((_, i) => (
+                <div
+                  key={i}
+                  className="absolute w-[260px] h-[260px] rounded-full border border-brand-yellow/10"
+                  style={{
+                    animation: `ping 1.5s ease-in-out infinite`,
+                    animationDelay: `${i * 0.4}s`,
+                  }}
+                />
+              ))}
+            </>
+          )}
+
+          {/* ── CONNECTED STATE ── */}
+          {callState === 'CONNECTED' && !isMuted && (
+            <>
+              {/* Outer orbit rings */}
+              <div className="absolute w-[340px] h-[340px]" style={{ animation: 'orbit-spin 15s linear infinite' }}>
+                {Array.from({ length: 8 }).map((_, i) => (
+                  <div
+                    key={i}
+                    className="absolute w-1 h-1 rounded-full"
+                    style={{
+                      top: '50%',
+                      left: '50%',
+                      transform: `rotate(${i * 45}deg) translateX(170px)`,
+                      background: activeSpeech === 'agent' ? '#F6C744' : '#E5E7EB',
+                      opacity: activeSpeech === 'agent' ? 0.6 : 0.2,
+                      boxShadow: activeSpeech === 'agent' ? '0 0 6px rgba(246,199,68,0.4)' : 'none',
+                    }}
+                  />
+                ))}
+              </div>
+              <div className="absolute w-[300px] h-[300px]" style={{ animation: 'orbit-spin 22s linear infinite reverse' }}>
+                {Array.from({ length: 6 }).map((_, i) => (
+                  <div
+                    key={i}
+                    className="absolute w-[3px] h-[3px] rounded-full"
+                    style={{
+                      top: '50%',
+                      left: '50%',
+                      transform: `rotate(${i * 60}deg) translateX(150px)`,
+                      background: activeSpeech === 'user' ? '#C084FC' : '#E5E7EB',
+                      opacity: activeSpeech === 'user' ? 0.5 : 0.15,
+                    }}
+                  />
+                ))}
+              </div>
+
+              {/* Expanding rings */}
+              <div
+                className="absolute w-[280px] h-[280px] rounded-full border transition-all duration-500"
+                style={{
+                  borderColor: activeSpeech === 'agent' ? 'rgba(246,199,68,0.3)' : 'rgba(246,199,68,0.08)',
+                  transform: activeSpeech === 'agent' ? 'scale(1.08)' : 'scale(1)',
+                }}
+              />
+              <div
+                className="absolute w-[320px] h-[320px] rounded-full border transition-all duration-500"
+                style={{
+                  borderColor: activeSpeech === 'agent' ? 'rgba(246,199,68,0.15)' : 'rgba(246,199,68,0.04)',
+                  transform: activeSpeech === 'agent' ? 'scale(1.06)' : 'scale(1)',
+                }}
+              />
+              <div
+                className="absolute w-[360px] h-[360px] rounded-full border transition-all duration-500"
+                style={{
+                  borderColor: activeSpeech === 'agent' ? 'rgba(246,199,68,0.08)' : 'rgba(246,199,68,0.02)',
+                  transform: activeSpeech === 'agent' ? 'scale(1.04)' : 'scale(1)',
+                }}
+              />
+
+              {/* Pulse wave */}
+              {activeSpeech !== 'none' && (
+                <div className="absolute w-[260px] h-[260px] rounded-full border border-brand-yellow/20 animate-ping" style={{ animationDuration: '1.5s' }} />
+              )}
+            </>
+          )}
+
+          {/* Muted state — dimmed */}
+          {callState === 'CONNECTED' && isMuted && (
+            <div className="absolute w-[260px] h-[260px] rounded-full border border-red-500/20" />
+          )}
+
+          {/* Main circle */}
+          <div className="relative w-[240px] h-[240px] rounded-full flex items-center justify-center bg-white border border-brand-border shadow-lg">
+            {/* Inner glow */}
+            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-brand-yellow/[0.03] to-transparent pointer-events-none" />
+
+            {/* Visualizer ring — connected */}
             {callState === 'CONNECTED' && !isMuted && (
-              <>
-                <div className={`absolute inset-0 rounded-full border border-brand-yellow/45 transition-all duration-300 ${activeSpeech === 'agent' ? 'scale-105 opacity-60' : 'scale-100 opacity-20'}`} />
-                <div className={`absolute -inset-4 rounded-full border border-brand-yellow/20 transition-all duration-500 ${activeSpeech === 'agent' ? 'scale-110 opacity-40' : 'scale-100 opacity-0'}`} />
-                
-                {/* Voice Visualizer Waves */}
-                <div className="absolute inset-8 rounded-full bg-brand-yellow/8 border border-brand-yellow/25 flex items-center justify-center gap-1.5 overflow-hidden">
-                  <span className={`voice-wave-bar h-8 bg-brand-yellow/60 rounded ${activeSpeech === 'agent' ? 'anim-wave-active-1' : activeSpeech === 'user' ? 'anim-wave-slow' : 'h-1'}`} />
-                  <span className={`voice-wave-bar h-16 bg-brand-yellow/80 rounded ${activeSpeech === 'agent' ? 'anim-wave-active-2' : activeSpeech === 'user' ? 'anim-wave-slow' : 'h-1'}`} />
-                  <span className={`voice-wave-bar h-12 bg-brand-yellow rounded ${activeSpeech === 'agent' ? 'anim-wave-active-3' : activeSpeech === 'user' ? 'anim-wave-slow' : 'h-1'}`} />
-                  <span className={`voice-wave-bar h-20 bg-brand-yellow/80 rounded ${activeSpeech === 'agent' ? 'anim-wave-active-4' : activeSpeech === 'user' ? 'anim-wave-slow' : 'h-1'}`} />
-                  <span className={`voice-wave-bar h-10 bg-brand-yellow/60 rounded ${activeSpeech === 'agent' ? 'anim-wave-active-2' : activeSpeech === 'user' ? 'anim-wave-slow' : 'h-1'}`} />
+              <div className="absolute inset-5 rounded-full flex items-center justify-center gap-[2px]">
+                {barHeights.map((h, i) => (
+                  <span
+                    key={i}
+                    className="w-[4px] rounded-full transition-all duration-100"
+                    style={{
+                      height: `${h}px`,
+                      background: activeSpeech === 'agent'
+                        ? '#F6C744'
+                        : activeSpeech === 'user'
+                          ? '#C084FC'
+                          : '#E5E7EB',
+                      opacity: activeSpeech !== 'none' ? 0.8 : 0.2,
+                    }}
+                  />
+                ))}
+              </div>
+            )}
+
+            {/* Muted overlay */}
+            {callState === 'CONNECTED' && isMuted && (
+              <div className="absolute inset-5 rounded-full flex items-center justify-center">
+                <div className="flex items-center gap-1.5 text-red-400">
+                  <MicOff size={18} />
+                  <span className="text-[10px] font-bold uppercase tracking-wider">Muted</span>
                 </div>
-              </>
+              </div>
             )}
 
-            {/* Connecting Spinner */}
-            {callState === 'CONNECTING' && (
-              <div className="absolute inset-0 rounded-full border-4 border-black/5 border-t-brand-yellow animate-spin" />
-            )}
-
-            {/* Central Trigger Button */}
+            {/* Central button */}
             <button
               onClick={callState === 'IDLE' ? startCall : endCall}
-              className={`relative z-10 w-20 h-20 rounded-full flex flex-col items-center justify-center border transition-all duration-300 cursor-pointer shadow-lg active:scale-95 group ${
+              className={`relative z-10 w-[72px] h-[72px] rounded-full flex flex-col items-center justify-center transition-all duration-300 cursor-pointer active:scale-90 ${
                 callState === 'CONNECTED'
-                  ? 'bg-red-500 border-red-400 text-white hover:bg-red-600'
-                  : 'bg-brand-yellow border-brand-yellow-hover text-brand-dark hover:bg-brand-yellow-hover hover:scale-105'
+                  ? 'bg-red-500 text-white hover:bg-red-600 shadow-lg shadow-red-500/20'
+                  : 'bg-brand-yellow text-brand-dark hover:bg-brand-yellow-hover shadow-lg shadow-brand-yellow/20 hover:scale-105'
               }`}
             >
               {callState === 'CONNECTED' ? (
                 <>
-                  <PhoneOff className="w-6 h-6" />
-                  <span className="text-[9px] mt-1 font-semibold tracking-wider uppercase">
+                  <PhoneOff size={20} />
+                  <span className="text-[8px] mt-0.5 font-bold uppercase tracking-wider">
                     {language === 'en' ? 'End' : 'समाप्त'}
                   </span>
                 </>
               ) : callState === 'CONNECTING' ? (
-                <span className="text-[9px] font-bold tracking-widest text-brand-dark uppercase animate-pulse">
+                <span className="text-[9px] font-bold tracking-widest uppercase animate-pulse">
                   {language === 'en' ? 'Linking' : 'कनेक्टिंग'}
                 </span>
               ) : (
                 <>
-                  <Phone className="w-6 h-6" />
-                  <span className="text-[9px] mt-1 font-semibold tracking-wider uppercase">
-                    {language === 'en' ? 'Call' : 'कॉल करें'}
+                  <Phone size={20} />
+                  <span className="text-[8px] mt-0.5 font-bold uppercase tracking-wider">
+                    {language === 'en' ? 'Call' : 'कॉल'}
                   </span>
                 </>
               )}
             </button>
           </div>
-
-          {/* Active Call Controls */}
-          {callState === 'CONNECTED' && (
-            <div className="flex items-center gap-4 mt-6 bg-black/5 px-4 py-2 rounded-full border border-black/5 backdrop-blur-md shadow-card">
-              <button
-                onClick={toggleMute}
-                className={`p-2 rounded-full transition-colors cursor-pointer ${
-                  isMuted ? 'bg-red-500/20 text-red-500 border border-red-500/25' : 'bg-black/5 text-brand-text-main/80 hover:text-brand-dark hover:bg-black/10'
-                }`}
-                title={isMuted ? 'Unmute Mic' : 'Mute Mic'}
-              >
-                {isMuted ? <MicOff className="w-3.5 h-3.5" /> : <Mic className="w-3.5 h-3.5" />}
-              </button>
-              <div className="w-px h-4 bg-black/15" />
-              <div className="text-[11px] font-mono text-brand-text-muted tracking-wider">
-                {formatTime(callDuration)}
-              </div>
-              <div className="w-px h-4 bg-black/15" />
-              <div className="text-[11px] text-brand-text-main font-medium flex items-center gap-1">
-                <Volume2 className="w-3.5 h-3.5 text-brand-yellow" />
-                {language === 'en' ? 'Active' : 'सक्रिय'}
-              </div>
-            </div>
-          )}
         </div>
 
-        {/* Dynamic Status / Subtitles Caption overlay */}
-        <div className="w-full max-w-lg min-h-[90px] flex flex-col justify-center items-center">
+        {/* Call controls bar */}
+        {callState === 'CONNECTED' && (
+          <div className="flex items-center gap-4 bg-brand-bg-light border border-brand-border rounded-full px-5 py-2 shadow-sm">
+            <button
+              onClick={toggleMute}
+              className={`p-1.5 rounded-full transition-all duration-200 cursor-pointer ${
+                isMuted
+                  ? 'bg-red-500/15 text-red-500'
+                  : 'text-brand-text-muted hover:text-brand-dark hover:bg-black/5'
+              }`}
+              title={isMuted ? 'Unmute' : 'Mute'}
+            >
+              {isMuted ? <MicOff size={14} /> : <Mic size={14} />}
+            </button>
+            <div className="w-px h-4 bg-brand-border" />
+            <span className="text-xs font-mono text-brand-text-muted tabular-nums tracking-wider min-w-[36px] text-center">
+              {formatTime(callDuration)}
+            </span>
+            <div className="w-px h-4 bg-brand-border" />
+            <div className="flex items-center gap-1.5 text-xs text-brand-text-muted">
+              <span className="relative flex w-2 h-2">
+                <span className="absolute inset-0 rounded-full bg-green-500 animate-ping opacity-60" />
+                <span className="relative rounded-full w-2 h-2 bg-green-500" />
+              </span>
+              Live
+            </div>
+          </div>
+        )}
+
+        {/* Status / Caption */}
+        <div className="w-full min-h-[90px] flex flex-col items-center justify-center">
           {callState === 'CONNECTING' ? (
-            <div className="text-xs text-brand-text-muted italic flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-brand-yellow animate-pulse" />
+            <div className="flex items-center gap-3 text-xs text-brand-text-muted">
+              <span className="relative flex w-2 h-2">
+                <span className="absolute inset-0 rounded-full bg-brand-yellow animate-ping" />
+                <span className="relative rounded-full w-2 h-2 bg-brand-yellow" />
+              </span>
               {statusLog}
             </div>
           ) : callState === 'CONNECTED' ? (
             activeText ? (
-              <div className="w-full bg-white border border-brand-border rounded-xl p-4 shadow-card animate-fadeIn text-center">
-                <div className="text-[9px] font-mono uppercase text-[#B45309] tracking-wider mb-1">
-                  {activeSpeech === 'user' ? (language === 'en' ? 'You' : 'आप') : (language === 'en' ? 'AI Support Agent' : 'एआई सपोर्ट एजेंट')}
+              <div
+                ref={captionRef}
+                className="w-full max-w-[540px] bg-gradient-to-br from-brand-bg-light to-white border border-brand-border rounded-xl px-5 py-4 text-center shadow-sm"
+              >
+                <div className="flex items-center justify-center gap-2 mb-2">
+                  <span
+                    className="w-1.5 h-1.5 rounded-full"
+                    style={{
+                      background: activeSpeech === 'agent' ? '#C084FC' : '#737373',
+                      animation: 'ping 1s ease-in-out infinite',
+                    }}
+                  />
+                  <span
+                    className="text-[9px] font-semibold uppercase tracking-wider"
+                    style={{ color: activeSpeech === 'agent' ? '#C084FC' : '#737373' }}
+                  >
+                    {activeSpeech === 'user'
+                      ? (language === 'en' ? 'You' : 'आप')
+                      : (language === 'en' ? 'AI Support Agent' : 'एआई सपोर्ट एजेंट')
+                    }
+                  </span>
                 </div>
-                <p className="text-xs md:text-sm text-brand-text-main leading-normal font-medium max-w-md mx-auto">
+                <p className="text-sm text-brand-text-main leading-relaxed font-medium">
                   "{activeText}"
                 </p>
               </div>
             ) : (
-              <div className="text-xs text-brand-text-muted italic flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-ping" />
-                {language === 'en' ? 'Listening... Speak now.' : 'सुन रहा हूँ... अब बोलें।'}
+              <div className="flex flex-col items-center gap-2 text-xs text-brand-text-muted">
+                <div className="flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-ping" />
+                  <span className="font-medium">{language === 'en' ? 'Listening' : 'सुन रहा हूँ'}</span>
+                </div>
+                <span className="text-[10px] text-brand-text-muted/50">
+                  {language === 'en' ? 'Ask a question about Synapse...' : 'साइनेप्स के बारे में कुछ पूछें...'}
+                </span>
               </div>
             )
           ) : null}
