@@ -47,9 +47,9 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a href="/#steps" className="no-underline text-white/50 hover:text-white transition-colors duration-200 text-xs">
+                <Link to="/process" className="no-underline text-white/50 hover:text-white transition-colors duration-200 text-xs">
                   Intake Process
-                </a>
+                </Link>
               </li>
               <li>
                 <a href="/#services" className="no-underline text-white/50 hover:text-white transition-colors duration-200 text-xs">

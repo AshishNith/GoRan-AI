@@ -5,6 +5,7 @@ import StepsShowcase from '../components/StepsShowcase';
 import ScrollStack, { ScrollStackItem } from '../components/ui/ScrollStack';
 import ScrollAdventure from '../components/ui/animated-scroll';
 import VoiceAgent from '../components/VoiceAgent';
+import { LampContainer } from '../components/ui/lamp';
 
 const compilerSuggestions = [
   {
@@ -70,6 +71,9 @@ export default function Home() {
     <main className="w-full">
       {/* Hero Section */}
       <section className="section-hero pt-36 pb-24 text-center relative min-h-screen flex items-center overflow-hidden" id="sandbox">
+        {/* Subtle lamp glow behind headline */}
+        <LampContainer className="absolute inset-0" />
+
         {/* Decorative background elements */}
         <div className="absolute top-[10%] left-[-5%] w-[400px] h-[400px] rounded-full bg-brand-yellow/[0.04] blur-[100px] pointer-events-none" />
         <div className="absolute bottom-[15%] right-[-5%] w-[350px] h-[350px] rounded-full bg-purple-500/[0.04] blur-[100px] pointer-events-none" />

@@ -6,7 +6,7 @@ const navLinks = [
   { label: 'About', to: '/about' },
   { label: 'Founder', to: '/founder' },
   { label: 'Sandbox', to: '/', hash: '#sandbox' },
-  { label: 'Our Process', to: '/', hash: '#steps' },
+  { label: 'Our Process', to: '/process', hash: null },
   { label: 'Services', to: '/', hash: '#services' },
   { label: 'Trust', to: '/', hash: '#trust' },
 ];
