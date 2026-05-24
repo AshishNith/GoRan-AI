@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import ClientMarquee from '../components/ClientMarquee';
 import StepsShowcase from '../components/StepsShowcase';
 import ScrollStack, { ScrollStackItem } from '../components/ui/ScrollStack';
-// import { ParallaxComponent } from '../components/ui/parallax-scrolling';
 import ScrollAdventure from '../components/ui/animated-scroll';
 import VoiceAgent from '../components/VoiceAgent';
 
@@ -70,50 +69,85 @@ export default function Home() {
   return (
     <main className="w-full">
       {/* Hero Section */}
-      <section className="section-hero pt-35 pb-20 text-center relative min-h-screen flex items-center" id="sandbox">
-        <div className="w-full max-w-[1200px] mx-auto px-6 relative z-1 flex flex-col items-center gap-6">
-          <h1 className="font-heading font-bold text-brand-dark leading-[1.15] text-[2.5rem] sm:text-[3.25rem] md:text-[4.25rem] tracking-tight">
-            The AI agency that <br />
-            <span className="text-brand-dark opacity-80">builds for you.</span>
-          </h1>
+      <section className="section-hero pt-36 pb-24 text-center relative min-h-screen flex items-center overflow-hidden" id="sandbox">
+        {/* Decorative background elements */}
+        <div className="absolute top-[10%] left-[-5%] w-[400px] h-[400px] rounded-full bg-brand-yellow/[0.04] blur-[100px] pointer-events-none" />
+        <div className="absolute bottom-[15%] right-[-5%] w-[350px] h-[350px] rounded-full bg-purple-500/[0.04] blur-[100px] pointer-events-none" />
 
-          <div className="inline-flex flex-wrap justify-center gap-2 mt-1">
-            <span className="inline-flex items-center gap-1.5 py-1 px-2.5 rounded-md text-sm font-semibold bg-[rgba(245,166,35,0.1)] text-[#E28C00]">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2a10 10 0 0 1 7.54 16.59c-.24.25-.56.41-.9.41H5.36c-.34 0-.66-.16-.9-.41A10 10 0 0 1 12 2z" /><path d="M8 10h8M10 14h4" /></svg>
-              Custom Agents
-            </span>
-            <span className="inline-flex items-center gap-1.5 py-1 px-2.5 rounded-md text-sm font-semibold bg-[rgba(192,132,252,0.1)] text-[#A855F7]">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" /><polyline points="22 4 12 14.01 9 11.01" /></svg>
-              Workflows
-            </span>
-            <span className="inline-flex items-center gap-1.5 py-1 px-2.5 rounded-md text-sm font-semibold bg-[rgba(74,222,128,0.1)] text-[#16A34A]">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3" /><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" /><path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3" /></svg>
-              Databases
+        <div className="w-full max-w-[1200px] mx-auto px-6 relative z-10 flex flex-col items-center">
+          {/* Eyebrow */}
+          <div className="inline-flex items-center gap-2 mb-6">
+            <span className="w-1.5 h-1.5 rounded-full bg-brand-yellow animate-pulse" />
+            <span className="text-[11px] font-semibold uppercase tracking-[0.15em] text-brand-text-muted">
+              Trusted AI Agency
             </span>
           </div>
 
-          <p className="text-brand-dark font-medium font-body text-base md:text-xl max-w-[640px] leading-relaxed">
-            Describe the automated system or workflow you need. Synapse constructs, tests, and deploys production-grade AI agents connected securely to your tools.
+          {/* Headline */}
+          <h1 className="font-heading font-bold text-brand-dark leading-[1.0] text-[clamp(2.5rem,7vw,5rem)] tracking-tight max-w-[900px]">
+            The AI agency that{' '}
+            <span className="relative inline-block">
+              <span className="text-brand-yellow">builds for you.</span>
+              <span className="absolute -bottom-1 left-0 right-0 h-[3px] bg-brand-yellow/30 rounded-full hidden md:block" />
+            </span>
+          </h1>
+
+          {/* Subtext */}
+          <p className="text-brand-text-muted text-base md:text-lg max-w-[540px] leading-relaxed mt-5 mb-8">
+            Describe the workflow you need automated. We construct, test, and deploy production-grade agents connected to your tools — in days, not months.
           </p>
 
+          {/* Capability badges */}
+          <div className="inline-flex flex-wrap justify-center gap-2 mb-8">
+            {[
+              { label: 'Custom Agents', color: '#E28C00', bg: 'rgba(245,166,35,0.1)' },
+              { label: 'Workflows', color: '#A855F7', bg: 'rgba(192,132,252,0.1)' },
+              { label: 'Databases', color: '#16A34A', bg: 'rgba(74,222,128,0.1)' },
+              { label: 'APIs', color: '#3B82F6', bg: 'rgba(59,130,246,0.1)' },
+              { label: 'Slack', color: '#B45309', bg: 'rgba(180,83,9,0.1)' },
+            ].map((badge) => (
+              <span
+                key={badge.label}
+                className="inline-flex items-center gap-1.5 py-1.5 px-3 rounded-full text-xs font-semibold border border-transparent transition-all duration-200 hover:scale-105 cursor-default select-none"
+                style={{ background: badge.bg, color: badge.color }}
+              >
+                {badge.label}
+              </span>
+            ))}
+          </div>
+
           {/* Sandbox Interactive Box */}
-          <div className="w-full max-w-[680px] bg-black/5 p-1 rounded-[20px] mt-4 transition-all duration-300 focus-within:bg-black/8">
-            <div className="bg-white rounded-2xl p-4 shadow-nav text-left flex flex-col gap-3">
+          <div className="w-full max-w-[680px] rounded-2xl border border-brand-border bg-white shadow-[0_8px_30px_rgba(0,0,0,0.04)] transition-all duration-300 focus-within:shadow-[0_8px_30px_rgba(0,0,0,0.08)] focus-within:border-brand-yellow/40">
+            <div className="p-5 flex flex-col gap-4">
               <textarea
                 value={promptText}
                 onChange={(e) => setPromptText(e.target.value)}
                 placeholder="Describe what you want to automate... (e.g. Build an AI agent that monitors incoming emails, extracts contract metadata, saves it to Google Sheets, and alerts Slack)"
-                className="w-full border-none outline-none resize-none font-body text-base text-brand-text-main min-h-[80px] leading-normal placeholder:text-brand-text-muted placeholder:opacity-80"
+                className="w-full border-none outline-none resize-none font-body text-base text-brand-text-main min-h-[80px] leading-relaxed placeholder:text-brand-text-muted/60"
               />
-              <div className="flex items-center justify-between border-t border-brand-border pt-3 flex-wrap gap-3">
-                <div className="flex items-center gap-1">
-                  <span className="w-6 h-6 rounded-md border border-brand-border bg-white flex items-center justify-center text-[11px] font-bold shadow-card text-brand-text-muted hover:text-brand-dark transition-all cursor-default" title="Slack">S</span>
-                  <span className="w-6 h-6 rounded-md border border-brand-border bg-white flex items-center justify-center text-[11px] font-bold shadow-card text-brand-text-muted hover:text-brand-dark transition-all cursor-default" title="Google Sheets">G</span>
-                  <span className="w-6 h-6 rounded-md border border-brand-border bg-white flex items-center justify-center text-[11px] font-bold shadow-card text-brand-text-muted hover:text-brand-dark transition-all cursor-default" title="Airtable">A</span>
-                  <span className="w-6 h-6 rounded-md border border-brand-border bg-white flex items-center justify-center text-[11px] font-bold shadow-card text-brand-text-muted hover:text-brand-dark transition-all cursor-default" title="Salesforce">Sf</span>
-                  <span className="w-6 h-6 rounded-md border border-brand-border bg-white flex items-center justify-center text-[11px] font-bold shadow-card text-brand-text-muted hover:text-brand-dark transition-all cursor-default" title="Gmail">M</span>
+              <div className="flex items-center justify-between border-t border-brand-border pt-4 flex-wrap gap-3">
+                <div className="flex items-center gap-1.5">
+                  {[
+                    { label: 'S', title: 'Slack' },
+                    { label: 'G', title: 'Google Sheets' },
+                    { label: 'A', title: 'Airtable' },
+                    { label: 'Sf', title: 'Salesforce' },
+                    { label: 'M', title: 'Gmail' },
+                  ].map((tool) => (
+                    <span
+                      key={tool.label}
+                      className="w-7 h-7 rounded-lg border border-brand-border bg-white flex items-center justify-center text-[10px] font-bold text-brand-text-muted transition-all duration-200 hover:border-brand-text-muted hover:text-brand-dark cursor-default select-none"
+                      title={tool.title}
+                    >
+                      {tool.label}
+                    </span>
+                  ))}
+                  <span className="text-[11px] text-brand-text-muted/50 ml-1 font-medium select-none">+ Integrations</span>
                 </div>
-                <button className="bg-brand-yellow text-brand-text-main border-none font-body font-semibold text-sm py-2.5 px-5 rounded-lg cursor-pointer shadow-[0_1px_3px_rgba(0,0,0,0.1),0_2px_8px_rgba(246,199,68,0.3)] transition-all duration-300 hover:bg-brand-yellow-hover hover:shadow-[0_2px_4px_rgba(0,0,0,0.1),0_4px_12px_rgba(246,199,68,0.4)] active:bg-brand-yellow-focus inline-flex items-center gap-1.5" onClick={handleCompile}>
+                <button
+                  className="bg-brand-yellow text-brand-text-main border-none font-body font-semibold text-sm py-2.5 px-5 rounded-xl cursor-pointer transition-all duration-300 hover:bg-brand-yellow-hover hover:-translate-y-0.5 active:bg-brand-yellow-focus active:translate-y-0 inline-flex items-center gap-2"
+                  onClick={handleCompile}
+                >
                   <span>Compile Architecture</span>
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
                 </button>
@@ -123,37 +157,50 @@ export default function Home() {
 
           {/* Compiler Output Console */}
           {showOutput && (
-            <div className="w-full max-w-[680px] bg-white border border-brand-border rounded-2xl mt-4 shadow-card-hover overflow-hidden text-left" ref={outputRef}>
-              <div className="bg-brand-bg-light px-4 py-2.5 border-b border-brand-border flex items-center justify-between">
+            <div className="w-full max-w-[680px] mt-4 overflow-hidden text-left animate-fadeIn" ref={outputRef}>
+              <div className="bg-[#0E0E0E] rounded-t-xl px-4 py-2.5 border-b border-white/10 flex items-center justify-between">
                 <div className="flex gap-1.5">
-                  <div className="w-2 h-2 rounded-full bg-[#FF5F56]"></div>
-                  <div className="w-2 h-2 rounded-full bg-[#FFBD2E]"></div>
-                  <div className="w-2 h-2 rounded-full bg-[#27C93F]"></div>
+                  <div className="w-2.5 h-2.5 rounded-full bg-[#FF5F56]" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-[#FFBD2E]" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-[#27C93F]" />
                 </div>
-                <div className="font-body text-[11px] font-medium text-brand-text-muted">SYNAPSE COMPILER v1.2</div>
-                <div></div>
+                <div className="font-body text-[11px] font-medium text-white/40 tracking-wide">SYNAPSE COMPILER v1.2</div>
+                <div />
               </div>
-              <div className="p-5 font-mono text-sm text-brand-text-main bg-brand-bg-light max-h-[250px] overflow-y-auto">
+              <div className="p-5 font-mono text-sm text-white/80 bg-[#0E0E0E] max-h-[280px] overflow-y-auto space-y-2.5">
                 {isCompiling && (
-                  <div style={{ color: 'var(--color-text-muted)', fontSize: '0.85rem' }}>
+                  <div className="flex items-center gap-2.5 text-white/40 text-xs">
+                    <span className="inline-block w-1.5 h-1.5 rounded-full bg-brand-yellow animate-pulse" />
                     Scoping architecture... compiling nodes...
                   </div>
                 )}
                 {compiledNodes.map((node, index) => (
-                  <div className="bg-white border border-brand-border rounded-lg p-3 mb-3 flex items-center gap-3 shadow-card output-node-anim" key={index}>
-                    <div className="w-6 h-6 rounded-md flex items-center justify-center text-xs" style={{ background: node.bg, color: node.color }}>
+                  <div
+                    key={index}
+                    className="bg-white/5 border border-white/10 rounded-lg p-3.5 flex items-center gap-3 output-node-anim"
+                  >
+                    <div
+                      className="w-7 h-7 rounded-lg flex items-center justify-center text-xs shrink-0"
+                      style={{ background: node.bg, color: node.color }}
+                    >
                       {node.icon}
                     </div>
                     <div>
-                      <strong className="text-brand-dark text-[10px] uppercase tracking-wider block">
+                      <strong className="text-white/50 text-[9px] uppercase tracking-[0.15em] block">
                         Step {index + 1}
                       </strong>
-                      <div className="text-sm mt-0.5 text-brand-text-main">
+                      <div className="text-sm mt-0.5 text-white/80 leading-relaxed">
                         {node.text}
                       </div>
                     </div>
                   </div>
                 ))}
+                {compiledNodes.length > 0 && (
+                  <div className="flex items-center gap-2 pt-2 text-white/30 text-[10px]">
+                    <span className="inline-block w-1.5 h-1.5 rounded-full bg-green-500" />
+                    Architecture compiled successfully · 4 nodes deployed
+                  </div>
+                )}
               </div>
             </div>
           )}
@@ -166,7 +213,7 @@ export default function Home() {
       <ClientMarquee />
 
       {/* Delivery Process Section */}
-      <section className="py-24 bg-white border-t border-brand-border border-b" id="steps">
+      <section className="py-24 bg-white" id="steps">
         <div className="w-full max-w-[1200px] mx-auto px-6">
           <StepsShowcase />
         </div>
@@ -176,7 +223,7 @@ export default function Home() {
       <ScrollAdventure />
 
       {/* Services Section */}
-      <section className="py-24 bg-white" id="services">
+      <section className="py-24 bg-white border-t border-brand-border" id="services">
         <div className="w-full max-w-[1200px] mx-auto px-6 flex flex-col md:flex-row gap-12 md:gap-20 items-start">
           <div className="md:w-[35%] md:sticky md:top-32 flex flex-col gap-5 z-10">
             <h2 className="text-3xl md:text-5xl font-heading font-bold text-brand-dark leading-tight">What we do for you</h2>
@@ -275,9 +322,6 @@ export default function Home() {
 
       {/* Interactive Voice Agent Showcase */}
       <VoiceAgent />
-
-      {/* AI Parallax Closer with Integrated CTA Form */}
-      {/* <ParallaxComponent /> */}
     </main>
   );
 }
