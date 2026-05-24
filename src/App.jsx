@@ -10,6 +10,7 @@ import Contact from './pages/Contact';
 import About from './pages/About';
 import Founder from './pages/Founder';
 import Process from './pages/Process';
+import NotFound from './pages/NotFound';
 import Chatbot from './components/Chatbot';
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
         <Route path="/founder" element={<Founder />} />
         <Route path="/process" element={<Process />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
       <Chatbot />

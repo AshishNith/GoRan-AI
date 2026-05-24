@@ -110,14 +110,6 @@ export default function CaseStudyDetail() {
       {/* Hero Header */}
       <section className="border-b border-brand-border pb-16">
         <div className="w-full max-w-[1200px] mx-auto px-6">
-          <Link to="/" className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-text-muted hover:text-brand-dark transition-colors mb-8 no-underline">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-            Back to Home
-          </Link>
-
-          <span className="inline-block py-1 px-3 bg-brand-yellow/10 text-[#B45309] font-mono text-xs uppercase tracking-widest font-semibold rounded-md mb-4">
-            {caseStudy.tag}
-          </span>
           
           <h1 className="font-heading font-bold text-brand-dark text-3xl sm:text-4xl md:text-5xl max-w-[900px] leading-tight mb-8">
             {caseStudy.headline}
