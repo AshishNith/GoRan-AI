@@ -10,6 +10,8 @@ import Contact from './pages/Contact';
 import About from './pages/About';
 import Founder from './pages/Founder';
 import Process from './pages/Process';
+import Blog from './pages/Blog';
+import BlogPost from './pages/BlogPost';
 import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
 import NotFound from './pages/NotFound';
@@ -47,6 +49,8 @@ function App() {
         <Route path="/case-studies/:caseStudyId" element={<CaseStudyDetail />} />
         <Route path="/founder" element={<Founder />} />
         <Route path="/process" element={<Process />} />
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/blog/:slug" element={<BlogPost />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/terms" element={<Terms />} />

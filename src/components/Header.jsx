@@ -5,6 +5,7 @@ import { useCalBooking } from './CalBookingModal';
 
 const navLinks = [
   { label: 'About', to: '/about' },
+  { label: 'Blog', to: '/blog' },
   { label: 'Founder', to: '/founder' },
   { label: 'Our Process', to: '/process' },
 ];

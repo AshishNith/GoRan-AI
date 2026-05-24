@@ -10,6 +10,7 @@ const socialLinks = [
 
 const pageLinks = [
   { label: 'About', to: '/about' },
+  { label: 'Blog', to: '/blog' },
   { label: 'Founder', to: '/founder' },
   { label: 'Our Process', to: '/process' },
   { label: 'Contact', to: '/contact' },
