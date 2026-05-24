@@ -1,0 +1,172 @@
+@import "tailwindcss";
+
+/* 1. Design System Theme Tokens (Tailwind CSS v4 Configuration) */
+@theme {
+  --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  /* Brand Colors */
+  --color-brand-yellow: #F6C744;
+  --color-brand-yellow-hover: #FED645;
+  --color-brand-yellow-focus: #F6D045;
+  --color-brand-dark: #171717;
+  --color-brand-dark-hover: #333333;
+  --color-brand-text-main: #211C20;
+  --color-brand-text-muted: #737373;
+  --color-brand-border: #E5E7EB;
+  --color-brand-bg-light: #FAFAFA;
+
+  /* Custom Shadow Library */
+  --shadow-nav: 0 4px 20px -2px rgba(0, 0, 0, 0.05), 0 2px 6px -1px rgba(0, 0, 0, 0.03);
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03);
+  --shadow-card-hover: 0 10px 30px -5px rgba(0, 0, 0, 0.08), 0 4px 12px -2px rgba(0, 0, 0, 0.03);
+  --shadow-input: 0 4px 30px rgba(0, 0, 0, 0.03);
+}
+
+/* 2. Global Base Adjustments & Grid Layout */
+body {
+  font-family: var(--font-body);
+  color: var(--color-brand-text-main);
+  background-color: #FFFFFF;
+}
+
+/* Subtle background grid pattern to mimic premium editor space */
+.grid-bg-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 900px;
+  background-image: 
+    radial-gradient(circle at 50% 50%, rgba(255,255,255,0) 0%, #FFFFFF 80%),
+    linear-gradient(rgba(229, 231, 235, 0.25) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(229, 231, 235, 0.25) 1px, transparent 1px);
+  background-size: 100% 100%, 40px 40px, 40px 40px;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* 3. Non-Standard Scrolling Marquee Utility & Mask Gradients */
+.clients-marquee-container {
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+  width: 100%;
+}
+
+.clients-marquee-container::before,
+.clients-marquee-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 150px;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.clients-marquee-container::before {
+  left: 0;
+  background: linear-gradient(to right, #FFFFFF 0%, rgba(255, 255, 255, 0) 100%);
+}
+
+.clients-marquee-container::after {
+  right: 0;
+  background: linear-gradient(to left, #FFFFFF 0%, rgba(255, 255, 255, 0) 100%);
+}
+
+.clients-marquee-track {
+  display: inline-flex;
+  gap: 80px;
+  align-items: center;
+  animation: marquee-scroll 30s linear infinite;
+  width: max-content;
+}
+
+@keyframes marquee-scroll {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+/* Custom CSS nodes animation */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.output-node-anim {
+  animation: slideInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.section-hero {
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.95) 95%), url('/hero_bg.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Hide scrollbar utility for suggestion chips in chatbot */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* 4. Voice Visualizer Waveform Animations */
+.voice-wave-bar {
+  width: 6px;
+  min-height: 4px;
+  transition: all 0.15s ease-in-out;
+}
+
+@keyframes voiceWave1 {
+  0%, 100% { height: 12px; }
+  50% { height: 40px; }
+}
+@keyframes voiceWave2 {
+  0%, 100% { height: 8px; }
+  50% { height: 56px; }
+}
+@keyframes voiceWave3 {
+  0%, 100% { height: 16px; }
+  50% { height: 72px; }
+}
+@keyframes voiceWave4 {
+  0%, 100% { height: 10px; }
+  50% { height: 48px; }
+}
+@keyframes voiceWaveSlow {
+  0%, 100% { height: 6px; }
+  50% { height: 16px; }
+}
+
+.anim-wave-active-1 {
+  animation: voiceWave1 1s ease-in-out infinite;
+}
+.anim-wave-active-2 {
+  animation: voiceWave2 0.8s ease-in-out infinite;
+}
+.anim-wave-active-3 {
+  animation: voiceWave3 1.2s ease-in-out infinite;
+}
+.anim-wave-active-4 {
+  animation: voiceWave4 0.9s ease-in-out infinite;
+}
+.anim-wave-slow {
+  animation: voiceWaveSlow 2s ease-in-out infinite;
+}
+
+
+
