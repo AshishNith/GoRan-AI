@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useCalBooking } from './CalBookingModal';
 
 const socialLinks = [
   { label: 'X / Twitter', href: 'https://x.com/synapseai' },
@@ -22,6 +23,7 @@ const serviceLinks = [
 ];
 
 export default function Footer() {
+  const { openCalBooking } = useCalBooking();
   const handleScrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -130,15 +132,15 @@ export default function Footer() {
               <p className="text-white/50 text-sm leading-relaxed">
                 Target response time under 24 hours. Book a scoping session to secure project roadmap priority.
               </p>
-              <Link
-                to="/contact"
-                className="inline-flex items-center gap-2 no-underline bg-brand-yellow hover:bg-brand-yellow-hover text-brand-dark font-semibold text-sm py-3 px-5 rounded-xl transition-all duration-200 hover:-translate-y-0.5 shadow-lg shadow-brand-yellow/10"
+              <button
+                onClick={openCalBooking}
+                className="inline-flex items-center gap-2 bg-brand-yellow hover:bg-brand-yellow-hover text-brand-dark font-semibold text-sm py-3 px-5 rounded-xl transition-all duration-200 hover:-translate-y-0.5 shadow-lg shadow-brand-yellow/10 border-none cursor-pointer"
               >
                 <span>Start a Project</span>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M5 12h14M12 5l7 7-7 7" />
                 </svg>
-              </Link>
+              </button>
               <a
                 href="mailto:hello@synapse-ai.agency"
                 className="text-white/40 hover:text-white transition-colors duration-200 text-xs no-underline mt-1"

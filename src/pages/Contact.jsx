@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useCalBooking } from '../components/CalBookingModal';
 import VoiceAgent from '../components/VoiceAgent';
 
 const budgetOptions = ['< $10k', '$10k – $25k', '$25k – $50k', '$50k+'];
@@ -7,6 +8,7 @@ const timelineOptions = ['Immediate', '1–2 months', '3+ months'];
 const contactMethods = ['Email', 'Phone Call', 'Calendly Booking'];
 
 export default function Contact() {
+  const { openCalBooking } = useCalBooking();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -96,7 +98,7 @@ export default function Contact() {
                   <span className="w-8 h-8 rounded-lg bg-brand-yellow/10 flex items-center justify-center shrink-0">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F6C744" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                   </span>
-                  Avg. response: <span className="text-brand-dark font-semibold">under 24 hours</span>
+                  Avg. response: <span className="text-brand-dark font-semibold">under 5 min</span>
                 </div>
               </div>
             </div>
@@ -108,7 +110,7 @@ export default function Contact() {
               </h3>
               <div className="flex flex-col gap-0">
                 {[
-                  { num: '01', title: 'We review your request', desc: 'Our team evaluates your project scope, budget, and timeline within 24 hours.' },
+                  { num: '01', title: 'We review your request', desc: 'Our team evaluates your project scope, budget, and timeline within 5 min.' },
                   { num: '02', title: '30-min scoping call', desc: 'We hop on a quick call to understand your stack, pain points, and automation goals.' },
                   { num: '03', title: 'Custom blueprint delivered', desc: 'You receive a detailed proposal with architecture, timeline, and fixed pricing — no surprises.' },
                 ].map((step, idx) => (
@@ -335,6 +337,38 @@ export default function Contact() {
                   </p>
                 </form>
             )}
+
+            {/* ── Or book a call ── */}
+            <div className="mt-10">
+              <div className="flex items-center gap-4 mb-8">
+                <div className="h-px bg-brand-border flex-1" />
+                <span className="text-[10px] font-bold uppercase tracking-widest text-brand-text-muted select-none">or book directly</span>
+                <div className="h-px bg-brand-border flex-1" />
+              </div>
+              <div className="rounded-2xl p-8 text-white" style={{ background: '#0E0E0E' }}>
+                <div className="flex flex-col gap-6">
+                  <div className="w-12 h-12 rounded-xl bg-brand-yellow/10 flex items-center justify-center">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F6C744" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <rect x="2" y="4" width="20" height="16" rx="2" />
+                      <path d="M22 7l-10 7L2 7" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="font-heading font-bold text-xl mb-2">Skip the form — book a call</h3>
+                    <p className="text-white/60 text-sm leading-relaxed">
+                      Pick a time that works for you. We'll review your operations and deliver a custom automation blueprint — no commitment required.
+                    </p>
+                  </div>
+                  <button
+                    onClick={openCalBooking}
+                    className="w-full bg-brand-yellow hover:bg-brand-yellow-hover text-brand-dark font-semibold text-sm py-3.5 px-6 rounded-xl transition-all duration-200 hover:-translate-y-0.5 shadow-lg shadow-brand-yellow/20 border-none cursor-pointer"
+                  >
+                    Pick a Time
+                  </button>
+                  <p className="text-[10px] text-white/40 text-center -mt-3">Free 30-min call · No credit card required</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

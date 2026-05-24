@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
+import { useCalBooking } from './CalBookingModal';
 
 const navLinks = [
   { label: 'About', to: '/about' },
@@ -23,6 +24,7 @@ export default function Header() {
   const dropdownRef = useRef(null);
   const location = useLocation();
   const navigate = useNavigate();
+  const { openCalBooking } = useCalBooking();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -138,9 +140,9 @@ export default function Header() {
         </div>
 
         {/* Get Started button right */}
-        <Link
-          to="/contact"
-          className="hidden md:inline-flex items-center gap-1.5 no-underline bg-brand-dark text-white font-medium text-sm py-2 px-4 rounded-full shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 hover:bg-brand-dark-hover group ml-auto"
+        <button
+          onClick={openCalBooking}
+          className="hidden md:inline-flex items-center gap-1.5 bg-brand-dark text-white font-medium text-sm py-2 px-4 rounded-full shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 hover:bg-brand-dark-hover group ml-auto border-none cursor-pointer"
         >
           Get Started
           <svg
@@ -156,7 +158,7 @@ export default function Header() {
           >
             <path d="M5 12h14M12 5l7 7-7 7" />
           </svg>
-        </Link>
+        </button>
 
         <button
           onClick={() => setMobileOpen(true)}
@@ -255,16 +257,15 @@ export default function Header() {
               </div>
             </div>
             <div className="border-t border-brand-border px-4 py-4">
-              <Link
-                to="/contact"
-                onClick={() => setMobileOpen(false)}
-                className="flex items-center justify-center gap-2 no-underline bg-brand-dark text-white font-semibold text-sm py-3 px-4 rounded-full transition-all duration-300 hover:bg-brand-dark-hover w-full"
+              <button
+                onClick={() => { openCalBooking(); setMobileOpen(false); }}
+                className="flex items-center justify-center gap-2 bg-brand-dark text-white font-semibold text-sm py-3 px-4 rounded-full transition-all duration-300 hover:bg-brand-dark-hover w-full border-none cursor-pointer"
               >
                 Get Started
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M5 12h14M12 5l7 7-7 7" />
                 </svg>
-              </Link>
+              </button>
             </div>
           </div>
         </div>

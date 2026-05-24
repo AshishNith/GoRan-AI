@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { useCalBooking } from '../components/CalBookingModal';
 
 const caseStudiesData = {
   'ibs-brokers': {
@@ -85,6 +86,7 @@ const caseStudiesData = {
 };
 
 export default function CaseStudyDetail() {
+  const { openCalBooking } = useCalBooking();
   const { caseStudyId } = useParams();
   const caseStudy = caseStudiesData[caseStudyId];
 
@@ -180,9 +182,9 @@ export default function CaseStudyDetail() {
               <div className="relative z-10 flex flex-col gap-4">
                 <h3 className="text-lg font-heading font-bold text-white leading-tight">Ready to see similar results in your operations?</h3>
                 <p className="text-sm text-white/70 leading-relaxed">Let’s run a custom audit on your operations and identify high-yield workflow automations.</p>
-                <Link to="/contact" className="bg-brand-yellow text-brand-dark py-3 px-6 rounded-full no-underline font-semibold text-sm transition-all duration-300 hover:bg-brand-yellow-hover text-center shadow-card hover:translate-y-[-1px] inline-block mt-2">
+                <button onClick={openCalBooking} className="bg-brand-yellow text-brand-dark py-3 px-6 rounded-full font-semibold text-sm transition-all duration-300 hover:bg-brand-yellow-hover text-center shadow-card hover:translate-y-[-1px] mt-2 border-none cursor-pointer">
                   Request Scoping Blueprint
-                </Link>
+                </button>
               </div>
             </div>
           </div>

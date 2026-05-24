@@ -14,6 +14,7 @@ import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
 import NotFound from './pages/NotFound';
 import Chatbot from './components/Chatbot';
+import { CalBookingProvider } from './components/CalBookingModal';
 
 function App() {
   useEffect(() => {
@@ -37,6 +38,7 @@ function App() {
 
   return (
     <div className="min-h-full h-full flex flex-col">
+      <CalBookingProvider>
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -52,6 +54,7 @@ function App() {
       </Routes>
       <Footer />
       <Chatbot />
+      </CalBookingProvider>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { MessageSquare, X, Send, Trash2, Sparkles } from 'lucide-react';
+import { useCalBooking } from './CalBookingModal';
 
 // 1. Synapse Context Data for System Prompt and Mock Responder
 const SYNAPSE_DATA = {
@@ -38,6 +39,7 @@ Response Tone: Professional, expert, friendly, helpful, and concise. Keep respon
 `;
 
 export default function Chatbot() {
+  const { openCalBooking } = useCalBooking();
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
     {
@@ -426,7 +428,7 @@ export default function Chatbot() {
               Case Studies
             </button>
             <button
-              onClick={() => handleChipClick("How do we book a scoping call?")}
+              onClick={openCalBooking}
               className="inline-block bg-brand-bg-light hover:bg-brand-yellow/10 hover:border-brand-yellow/40 border border-brand-border text-brand-text-main text-[10px] font-medium px-3 py-1 rounded-full cursor-pointer transition-colors shrink-0"
             >
               Book a Call

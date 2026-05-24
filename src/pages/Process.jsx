@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
+import { useCalBooking } from '../components/CalBookingModal';
 
 const steps = [
   {
@@ -67,6 +68,7 @@ const fadeUp = {
 };
 
 export default function Process() {
+  const { openCalBooking } = useCalBooking();
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -331,15 +333,15 @@ export default function Process() {
             <p className="text-brand-text-muted text-base md:text-lg leading-relaxed max-w-lg mx-auto mb-10">
               Tell us about the workflows you want to automate. We'll map the architecture, build the agents, and deploy them into your stack.
             </p>
-            <Link
-              to="/contact"
-              className="inline-flex items-center gap-2 no-underline bg-brand-dark text-white font-semibold text-sm py-3.5 px-8 rounded-full transition-all duration-300 hover:bg-brand-dark-hover hover:-translate-y-0.5 shadow-[0_4px_12px_rgba(0,0,0,0.1)] group"
+            <button
+              onClick={openCalBooking}
+              className="inline-flex items-center gap-2 bg-brand-dark text-white font-semibold text-sm py-3.5 px-8 rounded-full transition-all duration-300 hover:bg-brand-dark-hover hover:-translate-y-0.5 shadow-[0_4px_12px_rgba(0,0,0,0.1)] border-none cursor-pointer group"
             >
               Start a Conversation
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-200 group-hover:translate-x-1">
                 <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
-            </Link>
+            </button>
           </motion.div>
         </div>
       </section>

@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useCalBooking } from '../components/CalBookingModal';
 
 const principles = [
   {
@@ -28,6 +29,7 @@ const milestones = [
 ];
 
 export default function About() {
+  const { openCalBooking } = useCalBooking();
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -171,12 +173,12 @@ export default function About() {
               <p className="text-white/60 text-sm leading-relaxed mb-5">
                 Book a free 30-minute scoping call. We'll review your operations and tell you exactly where AI can help.
               </p>
-              <Link
-                to="/contact"
-                className="block text-center no-underline font-semibold text-sm py-3 px-6 rounded-full bg-brand-yellow text-brand-dark transition-all hover:opacity-90 hover:-translate-y-0.5"
+              <button
+                onClick={openCalBooking}
+                className="block w-full text-center font-semibold text-sm py-3 px-6 rounded-full bg-brand-yellow text-brand-dark transition-all hover:opacity-90 hover:-translate-y-0.5 border-none cursor-pointer"
               >
                 Book a Scoping Call
-              </Link>
+              </button>
             </div>
 
             {/* Quick links */}
@@ -247,15 +249,15 @@ export default function About() {
           <p className="text-brand-text-muted text-base md:text-lg leading-relaxed max-w-lg mx-auto mb-10">
             Tell us about the workflows you want to automate. We'll map the architecture, build the agents, and deploy them into your stack.
           </p>
-          <Link
-            to="/contact"
-            className="inline-flex items-center gap-2 no-underline bg-brand-dark text-white font-semibold text-sm py-3.5 px-8 rounded-full transition-all duration-300 hover:bg-brand-dark-hover hover:-translate-y-0.5 shadow-[0_4px_12px_rgba(0,0,0,0.1)] group"
+          <button
+            onClick={openCalBooking}
+            className="inline-flex items-center gap-2 bg-brand-dark text-white font-semibold text-sm py-3.5 px-8 rounded-full transition-all duration-300 hover:bg-brand-dark-hover hover:-translate-y-0.5 shadow-[0_4px_12px_rgba(0,0,0,0.1)] border-none cursor-pointer group"
           >
             Start a Conversation
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-200 group-hover:translate-x-1">
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
-          </Link>
+          </button>
         </div>
       </section>
 

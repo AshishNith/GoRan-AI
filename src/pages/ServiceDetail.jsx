@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { useCalBooking } from '../components/CalBookingModal';
 
 const servicesData = {
   'ai-audit': {
@@ -85,6 +86,7 @@ function CheckIcon() {
 }
 
 export default function ServiceDetail() {
+  const { openCalBooking } = useCalBooking();
   const { serviceId } = useParams();
   const service = servicesData[serviceId];
 
@@ -154,10 +156,10 @@ export default function ServiceDetail() {
               <span className="text-sm font-semibold text-brand-dark">{service.deliverables.length} core outputs</span>
             </div>
             <div className="w-px h-8 bg-brand-border hidden sm:block"/>
-            <Link to="/contact" className="inline-flex items-center gap-2 no-underline py-3 px-6 rounded-full font-semibold text-sm text-brand-dark transition-all hover:-translate-y-0.5 hover:shadow-md" style={{ background: service.color }}>
+            <button onClick={openCalBooking} className="inline-flex items-center gap-2 py-3 px-6 rounded-full font-semibold text-sm text-brand-dark transition-all hover:-translate-y-0.5 hover:shadow-md border-none cursor-pointer" style={{ background: service.color }}>
               Start with this service
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </Link>
+            </button>
           </div>
         </div>
       </section>
@@ -236,9 +238,9 @@ export default function ServiceDetail() {
               <p className="text-white/60 text-sm leading-relaxed mb-5">
                 Book a free 30-minute scoping call. We'll review your situation and tell you exactly what's possible.
               </p>
-              <Link to="/contact" className="block text-center no-underline font-semibold text-sm py-3 px-6 rounded-full transition-all hover:opacity-90 hover:-translate-y-0.5" style={{ background: service.color, color: '#0E0E0E' }}>
+              <button onClick={openCalBooking} className="block w-full text-center font-semibold text-sm py-3 px-6 rounded-full transition-all hover:opacity-90 hover:-translate-y-0.5 border-none cursor-pointer" style={{ background: service.color, color: '#0E0E0E' }}>
                 Book a Scoping Call
-              </Link>
+              </button>
             </div>
 
             {/* Other services */}
