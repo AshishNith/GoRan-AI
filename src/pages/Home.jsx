@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import ClientMarquee from '../components/ClientMarquee';
 import StepsShowcase from '../components/StepsShowcase';
@@ -7,63 +7,7 @@ import ScrollAdventure from '../components/ui/animated-scroll';
 import VoiceAgent from '../components/VoiceAgent';
 import { LampContainer } from '../components/ui/lamp';
 
-const compilerSuggestions = [
-  {
-    trigger: "email",
-    nodes: [
-      { text: "Trigger: Inbound email received via SMTP listener", icon: "📬", bg: "rgba(59, 130, 246, 0.1)", color: "#3B82F6" },
-      { text: "Parsing: LLM extracts Metadata & Sentiments", icon: "🧠", bg: "rgba(192, 132, 252, 0.1)", color: "#C084FC" },
-      { text: "Storage: Append parsed payload to Google Sheets rows", icon: "📈", bg: "rgba(74, 222, 128, 0.1)", color: "#4ADE80" },
-      { text: "Alert: Dispatch Slack notification to channel #ops", icon: "💬", bg: "rgba(245, 166, 35, 0.1)", color: "#F5A623" }
-    ]
-  },
-  {
-    trigger: "default",
-    nodes: [
-      { text: "Trigger: API Webhook Received", icon: "⚡", bg: "rgba(59, 130, 246, 0.1)", color: "#3B82F6" },
-      { text: "Knowledge search: Vector database similarity query (RAG)", icon: "🔍", bg: "rgba(192, 132, 252, 0.1)", color: "#C084FC" },
-      { text: "Synthesizing: GPT-4o crafts structured JSON answer", icon: "⚙️", bg: "rgba(74, 222, 128, 0.1)", color: "#4ADE80" },
-      { text: "Response dispatched safely with verification checks", icon: "🔒", bg: "rgba(245, 166, 35, 0.1)", color: "#F5A623" }
-    ]
-  }
-];
-
 export default function Home() {
-  // Hero Sandbox States
-  const [promptText, setPromptText] = useState('');
-  const [isCompiling, setIsCompiling] = useState(false);
-  const [compiledNodes, setCompiledNodes] = useState([]);
-  const [showOutput, setShowOutput] = useState(false);
-  const outputRef = useRef(null);
-
-  // Compile prompt logic
-  const handleCompile = () => {
-    if (!promptText.trim()) return;
-
-    setShowOutput(true);
-    setIsCompiling(true);
-    setCompiledNodes([]);
-
-    // Scroll compiler into view
-    setTimeout(() => {
-      outputRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }, 100);
-
-    const query = promptText.trim().toLowerCase();
-    const selection = (query.includes("email") || query.includes("gmail") || query.includes("sheet") || query.includes("slack"))
-      ? compilerSuggestions[0]
-      : compilerSuggestions[1];
-
-    // Load nodes step-by-step
-    setTimeout(() => {
-      setIsCompiling(false);
-      selection.nodes.forEach((node, idx) => {
-        setTimeout(() => {
-          setCompiledNodes(prev => [...prev, node]);
-        }, idx * 700);
-      });
-    }, 1000);
-  };
 
 
 
@@ -120,94 +64,22 @@ export default function Home() {
             ))}
           </div>
 
-          {/* Sandbox Interactive Box */}
-          <div className="w-full max-w-170 rounded-2xl border border-brand-border bg-white shadow-[0_8px_30px_rgba(0,0,0,0.04)] transition-all duration-300 focus-within:shadow-[0_8px_30px_rgba(0,0,0,0.08)] focus-within:border-brand-yellow/40">
-            <div className="p-5 flex flex-col gap-4">
-              <textarea
-                value={promptText}
-                onChange={(e) => setPromptText(e.target.value)}
-                placeholder="Describe what you want to automate... (e.g. Build an AI agent that monitors incoming emails, extracts contract metadata, saves it to Google Sheets, and alerts Slack)"
-                className="w-full border-none outline-none resize-none font-body text-base text-brand-text-main min-h-20 leading-relaxed placeholder:text-brand-text-muted/60"
-              />
-              <div className="flex items-center justify-between border-t border-brand-border pt-4 flex-wrap gap-3">
-                <div className="flex items-center gap-1.5">
-                  {[
-                    { label: 'S', title: 'Slack' },
-                    { label: 'G', title: 'Google Sheets' },
-                    { label: 'A', title: 'Airtable' },
-                    { label: 'Sf', title: 'Salesforce' },
-                    { label: 'M', title: 'Gmail' },
-                  ].map((tool) => (
-                    <span
-                      key={tool.label}
-                      className="w-7 h-7 rounded-lg border border-brand-border bg-white flex items-center justify-center text-[10px] font-bold text-brand-text-muted transition-all duration-200 hover:border-brand-text-muted hover:text-brand-dark cursor-default select-none"
-                      title={tool.title}
-                    >
-                      {tool.label}
-                    </span>
-                  ))}
-                  <span className="text-[11px] text-brand-text-muted/50 ml-1 font-medium select-none">+ Integrations</span>
-                </div>
-                <button
-                  className="bg-brand-yellow text-brand-text-main border-none font-body font-semibold text-sm py-2.5 px-5 rounded-xl cursor-pointer transition-all duration-300 hover:bg-brand-yellow-hover hover:-translate-y-0.5 active:bg-brand-yellow-focus active:translate-y-0 inline-flex items-center gap-2"
-                  onClick={handleCompile}
-                >
-                  <span>Compile Architecture</span>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
-                </button>
-              </div>
-            </div>
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
+            <Link
+              to="/contact"
+              className="inline-flex items-center gap-2 bg-brand-yellow text-brand-text-main font-semibold text-sm py-3 px-7 rounded-xl transition-all duration-300 hover:bg-brand-yellow-hover hover:-translate-y-0.5 active:translate-y-0"
+            >
+              Start a Project
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+            </Link>
+            <Link
+              to="/case-studies"
+              className="inline-flex items-center gap-2 border-2 border-brand-dark text-brand-dark font-semibold text-sm py-3 px-7 rounded-xl transition-all duration-300 hover:bg-brand-dark hover:text-white hover:-translate-y-0.5 active:translate-y-0"
+            >
+              See Our Work
+            </Link>
           </div>
-
-          {/* Compiler Output Console */}
-          {showOutput && (
-            <div className="w-full max-w-170 mt-4 overflow-hidden text-left animate-fadeIn" ref={outputRef}>
-              <div className="bg-[#0E0E0E] rounded-t-xl px-4 py-2.5 border-b border-white/10 flex items-center justify-between">
-                <div className="flex gap-1.5">
-                  <div className="w-2.5 h-2.5 rounded-full bg-[#FF5F56]" />
-                  <div className="w-2.5 h-2.5 rounded-full bg-[#FFBD2E]" />
-                  <div className="w-2.5 h-2.5 rounded-full bg-[#27C93F]" />
-                </div>
-                <div className="font-body text-[11px] font-medium text-white/40 tracking-wide">SYNAPSE COMPILER v1.2</div>
-                <div />
-              </div>
-              <div className="p-5 font-mono text-sm text-white/80 bg-[#0E0E0E] max-h-70 overflow-y-auto space-y-2.5">
-                {isCompiling && (
-                  <div className="flex items-center gap-2.5 text-white/40 text-xs">
-                    <span className="inline-block w-1.5 h-1.5 rounded-full bg-brand-yellow animate-pulse" />
-                    Scoping architecture... compiling nodes...
-                  </div>
-                )}
-                {compiledNodes.map((node, index) => (
-                  <div
-                    key={index}
-                    className="bg-white/5 border border-white/10 rounded-lg p-3.5 flex items-center gap-3 output-node-anim"
-                  >
-                    <div
-                      className="w-7 h-7 rounded-lg flex items-center justify-center text-xs shrink-0"
-                      style={{ background: node.bg, color: node.color }}
-                    >
-                      {node.icon}
-                    </div>
-                    <div>
-                      <strong className="text-white/50 text-[9px] uppercase tracking-[0.15em] block">
-                        Step {index + 1}
-                      </strong>
-                      <div className="text-sm mt-0.5 text-white/80 leading-relaxed">
-                        {node.text}
-                      </div>
-                    </div>
-                  </div>
-                ))}
-                {compiledNodes.length > 0 && (
-                  <div className="flex items-center gap-2 pt-2 text-white/30 text-[10px]">
-                    <span className="inline-block w-1.5 h-1.5 rounded-full bg-green-500" />
-                    Architecture compiled successfully · 4 nodes deployed
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
         </div>
       </section>
 
