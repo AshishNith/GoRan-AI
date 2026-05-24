@@ -324,8 +324,129 @@ export default function Home() {
         </div>
       </section>
 
+      {/* FAQ Section */}
+      <section className="py-20 md:py-28 bg-white relative overflow-hidden" id="faq">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-1/2 left-[-10%] w-[600px] h-[600px] rounded-full bg-brand-yellow/[0.03] blur-[120px]" />
+          <div className="absolute bottom-0 right-[-10%] w-[500px] h-[500px] rounded-full bg-purple-500/[0.03] blur-[100px]" />
+        </div>
+        <div className="w-full max-w-[900px] mx-auto px-6 relative z-10">
+          <div className="text-center mb-14">
+            
+            <h2 className="text-3xl md:text-4xl font-heading font-bold text-brand-dark leading-tight">
+              Answers to common questions
+            </h2>
+          </div>
+          <FaqChatList />
+        </div>
+      </section>
+
       {/* Interactive Voice Agent Showcase */}
       <VoiceAgent />
     </main>
+  );
+}
+
+function FaqChatList() {
+  const [openIndex, setOpenIndex] = useState(null);
+
+  const toggle = (idx) => setOpenIndex(openIndex === idx ? null : idx);
+
+  const faqs = [
+    {
+      q: "What exactly is an AI Agent, and how is it different from a chatbot?",
+      a: "An AI Agent is an autonomous system that perceives its environment, makes decisions, and takes actions to achieve specific goals. Unlike chatbots that only respond to prompts, agents execute multi-step workflows — they can query databases, send emails, update CRMs, escalate issues, and learn from outcomes without human intervention."
+    },
+    {
+      q: "How long does a typical AI Agent implementation take?",
+      a: "Most projects run 4–8 weeks from discovery to deployment. A standard AI Audit takes 5 days. Custom agent builds typically land at 6 weeks. We use pre-built connectors and modular architectures to ship fast without cutting corners on safety or reliability."
+    },
+    {
+      q: "Do I need a technical team to maintain the agent after deployment?",
+      a: "Not at all. We design every agent with self-healing fallbacks, monitoring dashboards, and human-in-the-loop escalation paths. Your ops team manages outcomes, not code. We also provide a 30-day post-launch support window for tuning and optimization."
+    },
+    {
+      q: "What systems can your agents integrate with?",
+      a: "We integrate with virtually any API — CRMs (Salesforce, HubSpot), communication tools (Slack, Teams, email), databases (Postgres, BigQuery), ERPs, and custom internal tools. If it has an API, we can connect it. For proprietary systems, we build custom connectors."
+    },
+    {
+      q: "How do you handle data security and privacy?",
+      a: "Security is baked into every layer. All data is encrypted at rest and in transit. Agents operate in isolated containers with role-based access controls. We never train on client data. Every action is logged to an immutable audit trail. SOC 2 compliance is in progress."
+    },
+    {
+      q: "What happens if the agent makes a mistake?",
+      a: "Every agent includes configurable guardrails, confidence thresholds, and human approval gates for high-stakes actions. If a decision falls below the confidence threshold, the agent escalates to a human operator. You maintain full control over what the agent can and cannot do autonomously."
+    },
+  ];
+
+  const colors = ['#3B82F6', '#C084FC', '#4ADE80', '#F5A623', '#F472B6', '#60A5FA'];
+
+  return (
+    <div className="flex flex-col gap-3">
+      {faqs.map((faq, i) => {
+        const isOpen = openIndex === i;
+        const color = colors[i % colors.length];
+
+        return (
+          <div
+            key={i}
+            className={`rounded-2xl border transition-all duration-300 cursor-pointer ${
+              isOpen
+                ? 'border-transparent shadow-xl shadow-black/[0.04]'
+                : 'border-brand-border hover:border-brand-text-muted/30'
+            }`}
+            style={{ background: isOpen ? '#0E0E0E' : '#FAFAFA' }}
+            onClick={() => toggle(i)}
+          >
+            {/* Question row */}
+            <div className="flex items-center gap-4 px-6 py-5">
+              <span
+                className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 text-xs font-bold font-heading transition-colors duration-300"
+                style={{
+                  background: isOpen ? `${color}20` : `${color}10`,
+                  color: isOpen ? color : '#171717',
+                }}
+              >
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <span
+                className={`flex-1 text-sm font-semibold leading-snug transition-colors duration-300 ${
+                  isOpen ? 'text-white' : 'text-brand-dark'
+                }`}
+              >
+                {faq.q}
+              </span>
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke={isOpen ? '#F6C744' : '#737373'}
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className={`shrink-0 transition-transform duration-300 ${isOpen ? 'rotate-45' : ''}`}
+              >
+                <path d="M12 5v14M5 12h14" />
+              </svg>
+            </div>
+
+            {/* Answer — collapsible */}
+            <div
+              className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                isOpen ? 'max-h-80 opacity-100' : 'max-h-0 opacity-0'
+              }`}
+            >
+              <div className="px-6 pb-6 pt-0">
+                <div className="w-full h-px bg-white/[0.08] mb-5" />
+                <p className="text-sm leading-relaxed text-white/70">
+                  {faq.a}
+                </p>
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
   );
 }
