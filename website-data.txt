@@ -1,0 +1,799 @@
+================================================================================
+  WEBSITE CONTENT & DATA INVENTORY
+  Edit this file with your real information, then I'll update the website.
+================================================================================
+
+================================================================================
+  1. BRAND / AGENCY INFO
+================================================================================
+
+Agency name:          GoRan AI Agency
+Short name:           GoRan AI
+Founding year:        2025
+Tagline (hero):       AI agents that run your business while you sleep
+Site title (SEO):     GoRan AI Agency | Custom AI Agents & Autonomous Workflows
+Meta description:     Describe what you need and let Synapse AI handle the rest. We build premium AI Agents, LLM Integrations, and Vector Databases.
+Logo file:            /Logo.png  (place in public/ folder)
+
+Copyright name:       Synapse AI Agency
+Footer mission:       We design, build, and deploy custom AI agent systems that integrate with your existing tools, automate complex workflows, and scale with your business — from startups to enterprises.
+
+Blog author name:     Alex Chen
+Blog author role:     Founder & AI Architect
+
+Founder name:         Alex Venter
+Founder title:        Founder & Principal Architect
+
+Company email:        hello@synapse-ai.agency
+Privacy email:        privacy@synapse-ai.agency
+Legal email:          legal@synapse-ai.agency
+
+Location/Cities:      London and Singapore
+Team size:            28
+
+================================================================================
+  2. SOCIAL MEDIA LINKS
+================================================================================
+
+X:            https://x.com/synapseai
+LinkedIn:     https://linkedin.com/company/synapseai
+GitHub:       https://github.com/synapseai
+Instagram:    https://instagram.com/synapseai
+Facebook:     https://facebook.com/synapseai
+YouTube:      https://youtube.com/@synapseai
+
+================================================================================
+  3. CAL.COM BOOKING
+================================================================================
+
+Cal.com booking URL:  https://cal.com/synapse-ai/30min
+
+================================================================================
+  4. HERO SECTION
+================================================================================
+
+Headline:             RUN ON AUTOPILOT
+Subtext:              AI agents that run your business while you sleep
+CTA button 1:         Book a Call  (opens Cal.com modal)
+  Link/action:        Opens Cal.com modal
+CTA button 2:         See Our Work
+  Link/action:        /case-studies
+
+================================================================================
+  5. TRUST METRICS / STATS
+================================================================================
+
+Stat 1 - value:       99.9%
+Stat 1 - label:       System Uptime
+
+Stat 2 - value:       500k+
+Stat 2 - label:       Agent Executions Daily
+
+Stat 3 - value:       4.9/5
+Stat 3 - label:       Client Satisfaction Rating
+
+Stat 4 - value:       <24h
+Stat 4 - label:       Avg. Response Time
+
+Trust section heading:  Engineered to industry leading standards
+
+================================================================================
+  6. SERVICES (4 total)
+================================================================================
+
+--- Service 1 ---
+URL slug:             ai-audit
+Name:                 AI Audit
+Tag:                  Discovery & Strategy
+Subtitle:             Identify exactly where AI can cut costs, reduce manual effort, and unlock untapped leverage across your organisation.
+Description:          Most businesses already have the workflows — they just don't have the clarity on where AI fits. We audit your existing stack, interview stakeholders, and map every process to find high-impact automation opportunities with measurable ROI.
+Outcome:              You walk away with a detailed report, a prioritised opportunity map, and a phased implementation roadmap you can action immediately or revisit at any time.
+Timeline:             2–3 weeks
+Color (hex):          #F6C744
+Tech stack:           Notion, Figma, Miro, Airtable, Google Workspace, Slack
+Deliverables:         AI Opportunity Report, ROI Scoring Matrix, 8-Week Roadmap, Tool Recommendations, Executive Presentation
+Checklist items:
+  1. Stakeholder interviews across departments
+  2. End-to-end workflow mapping
+  3. Tool & data pipeline audit
+  4. AI opportunity identification
+  5. ROI & impact assessment
+
+--- Service 2 ---
+URL slug:             product-development
+Name:                 Product Development
+Tag:                  Engineering & Build
+Subtitle:             We design and build AI-powered products — from agent prototypes to production-grade multi-agent systems.
+Description:          You have the idea; we have the architecture. Our team builds secure, scalable AI products using modern stacks. We handle system design, development, testing, deployment, and handover so you can focus on what matters: growing your business.
+Outcome:              Complete product documentation, shipping product, deployment scripts, and a handover session so your team is fully empowered to maintain and extend the system.
+Timeline:             6–12 weeks
+Color (hex):          #60A5FA
+Tech stack:           Python, FastAPI, LangGraph, React, PostgreSQL, Docker, AWS
+Deliverables:         Technical Architecture Docs, Working Product Build, API Documentation, Deployment Scripts, Handover Session
+Checklist items:
+  1. System architecture design
+  2. Agent workflow development
+  3. API & integration layer
+  4. Testing & security review
+  5. Deployment & handover
+
+--- Service 3 ---
+URL slug:             product-management
+Name:                 Product Management
+Tag:                  Strategy & Execution
+Subtitle:             AI-augmented product management to help your team ship faster, prioritise better, and align around real outcomes.
+Description:          Great AI products need great management. We help you define the product vision, manage the backlog, run sprint cadences, and keep stakeholders aligned — with AI tooling woven into every stage of the process. Ideal for teams that need experienced product leadership without a full-time hire.
+Outcome:              Clear product strategy, prioritised backlog, established sprint cadence, stakeholder alignment, and an AI feature roadmap tailored to your business goals.
+Timeline:             Ongoing (monthly)
+Color (hex):          #A78BFA
+Tech stack:           Linear, Notion, Figma, Slack, Loom, Confluence
+Deliverables:         Product Strategy Doc, Prioritised Backlog, Sprint Cadence, Stakeholder Reports, AI Feature Roadmap
+Checklist items:
+  1. Product vision & strategy definition
+  2. Backlog creation & prioritisation
+  3. Sprint planning & execution
+  4. Stakeholder communication
+  5. AI opportunity identification
+
+--- Service 4 ---
+URL slug:             ai-training
+Name:                 AI Training & Enablement
+Tag:                  Education & Upskilling
+Subtitle:             Equip your team with the skills and tools to leverage AI effectively and responsibly in their daily work.
+Description:          From hands-on workshops to ongoing enablement programs, we help your team adopt AI tools, build custom GPTs, and integrate automation into their workflows. We cover prompt engineering, tool selection, workflow design, and governance.
+Outcome:              Your team will be equipped to identify automation opportunities, use AI tools effectively, and build simple automations independently — with ongoing support from our team.
+Timeline:             1 day – 6 weeks
+Color (hex):          #4ADE80
+Tech stack:           ChatGPT, Claude, Make.com, Zapier, Notion AI, Microsoft Copilot
+Deliverables:         Custom Curriculum, Workshop Sessions, Prompt Library, Recorded Walkthroughs, Private Knowledge Base
+Checklist items:
+  1. Skills assessment & curriculum design
+  2. Hands-on workshop sessions
+  3. Tool configuration & setup
+  4. Prompt library development
+  5. Ongoing support & office hours
+
+================================================================================
+  7. CASE STUDIES (4 total)
+================================================================================
+
+--- Case Study 1 ---
+URL slug:             ibs-brokers
+Client name:          IBS Insurance Brokers
+Tag:                  Workflow Automation
+Headline:             How we saved IBS Brokers 1,280 hours of manual data entry every single month
+Timeline:             28 Days
+Impact:               1,280 Hours Saved / Month
+Services used:        AI Workflow Audit, Custom Document Pipeline, API Integration
+Tech stack:           Python, FastAPI, Airtable, Google Cloud Document AI, Slack API
+
+Challenge paragraph:  IBS Brokers processed thousands of insurance claims weekly, but the data entry workflow was entirely manual. Support staff spent entire shifts copying information from PDFs and emails into their claims database. Errors were common, processing time averaged 12 minutes per claim, and the backlog grew faster than their team could handle.
+Discovery paragraph:  We embedded with their operations team for one week, mapping every step of the claims journey. The bottleneck was immediately clear: claims arriving in multiple formats (email attachments, scanned PDFs, web forms) all required human interpretation before they could enter the system. Each format needed different handling logic.
+Solution paragraph:   We deployed a multi-agent pipeline: one agent classifies incoming documents, a second extracts structured fields using vision-language models, and a third validates confidence scores before writing to the database. Low-confidence claims are flagged for human review. The entire process runs unsupervised on a 2-minute cron cycle.
+Impact paragraph:     Data entry time dropped from 12 minutes to 90 seconds per claim. The backlog cleared within the first week. Staff were reassigned to higher-value tasks like client relationship management. IBS reported a 40% reduction in processing errors and estimated £180k annual savings in operational costs.
+
+Images (optional):    (replace these URLs with your own)
+  - https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=900 (workspace/desk)
+  - https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=900 (analytics)
+  - https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900 (data)
+  - https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=900 (office)
+  - https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=900 (laptop/charts)
+
+
+--- Case Study 2 ---
+URL slug:             hospitadent
+Client name:          Hospitadent Dental Clinic
+Tag:                  Voice AI & Scheduling
+Headline:             Securing 88+ new patient bookings in month one with 24/7 chat automation
+Timeline:             3 weeks
+Impact:               +88 Patient Bookings / Month
+Services used:        Conversational Agent Development, Patient Booking Assistant, CRM Integration
+Tech stack:           React, Node.js, Vapi Voice AI, OpenAI API, Dentrix CRM
+
+Challenge paragraph:  Hospitadent's front desk team was overwhelmed with inbound calls — appointment bookings, rescheduling, insurance questions, and follow-ups. During peak hours, callers waited 10+ minutes or hung up. The clinic estimated they were losing 30+ potential new patients per month due to missed calls.
+Discovery paragraph:  We analysed call logs and found that 68% of inbound calls were routine scheduling requests that followed predictable patterns. The remaining calls required human judgment — treatment questions, emergencies, and payment disputes. The scheduling workflow itself was manual: staff had to check Dentrix, confirm slots, send reminder texts, and update records.
+Solution paragraph:   We built a conversational voice agent that handles the full scheduling lifecycle: answers calls 24/7, checks real-time availability, books appointments, sends SMS confirmations, and adds follow-up reminders. The agent transfers callers to human staff for anything outside its scope. Voice quality and responsiveness were tuned to match the clinic's warm, professional tone.
+Impact paragraph:     The agent handles 200+ calls per day. No-shows dropped 73% thanks to automated reminders. Front desk staff now focus on patient care instead of phone management. The clinic booked 88 new patients in the first month and reported a 12% increase in overall monthly revenue.
+
+Images (optional):
+  - https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=900 (clinic)
+  - https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=900 (phone/voice)
+  - https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=900 (medical)
+  - https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900 (data)
+  - https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=900 (analytics)
+
+
+--- Case Study 3 ---
+URL slug:             urbanwear
+Client name:          UrbanWear Co.
+Tag:                  Custom Dashboard & Fulfillment
+Headline:             Cutting e-commerce fulfillment prep times in half with custom order sorting
+Timeline:             6 weeks
+Impact:               50% Faster Fulfillment Prep
+Services used:        SaaS Dashboard Design, Order Processing Engine, Database Optimization
+Tech stack:           React, Tailwind CSS, PostgreSQL, Shopify API, Node.js
+
+Challenge paragraph:  UrbanWear's warehouse team manually processed every order: printing labels, sorting by shipping method, checking inventory, and routing to the correct packing station. During peak season, the team worked overtime just to keep up, and misrouted orders caused customer complaints.
+Discovery paragraph:  The core problem was data fragmentation. Order information lived in Shopify, inventory was in a legacy system, and shipping logic existed only in the warehouse manager's head. Every order required the team to check 4 different screens before they could start packing.
+Solution paragraph:   We built a unified fulfillment dashboard that pulls orders from Shopify, matches inventory in real time, applies routing rules, and generates shipping labels with one click. The system learns from historical data to predict peak times and pre-allocate packing stations. We also built a mobile companion for inventory checks.
+Impact paragraph:     Order prep time dropped from 8 minutes to 4 minutes per order. Overtime costs fell by 60%. Error rates on misrouted orders went to near-zero. UrbanWear's peak season passed without a single fulfillment delay, and the team gained 30 hours per week in capacity.
+
+Images (optional):
+  - https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=900 (ecommerce)
+  - https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=900 (dashboard)
+  - https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=900 (warehouse)
+  - https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900 (data flow)
+  - https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=900 (meeting)
+
+
+--- Case Study 4 ---
+URL slug:             apex-logistics
+Client name:          Apex Logistics
+Tag:                  Internal Enablement & Training
+Headline:             Helping Apex Logistics save 4.5 hours of boring administrative work per week
+Timeline:             4 weeks
+Impact:               4.5 Hours Saved / Week per Employee
+Services used:        AI Enablement Workshops, Internal AI Search Portal, Prompt Engineering
+Tech stack:           Claude 3.5 Sonnet, OpenSearch Vector DB, Node.js, React, Tailwind CSS
+
+Challenge paragraph:  Apex Logistics' operations team spent hours every week searching for information: contract terms in PDFs, shipping regulations in emails, customer instructions in Slack threads. Knowledge was scattered across 6 different tools, and new hires took months to become productive.
+Discovery paragraph:  We shadowed team members and found that the average employee conducted 15–20 information lookups per day, each taking 3–5 minutes. The cumulative time drain was enormous. Additionally, tribal knowledge lived in senior employees' heads — when they were unavailable, decisions stalled.
+Solution paragraph:   We deployed an internal AI search portal that indexes all company documents, emails, Slack archives, and CRM notes into a single searchable knowledge base. Employees ask natural-language questions and get cited answers with source links. We also ran enablement workshops teaching prompt engineering and workflow automation to the team.
+Impact paragraph:     Average lookup time dropped from 4 minutes to 30 seconds. New hires onboarded 2x faster. The team estimated 4.5 hours saved per person per week. The search portal now handles 1,200+ queries per week and the enablement team continues to build custom automations using the tools they learned.
+
+Images (optional):
+  - https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=900 (warehouse)
+  - https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=900 (team)
+  - https://images.unsplash.com/photo-1553877522-43269d4ea984?w=900 (strategy)
+  - https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=900 (analytics)
+  - https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=900 (laptop)
+
+================================================================================
+  8. TESTIMONIALS
+================================================================================
+
+--- Testimonial 1 ---
+ID:                   james-davison
+Name:                 James Davison
+Role:                 CTO
+Company:              Finova Partners
+Initials:             JD
+Rating:               5
+Category:             Fintech
+Tags:                 Document Processing, Workflow Automation
+Quote:                Synapse took our manual onboarding process — which required three full-time staff — and automated it end-to-end. What used to take two weeks now happens in under four hours. The ROI was immediate.
+LinkedIn (optional):  https://linkedin.com/in/james-davison
+
+--- Testimonial 2 ---
+ID:                   sarah-klein
+Name:                 Sarah Klein
+Role:                 VP of Operations
+Company:              MedCore Logistics
+Initials:             SK
+Rating:               5
+Category:             Healthcare
+Tags:                 Supply Chain, Compliance
+Quote:                We needed an AI system that could handle the complexity of medical supply chain compliance. Synapse built agents that cross-reference regulatory changes against our inventory in real time. We haven't had a compliance incident since deployment.
+
+--- Testimonial 3 ---
+ID:                   marcus-reed
+Name:                 Marcus Reed
+Role:                 Head of Product
+Company:              UrbanWear
+Initials:             MR
+Rating:               5
+Category:             E-Commerce
+Tags:                 Customer Support, LLM
+Quote:                The AI agent that manages our customer support triage is indistinguishable from a human senior agent — except it handles 400 conversations simultaneously and never needs a coffee break. Customer satisfaction scores went up 18%.
+
+--- Testimonial 4 ---
+ID:                   elena-vasquez
+Name:                 Elena Vasquez
+Role:                 Director of Engineering
+Company:              Apex Logistics
+Initials:             EV
+Rating:               5
+Category:             Logistics
+Tags:                 API Integration, Legacy Systems
+Quote:                Synapse didn't just deliver a tool — they embedded with our team for six weeks, understood our legacy systems, and built agents that talked to APIs we thought were unusable. That level of depth is rare.
+
+--- Testimonial 5 ---
+ID:                   david-okonjo
+Name:                 David Okonjo
+Role:                 CEO
+Company:              Hospitadent Clinics
+Initials:             DO
+Rating:               5
+Category:             Healthcare
+Tags:                 Scheduling, Automation
+Quote:                Patient scheduling was a nightmare — no-shows, double-bookings, hours of admin time. The scheduling agent Synapse built reduced no-shows by 73% and saved us roughly 120 hours of staff time per month.
+
+--- Testimonial 6 ---
+ID:                   lisa-huang
+Name:                 Lisa Huang
+Role:                 Chief Data Officer
+Company:              IBS Brokers
+Initials:             LH
+Rating:               5
+Category:             Insurance
+Tags:                 Claims Processing, Data Validation
+Quote:                We handle thousands of insurance claims daily. Synapse deployed an agent that validates, enriches, and routes each claim in under 90 seconds. Our processing backlog — which was measured in weeks — simply disappeared.
+
+================================================================================
+  9. BLOG POSTS
+================================================================================
+
+--- Blog Post 1 ---
+Slug:                 rise-of-autonomous-agents
+Title:                The Rise of Autonomous AI Agents in Enterprise Operations
+Date:                 2026-05-18
+Read time:            8 min read
+Category:             AI Strategy
+Tags:                 AI Agents, Enterprise, Automation
+Excerpt:              How businesses are moving beyond chatbots to deploy autonomous agents that execute complex workflows end-to-end — and why the shift is accelerating.
+Table of contents:
+  - Beyond the Chatbot Era
+  - What Makes an Agent Autonomous
+  - The Enterprise Integration Challenge
+  - A Framework for Getting Started
+Content:              [See blog post — includes headings, paragraphs, blockquotes]
+
+--- Blog Post 2 ---
+Slug:                 ai-audit-vs-consulting
+Title:                AI Audit vs. AI Consulting: What Your Business Actually Needs
+Date:                 2026-05-12
+Read time:            6 min read
+Category:             Process
+Tags:                 AI Audit, Consulting, Process
+Excerpt:              Not sure whether you need an AI Audit or a consulting engagement? We break down the difference, when to choose each, and how to get the most out of both.
+Table of contents:
+  - The Confusion Is Real
+  - What an AI Audit Actually Looks Like
+  - When Consulting Makes More Sense
+  - The Hybrid Approach
+Content:              [See blog post]
+
+--- Blog Post 3 ---
+Slug:                 multi-agent-system-500k
+Title:                How We Built a Multi-Agent System That Processes 500k+ Tasks Daily
+Date:                 2026-05-04
+Read time:            10 min read
+Category:             Engineering
+Tags:                 Engineering, Architecture, Scalability
+Excerpt:              A deep dive into the architecture, tooling, and engineering decisions behind our multi-agent pipeline handling over half a million tasks every day.
+Table of contents:
+  - The Problem: Fragmented Automation
+  - Architecture Overview
+  - Handling Scale: Lessons from the Trenches
+  - What's Next
+Content:              [See blog post]
+
+--- Blog Post 4 ---
+Slug:                 hidden-cost-workflow-inefficiency
+Title:                The Hidden Cost of Workflow Inefficiency (And How AI Fixes It)
+Date:                 2026-04-26
+Read time:            7 min read
+Category:             Business
+Tags:                 Business, ROI, Automation
+Excerpt:              Manual workflows don't just waste time — they create hidden costs that compound across teams, tools, and decision-making. Here's how to uncover and eliminate them.
+Table of contents:
+  - The Obvious Cost: Time
+  - The Hidden Cost: Context Switching
+  - The Cumulative Cost: Decision Fatigue
+  - The Fix: Targeted AI Automation
+Content:              [See blog post]
+
+--- Blog Post 5 ---
+Slug:                 from-chatbots-to-agents
+Title:                From Chatbots to Agents: The Evolution of Enterprise AI
+Date:                 2026-04-18
+Read time:            7 min read
+Category:             AI Strategy
+Tags:                 AI Agents, Evolution, Enterprise
+Excerpt:              The shift from passive chatbots to proactive AI agents represents the most significant change in enterprise technology since the cloud.
+Table of contents:
+  - Beyond the Chatbot Era
+  - The Agent Paradigm
+  - Real-World Agent Deployments
+  - Preparing Your Organisation
+Content:              [See blog post]
+
+--- Blog Post 6 ---
+Slug:                 building-trust-in-ai-safety
+Title:                Building Trust in AI: Our Approach to Safety and Reliability
+Date:                 2026-04-10
+Read time:            9 min read
+Category:             Engineering
+Tags:                 Safety, Trust, Reliability
+Excerpt:              Trust is the most critical component of any AI system. Here's how we design, test, and monitor our agents to ensure they're safe, reliable, and transparent.
+Table of contents:
+  - Why Trust Matters
+  - Our Safety Framework
+  - Testing & Monitoring
+  - Transparency by Design
+Content:              [See blog post]
+
+================================================================================
+  10. PROCESS PAGE (6 Steps)
+================================================================================
+
+Average timeline:     8–14 Weeks
+Delivery:             Production-Ready
+
+--- Step 1 ---
+Number:               1
+Title:                Discovery & Audit
+Duration:             1-2 weeks
+Color (hex):          #F6C744
+Body:                 We immerse ourselves in your operations — interviewing stakeholders, mapping current workflows, and analysing data pipelines. The goal is a complete picture of your business processes and a ranked list of AI automation opportunities.
+Deliverables:
+  - Process maps & gap analysis
+  - Opportunity scoring matrix
+  - Stakeholder interview summaries
+  - Draft implementation roadmap
+
+--- Step 2 ---
+Number:               2
+Title:                Architecture & Design
+Duration:             1-2 weeks
+Color (hex):          #A855F7
+Body:                 With a clear opportunity map, we design the system architecture — selecting AI models, designing data flows, planning integrations, and defining success metrics. You receive a detailed blueprint before any code is written.
+Deliverables:
+  - System architecture diagram
+  - Technology stack selection
+  - Data flow & integration design
+  - Success metric definitions
+
+--- Step 3 ---
+Number:               3
+Title:                Build & Development
+Duration:             3-6 weeks
+Color (hex):          #3B82F6
+Body:                 Our engineering team builds the agent system in iterative sprints. We develop core logic, connect APIs, train or configure models, and build the interface. You see progress weekly with demo sessions.
+Deliverables:
+  - Core agent logic & workflows
+  - API integrations
+  - Model configuration & training
+  - Progress demos each sprint
+
+--- Step 4 ---
+Number:               4
+Title:                Testing & Security
+Duration:             1-2 weeks
+Color (hex):          #4ADE80
+Body:                 Every agent undergoes rigorous testing — unit tests, integration tests, edge case scenarios, and security audits. We simulate real-world conditions to ensure reliability before any production deployment.
+Deliverables:
+  - Test coverage report
+  - Security audit results
+  - Edge case documentation
+  - Performance benchmarks
+
+--- Step 5 ---
+Number:               5
+Title:                Deployment & Launch
+Duration:             1 week
+Color (hex):          #F59E0B
+Body:                 We deploy your agent system to production with a carefully orchestrated rollout — monitoring every metric, handling edge cases in real time, and ensuring zero disruption to existing operations.
+Deliverables:
+  - Production deployment
+  - Monitoring & alerting setup
+  - Rollback procedures
+  - Go-live report
+
+--- Step 6 ---
+Number:               6
+Title:                Support & Iteration
+Duration:             Ongoing
+Color (hex):          #EC4899
+Body:                 Post-launch, we provide ongoing support, performance monitoring, and iterative improvements. Your agent system evolves with your business — we add new capabilities, optimise existing workflows, and ensure peak performance.
+Deliverables:
+  - Ongoing monitoring & support
+  - Performance optimisation
+  - Feature enhancements
+  - Quarterly business reviews
+
+======================================================-- 10 cont'd --
+Process Page FAQ:
+
+Q: How long does a full engagement typically take?
+A: Average end-to-end delivery is 8-14 weeks from kickoff to production deployment. Discovery and architecture take 2-4 weeks, build takes 3-6 weeks, and deployment takes 1-2 weeks. Timelines vary based on scope and complexity.
+
+Q: What does your team need from us?
+A: We need access to key stakeholders for interviews, read-only access to your current tools and systems, and a primary point of contact who can make decisions. We handle the rest.
+
+Q: Do you work with our existing tech stack?
+A: Yes — we design solutions that integrate with your existing tools. Our approach is to augment, not replace, your current systems. If a tool cannot integrate, we recommend alternatives.
+
+Q: What happens after the agent is deployed?
+A: We provide a handover session, documentation, and a support period. We also offer ongoing optimisation and feature development as your needs evolve.
+
+Q: Can we start with just one process?
+A: Absolutely — most clients start with a single high-impact workflow. The roadmap from Discovery helps you prioritise, and we can expand scope in subsequent phases.
+
+Q: How do you handle data security?
+A: Every deployment follows our security framework: encrypted data in transit and at rest, role-based access control, audit logging, and SOC2-aligned practices. We sign NDAs and DPAs as standard.
+
+================================================================================
+  11. ABOUT PAGE
+================================================================================
+
+Principles:
+  1. Tailored, not templated — Every solution is built from first principles, never from a template.
+  2. Security is non-negotiable — Encryption by default, compliance-first architecture, zero-trust principles.
+  3. End-to-end ownership — We design, build, deploy, and support. No handoffs, no dropped balls.
+  4. Human-centred automation — We automate the tedious, not the meaningful. Your team does more of what matters.
+
+Milestones:
+  - 2023: Founded with a vision to make enterprise-grade AI accessible to every business.
+  - 2024: Scaled to 40+ agent deployments across fintech, healthcare, logistics, and e-commerce.
+  - 2025: Expanded operations to London and Singapore with a team of 28 engineers and strategists.
+  - Now: Architecting the next generation of autonomous agent systems for global enterprises.
+
+Stats:
+  - Founded: 2023
+  - Agents Deployed: 40+
+  - Daily Executions: 500k+
+  - System Uptime: 99.9%
+
+================================================================================
+  12. FOUNDER PAGE
+================================================================================
+
+Name:                 Ashish Ranjan
+Title:                Founder & Principal Architect
+
+Timeline:
+  - 2014: Built first automation bot at 14
+  - 2018: BS Computer Science, distributed systems
+  - 2020: Led ML infrastructure at Series-B startup
+  - 2023: Founded Synapse
+  - 2024: 40+ enterprise agents, 500k daily executions
+  - 2025: London and Singapore offices, team of 28
+  - NOW: Architecting next-gen autonomous agent systems
+
+Signals (values/principles):
+  1. Ship to learn — Speed of experimentation beats perfect planning.
+  2. Systems over silos — Every agent is built to integrate, not isolate.
+  3. Depth over breadth — Master one stack before moving to the next.
+  4. Security by default — Trust is earned, not assumed.
+  5. Human outcomes first — Automation serves people, not the other way around.
+
+Stack (5 layers):
+  1. Infrastructure — AWS, Docker, Terraform
+  2. Data — PostgreSQL, Pinecone, Redis
+  3. Models — GPT-4o, Claude 3.5, Gemini
+  4. Agents — LangGraph, CrewAI, custom orchestrators
+  5. Interface — React, Tailwind, voice, Slack, API
+
+================================================================================
+  13. STEPS SHOWCASE (Home page deliverable process)
+================================================================================
+
+Step 1 - Title:       Scope & Architecture
+Step 1 - Body:        We convert your operational goals into formal agent specifications. Every integration point, data source, and success metric is documented before development begins — so there are no surprises later.
+
+Step 2 - Title:       Connect & Integrate
+Step 2 - Body:        We securely integrate custom LLMs and RAG engines with your existing tools — CRMs, databases, communication platforms, and APIs. Your agents become native extensions of your stack.
+
+Step 3 - Title:       Deploy & Support
+Step 3 - Body:        We publish sandbox applications for internal testing, gather feedback, and iterate. Once validated, we deploy to production with monitoring, alerting, and ongoing optimisation.
+
+================================================================================
+  14. CLIENT MARQUEE LOGOS
+================================================================================
+
+(10 brand logos displayed as a scrolling marquee)
+URLs can be SVG/image URLs or you can place logo files in the public/ folder.
+
+Current logos (external URLs):
+  1. Google:      https://cdn.worldvectorlogo.com/logos/google-2015.svg
+  2. Microsoft:   https://cdn.worldvectorlogo.com/logos/microsoft.svg
+  3. Netflix:     https://cdn.worldvectorlogo.com/logos/netflix-3.svg
+  4. Airbnb:      https://cdn.worldvectorlogo.com/logos/airbnb.svg
+  5. Spotify:     https://cdn.worldvectorlogo.com/logos/spotify-2.svg
+  6. Dropbox:     https://cdn.worldvectorlogo.com/logos/dropbox-1.svg
+  7. Stripe:      https://cdn.worldvectorlogo.com/logos/stripe-4.svg
+  8. Slack:       https://cdn.worldvectorlogo.com/logos/slack-new-logo.svg
+  9. Amazon:      https://cdn.worldvectorlogo.com/logos/amazon-2.svg
+  10. PayPal:     https://cdn.worldvectorlogo.com/logos/paypal-3.svg
+
+================================================================================
+  15. VOICE AGENT — ENGLISH DIALOG
+================================================================================
+
+Human:   Hey, I heard you guys build AI agents for businesses. What exactly does that mean?
+Agent:   Great question. Essentially, we construct autonomous AI systems that handle complex workflows — processing documents, managing schedules, routing data — all without constant human oversight. Think of it like hiring a tireless digital employee.
+Human:   That sounds promising. What kind of tech stack do you typically use?
+Agent:   We work with a range of models — GPT-4o, Claude 3.5, Gemini — and frameworks like LangGraph and CrewAI. The stack always depends on the client's existing infrastructure. We integrate with whatever you already use.
+Human:   And how long does a typical deployment take?
+Agent:   Most projects go from kickoff to production in 8 to 14 weeks. The first two weeks are discovery and architecture — we map everything out before writing any code. You'll see progress every sprint.
+Human:   I'd like to move forward. How do we start?
+Agent:   Let's schedule a 30-minute scoping call. We'll discuss your goals, answer your questions, and outline a clear path forward. No commitment needed.
+
+================================================================================
+  16. VOICE AGENT — HINDI DIALOG
+================================================================================
+
+Human:   सुनिए, मैंने सुना है आप व्यवसायों के लिए AI एजेंट बनाते हैं। इसका वास्तव में क्या मतलब है?
+Agent:   बहुत अच्छा सवाल है। हम स्वायत्त AI सिस्टम बनाते हैं जो जटिल वर्कफ़्लो को संभालते हैं — दस्तावेज़ प्रोसेस करना, शेड्यूल मैनेज करना, डेटा रूट करना — बिना लगातार मानवीय निगरानी के। इसे एक अथक डिजिटल कर्मचारी किराए पर लेने जैसा समझें।
+Human:   यह आशाजनक लगता है। आप आमतौर पर किस तकनीकी स्टैक का उपयोग करते हैं?
+Agent:   हम GPT-4o, Claude 3.5, Gemini जैसे मॉडल और LangGraph तथा CrewAI जैसे फ्रेमवर्क के साथ काम करते हैं। स्टैक हमेशा क्लाइंट के मौजूदा बुनियादी ढांचे पर निर्भर करता है। हम आपके द्वारा पहले से उपयोग किए जा रहे किसी भी चीज़ के साथ एकीकृत होते हैं।
+Human:   और एक सामान्य डिप्लॉयमेंट में कितना समय लगता है?
+Agent:   अधिकांश प्रोजेक्ट शुरू से प्रोडक्शन तक 8 से 14 सप्ताह में पूरे हो जाते हैं। पहले दो सप्ताह डिस्कवरी और आर्किटेक्चर के होते हैं — कोई कोड लिखने से पहले हम सब कुछ मैप कर लेते हैं। आप हर स्प्रिंट में प्रगति देखेंगे।
+Human:   मैं आगे बढ़ना चाहूंगा। हम कैसे शुरू करें?
+Agent:   चलिए 30 मिनट की स्कोपिंग कॉल शेड्यूल करते हैं। हम आपके लक्ष्यों पर चर्चा करेंगे, आपके सवालों के जवाब देंगे, और एक स्पष्ट रास्ता तैयार करेंगे। कोई प्रतिबद्धता नहीं।
+
+================================================================================
+  17. FAQ — HOME PAGE
+================================================================================
+
+Q1: What exactly is an AI Agent, and how is it different from a chatbot?
+A1: An AI Agent is an autonomous system that perceives its environment, makes decisions, and takes actions to achieve specific goals. Unlike chatbots that only respond to prompts, agents execute multi-step workflows — they can query databases, send emails, update CRMs, escalate issues, and learn from outcomes without human intervention.
+
+Q2: How long does a typical AI Agent implementation take?
+A2: Most implementations take 8-14 weeks from kickoff to production. The timeline depends on complexity, number of integrations, and data readiness. We start with a discovery phase to scope accurately and identify quick wins that can be delivered sooner.
+
+Q3: Do I need a technical team to maintain the agent after deployment?
+A3: No — we design agents to be self-maintaining with clear dashboards, automatic error handling, and alerting. We provide a full handover session and documentation, and offer ongoing support packages if you'd like us to manage updates and improvements.
+
+Q4: What systems can your agents integrate with?
+A4: Our agents integrate with virtually any system that has an API — CRMs (Salesforce, HubSpot), communication tools (Slack, Teams, Gmail), databases (PostgreSQL, Airtable, MongoDB), and custom internal tools. We also handle legacy systems without APIs through middleware adapters.
+
+Q5: How do you handle data security and privacy?
+A5: Security is built into every layer of our deployments. All data is encrypted in transit and at rest. We follow SOC2-aligned practices, provide audit logs, and sign NDAs and DPAs. Agents process data within your environment — we never store or retain sensitive information on our servers.
+
+Q6: What happens if the agent makes a mistake?
+A6: Every agent includes human-in-the-loop checks for high-stakes decisions, confidence thresholds that flag uncertainty, and detailed audit trails for every action. If an error occurs, the agent logs it, alerts your team, and can roll back the action automatically. We also provide monitoring dashboards for full visibility.
+
+================================================================================
+  18. FAQ — PROCESS PAGE
+================================================================================
+
+Q1: How long does a full engagement typically take?
+A1: Average end-to-end delivery is 8-14 weeks from kickoff to production deployment. Discovery and architecture take 2-4 weeks, build takes 3-6 weeks, and deployment takes 1-2 weeks. Timelines vary based on scope and complexity.
+
+Q2: What does your team need from us?
+A2: We need access to key stakeholders for interviews, read-only access to your current tools and systems, and a primary point of contact who can make decisions. We handle the rest.
+
+Q3: Do you work with our existing tech stack?
+A3: Yes — we design solutions that integrate with your existing tools. Our approach is to augment, not replace, your current systems. If a tool cannot integrate, we recommend alternatives.
+
+Q4: What happens after the agent is deployed?
+A4: We provide a handover session, documentation, and a support period. We also offer ongoing optimisation and feature development as your needs evolve.
+
+Q5: Can we start with just one process?
+A5: Absolutely — most clients start with a single high-impact workflow. The roadmap from Discovery helps you prioritise, and we can expand scope in subsequent phases.
+
+Q6: How do you handle data security?
+A6: Every deployment follows our security framework: encrypted data in transit and at rest, role-based access control, audit logging, and SOC2-aligned practices. We sign NDAs and DPAs as standard.
+
+================================================================================
+  19. CONTACT PAGE OPTIONS
+================================================================================
+
+Budget options:       < $10k, $10k – $25k, $25k – $50k, $50k+
+Timeline options:     Immediate, 1–2 months, 3+ months
+Contact methods:      Email, Phone Call, Calendly Booking
+
+Process steps after submit:
+  1. We review your request
+  2. 30-min scoping call
+  3. Custom blueprint delivered
+
+Testimonial shown:    "Synapse took our manual onboarding process..." — James Davison, CTO, Finova Partners
+Response promise:     We'll respond within 24 hours. No spam, ever.
+CTA text:             Free 30-min call · No credit card required
+
+Testimonial quote:
+  "Synapse took our manual onboarding process — which required three full-time staff — and automated it end-to-end. What used to take two weeks now happens in under four hours. The ROI was immediate."
+  - James Davison, CTO, Finova Partners
+
+================================================================================
+  20. PRIVACY POLICY
+================================================================================
+
+Last updated:         May 24, 2026
+Contact email:        privacy@synapse-ai.agency
+
+Sections:
+  1. Introduction
+  2. Information We Collect
+  3. How We Use Your Information
+  4. Data Sharing & Disclosure
+  5. Data Security
+  6. Data Retention
+  7. Your Rights
+  8. Third-Party Links
+  9. Changes to This Policy
+  10. Contact
+
+================================================================================
+  21. TERMS OF SERVICE
+================================================================================
+
+Last updated:         May 24, 2026
+Contact email:        legal@synapse-ai.agency
+Governing law:        England and Wales
+
+Sections:
+  1. Acceptance of Terms
+  2. Services Description
+  3. Intellectual Property
+  4. Client Responsibilities
+  5. Fees & Payment
+  6. Confidentiality
+  7. Limitation of Liability
+  8. Warranties & Disclaimer
+  9. Termination
+  10. Governing Law
+  11. Changes to Terms
+  12. Contact
+
+================================================================================
+  22. CHATBOT CONFIG
+================================================================================
+
+Gemini API key:       AIzaSyACFXMNL9vGYNqDzlI_8NdYxDG1-fOzUuo  (HARDCODED — replace with env var)
+Model:                gemini-2.5-flash
+Max tokens:           500
+Temperature:          0.7
+
+Initial bot message:  Hi! I'm the Synapse AI Assistant. Ask me anything about our AI Audits, Custom Product builds, or case studies!
+
+Quick-chips:
+  - Services:     "What services do you offer?"
+  - Case Studies: "Tell me about your case studies"
+  - Book a Call:  (opens Cal.com modal)
+  - Audit Price:  "How much does an AI Audit cost?"
+
+================================================================================
+  23. ENVIRONMENT VARIABLES
+================================================================================
+
+Create a .env file in the project root with:
+
+  VITE_GEMINI_API_KEY=YOUR_GEMINI_API_KEY_HERE
+
+================================================================================
+  24. ROUTES
+================================================================================
+
+/                     → Home
+/about                → About
+/services/:serviceId  → Service Detail
+/case-studies/:id     → Case Study Detail
+/founder              → Founder
+/process              → Process
+/blog                 → Blog listing
+/blog/:slug           → Blog post
+/testimonials         → Testimonials
+/contact              → Contact
+/privacy              → Privacy Policy
+/terms                → Terms of Service
+*                     → 404 Not Found
+
+================================================================================
+  25. NAVIGATION (Header & Footer)
+================================================================================
+
+Main nav links:
+  About         → /about
+  Testimonials  → /testimonials
+  Blog          → /blog
+  Founder       → /founder
+  Our Process   → /process
+  Contact       → /contact
+
+Services subnav:
+  AI Audit              → /services/ai-audit
+  Product Development   → /services/product-development
+  Product Management    → /services/product-management
+  AI Training           → /services/ai-training
+
+Footer legal links:
+  Privacy Policy  → /privacy
+  Terms of Service → /terms
+
+================================================================================
+  END OF DATA INVENTORY
+================================================================================
