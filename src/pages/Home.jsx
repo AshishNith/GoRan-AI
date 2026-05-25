@@ -5,52 +5,68 @@ import StepsShowcase from '../components/StepsShowcase';
 import ScrollStack, { ScrollStackItem } from '../components/ui/ScrollStack';
 import ScrollAdventure from '../components/ui/animated-scroll';
 import VoiceAgent from '../components/VoiceAgent';
-import { LampContainer } from '../components/ui/lamp';
+import { useCalBooking } from '../components/CalBookingModal';
+import TestimonialsSection from '../components/TestimonialsSection';
 
 export default function Home() {
+  const { openCalBooking } = useCalBooking();
 
 
 
   return (
     <main className="w-full bg-white">
       {/* Hero Section */}
-      <section className="pt-40 pb-20 text-center relative min-h-screen flex items-center justify-center bg-white" id="hero">
+      <section className="pt-40 pb-20 text-center relative min-h-screen flex items-center justify-center bg-gradient-to-b from-white via-white to-brand-bg-light overflow-hidden" id="hero">
+        {/* Subtle noise overlay */}
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 256 256\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'n\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.65\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%%25\' height=\'100%%25\' filter=\'url(%23n)\'/%3E%3C/svg%3E")', backgroundRepeat: 'repeat', backgroundSize: '256px 256px' }} />
+
+        {/* Decorative gradient orbs */}
+        <div className="absolute top-[-10%] left-[-5%] w-[70%] h-[70%] rounded-full bg-brand-yellow/[0.03] blur-[120px] pointer-events-none" />
+        <div className="absolute bottom-[-10%] right-[-5%] w-[60%] h-[60%] rounded-full bg-purple-500/[0.03] blur-[120px] pointer-events-none" />
+
+        {/* Subtle dot grid */}
+        <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle, #111 0.5px, transparent 0.5px)', backgroundSize: '40px 40px', opacity: 0.04 }} />
+
         <div className="w-full max-w-[1000px] mx-auto px-6 relative z-10 flex flex-col items-center">
           
           {/* Headline and Image wrapper */}
-          <div className="relative mb-6 flex justify-center items-center w-full">
+          <div className="relative mb-6 flex justify-center items-center w-full animate-fadeIn">
             {/* Image Behind Text */}
-            <div className="absolute inset-0 flex justify-center items-center pointer-events-none z-0">
-               <img src="/man.png" alt="Running Man" className="h-[150%] md:h-[180%] object-contain" />
+            <div className="absolute inset-0 flex justify-center items-center pointer-events-none z-0 opacity-70 md:opacity-100">
+               <img src="/man.png" alt="" className="h-[150%] md:h-[180%] object-contain -translate-y-10" aria-hidden="true" />
             </div>
 
             {/* Headline */}
             <h1 
-              className="font-heading font-black text-[#111] leading-[0.85] text-[clamp(4.5rem,11.5vw,9rem)] tracking-tighter z-10 relative uppercase text-center w-full"
-              style={{ WebkitTextStroke: '2px #111' }}
+              className="font-heading font-black text-[#111] leading-[0.85] text-[clamp(4.5rem,11.5vw,9rem)] tracking-tighter z-10 relative uppercase text-center w-full select-none"
+              style={{ WebkitTextStroke: '2px #111', color: 'transparent', textShadow: '0 0 0 #111' }}
             >
               RUN ON<br />AUTOPILOT
             </h1>
           </div>
 
           {/* Subtext */}
-          <p className="text-[#111] font-medium text-lg md:text-xl max-w-[600px] leading-relaxed mt-6 mb-10 z-10 relative">
-            Powerful software that works so you don't have to
+          <p className="text-brand-text-muted text-lg md:text-xl max-w-[600px] leading-relaxed mt-6 mb-10 z-10 relative animate-fadeIn" style={{ animationDelay: '0.15s' }}>
+            AI agents that run your business while you sleep
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 w-full z-10 relative">
-            <Link
-              to="/waitlist"
-              className="bg-[#f9fafb] text-brand-dark border border-brand-border font-medium text-[15px] py-2.5 px-7 rounded-md flex items-center justify-center transition-all hover:bg-gray-100 min-w-[160px] sm:min-w-0"
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 w-full z-10 relative animate-fadeIn" style={{ animationDelay: '0.3s' }}>
+            <button
+              onClick={openCalBooking}
+              className="group relative overflow-hidden bg-brand-dark text-white font-medium text-[15px] py-2.5 px-7 rounded-md flex items-center justify-center transition-all hover:bg-[#2a2a2a] min-w-[160px] sm:min-w-0 border-none cursor-pointer"
             >
-              Join waitlist
-            </Link>
+              <span className="relative z-10 group-hover:-translate-y-6 transition-transform duration-300 block">Book a Call</span>
+              <span className="absolute inset-0 z-10 flex items-center justify-center translate-y-6 group-hover:translate-y-0 transition-transform duration-300 text-white">Book a Call</span>
+              <span className="absolute inset-0 bg-white/10 translate-x-full group-hover:translate-x-0 transition-transform duration-500" />
+            </button>
             <Link
-              to="/access"
-              className="bg-brand-dark text-white font-medium text-[15px] py-2.5 px-7 rounded-md flex items-center justify-center transition-all hover:bg-brand-dark-hover min-w-[160px] sm:min-w-0"
+              to="/case-studies"
+              className="group relative overflow-hidden bg-white text-brand-dark border border-brand-border font-medium text-[15px] py-2.5 px-7 rounded-md flex items-center justify-center transition-all hover:border-brand-dark min-w-[160px] sm:min-w-0"
             >
-              Get access now
+              <span className="relative z-10 group-hover:-translate-y-6 transition-transform duration-300 block">See Our Work</span>
+              <span className="absolute inset-0 z-10 flex items-center justify-center translate-y-6 group-hover:translate-y-0 transition-transform duration-300 text-brand-dark">See Our Work</span>
+              <span className="absolute inset-0 bg-brand-yellow/10 translate-x-full group-hover:translate-x-0 transition-transform duration-500" />
             </Link>
           </div>
         </div>
@@ -168,6 +184,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Testimonials Section */}
+      <TestimonialsSection limit={3} />
 
       {/* FAQ Section */}
       <section className="py-20 md:py-28 bg-white relative overflow-hidden" id="faq">

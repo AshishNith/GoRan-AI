@@ -108,11 +108,13 @@ body {
   animation: slideInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.section-hero {
-  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.95) 95%), url('/hero_bg.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.7s ease-out both;
 }
 
 /* Hide scrollbar utility for suggestion chips in chatbot */

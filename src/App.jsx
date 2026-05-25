@@ -12,6 +12,7 @@ import Founder from './pages/Founder';
 import Process from './pages/Process';
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
+import Testimonials from './pages/Testimonials';
 import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
 import NotFound from './pages/NotFound';
@@ -51,6 +52,7 @@ function App() {
         <Route path="/process" element={<Process />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/blog/:slug" element={<BlogPost />} />
+        <Route path="/testimonials" element={<Testimonials />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/terms" element={<Terms />} />

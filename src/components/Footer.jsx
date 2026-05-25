@@ -22,6 +22,7 @@ const socialIcons = {
 
 const pageLinks = [
   { label: 'About', to: '/about' },
+  { label: 'Testimonials', to: '/testimonials' },
   { label: 'Blog', to: '/blog' },
   { label: 'Founder', to: '/founder' },
   { label: 'Our Process', to: '/process' },
