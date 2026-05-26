@@ -139,7 +139,7 @@ const ImageScrollLoop = () => {
         {[...IMAGE_URLS, ...IMAGE_URLS].map((url, idx) => (
           <div
             key={idx}
-            className="w-[280px] h-[200px] flex-shrink-0 rounded-2xl overflow-hidden shadow-card border border-brand-border/40"
+            className="w-[392px] h-[280px] flex-shrink-0 rounded-2xl overflow-hidden shadow-card border border-brand-border/40"
           >
             <img
               src={url}

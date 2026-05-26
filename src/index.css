@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
 /* 1. Design System Theme Tokens (Tailwind CSS v4 Configuration) */
 @theme {
@@ -66,27 +67,6 @@ video {
   width: 100%;
 }
 
-.clients-marquee-container::before,
-.clients-marquee-container::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  width: 150px;
-  height: 100%;
-  z-index: 2;
-  pointer-events: none;
-}
-
-.clients-marquee-container::before {
-  left: 0;
-  background: linear-gradient(to right, #FFFFFF 0%, rgba(255, 255, 255, 0) 100%);
-}
-
-.clients-marquee-container::after {
-  right: 0;
-  background: linear-gradient(to left, #FFFFFF 0%, rgba(255, 255, 255, 0) 100%);
-}
-
 .clients-marquee-track {
   display: inline-flex;
   gap: 24px;
@@ -105,6 +85,146 @@ video {
   }
   100% {
     transform: translate3d(-50%, 0, 0);
+  }
+}
+
+/* ── Arrow-Dots Button (Button05) ── */
+.button05 {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.6rem;
+  border-radius: 9999px;
+  border: 1px solid transparent;
+  background-color: #111111;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.95rem;
+  line-height: 1;
+  text-decoration: none;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 0.25s ease,
+              border-color 0.25s ease;
+}
+
+.button05[data-variant="light"] {
+  background-color: #ffffff;
+  color: #111111;
+  border-color: #e5e7eb;
+}
+
+.button05:hover {
+  transform: translateY(-2px);
+}
+
+/* Shimmer sweep on hover */
+.button05_bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0));
+  transform: translateX(-100%);
+  transition: transform 0.45s ease;
+  z-index: 0;
+}
+
+.button05[data-variant="light"] .button05_bg {
+  background: linear-gradient(90deg, rgba(17, 17, 17, 0.07), rgba(17, 17, 17, 0));
+}
+
+.button05:hover .button05_bg {
+  transform: translateX(0);
+}
+
+/* Inner wrapper — holds the text slide + icon-wrap */
+.button05_inner {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  overflow: hidden;
+}
+
+/* Text label with slide-up hover */
+.button05_text {
+  display: inline-flex;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.button05_inner::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 100%;
+  display: inline-flex;
+  white-space: nowrap;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.button05:hover .button05_text {
+  transform: translateY(-100%);
+}
+
+.button05:hover .button05_inner::after {
+  transform: translateY(-100%);
+}
+
+/* Icon-wrap: contains four stacked arrow-dot groups */
+.button05_icon-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+}
+
+/* Each icon is an absolute-positioned column of 5 dots */
+.button05_icon {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5px;
+  opacity: 0;
+  animation: button05-flow 2.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation-delay: calc(var(--index-parent) * 0.35s);
+}
+
+/* Each dot in the V/arrow shape */
+.button05_dot {
+  width: 2.5px;
+  height: 2.5px;
+  border-radius: 50%;
+  background: currentColor;
+  transform: translateY(calc(var(--index) * 2.5px));
+  flex-shrink: 0;
+}
+
+/* Flow animation: fade-slide from right to left */
+@keyframes button05-flow {
+  0% {
+    opacity: 0;
+    transform: translateX(6px);
+  }
+  15% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 0;
+    transform: translateX(-4px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-4px);
   }
 }
 
@@ -222,6 +342,5 @@ video {
     transform: scale(0.72);
   }
 }
-
 
 

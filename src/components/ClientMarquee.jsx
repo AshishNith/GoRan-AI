@@ -16,31 +16,28 @@ export default function ClientMarquee() {
   const marqueeItems = [...horizontalLogos, ...horizontalLogos, ...horizontalLogos];
 
   return (
-    <section className="py-16 bg-white border-t border-b border-brand-border text-center overflow-hidden relative">
-      <div className="w-full max-w-[1200px] mx-auto px-6">
-        <h4 className="text-xs font-semibold uppercase tracking-widest text-brand-text-muted/70 mb-8 select-none">
+    <section className="py-12 bg-black/30 border-t border-b border-brand-border text-center overflow-hidden relative">
+      <div className="w-full max-w-[1200px] mx-auto px-6 mb-6">
+        <h4 className="text-xs font-semibold uppercase tracking-widest text-brand-text- select-none">
           Trusted by operators at scale
         </h4>
-        <div className="clients-marquee-container relative py-2">
-          <div className="clients-marquee-track">
-            {marqueeItems.map((logo, idx) => (
-              <div 
-                className="client-logo-item group relative flex items-center justify-center h-24 w-60 px-6 select-none shrink-0" 
-                key={idx}
-              >
-                <span
-                  className="absolute inset-0 rounded-full bg-brand-dark/12 blur-[10px] opacity-70"
-                  aria-hidden="true"
-                />
-                <img
-                  src={logo.url}
-                  alt={`${logo.name} Logo`}
-                  className="relative max-h-12 max-w-full object-contain opacity-100 transition-all duration-300 select-none pointer-events-none drop-shadow-[0_6px_16px_rgba(0,0,0,0.35)]"
-                  loading="lazy"
-                />
-              </div>
-            ))}
-          </div>
+      </div>
+
+      <div className="clients-marquee-container relative py-2">
+        <div className="clients-marquee-track">
+          {marqueeItems.map((logo, idx) => (
+            <div 
+              className="client-logo-item group relative flex items-center justify-center h-24 w-64 px-6 select-none shrink-0" 
+              key={idx}
+            >
+              <img
+                src={logo.url}
+                alt={`${logo.name} Logo`}
+                className="relative max-h-14 max-w-full object-contain opacity-95 transition-all duration-300 select-none pointer-events-none"
+                loading="lazy"
+              />
+            </div>
+          ))}
         </div>
       </div>
     </section>

@@ -66,12 +66,12 @@ export default function Footer() {
             <div className="flex flex-col gap-5 items-start">
               <Link
                 to="/"
-                className="flex items-center no-underline bg-white/[0.06] border border-white/[0.08] px-4 py-2 rounded-xl transition-all hover:bg-white/[0.1]"
+                className="flex items-center no-underline  px-4 py-2 rounded-xl transition-all hover:bg-white/[0.1]"
               >
                 <img
                   src="/Logo.png"
                   alt="GoRan AI Logo"
-                  className="h-5 w-auto block brightness-0 invert"
+                  className="h-15 w-auto block"
                 />
               </Link>
 

@@ -25,7 +25,6 @@ const agentLinks = [
 ];
 
 export default function Header() {
-  const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
@@ -33,14 +32,6 @@ export default function Header() {
   const location = useLocation();
   const navigate = useNavigate();
   const { openCalBooking } = useCalBooking();
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 30);
-    };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   useEffect(() => {
     setMobileOpen(false);
@@ -70,17 +61,17 @@ export default function Header() {
 
   const isServicesActive = serviceLinks.some((s) => location.pathname.startsWith(s.to)) || agentLinks.some((a) => location.pathname.startsWith(a.to));
 
-  const navbarClasses = 'relative w-full max-w-[1200px] rounded-[20px] flex items-center justify-between px-4 py-3 md:px-6 transition-all duration-300 bg-transparent';
+  const navbarClasses = 'relative w-full max-w-[1200px] rounded-[20px] grid grid-cols-[auto_1fr_auto] items-center gap-3 px-4 py-3 md:px-6 transition-all duration-300 bg-transparent';
 
   return (
-    <header className="fixed top-4 left-0 right-0 flex justify-center z-50 px-4">
+    <header className="fixed top-2 left-0 right-0 flex justify-center z-50 px-4">
       <nav className={navbarClasses}>
         <div className="flex items-center gap-2 shrink-0">
-          <Link to="/" className="flex items-center gap-2 no-underline rounded-full  px-3 py-1.5 shadow-[0_4px_12px_rgba(15,23,42,0.08)] transition-all duration-300 hover:border-brand-border">
+          <Link to="/" className="flex items-center gap-2 no-underline rounded-full  px-3 py-1.5 transition-all duration-300 hover:border-brand-border">
             <img
               src="/Logo.png"
               alt="GoRan AI Logo"
-              className="h-10 rounded-2xl w-auto block"
+              className="h-15 rounded-2xl w-auto block"
             />
           </Link>
         </div>
@@ -167,10 +158,10 @@ export default function Header() {
         </div>
 
         {/* Get Started button right */}
-        <div className="hidden md:flex flex-1 justify-end">
+        <div className="flex items-center justify-end gap-2">
           <button
             onClick={openCalBooking}
-            className="inline-flex items-center gap-1.5 bg-brand-dark text-white font-semibold text-sm py-2.5 px-5 rounded-full shadow-[0_10px_22px_rgba(15,23,42,0.18)] transition-all duration-300 hover:bg-brand-dark-hover group border-none cursor-pointer"
+            className="hidden md:inline-flex items-center gap-1.5 bg-brand-dark text-white font-semibold text-sm py-2.5 px-5 rounded-full shadow-[0_10px_22px_rgba(15,23,42,0.18)] transition-all duration-300 hover:bg-brand-dark-hover group border-none cursor-pointer"
           >
             Book a Call
             <svg
@@ -187,15 +178,14 @@ export default function Header() {
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
           </button>
+          <button
+            onClick={() => setMobileOpen(true)}
+            className="md:hidden flex items-center justify-center w-10 h-10 rounded-full bg-transparent border-none cursor-pointer text-brand-text-muted hover:text-brand-dark hover:bg-black/6 transition-all duration-200"
+            aria-label="Open menu"
+          >
+            <Menu size={20} />
+          </button>
         </div>
-
-        <button
-          onClick={() => setMobileOpen(true)}
-          className="md:hidden ml-auto flex items-center justify-center w-10 h-10 rounded-full bg-transparent border-none cursor-pointer text-brand-text-muted hover:text-brand-dark hover:bg-black/6 transition-all duration-200"
-          aria-label="Open menu"
-        >
-          <Menu size={20} />
-        </button>
       </nav>
 
       {/* Mobile drawer */}

@@ -7,6 +7,7 @@ import ScrollAdventure from '../components/ui/animated-scroll';
 import VoiceAgent from '../components/VoiceAgent';
 import { useCalBooking } from '../components/CalBookingModal';
 import TestimonialsSection from '../components/TestimonialsSection';
+import { Button05 } from '../components/ui/arrow-dots-button';
 
 export default function Home() {
   const { openCalBooking } = useCalBooking();
@@ -16,7 +17,7 @@ export default function Home() {
   return (
     <main className="w-full bg-white">
       {/* Hero Section */}
-      <section className="pt-32 md:pt-32 pb-12 bg-white" id="hero">
+      <section className="pt-32 md:pt-24 pb-12 bg-white" id="hero">
         <div className="w-full max-w-[95vw] mx-auto ">
           <div className="text-center relative min-h-screen flex items-center justify-center bg-gradient-to-b from-white via-white to-brand-bg-light rounded-[28px] border border-brand-border overflow-hidden">
             {/* Background video */}
@@ -59,22 +60,17 @@ export default function Home() {
 
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row items-center justify-center gap-3 w-full z-10 relative animate-fadeIn" style={{ animationDelay: '0.3s' }}>
-                <button
+                <Button05
+                  label="Book a Call"
                   onClick={openCalBooking}
-                  className="group relative overflow-hidden bg-brand-dark text-white font-medium text-[15px] py-2.5 px-7 rounded-md flex items-center justify-center transition-all hover:bg-[#2a2a2a] min-w-[160px] sm:min-w-0 border-none cursor-pointer"
-                >
-                  <span className="relative z-10 group-hover:-translate-y-6 transition-transform duration-300 block">Book a Call</span>
-                  <span className="absolute inset-0 z-10 flex items-center justify-center translate-y-6 group-hover:translate-y-0 transition-transform duration-300 text-white">Book a Call</span>
-                  <span className="absolute inset-0 bg-white/10 translate-x-full group-hover:translate-x-0 transition-transform duration-500" />
-                </button>
-                <Link
+                  className="min-w-[160px] sm:min-w-0"
+                />
+                <Button05
+                  label="See Our Work"
                   to="/case-studies"
-                  className="group relative overflow-hidden bg-white text-brand-dark border border-brand-border font-medium text-[15px] py-2.5 px-7 rounded-md flex items-center justify-center transition-all hover:border-brand-dark min-w-[160px] sm:min-w-0"
-                >
-                  <span className="relative z-10 group-hover:-translate-y-6 transition-transform duration-300 block">See Our Work</span>
-                  <span className="absolute inset-0 z-10 flex items-center justify-center translate-y-6 group-hover:translate-y-0 transition-transform duration-300 text-brand-dark">See Our Work</span>
-                  <span className="absolute inset-0 bg-brand-yellow/10 translate-x-full group-hover:translate-x-0 transition-transform duration-500" />
-                </Link>
+                  variant="light"
+                  className="min-w-[160px] sm:min-w-0"
+                />
               </div>
             </div>
           </div>
