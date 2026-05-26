@@ -5,7 +5,7 @@ import { useCalBooking } from './CalBookingModal';
 
 const navLinks = [
   { label: 'About', to: '/about' },
-  { label: 'Testimonials', to: '/testimonials' },
+  { label: 'Case Studies', to: '/case-studies' },
   { label: 'Blog', to: '/blog' },
   { label: 'Founder', to: '/founder' },
   { label: 'Contact', to: '/contact' },
@@ -16,6 +16,12 @@ const serviceLinks = [
   { label: 'Product Development', to: '/services/product-development' },
   { label: 'Product Management', to: '/services/product-management' },
   { label: 'AI Training', to: '/services/ai-training' },
+];
+
+const agentLinks = [
+  { label: 'Calling Agent', to: '/agents/calling-agent' },
+  { label: 'WhatsApp & Telegram Agent', to: '/agents/whatsapp-telegram-agent' },
+  { label: 'AI Powered CRM', to: '/agents/ai-powered-crm' },
 ];
 
 export default function Header() {
@@ -62,7 +68,7 @@ export default function Header() {
     return location.pathname.startsWith(path);
   };
 
-  const isServicesActive = serviceLinks.some((s) => location.pathname.startsWith(s.to));
+  const isServicesActive = serviceLinks.some((s) => location.pathname.startsWith(s.to)) || agentLinks.some((a) => location.pathname.startsWith(a.to));
 
   const navbarClasses = `relative w-full max-w-[1100px] rounded-full flex items-center py-2 px-3 pl-6 transition-all duration-300 ${
     scrolled
@@ -117,7 +123,8 @@ export default function Header() {
             </button>
 
             {servicesOpen && (
-              <div className="absolute top-full left-0 mt-2 w-52 bg-white rounded-xl border border-brand-border shadow-lg py-2 overflow-hidden">
+              <div className="absolute top-full left-0 mt-2 w-64 bg-white rounded-xl border border-brand-border shadow-lg py-3 overflow-hidden z-50 animate-fadeIn">
+                <span className="block text-[9px] font-mono font-bold uppercase tracking-wider text-brand-text-muted/60 px-4 mb-1.5">Core Services</span>
                 {serviceLinks.map((s) => {
                   const active = location.pathname === s.to;
                   return (
@@ -125,13 +132,32 @@ export default function Header() {
                       key={s.to}
                       to={s.to}
                       onClick={() => setServicesOpen(false)}
-                      className={`block no-underline text-sm py-2.5 px-4 transition-colors duration-150 ${
+                      className={`block no-underline text-xs py-2 px-4 transition-colors duration-150 ${
                         active
                           ? 'text-brand-dark bg-brand-yellow/10 font-semibold'
                           : 'text-brand-text-muted hover:text-brand-dark hover:bg-black/3'
                       }`}
                     >
                       {s.label}
+                    </Link>
+                  );
+                })}
+                <div className="h-px bg-brand-border/60 my-2" />
+                <span className="block text-[9px] font-mono font-bold uppercase tracking-wider text-brand-text-muted/60 px-4 mb-1.5">Agent Solutions</span>
+                {agentLinks.map((a) => {
+                  const active = location.pathname === a.to;
+                  return (
+                    <Link
+                      key={a.to}
+                      to={a.to}
+                      onClick={() => setServicesOpen(false)}
+                      className={`block no-underline text-xs py-2 px-4 transition-colors duration-150 ${
+                        active
+                          ? 'text-brand-dark bg-brand-yellow/10 font-semibold'
+                          : 'text-brand-text-muted hover:text-brand-dark hover:bg-black/3'
+                      }`}
+                    >
+                      {a.label}
                     </Link>
                   );
                 })}
@@ -237,6 +263,7 @@ export default function Header() {
                 </button>
                 {mobileServicesOpen && (
                   <div className="ml-4 mt-1 flex flex-col gap-0.5 border-l border-brand-border pl-3">
+                    <span className="block text-[8px] font-mono font-bold uppercase tracking-wider text-brand-text-muted/50 py-1.5 px-3">Core Services</span>
                     {serviceLinks.map((s) => {
                       const active = location.pathname === s.to;
                       return (
@@ -244,13 +271,32 @@ export default function Header() {
                           key={s.to}
                           to={s.to}
                           onClick={() => setMobileOpen(false)}
-                          className={`block no-underline text-sm py-2.5 px-3 rounded-lg transition-colors duration-150 ${
+                          className={`block no-underline text-xs py-2 px-3 rounded-lg transition-colors duration-150 ${
                             active
                               ? 'text-brand-dark bg-brand-yellow/10 font-semibold'
                               : 'text-brand-text-muted hover:text-brand-dark hover:bg-black/3'
                           }`}
                         >
                           {s.label}
+                        </Link>
+                      );
+                    })}
+                    <div className="h-px bg-brand-border/40 my-1.5" />
+                    <span className="block text-[8px] font-mono font-bold uppercase tracking-wider text-brand-text-muted/50 py-1.5 px-3">Agent Solutions</span>
+                    {agentLinks.map((a) => {
+                      const active = location.pathname === a.to;
+                      return (
+                        <Link
+                          key={a.to}
+                          to={a.to}
+                          onClick={() => setMobileOpen(false)}
+                          className={`block no-underline text-xs py-2 px-3 rounded-lg transition-colors duration-150 ${
+                            active
+                              ? 'text-brand-dark bg-brand-yellow/10 font-semibold'
+                              : 'text-brand-text-muted hover:text-brand-dark hover:bg-black/3'
+                          }`}
+                        >
+                          {a.label}
                         </Link>
                       );
                     })}

@@ -22,7 +22,7 @@ const immersiveProjects = [
     category: "Immersive UI Website",
     desc: "Interactive art catalog displaying generative visual portfolios, horizontal scrolling grids, and web canvas layers.",
     tech: ["React.js", "Tailwind CSS", "Vite", "GSAP"],
-    image: "https://image.thum.io/get/https://art-nexus-delta.vercel.app/",
+    image: "https://res.cloudinary.com/dvwpxb2oa/image/upload/v1779775605/985b1bdd-6abd-4b58-a529-d5b2a717d7b1.png",
     url: "https://art-nexus-delta.vercel.app/",
     status: "Active"
   },
@@ -32,7 +32,7 @@ const immersiveProjects = [
     category: "Modern UI Website",
     desc: "High-end CSS grid landing page showcasing fluid spacing, glassmorphic filters, and interactive UI nodes.",
     tech: ["HTML5", "Vanilla CSS", "JavaScript", "Vercel"],
-    image: "https://image.thum.io/get/https://aura-grid-pi.vercel.app/",
+    image: "https://res.cloudinary.com/dvwpxb2oa/image/upload/v1779775525/20046d87-1ce7-488f-848e-8ed38c946e79.png",
     url: "https://aura-grid-pi.vercel.app/",
     status: "Active"
   },
@@ -42,7 +42,7 @@ const immersiveProjects = [
     category: "E-Commerce UI",
     desc: "Cloned juice brand frontend highlighting fluid micro-animations, slide transitions, and typographic layouts.",
     tech: ["React.js", "Vite", "Tailwind CSS", "Framer Motion"],
-    image: "https://image.thum.io/get/https://raw-pressery-two.vercel.app/",
+    image: "https://res.cloudinary.com/dvwpxb2oa/image/upload/v1779775722/bfaf00a1-a077-48e0-b43c-568fc5e03df2.png",
     url: "https://raw-pressery-two.vercel.app/",
     status: "Active"
   },
@@ -52,7 +52,7 @@ const immersiveProjects = [
     category: "Educational Portal",
     desc: "Mechanical engineering student chapter landing page featuring interactive structural timelines and team profiles.",
     tech: ["React.js", "Vite", "Framer Motion", "Tailwind CSS"],
-    image: "https://image.thum.io/get/https://asme-seven.vercel.app/",
+    image: "https://res.cloudinary.com/dvwpxb2oa/image/upload/v1779775649/9424cacf-8bc7-4d53-ba8b-83e661e12bf3.png",
     url: "https://asme-seven.vercel.app/",
     status: "Active"
   },
@@ -62,82 +62,68 @@ const immersiveProjects = [
     category: "Festival Web App",
     desc: "Symposium portal loaded with retro cybernetic visuals, scheduler loops, and dynamic registration filters.",
     tech: ["React.js", "Vite", "Tailwind CSS", "GSAP"],
-    image: "https://image.thum.io/get/https://roboweek-3-0.vercel.app/",
+    image: "https://res.cloudinary.com/dvwpxb2oa/image/upload/v1779775775/93f94ca9-f704-4e2e-9ff9-572f59a9f6e5.png",
     url: "https://roboweek-3-0.vercel.app/",
-    status: "Active"
-  },
-  {
-    name: "Shree Care Patient Portal",
-    client: "Shree Care Clinic",
-    category: "Clinic Web App",
-    desc: "Automated booking and patient database portal with real-time WhatsApp visit notifications.",
-    tech: ["React.js", "Node.js", "Twilio API", "MongoDB"],
-    image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&auto=format&fit=crop&q=80",
-    url: null,
-    status: "Active"
-  },
-  {
-    name: "Mathed Question Solver",
-    client: "Mathed (NITH)",
-    category: "Academic Web App",
-    desc: "Interactive educational portal with visual crop disease solver and mandi pricing analytics tools.",
-    tech: ["React.js", "Firebase", "Gemini Pro", "Tailwind CSS"],
-    image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&auto=format&fit=crop&q=80",
-    url: null,
     status: "Active"
   }
 ];
 
 const orchestrationProjects = [
   {
-    name: "Urban Tadka Ordering Agent",
-    client: "Urban Tadka Restaurant",
-    category: "Conversational Automation",
-    desc: "WhatsApp conversational bot parsing food orders, answering FAQ queries, and managing weekend table bookings.",
-    tech: ["FastAPI", "Python", "WhatsApp Cloud API", "Gemini API"],
-    image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=800&auto=format&fit=crop&q=80",
-    status: "Active"
+    agentId: 'calling-agent',
+    name: 'Calling Agent',
+    tag: 'Autonomous Telephony & Voice AI',
+    category: 'Voice AI',
+    desc: 'Deploy natural-sounding AI voice agents that dial leads, qualify prospects, handle inbound inquiries, and schedule meetings 24/7 at sub-800ms latency.',
+    tech: ['LiveKit', 'Gemini Realtime API', 'Twilio', 'WebRTC', 'FastAPI'],
+    image: '/agent-calling.png',
+    color: '#F6C744',
+    timeline: '3–5 weeks'
   },
   {
-    name: "DESE Lab Scheduler",
-    client: "DESE - IISc Bangalore",
-    category: "Task Orchestration",
-    desc: "Slack agent scheduling lab equipment usage, predicting device workloads, and managing queue exceptions.",
-    tech: ["Python", "Slack API", "Redis Queue", "PostgreSQL"],
-    image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=800&auto=format&fit=crop&q=80",
-    status: "Active"
+    agentId: 'whatsapp-telegram-agent',
+    name: 'WhatsApp & Telegram Agent',
+    tag: 'Conversational Chat Automation',
+    category: 'Chat Automation',
+    desc: 'Deploy intelligent chat agents inside WhatsApp and Telegram to capture leads, answer questions, display catalogs, and orchestrate orders in real-time.',
+    tech: ['WhatsApp Cloud API', 'Telegram Bot API', 'Python', 'FastAPI', 'Redis'],
+    image: '/agent-whatsapp.png',
+    color: '#10B981',
+    timeline: '2–4 weeks'
   },
   {
-    name: "NandniVerse Creator Suite",
-    client: "NandniVerse Channel",
-    category: "AI SaaS Automation",
-    desc: "Automated video script generation and YouTube audience demographic predictor agent for channel optimization.",
-    tech: ["Next.js", "OpenAI API", "YouTube Analytics API"],
-    image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800&auto=format&fit=crop&q=80",
-    status: "Active"
+    agentId: 'ai-powered-crm',
+    name: 'AI-Powered CRM',
+    tag: 'Data Pipeline & Lead Automation',
+    category: 'AI CRM',
+    desc: 'Automate lead scraping, pipeline enrichment, intent scoring, and personalized outreach routing to 10x your sales team\'s operational velocity.',
+    tech: ['Puppeteer', 'LangChain', 'PostgreSQL', 'Airtable API', 'SendGrid'],
+    image: '/agent-crm.png',
+    color: '#A855F7',
+    timeline: '4–6 weeks'
   }
 ];
 
-const backendProjects = [
-  {
-    name: "Verma Property Lead Router",
-    client: "Verma Property Consultants",
-    category: "Database Integration",
-    desc: "Automated lead scraper scraping portal listings, scoring user intent, and assigning to brokers on WhatsApp.",
-    tech: ["Node.js", "Puppeteer", "OpenAI API", "Airtable"],
-    image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&auto=format&fit=crop&q=80",
-    status: "Active"
-  },
-  {
-    name: "GreenWrench Service Router",
-    client: "GreenWrench Solutions",
-    category: "CRM Pipeline",
-    desc: "AI ticket routing database mapping repair requests to field technicians by location and workload.",
-    tech: ["React.js", "PostgreSQL", "Google Maps API", "Express.js"],
-    image: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=800&auto=format&fit=crop&q=80",
-    status: "Active"
-  }
-];
+// const backendProjects = [
+//   {
+//     name: "Verma Property Lead Router",
+//     client: "Verma Property Consultants",
+//     category: "Database Integration",
+//     desc: "Automated lead scraper scraping portal listings, scoring user intent, and assigning to brokers on WhatsApp.",
+//     tech: ["Node.js", "Puppeteer", "OpenAI API", "Airtable"],
+//     image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&auto=format&fit=crop&q=80",
+//     status: "Active"
+//   },
+//   {
+//     name: "GreenWrench Service Router",
+//     client: "GreenWrench Solutions",
+//     category: "CRM Pipeline",
+//     desc: "AI ticket routing database mapping repair requests to field technicians by location and workload.",
+//     tech: ["React.js", "PostgreSQL", "Google Maps API", "Express.js"],
+//     image: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=800&auto=format&fit=crop&q=80",
+//     status: "Active"
+//   }
+// ];
 
 /* Interactive Browser Iframe Preview Modal */
 function IframePreviewModal({ url, title, onClose }) {
@@ -146,7 +132,7 @@ function IframePreviewModal({ url, title, onClose }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8 bg-black/80 backdrop-blur-md animate-fadeIn">
       <div className="bg-[#121212] w-full h-full max-w-6xl max-h-[85vh] rounded-2xl overflow-hidden flex flex-col border border-white/10 shadow-2xl relative">
-        
+
         {/* Mock Browser Header */}
         <div className="bg-[#1c1c1c] px-4 py-3 flex items-center justify-between border-b border-white/[0.06] select-none">
           {/* Mac window controls */}
@@ -163,7 +149,7 @@ function IframePreviewModal({ url, title, onClose }) {
           </div>
 
           {/* Close trigger */}
-          <button 
+          <button
             onClick={onClose}
             className="flex items-center gap-1 text-[11px] font-mono text-white/50 hover:text-white bg-white/5 hover:bg-white/10 px-3 py-1.5 rounded transition-all cursor-pointer border-none"
           >
@@ -174,10 +160,10 @@ function IframePreviewModal({ url, title, onClose }) {
 
         {/* Live Interactive Frame */}
         <div className="w-full flex-1 bg-white relative">
-          <iframe 
-            src={url} 
-            className="w-full h-full border-none bg-white" 
-            sandbox="allow-scripts allow-same-origin allow-popups" 
+          <iframe
+            src={url}
+            className="w-full h-full border-none bg-white"
+            sandbox="allow-scripts allow-same-origin allow-popups"
             title={title}
           />
         </div>
@@ -211,7 +197,7 @@ export default function CaseStudies() {
     };
   });
 
-  const filteredProjects = allProjects.filter(project => 
+  const filteredProjects = allProjects.filter(project =>
     activeFilter === 'All' || project.filters.includes(activeFilter)
   );
 
@@ -224,7 +210,7 @@ export default function CaseStudies() {
       </div>
 
       <div className="w-full max-w-[1200px] mx-auto px-6 relative z-10">
-        
+
         {/* Editorial Header */}
         <div className="mb-12 border-b border-brand-border pb-10">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
@@ -257,11 +243,10 @@ export default function CaseStudies() {
                 <button
                   key={category}
                   onClick={() => setActiveFilter(category)}
-                  className={`px-4 py-2 rounded-lg text-xs font-semibold cursor-pointer transition-all duration-300 border-none ${
-                    isActive
+                  className={`px-4 py-2 rounded-lg text-xs font-semibold cursor-pointer transition-all duration-300 border-none ${isActive
                       ? 'bg-white text-brand-dark shadow-sm'
                       : 'text-brand-text-muted hover:text-brand-dark'
-                  }`}
+                    }`}
                 >
                   {category}
                 </button>
@@ -291,9 +276,8 @@ export default function CaseStudies() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.95 }}
                     transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                    className={`flex flex-col justify-between pt-6 border-t border-brand-border hover:border-brand-yellow/30 transition-all duration-300 relative group min-w-0 ${
-                      isSecondColumn ? 'md:translate-y-12' : ''
-                    }`}
+                    className={`flex flex-col justify-between pt-6 border-t border-brand-border hover:border-brand-yellow/30 transition-all duration-300 relative group min-w-0 ${isSecondColumn ? 'md:translate-y-12' : ''
+                      }`}
                   >
                     <div>
                       {/* Card Header row */}
@@ -304,7 +288,7 @@ export default function CaseStudies() {
 
                       {/* Tag pill & impact badge */}
                       <div className="flex flex-wrap items-center gap-3.5 mb-4">
-                        <span 
+                        <span
                           className="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded"
                           style={{ backgroundColor: catColor.bg, color: catColor.text, border: `1px solid ${catColor.border}` }}
                         >
@@ -394,7 +378,7 @@ export default function CaseStudies() {
                   <img
                     src={project.image}
                     alt={project.name}
-                    className="w-full h-full object-cover grayscale opacity-90 transition-all duration-500 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-102"
+                    className="w-full h-full object-cover opacity-90 transition-all duration-500 group-hover:opacity-100 group-hover:scale-102"
                     loading="lazy"
                   />
                   {/* Glassmorphic active status tag overlay on the image */}
@@ -427,7 +411,7 @@ export default function CaseStudies() {
                         </span>
                       ))}
                     </div>
-                    
+
                     {project.url && (
                       <button
                         onClick={() => {
@@ -460,14 +444,14 @@ export default function CaseStudies() {
               </h2>
             </div>
             <p className="text-brand-text-muted text-xs md:text-sm max-w-sm leading-relaxed border-l-2 border-[#10B981] pl-4 py-1">
-              Conversational WhatsApp booking bots, AI script generators, and custom orchestrator task engines.
+              AI voice callers, WhatsApp & Telegram bots, and intelligent CRM pipeline automation.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {orchestrationProjects.map((project) => (
               <div
-                key={project.name}
+                key={project.agentId}
                 className="bg-white border border-brand-border hover:border-brand-yellow/30 rounded-2xl overflow-hidden flex flex-col justify-between transition-all duration-300 group shadow-sm hover:shadow-lg hover:shadow-black/[0.02] min-w-0"
               >
                 {/* Visual Cover image */}
@@ -475,38 +459,47 @@ export default function CaseStudies() {
                   <img
                     src={project.image}
                     alt={project.name}
-                    className="w-full h-full object-cover grayscale opacity-90 transition-all duration-500 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-102"
+                    className="w-full h-full object-cover opacity-90 transition-all duration-500 group-hover:opacity-100 group-hover:scale-[1.03]"
                     loading="lazy"
                   />
-                  <span className="absolute top-3.5 right-3.5 text-[9px] font-mono font-bold px-2 py-0.5 rounded-full bg-black/75 backdrop-blur-sm text-green-400 border border-green-400/20 flex items-center gap-1 select-none">
-                    <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-                    ACTIVE
+                  {/* Accent color overlay tint */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500" style={{ backgroundColor: project.color }} />
+                  <span className="absolute top-3.5 left-3.5 text-[9px] font-mono font-bold px-2 py-0.5 rounded-full backdrop-blur-sm border flex items-center gap-1 select-none" style={{ backgroundColor: `${project.color}22`, color: project.color, borderColor: `${project.color}40` }}>
+                    {project.timeline} SETUP
                   </span>
                 </div>
 
                 {/* Content details */}
                 <div className="p-6 flex-1 flex flex-col justify-between">
                   <div>
-                    <div className="flex items-center justify-between mb-3 text-[10px] font-mono text-brand-text-muted/60">
-                      <span>{project.client}</span>
-                      <span className="text-[#10B981] font-semibold">#{project.category}</span>
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="text-[9px] font-mono font-bold px-2 py-0.5 rounded" style={{ backgroundColor: `${project.color}15`, color: project.color, border: `1px solid ${project.color}30` }}>#{project.category}</span>
+                      <span className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: project.color }} />
                     </div>
                     <h4 className="text-base font-bold text-brand-dark font-heading leading-tight mb-2 group-hover:text-brand-yellow transition-colors duration-200">
                       {project.name}
                     </h4>
-                    <p className="text-[12px] text-brand-text-muted leading-relaxed mb-6 font-body">
+                    <p className="text-[12px] text-brand-text-muted leading-relaxed mb-5 font-body">
                       {project.desc}
                     </p>
                   </div>
 
-                  <div className="border-t border-brand-border/40 pt-4 mt-auto">
-                    <div className="flex flex-wrap gap-1.5">
-                      {project.tech.map((t) => (
+                  <div className="border-t border-brand-border/40 pt-4 mt-auto flex items-center justify-between gap-4">
+                    <div className="flex flex-wrap gap-1">
+                      {project.tech.slice(0, 3).map((t) => (
                         <span key={t} className="text-[8.5px] font-mono text-brand-text-muted/65 px-1.5 py-0.5 rounded bg-brand-bg-light border border-brand-border/40 select-none">
                           {t}
                         </span>
                       ))}
                     </div>
+                    <Link
+                      to={`/agents/${project.agentId}`}
+                      className="no-underline shrink-0 flex items-center gap-1 text-[10px] font-bold transition-colors duration-200"
+                      style={{ color: project.color }}
+                    >
+                      View Spec
+                      <ArrowRight size={11} className="transition-transform group-hover:translate-x-0.5" />
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -515,71 +508,7 @@ export default function CaseStudies() {
         </section>
 
         {/* SECTION 3: DISTRIBUTED BACKENDS & CRM ENGINES */}
-        <section className="mt-44 border-t border-brand-border pt-20">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
-            <div>
-              <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#A855F7] mb-2.5 block flex items-center gap-1.5">
-                <Database size={11} />
-                CATEGORY // ARCHITECTURE_LAYER
-              </span>
-              <h2 className="text-2xl sm:text-4xl font-heading font-bold text-brand-dark tracking-tight leading-none">
-                Distributed Backends &amp; CRM Engines
-              </h2>
-            </div>
-            <p className="text-brand-text-muted text-xs md:text-sm max-w-sm leading-relaxed border-l-2 border-[#A855F7] pl-4 py-1">
-              Automated scraper nodes, location dispatch algorithms, and direct CRM data pipeline databases.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {backendProjects.map((project) => (
-              <div
-                key={project.name}
-                className="bg-white border border-brand-border hover:border-brand-yellow/30 rounded-2xl overflow-hidden flex flex-col justify-between transition-all duration-300 group shadow-sm hover:shadow-lg hover:shadow-black/[0.02] min-w-0"
-              >
-                {/* Visual Cover image */}
-                <div className="relative aspect-[16/10] overflow-hidden bg-brand-bg-light border-b border-brand-border select-none">
-                  <img
-                    src={project.image}
-                    alt={project.name}
-                    className="w-full h-full object-cover grayscale opacity-90 transition-all duration-500 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-102"
-                    loading="lazy"
-                  />
-                  <span className="absolute top-3.5 right-3.5 text-[9px] font-mono font-bold px-2 py-0.5 rounded-full bg-black/75 backdrop-blur-sm text-green-400 border border-green-400/20 flex items-center gap-1 select-none">
-                    <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-                    ACTIVE
-                  </span>
-                </div>
-
-                {/* Content details */}
-                <div className="p-6 flex-1 flex flex-col justify-between">
-                  <div>
-                    <div className="flex items-center justify-between mb-3 text-[10px] font-mono text-brand-text-muted/60">
-                      <span>{project.client}</span>
-                      <span className="text-[#A855F7] font-semibold">#{project.category}</span>
-                    </div>
-                    <h4 className="text-base font-bold text-brand-dark font-heading leading-tight mb-2 group-hover:text-brand-yellow transition-colors duration-200">
-                      {project.name}
-                    </h4>
-                    <p className="text-[12px] text-brand-text-muted leading-relaxed mb-6 font-body">
-                      {project.desc}
-                    </p>
-                  </div>
-
-                  <div className="border-t border-brand-border/40 pt-4 mt-auto">
-                    <div className="flex flex-wrap gap-1.5">
-                      {project.tech.map((t) => (
-                        <span key={t} className="text-[8.5px] font-mono text-brand-text-muted/65 px-1.5 py-0.5 rounded bg-brand-bg-light border border-brand-border/40 select-none">
-                          {t}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
+       
 
         {/* Global Operations Metric Section */}
         <div className="mt-40 border-t border-brand-border pt-20 text-center animate-fadeIn">
@@ -635,10 +564,10 @@ export default function CaseStudies() {
       </div>
 
       {/* Interactive Sandbox Iframe Preview Modal */}
-      <IframePreviewModal 
-        url={previewUrl} 
-        title={previewTitle} 
-        onClose={() => setPreviewUrl(null)} 
+      <IframePreviewModal
+        url={previewUrl}
+        title={previewTitle}
+        onClose={() => setPreviewUrl(null)}
       />
     </main>
   );

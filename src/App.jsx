@@ -18,6 +18,7 @@ import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
 import NotFound from './pages/NotFound';
 import Chatbot from './components/Chatbot';
+import AgentDetail from './pages/AgentDetail';
 import { CalBookingProvider } from './components/CalBookingModal';
 
 function App() {
@@ -58,6 +59,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/terms" element={<Terms />} />
+        <Route path="/agents/:agentId" element={<AgentDetail />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
