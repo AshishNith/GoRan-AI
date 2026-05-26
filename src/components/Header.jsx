@@ -50,11 +50,11 @@ export default function Header() {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       if (window.innerWidth < 768) {
-        if (currentScrollY < lastScrollY && currentScrollY > 10) {
-          // Scrolling UP: Hide logo
+        if (currentScrollY > lastScrollY && currentScrollY > 50) {
+          // Scrolling DOWN (page going down): Hide logo
           setLogoVisible(false);
-        } else {
-          // Scrolling DOWN: Show logo
+        } else if (currentScrollY < lastScrollY) {
+          // Scrolling UP (page going up): Show logo
           setLogoVisible(true);
         }
       } else {

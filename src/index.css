@@ -310,7 +310,7 @@ video {
   html,
   body,
   #root {
-    overflow-x: hidden;
+    overflow-x: clip;
   }
 
   .clients-marquee-container::before,
@@ -318,17 +318,10 @@ video {
     width: 48px;
   }
 
-  .scroll-stack-sticky-wrapper {
-    position: relative !important;
-    top: auto !important;
-  }
-
   .scroll-stack-card {
     padding: 1.25rem;
     border-radius: 16px;
     margin-bottom: 16px;
-    transform: none !important;
-    opacity: 1 !important;
   }
 
   .voice-agent-orbit {

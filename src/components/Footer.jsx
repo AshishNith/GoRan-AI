@@ -60,22 +60,22 @@ export default function Footer() {
       <div className="w-full max-w-[1200px] mx-auto px-6 relative z-10">
 
         {/* ── Upper Section: Brand + Stats ── */}
-        <div className="pt-24 pb-16 border-b border-white/[0.06]">
-          <div className="grid grid-cols-1 lg:grid-cols-[1.6fr_1fr_1fr_1.2fr] gap-12 lg:gap-8">
+        <div className="pt-20 pb-16 border-b border-white/[0.06]">
+          <div className="grid grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr_1.2fr] gap-10 lg:gap-8">
             {/* Column 1: Brand */}
-            <div className="flex flex-col gap-5 items-start">
+            <div className="flex flex-col gap-5 items-start col-span-2 lg:col-span-1">
               <Link
                 to="/"
-                className="flex items-center no-underline  px-4 py-2 rounded-xl transition-all hover:bg-white/[0.1]"
+                className="flex items-center no-underline px-4 py-2 rounded-xl transition-all hover:bg-white/[0.1]"
               >
                 <img
                   src="/Logo.png"
                   alt="GoRan AI Logo"
-                  className="h-15 w-auto block"
+                  className="h-12 w-auto block"
                 />
               </Link>
 
-              <p className="text-white/50 leading-relaxed text-sm max-w-[300px]">
+              <p className="text-white/50 leading-relaxed text-sm max-w-[400px] lg:max-w-[300px]">
                 We design, build, and deploy custom AI agent systems that integrate with your existing tools, automate complex workflows, and scale with your business — from startups to enterprises.
               </p>
 
@@ -106,7 +106,7 @@ export default function Footer() {
             </div>
 
             {/* Column 2: Pages */}
-            <div className="flex flex-col gap-5">
+            <div className="flex flex-col gap-5 col-span-1">
               <h4 className="text-white/30 text-[10px] font-semibold uppercase tracking-[0.2em]">Pages</h4>
               <ul className="list-none p-0 m-0 flex flex-col gap-3">
                 {pageLinks.map((link) => (
@@ -123,7 +123,7 @@ export default function Footer() {
             </div>
 
             {/* Column 3: Services */}
-            <div className="flex flex-col gap-5">
+            <div className="flex flex-col gap-5 col-span-1">
               <h4 className="text-white/30 text-[10px] font-semibold uppercase tracking-[0.2em]">Services</h4>
               <ul className="list-none p-0 m-0 flex flex-col gap-3">
                 {serviceLinks.map((link) => (
@@ -140,9 +140,9 @@ export default function Footer() {
             </div>
 
             {/* Column 4: Contact CTA */}
-            <div className="flex flex-col gap-5 items-start">
+            <div className="flex flex-col gap-5 items-start col-span-2 lg:col-span-1 mt-6 lg:mt-0 pt-8 lg:pt-0 border-t lg:border-none border-white/[0.06]">
               <h4 className="text-white/30 text-[10px] font-semibold uppercase tracking-[0.2em]">Get in touch</h4>
-              <p className="text-white/50 text-sm leading-relaxed">
+              <p className="text-white/50 text-sm leading-relaxed max-w-[400px]">
                 Target response time under 24 hours. Book a scoping session to secure project roadmap priority.
               </p>
               <button
