@@ -23,6 +23,11 @@ const categoryColors = {
 };
 
 const postTakeaways = {
+  '100-leads-10-minutes-automated-outreach': [
+    'Autonomous agents perform parallel deep research on 100 leads under 10 minutes.',
+    'By replacing static templates with context-aware pitches, click & reply rates increase 4X.',
+    'Scaling cold outreach requires secondary domains, event queues, and warm-up systems.'
+  ],
   'rise-of-autonomous-agents': [
     'Autonomous agents execute API actions end-to-end without manual copy-paste typing.',
     'GoRan AI builds systems operating at level 2–3 autonomy with reliable exception loops.',
@@ -419,6 +424,28 @@ export default function BlogPost() {
                     );
                   case 'code':
                     return <CodeBlock key={i} code={block.text} />;
+                  case 'cta':
+                    return (
+                      <div key={i} className="flex flex-col sm:flex-row items-center justify-start gap-4 my-10 p-6 bg-brand-bg-light/60 border border-brand-border/80 rounded-2xl relative overflow-hidden select-none">
+                        <div className="absolute top-0 right-0 w-24 h-24 bg-brand-yellow/5 rounded-full blur-xl pointer-events-none" />
+                        <a
+                          href={block.bookingUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-brand-dark hover:bg-brand-dark-hover text-white font-semibold text-xs py-3.5 px-6 rounded-xl transition-all duration-200 hover:-translate-y-0.5 shadow-md no-underline text-center cursor-pointer border-none"
+                        >
+                          <span>👉 Book a Scoping Call</span>
+                        </a>
+                        <a
+                          href={block.whatsappUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white font-semibold text-xs py-3.5 px-6 rounded-xl transition-all duration-200 hover:-translate-y-0.5 shadow-md no-underline text-center cursor-pointer border-none"
+                        >
+                          <span>💬 Chat on WhatsApp</span>
+                        </a>
+                      </div>
+                    );
                   default:
                     return null;
                 }
