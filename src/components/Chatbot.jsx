@@ -324,7 +324,7 @@ export default function Chatbot() {
   };
 
   return (
-    <div className="fixed bottom-4 right-4 left-4 sm:left-auto sm:bottom-6 sm:right-6 z-50 font-body select-none">
+    <div className={`fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 font-body select-none ${isOpen ? 'left-4 sm:left-auto' : ''}`}>
       {/* ── Chat Float Button ── */}
       {!isOpen && (
         <button
