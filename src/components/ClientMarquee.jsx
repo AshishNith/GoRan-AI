@@ -1,14 +1,14 @@
 import React from 'react';
 
 const horizontalLogos = [
-  { name: "Anaaj AI", url: "https://www.anaaj.ai/assets/Footer%20Logo.png" },
+  { name: "", url: "https://www.anaaj.ai/assets/Footer%20Logo.png" },
   { name: "A Robotic Services", url: "https://aroboticservices.com/assets/Logo-mIvZkugz.png" },
-  { name: "Vyomira", url: "https://res.cloudinary.com/dmhabztbf/image/upload/v1770127502/Vyomira_1_copy_3-removebg-preview_qsaev9.png" },
-  { name: "CodeWave", url: "https://codewave.it.com/assets/Logo_Orginal-BDXHym7S.png" },
+  { name: "Vyomira Tech Solutions", url: "https://res.cloudinary.com/dmhabztbf/image/upload/v1770127502/Vyomira_1_copy_3-removebg-preview_qsaev9.png" },
+  { name: "", url: "https://codewave.it.com/assets/Logo_Orginal-BDXHym7S.png" },
   { name: "GreenWrench Solutions", url: "https://www.greenwrenchsolutions.in/assets/GreenLogo-RH2irvlH.png" },
-  { name: "Mathed", url: "https://mathed2025.nith.ac.in/Assets/logo.ico" },
+  { name: "", url: "https://mathed2025.nith.ac.in/Assets/logo.ico" },
   { name: "DESE - IISC banglore", url: "https://res.cloudinary.com/dinhcaf2c/image/upload/v1750332367/dese_o261go.jpg" },
-  { name: "NandniVerse", url: "https://yt3.googleusercontent.com/xB0EZsEWAU0h3jf4tjNFWN2y9q_HfQXfT3D1cMHOzIEdZ7R5-BsmA3iVv_Pq60DksAF8emf2Lw=s160-c-k-c0x00ffffff-no-rj" }
+  { name: "", url: "https://yt3.googleusercontent.com/xB0EZsEWAU0h3jf4tjNFWN2y9q_HfQXfT3D1cMHOzIEdZ7R5-BsmA3iVv_Pq60DksAF8emf2Lw=s160-c-k-c0x00ffffff-no-rj" }
 ];
 
 export default function ClientMarquee() {
