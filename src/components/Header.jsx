@@ -32,6 +32,8 @@ export default function Header() {
   const location = useLocation();
   const navigate = useNavigate();
   const { openCalBooking } = useCalBooking();
+  const [logoVisible, setLogoVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
 
   useEffect(() => {
     setMobileOpen(false);
@@ -43,6 +45,27 @@ export default function Header() {
     document.body.style.overflow = mobileOpen ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
   }, [mobileOpen]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      if (window.innerWidth < 768) {
+        if (currentScrollY < lastScrollY && currentScrollY > 10) {
+          // Scrolling UP: Hide logo
+          setLogoVisible(false);
+        } else {
+          // Scrolling DOWN: Show logo
+          setLogoVisible(true);
+        }
+      } else {
+        setLogoVisible(true);
+      }
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [lastScrollY]);
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -66,7 +89,7 @@ export default function Header() {
   return (
     <header className="fixed top-0 md:top-2 left-0 right-0 flex justify-center z-50 md:px-4">
       <nav className={navbarClasses}>
-        <div className="flex items-center gap-2 shrink-0">
+        <div className={`flex items-center gap-2 shrink-0 transition-all duration-300 ${!logoVisible ? 'max-md:opacity-0 max-md:-translate-y-5 max-md:pointer-events-none' : 'max-md:opacity-100 max-md:translate-y-0'}`}>
           <Link to="/" className="flex items-center gap-2 no-underline rounded-full  md:px-3 py-1.5 transition-all duration-300 hover:border-brand-border">
             <img
               src="/Logo.png"

@@ -27,15 +27,18 @@ export default function ClientMarquee() {
         <div className="clients-marquee-track">
           {marqueeItems.map((logo, idx) => (
             <div 
-              className="client-logo-item group relative flex items-center justify-center h-24 w-64 px-6 select-none shrink-0" 
+              className="client-logo-item group relative flex flex-col items-center justify-center h-32 w-64 px-6 select-none shrink-0" 
               key={idx}
             >
               <img
                 src={logo.url}
                 alt={`${logo.name} Logo`}
-                className="relative max-h-14 max-w-full object-contain opacity-95 transition-all duration-300 select-none pointer-events-none"
+                className="relative max-h-12 max-w-full object-contain opacity-95 transition-all duration-300 select-none pointer-events-none mb-2"
                 loading="lazy"
               />
+              <span className="text-[10px] font-sans font-bold tracking-widest text-[#111111]/60 uppercase transition-colors duration-200 group-hover:text-brand-yellow select-none">
+                {logo.name}
+              </span>
             </div>
           ))}
         </div>
