@@ -70,127 +70,128 @@ export default function Header() {
 
   const isServicesActive = serviceLinks.some((s) => location.pathname.startsWith(s.to)) || agentLinks.some((a) => location.pathname.startsWith(a.to));
 
-  const navbarClasses = `relative w-full max-w-[1100px] rounded-full flex items-center py-2 px-3 pl-4 md:pl-6 transition-all duration-300 ${
-    scrolled
-      ? 'bg-white/85 backdrop-blur-xl shadow-[0_10px_30px_rgba(0,0,0,0.06)] border border-brand-border/50'
-      : 'bg-white/70 backdrop-blur-md border border-white/50 shadow-nav'
-  }`;
+  const navbarClasses = 'relative w-full max-w-[1200px] rounded-[20px] flex items-center justify-between px-4 py-3 md:px-6 transition-all duration-300 bg-transparent';
 
   return (
-    <header className="fixed top-4 left-0 right-0  flex justify-center z-50 px-4">
+    <header className="fixed top-4 left-0 right-0 flex justify-center z-50 px-4">
       <nav className={navbarClasses}>
-        <Link to="/" className="flex items-center no-underline h-full  rounded-lg transition-all duration-300 hover:bg-brand-dark-hover shrink-0">
-          <img
-            src="/Logo.png"
-            alt="GoRan AI Logo"
-            className="h-10 rounded-2xl w-auto block"
-          />
-        </Link>
+        <div className="flex items-center gap-2 shrink-0">
+          <Link to="/" className="flex items-center gap-2 no-underline rounded-full  px-3 py-1.5 shadow-[0_4px_12px_rgba(15,23,42,0.08)] transition-all duration-300 hover:border-brand-border">
+            <img
+              src="/Logo.png"
+              alt="GoRan AI Logo"
+              className="h-10 rounded-2xl w-auto block"
+            />
+          </Link>
+        </div>
 
-        <div className="hidden md:flex items-center gap-1 absolute left-1/2 -translate-x-1/2">
-          {navLinks.map((link) => {
-            const active = isActive(link.to);
-            return (
-              <Link
-                key={link.label}
-                to={link.to}
-                className={`no-underline font-medium text-sm py-2 px-3.5 rounded-full transition-all duration-300 ${
-                  active
-                    ? 'text-brand-dark bg-black/5'
-                    : 'text-brand-text-muted hover:text-brand-dark hover:bg-black/3'
+        <div className="hidden md:flex flex-1 justify-center">
+          <div className="flex items-center rounded-full bg-white border border-brand-border/80 shadow-[0_6px_18px_rgba(15,23,42,0.06)]">
+            {navLinks.map((link) => {
+              const active = isActive(link.to);
+              return (
+                <Link
+                  key={link.label}
+                  to={link.to}
+                  className={`no-underline font-medium text-sm py-2.5 px-4 rounded-full transition-all duration-300 ${
+                    active
+                      ? 'text-brand-dark bg-black/6'
+                      : 'text-brand-text-muted hover:text-brand-dark hover:bg-black/4'
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
+
+            {/* Services Dropdown */}
+            <div className="relative" ref={dropdownRef}>
+              <button
+                onClick={() => setServicesOpen(!servicesOpen)}
+                className={`inline-flex items-center gap-1 no-underline font-medium text-sm py-2.5 px-4 rounded-full transition-all duration-300 cursor-pointer border-none ${
+                  isServicesActive
+                    ? 'text-brand-dark bg-black/6'
+                    : 'text-brand-text-muted hover:text-brand-dark hover:bg-black/4'
                 }`}
               >
-                {link.label}
-              </Link>
-            );
-          })}
+                Services
+                <ChevronDown
+                  size={14}
+                  className={`transition-transform duration-200 ${servicesOpen ? 'rotate-180' : ''}`}
+                />
+              </button>
 
-          {/* Services Dropdown */}
-          <div className="relative" ref={dropdownRef}>
-            <button
-              onClick={() => setServicesOpen(!servicesOpen)}
-              className={`inline-flex items-center gap-1 no-underline font-medium text-sm py-2 px-3.5 rounded-full transition-all duration-300 cursor-pointer border-none ${
-                isServicesActive
-                  ? 'text-brand-dark bg-black/5'
-                  : 'text-brand-text-muted hover:text-brand-dark hover:bg-black/3'
-              }`}
-            >
-              Services
-              <ChevronDown
-                size={14}
-                className={`transition-transform duration-200 ${servicesOpen ? 'rotate-180' : ''}`}
-              />
-            </button>
-
-            {servicesOpen && (
-              <div className="absolute top-full left-0 mt-2 w-64 bg-white rounded-xl border border-brand-border shadow-lg py-3 overflow-hidden z-50 animate-fadeIn">
-                <span className="block text-[9px] font-mono font-bold uppercase tracking-wider text-brand-text-muted/60 px-4 mb-1.5">Core Services</span>
-                {serviceLinks.map((s) => {
-                  const active = location.pathname === s.to;
-                  return (
-                    <Link
-                      key={s.to}
-                      to={s.to}
-                      onClick={() => setServicesOpen(false)}
-                      className={`block no-underline text-xs py-2 px-4 transition-colors duration-150 ${
-                        active
-                          ? 'text-brand-dark bg-brand-yellow/10 font-semibold'
-                          : 'text-brand-text-muted hover:text-brand-dark hover:bg-black/3'
-                      }`}
-                    >
-                      {s.label}
-                    </Link>
-                  );
-                })}
-                <div className="h-px bg-brand-border/60 my-2" />
-                <span className="block text-[9px] font-mono font-bold uppercase tracking-wider text-brand-text-muted/60 px-4 mb-1.5">Agent Solutions</span>
-                {agentLinks.map((a) => {
-                  const active = location.pathname === a.to;
-                  return (
-                    <Link
-                      key={a.to}
-                      to={a.to}
-                      onClick={() => setServicesOpen(false)}
-                      className={`block no-underline text-xs py-2 px-4 transition-colors duration-150 ${
-                        active
-                          ? 'text-brand-dark bg-brand-yellow/10 font-semibold'
-                          : 'text-brand-text-muted hover:text-brand-dark hover:bg-black/3'
-                      }`}
-                    >
-                      {a.label}
-                    </Link>
-                  );
-                })}
-              </div>
-            )}
+              {servicesOpen && (
+                <div className="absolute top-full left-0 mt-2 w-64 bg-white rounded-xl border border-brand-border shadow-[0_18px_40px_rgba(15,23,42,0.12)] py-3 overflow-hidden z-50 animate-fadeIn">
+                  <span className="block text-[9px] font-mono font-bold uppercase tracking-wider text-brand-text-muted/60 px-4 mb-1.5">Core Services</span>
+                  {serviceLinks.map((s) => {
+                    const active = location.pathname === s.to;
+                    return (
+                      <Link
+                        key={s.to}
+                        to={s.to}
+                        onClick={() => setServicesOpen(false)}
+                        className={`block no-underline text-xs py-2 px-4 transition-colors duration-150 ${
+                          active
+                            ? 'text-brand-dark bg-brand-yellow/10 font-semibold'
+                            : 'text-brand-text-muted hover:text-brand-dark hover:bg-black/3'
+                        }`}
+                      >
+                        {s.label}
+                      </Link>
+                    );
+                  })}
+                  <div className="h-px bg-brand-border/60 my-2" />
+                  <span className="block text-[9px] font-mono font-bold uppercase tracking-wider text-brand-text-muted/60 px-4 mb-1.5">Agent Solutions</span>
+                  {agentLinks.map((a) => {
+                    const active = location.pathname === a.to;
+                    return (
+                      <Link
+                        key={a.to}
+                        to={a.to}
+                        onClick={() => setServicesOpen(false)}
+                        className={`block no-underline text-xs py-2 px-4 transition-colors duration-150 ${
+                          active
+                            ? 'text-brand-dark bg-brand-yellow/10 font-semibold'
+                            : 'text-brand-text-muted hover:text-brand-dark hover:bg-black/3'
+                        }`}
+                      >
+                        {a.label}
+                      </Link>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
           </div>
-
         </div>
 
         {/* Get Started button right */}
-        <button
-          onClick={openCalBooking}
-          className="hidden md:inline-flex items-center gap-1.5 bg-brand-dark text-white font-medium text-sm py-2 px-4 rounded-full shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 hover:bg-brand-dark-hover group ml-auto border-none cursor-pointer"
-        >
-          Book a Call
-          <svg
-            width="14"
-            height="14"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="transition-transform duration-200 group-hover:translate-x-0.75"
+        <div className="hidden md:flex flex-1 justify-end">
+          <button
+            onClick={openCalBooking}
+            className="inline-flex items-center gap-1.5 bg-brand-dark text-white font-semibold text-sm py-2.5 px-5 rounded-full shadow-[0_10px_22px_rgba(15,23,42,0.18)] transition-all duration-300 hover:bg-brand-dark-hover group border-none cursor-pointer"
           >
-            <path d="M5 12h14M12 5l7 7-7 7" />
-          </svg>
-        </button>
+            Book a Call
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="transition-transform duration-200 group-hover:translate-x-0.75"
+            >
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
 
         <button
           onClick={() => setMobileOpen(true)}
-          className="md:hidden ml-auto flex items-center justify-center w-9 h-9 rounded-full bg-transparent border-none cursor-pointer text-brand-text-muted hover:text-brand-dark hover:bg-black/5 transition-all duration-200"
+          className="md:hidden ml-auto flex items-center justify-center w-10 h-10 rounded-full bg-transparent border-none cursor-pointer text-brand-text-muted hover:text-brand-dark hover:bg-black/6 transition-all duration-200"
           aria-label="Open menu"
         >
           <Menu size={20} />
