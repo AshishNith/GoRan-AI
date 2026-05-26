@@ -4,23 +4,22 @@ import { motion } from 'motion/react';
 import { useCalBooking } from '../components/CalBookingModal';
 
 const timeline = [
-  { stamp: '2020', event: 'Built first automation system to streamline repetitive desktop workflows.' },
-  { stamp: '2021', event: 'Started deep focus on AI, machine learning, and intelligent systems.' },
-  { stamp: '2022', event: 'Developed full-stack web and backend systems for business automation.' },
-  { stamp: '2023', event: 'Built scalable AI workflows and real-time integrations for operational use cases.' },
-  { stamp: '2024', event: 'Led AI infrastructure and automation systems for high-growth startup environments.' },
-  { stamp: '2025', event: 'Founded GoRan AI to help businesses implement practical AI systems.' },
-  { stamp: '2025', event: 'Delivered AI solutions across CRM, voice AI, automation, and lead generation.' },
-  { stamp: 'NOW', event: 'Building AI-native business systems and autonomous operational agents.' },
+  { stamp: '2020', event: 'Wrote first custom Python automation scripts to rescue local businesses from spreadsheet entry hell.' },
+  { stamp: '2021', event: 'Dived deep into predictive modeling and statistical AI, exploring how computers process unstructured information.' },
+  { stamp: '2022', event: 'Designed high-volume full-stack backend pipelines. Realized software reliability is a company\'s ultimate asset.' },
+  { stamp: '2023', event: 'Integrated early generative models, turning static CRMs into live automated workflows and lead scoring pipelines.' },
+  { stamp: '2024', event: 'Architected and optimized low-latency AI calling agents and multi-system message routing queues.' },
+  { stamp: '2025', event: 'Founded GoRan AI. Focused on turning experimental AI capabilities into robust production-grade system infrastructures.' },
+  { stamp: 'NOW', event: 'Engineering multi-agent autonomous operational swarms that orchestrate sales, voice callers, and CRMs 24/7.' },
 ];
 
 const signals = [
-  { label: 'Business Impact First', desc: 'AI is only valuable when it improves operations, revenue, or efficiency.' },
-  { label: 'Build for Production', desc: 'Systems should be scalable, reliable, and deployable in real business environments.' },
-  { label: 'Automation with Clarity', desc: 'Great AI systems reduce complexity instead of adding more tools.' },
-  { label: 'Speed Matters', desc: 'Rapid iteration and deployment create competitive advantage.' },
-  { label: 'Human-Centered Systems', desc: 'The best automation empowers teams instead of replacing them blindly.' },
-  { label: 'Long-Term Thinking', desc: 'Build infrastructure that grows with the business, not temporary hacks.' },
+  { label: 'Obsessed with Leverage', desc: 'Save hours, delete repetition, and free human minds for creative problem solving.' },
+  { label: 'Build for Production', desc: 'Ditch the toys. Build scalable, bulletproof systems that run continuously without crashing.' },
+  { label: 'Frictionless Systems', desc: 'The best automation hides complexity instead of adding more clunky software tools.' },
+  { label: 'Speed is Competitive', desc: 'Rapidly architect, deploy, test, and iterate on pipelines before the market shifts.' },
+  { label: 'Operational Symbiosis', desc: 'The most powerful AI architectures empower existing teams rather than replacing them.' },
+  { label: 'Bespoke Foundations', desc: 'Build modular, future-proof infrastructures that scale, avoiding fragile temporary hacks.' },
 ];
 
 const stack = [
@@ -63,21 +62,6 @@ export default function Founder() {
         <div className="absolute top-[5%] right-[-8%] w-125 h-125 rounded-full bg-brand-yellow/5 blur-[90px] pointer-events-none" />
 
         <div className="w-full max-w-275 mx-auto px-6 relative z-10">
-          <Link
-            to="/"
-            className="inline-flex items-center gap-1.5 no-underline text-brand-text-muted text-sm font-medium mb-10 group transition-colors hover:text-brand-dark"
-          >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="transition-transform group-hover:-translate-x-0.5">
-              <path d="M19 12H5M12 19l-7-7 7-7" />
-            </svg>
-            Back to Home
-          </Link>
-
-          <div className="inline-flex items-center gap-2 mb-6">
-            <span className="w-2 h-2 rounded-full bg-brand-yellow" />
-            <span className="text-xs font-semibold uppercase tracking-widest text-brand-text-muted">Founder</span>
-          </div>
-
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-12 lg:gap-16 items-center">
             <div>
               <h1 className="text-[clamp(2.8rem,8vw,6rem)] font-heading font-bold text-brand-dark leading-[0.9] tracking-[-0.04em] mb-3 select-none">
@@ -86,7 +70,7 @@ export default function Founder() {
 
               <div className="h-px w-full max-w-75 bg-brand-border mb-4" />
 
-              <p className="text-sm md:text-base font-medium text-brand-text-muted tracking-wide uppercase mb-6">
+              <p className="text-sm md:text-base font-semibold text-brand-yellow tracking-widest uppercase mb-6">
                 Founder &amp; AI Systems Architect
               </p>
 
@@ -94,7 +78,7 @@ export default function Founder() {
                 className="text-lg md:text-xl text-brand-text-muted leading-relaxed max-w-2xl border-l-4 border-brand-yellow pl-5"
                 {...fadeUp}
               >
-                Ashish Ranjan founded GoRan AI with a simple belief — AI should not just look impressive, it should solve real operational problems.
+                "I started GoRan AI because I believe human minds are too valuable to be wasted on copy-pasting data, updating spreadsheets, and routing emails manually. AI should do the chores so we can do the thinking."
               </motion.p>
             </div>
 
@@ -150,15 +134,21 @@ export default function Founder() {
             </motion.div>
 
             <motion.div className="flex flex-col gap-6 text-base md:text-lg leading-relaxed" {...fadeUp}>
-              <p className="text-brand-text-main">
-                Ashish Ranjan founded GoRan AI with a simple belief — AI should not just look impressive, it should solve real operational problems. What started as experiments in workflow automation evolved into building production-grade AI systems for businesses across healthcare, agriculture, education, logistics, consulting, and customer operations.
+              <p className="text-brand-text-main font-semibold text-xl md:text-2xl tracking-tight leading-snug">
+                It started in late 2020. I watched local business owners lose hours every single day manually entering leads from websites into static Excel sheets.
               </p>
               <p className="text-brand-text-main">
-                Today, he focuses on designing AI infrastructure that helps companies automate workflows, improve decision-making, and scale operations intelligently.
+                I wrote my first desktop script in Python to scrape, validate, and input that data automatically. Seeing a task that previously took four hours happen flawlessly in four seconds changed my entire engineering outlook. I became obsessed with leverage.
               </p>
-              <div className="border-l-4 border-brand-yellow pl-5 py-2 mt-2">
-                <p className="text-brand-text-muted italic">
-                  "GoRan AI exists at the intersection of engineering and business operations — building systems that don't just demonstrate AI capability, but create measurable business outcomes in the real world."
+              <p className="text-brand-text-main">
+                As AI models merged with Web2 frameworks, I realized that simple, isolated scripts weren't enough. Businesses required real, production-grade systems—highly available backend infrastructure, real-time database syncing, and bulletproof integrations. I spent years building enterprise pipelines, mastering the exact high-scale architectures that now power GoRan AI.
+              </p>
+              <p className="text-brand-text-main">
+                Today, I design agentic infrastructures that allow businesses to run their core sales, support, and CRM routing pipelines on complete autopilot.
+              </p>
+              <div className="border-l-4 border-brand-yellow bg-brand-bg-light/40 p-5 rounded-r-2xl mt-4">
+                <p className="text-brand-text-muted italic text-sm md:text-base leading-relaxed">
+                  "GoRan AI exists at the intersection of hardcore systems engineering and daily business operations. We don't build toys or demonstrate hypothetical AI tricks. We deploy robust, autonomous pipelines that drive real, measurable margins."
                 </p>
               </div>
             </motion.div>
