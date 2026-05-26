@@ -324,7 +324,7 @@ export default function Chatbot() {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 font-body select-none">
+    <div className="fixed bottom-4 right-4 left-4 sm:left-auto sm:bottom-6 sm:right-6 z-50 font-body select-none">
       {/* ── Chat Float Button ── */}
       {!isOpen && (
         <button
@@ -339,7 +339,7 @@ export default function Chatbot() {
 
       {/* ── Chat Widget Window ── */}
       {isOpen && (
-        <div className="w-[360px] sm:w-[380px] h-[520px] max-h-[85vh] bg-white/90 backdrop-blur-md border border-brand-border rounded-2xl shadow-card-hover flex flex-col overflow-hidden transition-all duration-300 ease-out transform translate-y-0 opacity-100 origin-bottom-right">
+        <div className="w-full sm:w-[380px] h-[min(520px,calc(100vh-2rem))] max-h-[85vh] bg-white/90 backdrop-blur-md border border-brand-border rounded-2xl shadow-card-hover flex flex-col overflow-hidden transition-all duration-300 ease-out transform translate-y-0 opacity-100 origin-bottom-right">
 
           {/* Header */}
           <div className="bg-brand-dark text-white p-4 flex items-center justify-between border-b border-brand-border/10">

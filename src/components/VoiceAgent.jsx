@@ -248,7 +248,7 @@ export default function VoiceAgent() {
         </div>
 
         {/* Voice circle */}
-        <div className="relative flex items-center justify-center mt-2">
+        <div className="voice-agent-orbit relative flex items-center justify-center mt-2">
           {/* ── IDLE STATE ── */}
           {callState === 'IDLE' && (
             <>
@@ -381,7 +381,7 @@ export default function VoiceAgent() {
           )}
 
           {/* Main circle */}
-          <div className="relative w-60 h-60 rounded-full flex items-center justify-center bg-white border border-brand-border shadow-lg">
+          <div className="relative w-52 h-52 sm:w-60 sm:h-60 rounded-full flex items-center justify-center bg-white border border-brand-border shadow-lg">
             {/* Inner glow */}
             <div className="absolute inset-0 rounded-full bg-linear-to-br from-brand-yellow/3 to-transparent pointer-events-none" />
 
@@ -491,7 +491,7 @@ export default function VoiceAgent() {
             activeText ? (
               <div
                 ref={captionRef}
-                className="w-full max-w-135 bg-linear-to-br from-brand-bg-light to-white border border-brand-border rounded-xl px-5 py-4 text-center shadow-sm"
+                className="w-full max-w-135 bg-linear-to-br from-brand-bg-light to-white border border-brand-border rounded-xl px-5 py-4 text-center shadow-sm break-words"
               >
                 <div className="flex items-center justify-center gap-2 mb-2">
                   <span

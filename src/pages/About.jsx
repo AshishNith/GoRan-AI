@@ -225,7 +225,7 @@ export default function About() {
           {/* Right: numbered principles */}
           <div className="md:w-[65%] w-full flex flex-col gap-0">
             {principles.map((p, idx) => (
-              <div key={idx} className="flex items-start gap-8 md:gap-12 py-10 border-b border-brand-border last:border-b-0 group">
+              <div key={idx} className="flex flex-col sm:flex-row items-start gap-4 sm:gap-8 md:gap-12 py-10 border-b border-brand-border last:border-b-0 group">
                 <span className="font-heading text-[4rem] md:text-[5.5rem] font-bold leading-none text-brand-border select-none transition-colors duration-300 group-hover:text-brand-yellow">
                   {String(idx + 1).padStart(2, '0')}
                 </span>

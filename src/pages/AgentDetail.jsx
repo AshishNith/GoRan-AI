@@ -227,7 +227,7 @@ export default function AgentDetail() {
             <span className="text-[10px] font-semibold uppercase tracking-widest text-brand-text-muted">{agent.tag}</span>
           </div>
 
-          <h1 className="text-4xl sm:text-6xl font-heading font-bold text-brand-dark leading-[0.95] tracking-tight mb-6 flex items-center gap-4">
+          <h1 className="text-4xl sm:text-6xl font-heading font-bold text-brand-dark leading-[0.95] tracking-tight mb-6 flex flex-col sm:flex-row sm:items-center items-start gap-4">
             <span className="p-3 bg-brand-bg-light rounded-2xl border border-brand-border shrink-0" style={{ color: agent.color }}>
               <IconComponent size={36} />
             </span>

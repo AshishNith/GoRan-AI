@@ -100,7 +100,7 @@ export default function Founder() {
 
             <div className="w-full aspect-3/4 max-h-125 border border-brand-border bg-brand-bg-light overflow-hidden">
               <img
-                src="/hero_bg.png"
+                src="/Founder.png.png"
                 alt="Founder portrait placeholder"
                 className="w-full h-full object-cover"
               />

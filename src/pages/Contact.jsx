@@ -147,7 +147,7 @@ export default function Contact() {
             </div>
 
             {/* Trust indicators */}
-            <div className="grid grid-cols-3 gap-6 rounded-2xl border border-brand-border p-6">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 rounded-2xl border border-brand-border p-6">
               {[
                 { value: '500k+', label: 'Daily executions' },
                 { value: '99.9%', label: 'System uptime' },

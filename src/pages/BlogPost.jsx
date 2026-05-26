@@ -453,7 +453,7 @@ export default function BlogPost() {
           </article>
 
           {/* Sidebar */}
-          <aside className="w-full lg:w-[240px] shrink-0 sticky top-28 flex flex-col gap-8">
+          <aside className="w-full lg:w-[240px] shrink-0 lg:sticky lg:top-28 flex flex-col gap-8">
             
             {/* Table of Contents */}
             <div>

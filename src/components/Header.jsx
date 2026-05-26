@@ -70,20 +70,20 @@ export default function Header() {
 
   const isServicesActive = serviceLinks.some((s) => location.pathname.startsWith(s.to)) || agentLinks.some((a) => location.pathname.startsWith(a.to));
 
-  const navbarClasses = `relative w-full max-w-[1100px] rounded-full flex items-center py-2 px-3 pl-6 transition-all duration-300 ${
+  const navbarClasses = `relative w-full max-w-[1100px] rounded-full flex items-center py-2 px-3 pl-4 md:pl-6 transition-all duration-300 ${
     scrolled
       ? 'bg-white/85 backdrop-blur-xl shadow-[0_10px_30px_rgba(0,0,0,0.06)] border border-brand-border/50'
       : 'bg-white/70 backdrop-blur-md border border-white/50 shadow-nav'
   }`;
 
   return (
-    <header className="fixed top-4 left-0 right-0 w-full flex justify-center z-50 px-4">
+    <header className="fixed top-4 left-0 right-0  flex justify-center z-50 px-4">
       <nav className={navbarClasses}>
-        <Link to="/" className="flex items-center no-underline bg-brand-dark px-3.5 py-1.5 rounded-lg transition-all duration-300 hover:bg-brand-dark-hover shrink-0">
+        <Link to="/" className="flex items-center no-underline h-full  rounded-lg transition-all duration-300 hover:bg-brand-dark-hover shrink-0">
           <img
             src="/Logo.png"
             alt="GoRan AI Logo"
-            className="h-4.5 w-auto block"
+            className="h-10 rounded-2xl w-auto block"
           />
         </Link>
 
@@ -172,7 +172,7 @@ export default function Header() {
           onClick={openCalBooking}
           className="hidden md:inline-flex items-center gap-1.5 bg-brand-dark text-white font-medium text-sm py-2 px-4 rounded-full shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 hover:bg-brand-dark-hover group ml-auto border-none cursor-pointer"
         >
-          Get Started
+          Book a Call
           <svg
             width="14"
             height="14"
@@ -190,7 +190,7 @@ export default function Header() {
 
         <button
           onClick={() => setMobileOpen(true)}
-          className="md:hidden flex items-center justify-center w-9 h-9 rounded-full bg-transparent border-none cursor-pointer text-brand-text-muted hover:text-brand-dark hover:bg-black/5 transition-all duration-200"
+          className="md:hidden ml-auto flex items-center justify-center w-9 h-9 rounded-full bg-transparent border-none cursor-pointer text-brand-text-muted hover:text-brand-dark hover:bg-black/5 transition-all duration-200"
           aria-label="Open menu"
         >
           <Menu size={20} />
@@ -204,7 +204,7 @@ export default function Header() {
             className="absolute inset-0 bg-black/30 backdrop-blur-sm"
             onClick={() => setMobileOpen(false)}
           />
-          <div className="absolute top-0 right-0 w-70 h-full bg-white border-l border-brand-border shadow-xl flex flex-col">
+          <div className="absolute top-0 right-0 w-70 max-w-[calc(100vw-1rem)] h-full bg-white border-l border-brand-border shadow-xl flex flex-col">
             <div className="flex items-center justify-between px-5 pt-5 pb-3 border-b border-brand-border">
               <Link
                 to="/"

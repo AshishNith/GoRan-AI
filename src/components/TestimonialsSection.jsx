@@ -33,6 +33,7 @@ export default function TestimonialsSection() {
   useEffect(() => {
     const section = sectionRef.current;
     if (!section) return;
+    if (window.matchMedia('(max-width: 767px)').matches) return;
 
     const ctx = gsap.context(() => {
       ScrollTrigger.create({
@@ -56,13 +57,13 @@ export default function TestimonialsSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="border-t border-brand-border bg-white relative h-screen overflow-hidden" id="testimonials">
+    <section ref={sectionRef} className="border-t border-brand-border bg-white relative md:h-screen overflow-hidden" id="testimonials">
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/3 left-[-5%] w-100 h-100 rounded-full bg-brand-yellow/3 blur-[120px]" />
         <div className="absolute bottom-1/4 right-[-5%] w-87.5 h-87.5 rounded-full bg-purple-500/3 blur-[100px]" />
       </div>
 
-      <div className="relative z-10 flex h-full flex-col px-6 pt-16 pb-8 md:pt-20 md:pb-10">
+      <div className="relative z-10 flex h-full flex-col px-6 pt-16 pb-12 md:pt-20 md:pb-10">
         <div className="text-center shrink-0">
           <span className="text-[11px] font-semibold uppercase tracking-[0.15em] text-brand-text-muted">Client Stories</span>
           <h2 className="text-3xl md:text-4xl font-heading font-bold text-brand-dark leading-tight mt-3">
@@ -73,7 +74,24 @@ export default function TestimonialsSection() {
           </p>
         </div>
 
-        <div className="relative flex min-h-0 flex-1 items-center justify-center pt-4 pb-8 md:pt-6 md:pb-12">
+        <div className="md:hidden grid grid-cols-1 gap-4 pt-10 pb-10">
+          {testimonialsList.slice(0, 3).map((item) => (
+            <div key={item.id} className="rounded-2xl border border-brand-border bg-white p-5 shadow-card">
+              <div className="flex items-center gap-1 mb-3">
+                {Array.from({ length: item.rating }).map((_, i) => (
+                  <svg key={i} width="12" height="12" viewBox="0 0 24 24" fill="#F6C744" stroke="#F6C744" strokeWidth="1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                ))}
+              </div>
+              <p className="text-sm text-brand-text-muted leading-relaxed">&ldquo;{item.quote}&rdquo;</p>
+              <div className="mt-4 border-t border-brand-border/60 pt-4">
+                <div className="text-sm font-semibold text-brand-dark">{item.name}</div>
+                <div className="text-xs text-brand-text-muted">{item.role}, {item.company}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="relative hidden md:flex min-h-0 flex-1 items-center justify-center pt-4 pb-8 md:pt-6 md:pb-12">
           <div className="w-full h-full max-h-[560px] max-w-[1000px] mx-auto relative">
             <CircularGallery
               items={galleryItems}

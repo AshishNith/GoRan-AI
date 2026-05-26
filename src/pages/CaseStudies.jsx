@@ -134,7 +134,7 @@ function IframePreviewModal({ url, title, onClose }) {
       <div className="bg-[#121212] w-full h-full max-w-6xl max-h-[85vh] rounded-2xl overflow-hidden flex flex-col border border-white/10 shadow-2xl relative">
 
         {/* Mock Browser Header */}
-        <div className="bg-[#1c1c1c] px-4 py-3 flex items-center justify-between border-b border-white/[0.06] select-none">
+        <div className="bg-[#1c1c1c] px-3 sm:px-4 py-3 flex items-center justify-between gap-3 border-b border-white/[0.06] select-none">
           {/* Mac window controls */}
           <div className="flex items-center gap-1.5">
             <span className="w-3 h-3 rounded-full bg-[#ff5f56] block" />
@@ -143,7 +143,7 @@ function IframePreviewModal({ url, title, onClose }) {
           </div>
 
           {/* Address Bar */}
-          <div className="bg-white/5 border border-white/10 rounded-lg text-white/50 text-[10.5px] font-mono py-1 px-4 max-w-lg w-full text-center truncate flex items-center justify-center gap-1.5">
+          <div className="hidden sm:flex bg-white/5 border border-white/10 rounded-lg text-white/50 text-[10.5px] font-mono py-1 px-4 max-w-lg w-full text-center truncate items-center justify-center gap-1.5">
             <Shield size={10} className="text-green-500" />
             {url}
           </div>

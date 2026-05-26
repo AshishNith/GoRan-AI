@@ -183,6 +183,7 @@ export default function ScrollAdventure() {
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
+    if (window.matchMedia('(max-width: 767px)').matches) return;
 
     // Create GSAP timeline linked to scroll pinning
     const tl = gsap.timeline({
@@ -221,9 +222,72 @@ export default function ScrollAdventure() {
   }, [numOfPages]);
 
   return (
+    <>
+    <section className="md:hidden bg-white border-t border-b border-brand-border py-16">
+      <div className="w-full px-6">
+        <div className="mb-10">
+          <span className="text-[#B45309] font-mono text-xs uppercase tracking-widest font-semibold block mb-3">
+            Our Past Work
+          </span>
+          <h2 className="text-3xl font-heading font-bold text-brand-dark leading-tight tracking-tight">
+            Real Stories. Real Business Growth.
+          </h2>
+          <p className="text-sm text-brand-text-muted leading-relaxed mt-4">
+            Custom AI tools that solve actual operational headaches for real companies.
+          </p>
+        </div>
+
+        <div className="flex flex-col gap-5">
+          {pages.slice(1).map((page, i) => {
+            const content = page.leftContent || page.rightContent;
+            if (!content) return null;
+
+            return (
+              <article key={page.path || i} className="rounded-2xl border border-brand-border bg-white p-5 shadow-card">
+                <span className="text-[#B45309] font-mono text-[10px] uppercase tracking-widest font-semibold block mb-3">
+                  {content.tag}
+                </span>
+                <h3 className="text-2xl font-heading font-bold text-brand-dark leading-tight">
+                  {content.heading}
+                </h3>
+                <p className="text-sm text-brand-text-muted leading-relaxed mt-4">
+                  {content.description}
+                </p>
+
+                {content.stats && (
+                  <div className="pt-5 mt-5 border-t border-brand-border grid grid-cols-1 min-[420px]:grid-cols-2 gap-4">
+                    {content.stats.map((stat, sIdx) => (
+                      <div key={sIdx}>
+                        <span className="block text-[10px] uppercase font-mono text-brand-text-muted tracking-wider">
+                          {stat.label}
+                        </span>
+                        <span className="text-base font-bold text-[#B45309] mt-1 block">
+                          {stat.value}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {page.path && (
+                  <Link
+                    to={`/case-studies/${page.path}`}
+                    className="inline-flex items-center gap-1.5 mt-6 py-2.5 px-5 rounded-full text-xs font-semibold bg-brand-yellow text-brand-dark transition-all duration-300 hover:bg-brand-yellow-hover no-underline shadow-card"
+                  >
+                    Read Case Study
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                  </Link>
+                )}
+              </article>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+
     <section
       ref={containerRef}
-      className="relative overflow-hidden h-screen bg-white w-full border-t border-b border-brand-border"
+      className="relative hidden md:block overflow-hidden h-screen bg-white w-full border-t border-b border-brand-border"
     >
       {pages.map((page, i) => {
         const idx = i + 1;
@@ -400,5 +464,6 @@ export default function ScrollAdventure() {
         </span>
       </div>
     </section>
+    </>
   );
 }

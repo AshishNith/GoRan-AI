@@ -30,6 +30,18 @@ body {
   background-color: #FFFFFF;
 }
 
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+}
+
+img,
+video {
+  max-width: 100%;
+}
+
 /* Subtle background grid pattern to mimic premium editor space */
 .grid-bg-overlay {
   position: absolute;
@@ -172,6 +184,43 @@ body {
 }
 .anim-wave-slow {
   animation: voiceWaveSlow 2s ease-in-out infinite;
+}
+
+@media (max-width: 767px) {
+  html,
+  body,
+  #root {
+    overflow-x: hidden;
+  }
+
+  .clients-marquee-container::before,
+  .clients-marquee-container::after {
+    width: 48px;
+  }
+
+  .scroll-stack-sticky-wrapper {
+    position: relative !important;
+    top: auto !important;
+  }
+
+  .scroll-stack-card {
+    padding: 1.25rem;
+    border-radius: 16px;
+    margin-bottom: 16px;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  .voice-agent-orbit {
+    transform: scale(0.82);
+    transform-origin: center;
+  }
+}
+
+@media (max-width: 420px) {
+  .voice-agent-orbit {
+    transform: scale(0.72);
+  }
 }
 
 

@@ -16,7 +16,7 @@ export default function Home() {
   return (
     <main className="w-full bg-white">
       {/* Hero Section */}
-      <section className="pt-40 pb-20 text-center relative min-h-screen flex items-center justify-center bg-gradient-to-b from-white via-white to-brand-bg-light overflow-hidden" id="hero">
+      <section className="pt-32 md:pt-40 pb-20 text-center relative min-h-screen flex items-center justify-center bg-gradient-to-b from-white via-white to-brand-bg-light overflow-hidden" id="hero">
         {/* Background video */}
         <video className="absolute inset-0 w-full h-full object-cover pointer-events-none" autoPlay loop muted playsInline>
           <source src="/Herobg_video.mp4" type="video/mp4" />
@@ -43,7 +43,7 @@ export default function Home() {
 
             {/* Headline */}
             <h1 
-              className="font-heading font-black text-[#111] leading-[0.85] text-[clamp(4.5rem,11.5vw,9rem)] tracking-tighter z-10 relative uppercase text-center w-full select-none"
+              className="font-heading font-black text-[#111] leading-[0.85] text-[clamp(3rem,17vw,4.5rem)] md:text-[clamp(4.5rem,11.5vw,9rem)] tracking-tighter z-10 relative uppercase text-center w-full select-none"
               style={{ WebkitTextStroke: '2px #111', color: 'transparent', textShadow: '0 0 0 #111' }}
             >
               RUN ON<br />AUTOPILOT
@@ -119,7 +119,7 @@ export default function Home() {
             <ScrollStack className="w-full">
               <ScrollStackItem itemClassName="group">
                 <Link to="/services/ai-audit" className="no-underline text-inherit block w-full h-full">
-                  <div className="flex items-start gap-8 md:gap-12">
+                  <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-8 md:gap-12">
                     <span className="font-heading text-[4rem] md:text-[5.5rem] font-bold leading-none text-brand-border select-none transition-colors duration-300 group-hover:text-brand-yellow">01</span>
                     <div className="flex flex-col gap-3 pt-3 flex-1">
                       <h3 className="text-xl md:text-2xl font-heading font-semibold text-brand-dark tracking-tight">AI Audit</h3>
@@ -135,7 +135,7 @@ export default function Home() {
 
               <ScrollStackItem itemClassName="group">
                 <Link to="/services/product-development" className="no-underline text-inherit block w-full h-full">
-                  <div className="flex items-start gap-8 md:gap-12">
+                  <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-8 md:gap-12">
                     <span className="font-heading text-[4rem] md:text-[5.5rem] font-bold leading-none text-brand-border select-none transition-colors duration-300 group-hover:text-brand-yellow">02</span>
                     <div className="flex flex-col gap-3 pt-3 flex-1">
                       <h3 className="text-xl md:text-2xl font-heading font-semibold text-brand-dark tracking-tight">Product Development</h3>
@@ -151,7 +151,7 @@ export default function Home() {
 
               <ScrollStackItem itemClassName="group">
                 <Link to="/services/product-management" className="no-underline text-inherit block w-full h-full">
-                  <div className="flex items-start gap-8 md:gap-12">
+                  <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-8 md:gap-12">
                     <span className="font-heading text-[4rem] md:text-[5.5rem] font-bold leading-none text-brand-border select-none transition-colors duration-300 group-hover:text-brand-yellow">03</span>
                     <div className="flex flex-col gap-3 pt-3 flex-1">
                       <h3 className="text-xl md:text-2xl font-heading font-semibold text-brand-dark tracking-tight">Product Management</h3>
@@ -167,7 +167,7 @@ export default function Home() {
 
               <ScrollStackItem itemClassName="group">
                 <Link to="/services/ai-training" className="no-underline text-inherit block w-full h-full">
-                  <div className="flex items-start gap-8 md:gap-12">
+                  <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-8 md:gap-12">
                     <span className="font-heading text-[4rem] md:text-[5.5rem] font-bold leading-none text-brand-border select-none transition-colors duration-300 group-hover:text-brand-yellow">04</span>
                     <div className="flex flex-col gap-3 pt-3 flex-1">
                       <h3 className="text-xl md:text-2xl font-heading font-semibold text-brand-dark tracking-tight">AI Training & Enablement</h3>
@@ -288,7 +288,7 @@ function FaqChatList() {
             onClick={() => toggle(i)}
           >
             {/* Question row */}
-            <div className="flex items-center gap-4 px-6 py-5">
+            <div className="flex items-start sm:items-center gap-3 sm:gap-4 px-4 sm:px-6 py-5">
               <span
                 className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 text-xs font-bold font-heading transition-colors duration-300"
                 style={{

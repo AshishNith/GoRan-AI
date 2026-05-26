@@ -145,7 +145,7 @@ export default function Process() {
           {steps.map((step, idx) => (
             <motion.div
               key={idx}
-              className="flex items-start gap-8 md:gap-16 py-14 border-b border-brand-border last:border-b-0 group"
+              className="flex flex-col sm:flex-row items-start gap-4 sm:gap-8 md:gap-16 py-14 border-b border-brand-border last:border-b-0 group"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-60px' }}

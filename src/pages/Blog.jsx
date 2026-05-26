@@ -251,10 +251,10 @@ export default function Blog() {
         {/* Layout Control Bar & Category Quick Slider */}
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between border-b border-brand-border/40 pb-6 mb-12 gap-4">
           {/* Layout buttons */}
-          <div className="flex items-center gap-1.5 bg-brand-bg-light p-1 rounded-xl border border-brand-border/80">
+          <div className="flex max-w-full items-center gap-1.5 overflow-x-auto bg-brand-bg-light p-1 rounded-xl border border-brand-border/80 scrollbar-hide">
             <button
               onClick={() => setLayoutMode('editorial')}
-              className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-semibold cursor-pointer transition-all duration-300 ${
+              className={`flex shrink-0 items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-semibold cursor-pointer transition-all duration-300 ${
                 layoutMode === 'editorial'
                   ? 'bg-white text-brand-dark shadow-sm'
                   : 'text-brand-text-muted hover:text-brand-dark'
@@ -265,7 +265,7 @@ export default function Blog() {
             </button>
             <button
               onClick={() => setLayoutMode('grid')}
-              className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-semibold cursor-pointer transition-all duration-300 ${
+              className={`flex shrink-0 items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-semibold cursor-pointer transition-all duration-300 ${
                 layoutMode === 'grid'
                   ? 'bg-white text-brand-dark shadow-sm'
                   : 'text-brand-text-muted hover:text-brand-dark'
@@ -276,7 +276,7 @@ export default function Blog() {
             </button>
             <button
               onClick={() => setLayoutMode('technical')}
-              className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-semibold cursor-pointer transition-all duration-300 ${
+              className={`flex shrink-0 items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-semibold cursor-pointer transition-all duration-300 ${
                 layoutMode === 'technical'
                   ? 'bg-white text-brand-dark shadow-sm'
                   : 'text-brand-text-muted hover:text-brand-dark'
