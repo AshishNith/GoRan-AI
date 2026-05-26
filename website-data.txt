@@ -971,7 +971,7 @@ Sections:
   22. CHATBOT CONFIG
 ================================================================================
 
-Gemini API key:       AIzaSyACFXMNL9vGYNqDzlI_8NdYxDG1-fOzUuo  (HARDCODED — replace with env var)
+Gemini API key:       (Read from environment variable VITE_GEMINI_API_KEY)
 Model:                gemini-2.5-flash
 Max tokens:           500
 Temperature:          0.7

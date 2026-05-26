@@ -238,7 +238,7 @@ export default function Chatbot() {
 
     // Get active API Key from environment variables
     const envKey = import.meta.env.VITE_GEMINI_API_KEY;
-    const activeKey = envKey && envKey !== 'YOUR_GEMINI_API_KEY_HERE' ? envKey : "AIzaSyACFXMNL9vGYNqDzlI_8NdYxDG1-fOzUuo";
+    const activeKey = envKey && envKey !== 'YOUR_GEMINI_API_KEY_HERE' ? envKey : "";
 
     if (!activeKey) {
       // Offline / Demo Mode Fallback
