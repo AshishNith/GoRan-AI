@@ -77,10 +77,14 @@ body {
 
 .clients-marquee-track {
   display: inline-flex;
-  gap: 80px;
+  gap: 24px;
   align-items: center;
-  animation: marquee-scroll 30s linear infinite;
+  animation: marquee-scroll 25s linear infinite;
   width: max-content;
+}
+
+.clients-marquee-track:hover {
+  animation-play-state: paused;
 }
 
 @keyframes marquee-scroll {

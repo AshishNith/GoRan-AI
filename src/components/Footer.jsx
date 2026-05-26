@@ -3,12 +3,11 @@ import { Link } from 'react-router-dom';
 import { useCalBooking } from './CalBookingModal';
 
 const socialLinks = [
-  { label: 'X', href: 'https://x.com/synapseai' },
-  { label: 'LinkedIn', href: 'https://linkedin.com/company/synapseai' },
-  { label: 'GitHub', href: 'https://github.com/synapseai' },
-  { label: 'Instagram', href: 'https://instagram.com/synapseai' },
-  { label: 'Facebook', href: 'https://facebook.com/synapseai' },
-  { label: 'YouTube', href: 'https://youtube.com/@synapseai' },
+  { label: 'X', href: 'https://x.com/goranai' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/company/107898890' },
+  { label: 'Instagram', href: 'https://www.instagram.com/goran.dotin/' },
+  { label: 'Facebook', href: 'https://facebook.com/goranai' },
+  { label: 'YouTube', href: 'https://youtube.com/@goranai' },
 ];
 
 const socialIcons = {
@@ -71,13 +70,13 @@ export default function Footer() {
               >
                 <img
                   src="/Logo.png"
-                  alt="Synapse Logo"
+                  alt="GoRan AI Logo"
                   className="h-5 w-auto block brightness-0 invert"
                 />
               </Link>
 
               <p className="text-white/50 leading-relaxed text-sm max-w-[300px]">
-                We design, build, and deploy custom AI agent systems that automate workflows, connect your tools, and scale with your business.
+                We design, build, and deploy custom AI agent systems that integrate with your existing tools, automate complex workflows, and scale with your business — from startups to enterprises.
               </p>
 
               {/* Status indicator */}
@@ -156,10 +155,10 @@ export default function Footer() {
                 </svg>
               </button>
               <a
-                href="mailto:hello@synapse-ai.agency"
+                href="mailto:goran.dotin@gmail.com"
                 className="text-white/40 hover:text-white transition-colors duration-200 text-xs no-underline mt-1"
               >
-                hello@synapse-ai.agency
+                goran.dotin@gmail.com
               </a>
             </div>
           </div>
@@ -189,7 +188,7 @@ export default function Footer() {
         {/* ── Bottom Bar ── */}
         <div className="flex flex-col sm:flex-row items-center justify-between py-10 gap-6">
           <div className="text-white/30 text-xs text-center sm:text-left leading-relaxed">
-            &copy; {new Date().getFullYear()} Synapse AI Agency. All rights reserved.
+            &copy; {new Date().getFullYear()} GoRan AI Agency. All rights reserved.
           </div>
 
           <div className="flex items-center gap-5 text-xs">

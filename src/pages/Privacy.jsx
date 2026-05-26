@@ -45,7 +45,7 @@ export default function Privacy() {
           <section>
             <h2 className="text-lg font-heading font-bold text-brand-dark mb-3">1. Introduction</h2>
             <p className="text-brand-text-muted mb-3">
-              Synapse AI Agency ("Synapse," "we," "us," or "our") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website and use our services.
+              GoRan AI Agency ("GoRan AI," "we," "us," or "our") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website and use our services.
             </p>
             <p className="text-brand-text-muted">
               By accessing our website or engaging our services, you agree to the collection and use of information in accordance with this policy.
@@ -123,7 +123,7 @@ export default function Privacy() {
               <li className="list-disc">Withdraw consent at any time</li>
             </ul>
             <p className="text-brand-text-muted mt-3">
-              To exercise these rights, contact us at privacy@synapse-ai.agency.
+              To exercise these rights, contact us at goran.dotin@gmail.com.
             </p>
           </section>
 
@@ -145,7 +145,7 @@ export default function Privacy() {
             <h2 className="text-lg font-heading font-bold text-brand-dark mb-3">10. Contact</h2>
             <p className="text-brand-text-muted">
               If you have questions about this Privacy Policy, please contact us at{' '}
-              <a href="mailto:privacy@synapse-ai.agency" className="text-brand-yellow hover:text-brand-yellow-hover transition-colors no-underline">privacy@synapse-ai.agency</a>.
+              <a href="mailto:goran.dotin@gmail.com" className="text-brand-yellow hover:text-brand-yellow-hover transition-colors no-underline">goran.dotin@gmail.com</a>.
             </p>
           </section>
         </div>

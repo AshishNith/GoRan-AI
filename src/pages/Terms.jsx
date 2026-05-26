@@ -45,17 +45,17 @@ export default function Terms() {
           <section>
             <h2 className="text-lg font-heading font-bold text-brand-dark mb-3">1. Acceptance of Terms</h2>
             <p className="text-brand-text-muted mb-3">
-              By accessing the Synapse AI Agency website or engaging our services, you agree to be bound by these Terms of Service. If you do not agree with any part of these terms, you should not use our website or services.
+              By accessing the GoRan AI Agency website or engaging our services, you agree to be bound by these Terms of Service. If you do not agree with any part of these terms, you should not use our website or services.
             </p>
             <p className="text-brand-text-muted">
-              These terms apply to all visitors, users, and clients of Synapse AI Agency ("Synapse," "we," "us," or "our").
+              These terms apply to all visitors, users, and clients of GoRan AI Agency ("GoRan AI," "we," "us," or "our").
             </p>
           </section>
 
           <section>
             <h2 className="text-lg font-heading font-bold text-brand-dark mb-3">2. Services Description</h2>
             <p className="text-brand-text-muted mb-3">
-              Synapse provides AI agent development, workflow automation, AI audit, product development, product management, and AI training services. Each engagement is governed by a separate Statement of Work (SOW) that defines specific deliverables, timelines, and pricing.
+              GoRan AI provides AI agent development, workflow automation, AI audit, product development, product management, and AI training services. Each engagement is governed by a separate Statement of Work (SOW) that defines specific deliverables, timelines, and pricing.
             </p>
             <p className="text-brand-text-muted">
               The scope, fees, and timeline for each project will be documented in a signed SOW. In the event of any conflict between these Terms and a SOW, the SOW will prevail.
@@ -66,7 +66,7 @@ export default function Terms() {
             <h2 className="text-lg font-heading font-bold text-brand-dark mb-3">3. Intellectual Property</h2>
             <h3 className="font-heading font-semibold text-brand-dark text-sm mb-2">Our Intellectual Property</h3>
             <p className="text-brand-text-muted mb-3">
-              All materials, methodologies, frameworks, and proprietary tools developed by Synapse (including pre-existing intellectual property) remain our exclusive property. This includes our agent architecture patterns, safety loop designs, and internal tooling.
+              All materials, methodologies, frameworks, and proprietary tools developed by GoRan AI (including pre-existing intellectual property) remain our exclusive property. This includes our agent architecture patterns, safety loop designs, and internal tooling.
             </p>
             <h3 className="font-heading font-semibold text-brand-dark text-sm mb-2">Client Deliverables</h3>
             <p className="text-brand-text-muted mb-3">
@@ -106,14 +106,14 @@ export default function Terms() {
               Both parties agree to maintain confidentiality of all proprietary information shared during the engagement. This obligation survives the termination of our agreement for a period of three years.
             </p>
             <p className="text-brand-text-muted">
-              Synapse will not disclose client data, trade secrets, or business processes to any third party without written consent, except as required by law.
+              GoRan AI will not disclose client data, trade secrets, or business processes to any third party without written consent, except as required by law.
             </p>
           </section>
 
           <section>
             <h2 className="text-lg font-heading font-bold text-brand-dark mb-3">7. Limitation of Liability</h2>
             <p className="text-brand-text-muted mb-3">
-              To the maximum extent permitted by law, Synapse's liability for any claim arising from our services is limited to the total fees paid by the client for the specific project giving rise to the claim.
+              To the maximum extent permitted by law, GoRan AI's liability for any claim arising from our services is limited to the total fees paid by the client for the specific project giving rise to the claim.
             </p>
             <p className="text-brand-text-muted">
               We are not liable for indirect, incidental, or consequential damages, including lost profits, data loss, or business interruption, even if advised of the possibility of such damages.
@@ -133,7 +133,7 @@ export default function Terms() {
           <section>
             <h2 className="text-lg font-heading font-bold text-brand-dark mb-3">9. Termination</h2>
             <p className="text-brand-text-muted mb-3">
-              Either party may terminate a project with 30 days written notice. In the event of termination, the client pays for all work completed and deliverables produced up to the termination date. Synapse will deliver all work product produced up to that point.
+              Either party may terminate a project with 30 days written notice. In the event of termination, the client pays for all work completed and deliverables produced up to the termination date. GoRan AI will deliver all work product produced up to that point.
             </p>
             <p className="text-brand-text-muted">
               Either party may terminate immediately if the other party breaches a material term and fails to remedy it within 15 days of written notice.
@@ -143,7 +143,7 @@ export default function Terms() {
           <section>
             <h2 className="text-lg font-heading font-bold text-brand-dark mb-3">10. Governing Law</h2>
             <p className="text-brand-text-muted">
-              These terms are governed by the laws of England and Wales. Any disputes arising from these terms or our services shall be resolved through binding arbitration in London, UK.
+              These terms are governed by Indian law. Any disputes arising from these terms or our services shall be resolved through arbitration in Delhi, India.
             </p>
           </section>
 
@@ -158,7 +158,7 @@ export default function Terms() {
             <h2 className="text-lg font-heading font-bold text-brand-dark mb-3">12. Contact</h2>
             <p className="text-brand-text-muted">
               For questions about these Terms of Service, contact us at{' '}
-              <a href="mailto:legal@synapse-ai.agency" className="text-brand-yellow hover:text-brand-yellow-hover transition-colors no-underline">legal@synapse-ai.agency</a>.
+              <a href="mailto:goran.dotin@gmail.com" className="text-brand-yellow hover:text-brand-yellow-hover transition-colors no-underline">goran.dotin@gmail.com</a>.
             </p>
           </section>
         </div>

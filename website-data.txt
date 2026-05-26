@@ -3,6 +3,8 @@
   Edit this file with your real information, then I'll update the website.
 ================================================================================
 
+** One very important thing If by mistake I would have left somewhere name synapse ai or something just changeit to goran ai and anything should not be left templatized ask for anything if oyu need **
+
 ================================================================================
   1. BRAND / AGENCY INFO
 ================================================================================
@@ -12,41 +14,41 @@ Short name:           GoRan AI
 Founding year:        2025
 Tagline (hero):       AI agents that run your business while you sleep
 Site title (SEO):     GoRan AI Agency | Custom AI Agents & Autonomous Workflows
-Meta description:     Describe what you need and let Synapse AI handle the rest. We build premium AI Agents, LLM Integrations, and Vector Databases.
+Meta description:     Describe what you need and let GoRan AI handle the rest. We build premium AI Agents, LLM Integrations, and Vector Databases.
 Logo file:            /Logo.png  (place in public/ folder)
 
-Copyright name:       Synapse AI Agency
+Copyright name:       GoRan AI Agency
 Footer mission:       We design, build, and deploy custom AI agent systems that integrate with your existing tools, automate complex workflows, and scale with your business — from startups to enterprises.
 
-Blog author name:     Alex Chen
+Blog author name:     Ashish Ranjan
 Blog author role:     Founder & AI Architect
 
-Founder name:         Alex Venter
+Founder name:         Ashish Ranjan
 Founder title:        Founder & Principal Architect
 
-Company email:        hello@synapse-ai.agency
-Privacy email:        privacy@synapse-ai.agency
-Legal email:          legal@synapse-ai.agency
+Company email:        goran.dotin@gmail.com
+Privacy email:        goran.dotin@gmail.com
+Legal email:          goran.dotin@gmail.com
 
-Location/Cities:      London and Singapore
-Team size:            28
+Location/Cities:      Delhi 
+Team size:            5
 
 ================================================================================
   2. SOCIAL MEDIA LINKS
 ================================================================================
 
-X:            https://x.com/synapseai
-LinkedIn:     https://linkedin.com/company/synapseai
-GitHub:       https://github.com/synapseai
-Instagram:    https://instagram.com/synapseai
-Facebook:     https://facebook.com/synapseai
-YouTube:      https://youtube.com/@synapseai
+X:            https://x.com/goranai
+LinkedIn:     https://www.linkedin.com/company/107898890
+GitHub:       ** Dont add github **
+Instagram:    https://www.instagram.com/goran.dotin/
+Facebook:     https://facebook.com/goranai
+YouTube:      https://youtube.com/@goranai
 
 ================================================================================
   3. CAL.COM BOOKING
 ================================================================================
 
-Cal.com booking URL:  https://cal.com/synapse-ai/30min
+Cal.com booking URL:  https://cal.com/ranjan-ashish/30min
 
 ================================================================================
   4. HERO SECTION
@@ -72,7 +74,7 @@ Stat 2 - label:       Agent Executions Daily
 Stat 3 - value:       4.9/5
 Stat 3 - label:       Client Satisfaction Rating
 
-Stat 4 - value:       <24h
+Stat 4 - value:       <5hrs
 Stat 4 - label:       Avg. Response Time
 
 Trust section heading:  Engineered to industry leading standards
@@ -156,169 +158,177 @@ Checklist items:
 ================================================================================
   7. CASE STUDIES (4 total)
 ================================================================================
-
 --- Case Study 1 ---
-URL slug:             ibs-brokers
-Client name:          IBS Insurance Brokers
-Tag:                  Workflow Automation
-Headline:             How we saved IBS Brokers 1,280 hours of manual data entry every single month
-Timeline:             28 Days
-Impact:               1,280 Hours Saved / Month
-Services used:        AI Workflow Audit, Custom Document Pipeline, API Integration
-Tech stack:           Python, FastAPI, Airtable, Google Cloud Document AI, Slack API
+URL slug: maruti-techno-rubber
+Client name: Maruti Techno Rubber Pvt. Ltd.
+Tag: AI Sales Automation
+Headline: How GoRan AI reduced industrial lead response time from 9 hours to under 3 minutes
+Timeline: 35 Days
+Impact: 73% Faster Lead Conversion
+Services used: AI Workflow Audit, AI CRM Setup, Lead Qualification System, WhatsApp Automation
+Tech stack: React.js, Node.js, MongoDB, OpenAI API, WhatsApp Cloud API, Firebase
 
-Challenge paragraph:  IBS Brokers processed thousands of insurance claims weekly, but the data entry workflow was entirely manual. Support staff spent entire shifts copying information from PDFs and emails into their claims database. Errors were common, processing time averaged 12 minutes per claim, and the backlog grew faster than their team could handle.
-Discovery paragraph:  We embedded with their operations team for one week, mapping every step of the claims journey. The bottleneck was immediately clear: claims arriving in multiple formats (email attachments, scanned PDFs, web forms) all required human interpretation before they could enter the system. Each format needed different handling logic.
-Solution paragraph:   We deployed a multi-agent pipeline: one agent classifies incoming documents, a second extracts structured fields using vision-language models, and a third validates confidence scores before writing to the database. Low-confidence claims are flagged for human review. The entire process runs unsupervised on a 2-minute cron cycle.
-Impact paragraph:     Data entry time dropped from 12 minutes to 90 seconds per claim. The backlog cleared within the first week. Staff were reassigned to higher-value tasks like client relationship management. IBS reported a 40% reduction in processing errors and estimated £180k annual savings in operational costs.
+Challenge paragraph: Maruti Techno Rubber generated leads through their website, exhibitions, WhatsApp, and distributor referrals, but the entire sales workflow was fragmented. Sales staff manually tracked inquiries in spreadsheets, delayed follow-ups caused hot leads to go cold, and no centralized CRM existed. The company had no visibility into lead status, quotation timelines, or customer engagement.
 
-Images (optional):    (replace these URLs with your own)
-  - https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=900 (workspace/desk)
-  - https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=900 (analytics)
-  - https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900 (data)
-  - https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=900 (office)
-  - https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=900 (laptop/charts)
+Discovery paragraph: After auditing their operations, we identified that the biggest issue wasn’t lead generation — it was lead handling speed. Every inquiry required manual classification before reaching the correct sales person. Follow-ups depended entirely on memory and internal communication. Their team also lacked analytics to understand which products or sectors generated the highest-value clients.
 
+Solution paragraph: We implemented a centralized AI-powered CRM system integrated with the company website, WhatsApp, and email channels. Incoming leads are automatically categorized by industry, urgency, and product requirement using AI classification models. The system assigns leads to the right sales representative instantly, generates follow-up reminders automatically, and tracks every conversation in one dashboard. AI-generated quotation drafts and smart analytics were also integrated.
+
+Impact paragraph: Average response time dropped from 9 hours to under 3 minutes. Sales teams stopped missing follow-ups entirely, and management gained real-time visibility into pipeline performance. Within 60 days, qualified lead conversion increased by 73%, and the company reported significantly improved distributor communication and customer retention.
+
+Images (optional):
+
+https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=900
+https://images.unsplash.com/photo-1552664730-d307ca884978?w=900
+https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=900
+https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=900
+https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?w=900
 
 --- Case Study 2 ---
-URL slug:             hospitadent
-Client name:          Hospitadent Dental Clinic
-Tag:                  Voice AI & Scheduling
-Headline:             Securing 88+ new patient bookings in month one with 24/7 chat automation
-Timeline:             3 weeks
-Impact:               +88 Patient Bookings / Month
-Services used:        Conversational Agent Development, Patient Booking Assistant, CRM Integration
-Tech stack:           React, Node.js, Vapi Voice AI, OpenAI API, Dentrix CRM
+URL slug: anaaj-ai
+Client name: Anaaj AI
+Tag: AI Agriculture Platform
+Headline: How GoRan AI built an AI-powered agriculture assistant used by farmers across rural India
+Timeline: 62 Days
+Impact: 12,000+ Farmer Queries Automated
+Services used: AI Product Development, Mobile App Engineering, AI Assistant Training, Dashboard Development
+Tech stack: React Native, Firebase, Gemini API, Node.js, MongoDB, Express.js
 
-Challenge paragraph:  Hospitadent's front desk team was overwhelmed with inbound calls — appointment bookings, rescheduling, insurance questions, and follow-ups. During peak hours, callers waited 10+ minutes or hung up. The clinic estimated they were losing 30+ potential new patients per month due to missed calls.
-Discovery paragraph:  We analysed call logs and found that 68% of inbound calls were routine scheduling requests that followed predictable patterns. The remaining calls required human judgment — treatment questions, emergencies, and payment disputes. The scheduling workflow itself was manual: staff had to check Dentrix, confirm slots, send reminder texts, and update records.
-Solution paragraph:   We built a conversational voice agent that handles the full scheduling lifecycle: answers calls 24/7, checks real-time availability, books appointments, sends SMS confirmations, and adds follow-up reminders. The agent transfers callers to human staff for anything outside its scope. Voice quality and responsiveness were tuned to match the clinic's warm, professional tone.
-Impact paragraph:     The agent handles 200+ calls per day. No-shows dropped 73% thanks to automated reminders. Front desk staff now focus on patient care instead of phone management. The clinic booked 88 new patients in the first month and reported a 12% increase in overall monthly revenue.
+Challenge paragraph: Farmers in rural regions struggled to access accurate agricultural guidance quickly. Most relied on local assumptions, delayed expert consultation, or scattered YouTube videos for crop decisions. Existing agriculture apps were overly complex, lacked regional accessibility, and failed to provide actionable real-time recommendations.
+
+Discovery paragraph: During field research and product analysis, we discovered that farmers primarily needed fast answers to practical questions: crop disease identification, fertilizer usage, irrigation timing, mandi price insights, and government scheme guidance. The challenge was creating a system simple enough for non-technical users while still delivering intelligent recommendations.
+
+Solution paragraph: We developed Anaaj AI — a multilingual AI-powered agriculture assistant accessible through a lightweight mobile app. Farmers can upload crop images, ask questions in local languages, and receive AI-generated recommendations instantly. An admin dashboard was created for crop monitoring, user analytics, notification systems, and AI performance tracking. We also integrated OTP authentication, AI knowledge workflows, and scalable backend infrastructure.
+
+Impact paragraph: Within the first launch phase, the platform automated over 12,000 farmer queries and significantly reduced dependency on manual support teams. Farmers reported faster decision-making around crop diseases and fertilizer planning, while administrators gained detailed analytics on regional agricultural trends and user behavior.
 
 Images (optional):
-  - https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=900 (clinic)
-  - https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=900 (phone/voice)
-  - https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=900 (medical)
-  - https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900 (data)
-  - https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=900 (analytics)
 
+https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=900
+https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=900
+https://images.unsplash.com/photo-1523741543316-beb7fc7023d8?w=900
+https://images.unsplash.com/photo-1492496913980-501348b61469?w=900
+https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=900
 
 --- Case Study 3 ---
-URL slug:             urbanwear
-Client name:          UrbanWear Co.
-Tag:                  Custom Dashboard & Fulfillment
-Headline:             Cutting e-commerce fulfillment prep times in half with custom order sorting
-Timeline:             6 weeks
-Impact:               50% Faster Fulfillment Prep
-Services used:        SaaS Dashboard Design, Order Processing Engine, Database Optimization
-Tech stack:           React, Tailwind CSS, PostgreSQL, Shopify API, Node.js
+URL slug: voice-agent-platform
+Client name: NexaCall Solutions
+Tag: AI Voice Automation
+Headline: How GoRan AI automated 84% of inbound support calls using real-time AI voice agents
+Timeline: 48 Days
+Impact: 84% Call Automation Rate
+Services used: Voice AI Architecture, Realtime Agent Deployment, Telephony Integration, AI Workflow Engineering
+Tech stack: LiveKit, Gemini Realtime API, Node.js, WebRTC, Twilio, Redis
 
-Challenge paragraph:  UrbanWear's warehouse team manually processed every order: printing labels, sorting by shipping method, checking inventory, and routing to the correct packing station. During peak season, the team worked overtime just to keep up, and misrouted orders caused customer complaints.
-Discovery paragraph:  The core problem was data fragmentation. Order information lived in Shopify, inventory was in a legacy system, and shipping logic existed only in the warehouse manager's head. Every order required the team to check 4 different screens before they could start packing.
-Solution paragraph:   We built a unified fulfillment dashboard that pulls orders from Shopify, matches inventory in real time, applies routing rules, and generates shipping labels with one click. The system learns from historical data to predict peak times and pre-allocate packing stations. We also built a mobile companion for inventory checks.
-Impact paragraph:     Order prep time dropped from 8 minutes to 4 minutes per order. Overtime costs fell by 60%. Error rates on misrouted orders went to near-zero. UrbanWear's peak season passed without a single fulfillment delay, and the team gained 30 hours per week in capacity.
+Challenge paragraph: NexaCall Solutions handled thousands of repetitive inbound support calls daily related to appointment confirmations, account queries, and basic troubleshooting. Human agents were overloaded with repetitive tasks, resulting in long wait times and rising operational costs. Existing IVR systems frustrated users due to rigid menu flows and poor conversational experience.
+
+Discovery paragraph: We analyzed over 8,000 recorded support conversations and discovered that most customer interactions followed predictable patterns that could be handled conversationally by AI. However, the system needed low-latency speech processing, contextual memory, interruption handling, and real-time response generation to feel natural during live phone conversations.
+
+Solution paragraph: GoRan AI engineered a realtime voice agent platform powered by LiveKit and Gemini Realtime APIs. The AI agents could answer calls, understand natural speech, access business knowledge bases, schedule appointments, escalate complex issues, and transfer calls to humans when necessary. We also built a monitoring dashboard with live transcripts, analytics, and conversation review tools for supervisors.
+
+Impact paragraph: The platform automated 84% of inbound support calls within the first deployment cycle. Average customer wait time dropped by 67%, and human support teams were freed to focus on high-priority issues. NexaCall estimated annual savings exceeding $240k in operational staffing costs while improving customer satisfaction scores significantly.
 
 Images (optional):
-  - https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=900 (ecommerce)
-  - https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=900 (dashboard)
-  - https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=900 (warehouse)
-  - https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900 (data flow)
-  - https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=900 (meeting)
 
+https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=900
+https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?w=900
+https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=900
+https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=900
+https://images.unsplash.com/photo-1484417894907-623942c8ee29?w=900
 
 --- Case Study 4 ---
-URL slug:             apex-logistics
-Client name:          Apex Logistics
-Tag:                  Internal Enablement & Training
-Headline:             Helping Apex Logistics save 4.5 hours of boring administrative work per week
-Timeline:             4 weeks
-Impact:               4.5 Hours Saved / Week per Employee
-Services used:        AI Enablement Workshops, Internal AI Search Portal, Prompt Engineering
-Tech stack:           Claude 3.5 Sonnet, OpenSearch Vector DB, Node.js, React, Tailwind CSS
+URL slug: educonsult-ai
+Client name: EduConsult Global
+Tag: AI Lead Management
+Headline: How GoRan AI increased student consultation bookings by 3.2x using AI-driven lead automation
+Timeline: 31 Days
+Impact: 3.2x Increase in Qualified Consultation Calls
+Services used: AI CRM Implementation, Funnel Automation, Lead Scoring System, Email Workflow Automation
+Tech stack: Next.js, FastAPI, PostgreSQL, OpenAI API, Calendly API, SendGrid
 
-Challenge paragraph:  Apex Logistics' operations team spent hours every week searching for information: contract terms in PDFs, shipping regulations in emails, customer instructions in Slack threads. Knowledge was scattered across 6 different tools, and new hires took months to become productive.
-Discovery paragraph:  We shadowed team members and found that the average employee conducted 15–20 information lookups per day, each taking 3–5 minutes. The cumulative time drain was enormous. Additionally, tribal knowledge lived in senior employees' heads — when they were unavailable, decisions stalled.
-Solution paragraph:   We deployed an internal AI search portal that indexes all company documents, emails, Slack archives, and CRM notes into a single searchable knowledge base. Employees ask natural-language questions and get cited answers with source links. We also ran enablement workshops teaching prompt engineering and workflow automation to the team.
-Impact paragraph:     Average lookup time dropped from 4 minutes to 30 seconds. New hires onboarded 2x faster. The team estimated 4.5 hours saved per person per week. The search portal now handles 1,200+ queries per week and the enablement team continues to build custom automations using the tools they learned.
+Challenge paragraph: EduConsult Global received hundreds of student inquiries daily for college admissions and overseas education consulting. Their counselors manually filtered leads, scheduled calls individually, and struggled to prioritize high-intent students. Follow-up delays caused a major drop-off in conversions, especially during admission seasons.
+
+Discovery paragraph: We found that most leads never received personalized engagement quickly enough. Counselors spent more time organizing spreadsheets and scheduling meetings than actually consulting students. There was also no predictive system to identify which students were most likely to convert into paying clients.
+
+Solution paragraph: We designed an AI-powered lead management ecosystem that automatically scores incoming student inquiries based on intent, academic background, and urgency. AI-generated personalized emails and WhatsApp messages nurture students automatically while integrating directly with Calendly for instant booking. The CRM dashboard provides real-time counselor allocation, conversion analytics, and pipeline forecasting.
+
+Impact paragraph: Consultation bookings increased by 3.2x within the first two months. Counselors reduced administrative workload dramatically and focused entirely on high-value consultations. Automated nurturing improved response consistency, reduced lead drop-offs, and helped EduConsult scale operations during peak admission periods without increasing staffing costs.
 
 Images (optional):
-  - https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=900 (warehouse)
-  - https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=900 (team)
-  - https://images.unsplash.com/photo-1553877522-43269d4ea984?w=900 (strategy)
-  - https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=900 (analytics)
-  - https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=900 (laptop)
 
+https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=900
+https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=900
+https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=900
+https://images.unsplash.com/photo-1552664730-d307ca884978?w=900
+https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=900
 ================================================================================
   8. TESTIMONIALS
 ================================================================================
-
 --- Testimonial 1 ---
-ID:                   james-davison
-Name:                 James Davison
-Role:                 CTO
-Company:              Finova Partners
-Initials:             JD
-Rating:               5
-Category:             Fintech
-Tags:                 Document Processing, Workflow Automation
-Quote:                Synapse took our manual onboarding process — which required three full-time staff — and automated it end-to-end. What used to take two weeks now happens in under four hours. The ROI was immediate.
-LinkedIn (optional):  https://linkedin.com/in/james-davison
+ID: dr-ankit-sharma
+Name: Dr. Ankit Sharma
+Role: Founder & Chief Doctor
+Company: Shree Care Clinic
+Initials: AS
+Rating: 5
+Category: Healthcare
+Tags: Appointment Automation, WhatsApp AI, CRM
+Quote: Before GoRan AI, our reception team handled everything manually — appointments, reminders, follow-ups. Missed appointments were a daily problem. After automation, patient scheduling became seamless and our clinic operations finally feel organized.
 
 --- Testimonial 2 ---
-ID:                   sarah-klein
-Name:                 Sarah Klein
-Role:                 VP of Operations
-Company:              MedCore Logistics
-Initials:             SK
-Rating:               5
-Category:             Healthcare
-Tags:                 Supply Chain, Compliance
-Quote:                We needed an AI system that could handle the complexity of medical supply chain compliance. Synapse built agents that cross-reference regulatory changes against our inventory in real time. We haven't had a compliance incident since deployment.
+ID: priyanshu-gupta
+Name: Priyanshu Gupta
+Role: Owner
+Company: Urban Tadka Restaurant
+Initials: PG
+Rating: 5
+Category: Restaurant
+Tags: AI Ordering, Customer Engagement, WhatsApp Automation
+Quote: GoRan AI helped us automate customer inquiries and online order handling completely through WhatsApp. Our response speed improved instantly, and weekend rush management became far easier for our staff.
 
 --- Testimonial 3 ---
-ID:                   marcus-reed
-Name:                 Marcus Reed
-Role:                 Head of Product
-Company:              UrbanWear
-Initials:             MR
-Rating:               5
-Category:             E-Commerce
-Tags:                 Customer Support, LLM
-Quote:                The AI agent that manages our customer support triage is indistinguishable from a human senior agent — except it handles 400 conversations simultaneously and never needs a coffee break. Customer satisfaction scores went up 18%.
+ID: neha-singh
+Name: Neha Singh
+Role: Director
+Company: Bright Future Public School
+Initials: NS
+Rating: 5
+Category: Education
+Tags: Student Management, Parent Communication, AI CRM
+Quote: Managing admissions and parent communication manually was becoming impossible as the school grew. GoRan AI built a smart system that streamlined inquiries, reminders, and student records in one dashboard.
 
 --- Testimonial 4 ---
-ID:                   elena-vasquez
-Name:                 Elena Vasquez
-Role:                 Director of Engineering
-Company:              Apex Logistics
-Initials:             EV
-Rating:               5
-Category:             Logistics
-Tags:                 API Integration, Legacy Systems
-Quote:                Synapse didn't just deliver a tool — they embedded with our team for six weeks, understood our legacy systems, and built agents that talked to APIs we thought were unusable. That level of depth is rare.
+ID: rohit-verma
+Name: Rohit Verma
+Role: Managing Partner
+Company: Verma Property Consultants
+Initials: RV
+Rating: 5
+Category: Real Estate
+Tags: Lead Automation, AI CRM, Follow-up System
+Quote: Real estate leads move fast, and we were losing potential clients because delayed follow-ups. GoRan AI automated our entire lead tracking system and helped us close deals much faster than before.
 
 --- Testimonial 5 ---
-ID:                   david-okonjo
-Name:                 David Okonjo
-Role:                 CEO
-Company:              Hospitadent Clinics
-Initials:             DO
-Rating:               5
-Category:             Healthcare
-Tags:                 Scheduling, Automation
-Quote:                Patient scheduling was a nightmare — no-shows, double-bookings, hours of admin time. The scheduling agent Synapse built reduced no-shows by 73% and saved us roughly 120 hours of staff time per month.
+ID: aditya-jain
+Name: Aditya Jain
+Role: Founder
+Company: Jain Medico Pharmacy
+Initials: AJ
+Rating: 5
+Category: Retail Healthcare
+Tags: Inventory Automation, Billing Workflow, Analytics
+Quote: We had inventory issues almost every week due to manual stock handling. GoRan AI created a centralized management system that tracks inventory, sales, and supplier updates automatically. It reduced operational mistakes massively.
 
 --- Testimonial 6 ---
-ID:                   lisa-huang
-Name:                 Lisa Huang
-Role:                 Chief Data Officer
-Company:              IBS Brokers
-Initials:             LH
-Rating:               5
-Category:             Insurance
-Tags:                 Claims Processing, Data Validation
-Quote:                We handle thousands of insurance claims daily. Synapse deployed an agent that validates, enriches, and routes each claim in under 90 seconds. Our processing backlog — which was measured in weeks — simply disappeared.
-
+ID: simran-kaur
+Name: Simran Kaur
+Role: Operations Head
+Company: Punjab Caterers & Events
+Initials: SK
+Rating: 5
+Category: Event Management
+Tags: AI Workflow, Client Management, Scheduling
+Quote: Coordinating bookings, staff schedules, and customer communication manually was chaos during wedding season. GoRan AI streamlined the entire workflow into one smart dashboard and saved our team countless hours every week.
 ================================================================================
   9. BLOG POSTS
 ================================================================================
@@ -413,11 +423,155 @@ Table of contents:
   - Transparency by Design
 Content:              [See blog post]
 
+--- Blog Post 7 ---
+Slug: ai-crm-future-indian-businesses
+Title: Why AI-Powered CRM Systems Are Becoming Essential for Indian Businesses
+Date: 2026-04-05
+Read time: 8 min read
+Category: AI CRM
+Tags: CRM, Automation, Indian Businesses
+Excerpt: Indian businesses are scaling faster than ever, but most still rely on spreadsheets and manual follow-ups. Here's why AI-powered CRM systems are becoming the backbone of modern operations.
+Table of contents:
+
+The Spreadsheet Problem
+Why Traditional CRM Adoption Fails
+AI-Powered Lead Qualification
+Building a CRM That Teams Actually Use
+Content: [See blog post]
+
+--- Blog Post 8 ---
+Slug: voice-ai-changing-customer-support
+Title: How Realtime Voice AI Is Replacing Traditional Customer Support Systems
+Date: 2026-03-28
+Read time: 9 min read
+Category: Voice AI
+Tags: Voice AI, Customer Support, Automation
+Excerpt: IVR menus and long waiting times are dying. Realtime conversational AI is changing how businesses handle customer communication at scale.
+Table of contents:
+
+The Problem With Traditional IVRs
+What Makes Realtime Voice AI Different
+Human-Like Conversations at Scale
+Where Voice AI Goes Next
+Content: [See blog post]
+
+--- Blog Post 9 ---
+Slug: ai-lead-generation-systems
+Title: Building AI Lead Generation Systems That Actually Convert
+Date: 2026-03-19
+Read time: 7 min read
+Category: Growth
+Tags: Lead Generation, AI Outreach, Sales Automation
+Excerpt: Most businesses don't have a lead generation problem — they have a lead qualification and follow-up problem. Here's how AI changes the equation.
+Table of contents:
+
+Why Most Leads Never Convert
+AI Qualification Systems
+Automated Outreach That Feels Human
+Tracking ROI Across the Funnel
+Content: [See blog post]
+
+--- Blog Post 10 ---
+Slug: building-ai-systems-for-small-businesses
+Title: AI Isn't Just for Enterprises Anymore — Small Businesses Are Winning Too
+Date: 2026-03-11
+Read time: 6 min read
+Category: Business
+Tags: Small Business, AI Adoption, Automation
+Excerpt: From local clinics to restaurants and schools, small businesses are now deploying AI systems that were previously only available to large enterprises.
+Table of contents:
+
+The Democratization of AI
+Affordable Automation for SMEs
+Real Examples From Local Businesses
+The Next Five Years of AI Adoption
+Content: [See blog post]
+
+--- Blog Post 11 ---
+Slug: ai-website-conversion-systems
+Title: Your Website Should Be an AI Sales Employee — Not a Digital Brochure
+Date: 2026-03-02
+Read time: 7 min read
+Category: Web + AI
+Tags: Website Building, Conversion, AI Systems
+Excerpt: Most business websites look good but fail to generate revenue. Here's how AI-powered websites actively capture, qualify, and convert leads automatically.
+Table of contents:
+
+The Problem With Static Websites
+AI-Powered Conversion Flows
+Smart Lead Qualification
+Turning Traffic Into Revenue
+Content: [See blog post]
+
+--- Blog Post 12 ---
+Slug: building-scalable-ai-agents
+Title: What It Actually Takes to Build Scalable AI Agent Systems
+Date: 2026-02-24
+Read time: 11 min read
+Category: Engineering
+Tags: AI Agents, System Design, Backend Engineering
+Excerpt: Building AI agents is easy. Building reliable, scalable, production-ready AI systems is where real engineering begins.
+Table of contents:
+
+Prototype vs Production
+Memory, Context & Tool Usage
+Scaling Multi-Agent Architectures
+Monitoring AI Systems in Production
+Content: [See blog post]
+
+--- Blog Post 13 ---
+Slug: whatsapp-ai-automation-business
+Title: Why WhatsApp AI Automation Is Exploding Across Indian Businesses
+Date: 2026-02-15
+Read time: 6 min read
+Category: Automation
+Tags: WhatsApp Automation, AI Chatbots, CRM
+Excerpt: Indian customers prefer WhatsApp over emails and web forms. Businesses that automate WhatsApp communication are gaining a massive operational advantage.
+Table of contents:
+
+India's WhatsApp-First Economy
+AI Conversations That Convert
+Automating Sales & Support
+Integrating WhatsApp Into CRM Systems
+Content: [See blog post]
+
+--- Blog Post 14 ---
+Slug: ai-audit-checklist-businesses
+Title: The Complete AI Audit Checklist for Modern Businesses
+Date: 2026-02-06
+Read time: 9 min read
+Category: AI Strategy
+Tags: AI Audit, Operations, Business Systems
+Excerpt: Before implementing AI, businesses need to understand where inefficiencies actually exist. This AI audit framework helps identify the highest-impact automation opportunities.
+Table of contents:
+
+What an AI Audit Covers
+Identifying Workflow Bottlenecks
+Calculating Automation ROI
+Creating an AI Implementation Roadmap
+Content: [See blog post]
+
+--- Blog Post 15 ---
+Slug: future-of-ai-agencies
+Title: Why Traditional Agencies Will Be Replaced by AI-Native Agencies
+Date: 2026-01-29
+Read time: 8 min read
+Category: Industry
+Tags: AI Agencies, Future of Work, Automation
+Excerpt: The next generation of agencies won't just deliver websites or marketing campaigns — they'll build intelligent systems that operate businesses.
+Table of contents:
+
+The Death of Service-Only Agencies
+AI as Operational Infrastructure
+The Rise of AI-Native Companies
+What Businesses Should Prepare For
+Content: [See blog post]
+
 ================================================================================
   10. PROCESS PAGE (6 Steps)
 ================================================================================
 
-Average timeline:     8–14 Weeks
+Average timeline:     2 - 8 Weeks
 Delivery:             Production-Ready
 
 --- Step 1 ---
@@ -530,40 +684,69 @@ Milestones:
   - Now: Architecting the next generation of autonomous agent systems for global enterprises.
 
 Stats:
-  - Founded: 2023
-  - Agents Deployed: 40+
-  - Daily Executions: 500k+
+  - Founded: 2026
+  - Agents Deployed: 30+
+  - Daily Executions: 10k+
   - System Uptime: 99.9%
 
 ================================================================================
-  12. FOUNDER PAGE
-================================================================================
+12. FOUNDER PAGE
 
-Name:                 Ashish Ranjan
-Title:                Founder & Principal Architect
+Name: Ashish Ranjan
+Title: Founder & AI Systems Architect
+
+Intro: Ashish Ranjan founded GoRan AI with a simple belief — AI should not just look impressive, it should solve real operational problems. What started as experiments in workflow automation evolved into building production-grade AI systems for businesses across healthcare, agriculture, education, logistics, consulting, and customer operations. Today, he focuses on designing AI infrastructure that helps companies automate workflows, improve decision-making, and scale operations intelligently.
 
 Timeline:
-  - 2014: Built first automation bot at 14
-  - 2018: BS Computer Science, distributed systems
-  - 2020: Led ML infrastructure at Series-B startup
-  - 2023: Founded Synapse
-  - 2024: 40+ enterprise agents, 500k daily executions
-  - 2025: London and Singapore offices, team of 28
-  - NOW: Architecting next-gen autonomous agent systems
+
+2020: Built first automation system to streamline repetitive desktop workflows
+2021: Started deep focus on AI, machine learning, and intelligent systems
+2022: Developed full-stack web and backend systems for business automation
+2023: Built scalable AI workflows and real-time integrations for operational use cases
+2024: Led AI infrastructure and automation systems for high-growth startup environments
+2025: Founded GoRan AI to help businesses implement practical AI systems
+2025: Delivered AI solutions across CRM, voice AI, automation, and lead generation
+NOW: Building AI-native business systems and autonomous operational agents
 
 Signals (values/principles):
-  1. Ship to learn — Speed of experimentation beats perfect planning.
-  2. Systems over silos — Every agent is built to integrate, not isolate.
-  3. Depth over breadth — Master one stack before moving to the next.
-  4. Security by default — Trust is earned, not assumed.
-  5. Human outcomes first — Automation serves people, not the other way around.
 
-Stack (5 layers):
-  1. Infrastructure — AWS, Docker, Terraform
-  2. Data — PostgreSQL, Pinecone, Redis
-  3. Models — GPT-4o, Claude 3.5, Gemini
-  4. Agents — LangGraph, CrewAI, custom orchestrators
-  5. Interface — React, Tailwind, voice, Slack, API
+Business impact first — AI is only valuable when it improves operations, revenue, or efficiency.
+Build for production — Systems should be scalable, reliable, and deployable in real business environments.
+Automation with clarity — Great AI systems reduce complexity instead of adding more tools.
+Speed matters — Rapid iteration and deployment create competitive advantage.
+Human-centered systems — The best automation empowers teams instead of replacing them blindly.
+Long-term thinking — Build infrastructure that grows with the business, not temporary hacks.
+
+Core Expertise:
+
+AI Workflow Automation
+AI CRM Systems
+Realtime Voice AI Platforms
+Autonomous AI Agents
+Lead Generation Systems
+Business Process Optimization
+Full-Stack AI Product Engineering
+AI Infrastructure & Deployment
+
+Stack (Business + Technology Layers):
+
+Infrastructure — AWS, Docker, VPS, Cloud Deployments, CI/CD
+Backend Systems — Node.js, FastAPI, Express.js, Redis, PostgreSQL, MongoDB
+AI Models — GPT-4o, Gemini, Claude, Vision Models, Realtime AI APIs
+Agent Architecture — LangGraph, CrewAI, Multi-Agent Systems, Custom Orchestrators
+Business Automation — CRM Systems, WhatsApp Automation, Lead Pipelines, AI Dashboards
+Interfaces — React.js, Next.js, Tailwind, Mobile Apps, Voice Interfaces, APIs
+
+Focus Areas:
+
+Helping businesses adopt AI without operational disruption
+Building AI systems that directly improve revenue and efficiency
+Replacing repetitive workflows with intelligent automation
+Creating AI-native internal operating systems for companies
+Engineering scalable infrastructure for future AI products
+
+Closing Statement:
+GoRan AI exists at the intersection of engineering and business operations — building systems that don't just demonstrate AI capability, but create measurable business outcomes in the real world.
 
 ================================================================================
   13. STEPS SHOWCASE (Home page deliverable process)
@@ -586,16 +769,15 @@ Step 3 - Body:        We publish sandbox applications for internal testing, gath
 URLs can be SVG/image URLs or you can place logo files in the public/ folder.
 
 Current logos (external URLs):
-  1. Google:      https://cdn.worldvectorlogo.com/logos/google-2015.svg
-  2. Microsoft:   https://cdn.worldvectorlogo.com/logos/microsoft.svg
-  3. Netflix:     https://cdn.worldvectorlogo.com/logos/netflix-3.svg
-  4. Airbnb:      https://cdn.worldvectorlogo.com/logos/airbnb.svg
-  5. Spotify:     https://cdn.worldvectorlogo.com/logos/spotify-2.svg
-  6. Dropbox:     https://cdn.worldvectorlogo.com/logos/dropbox-1.svg
-  7. Stripe:      https://cdn.worldvectorlogo.com/logos/stripe-4.svg
-  8. Slack:       https://cdn.worldvectorlogo.com/logos/slack-new-logo.svg
-  9. Amazon:      https://cdn.worldvectorlogo.com/logos/amazon-2.svg
-  10. PayPal:     https://cdn.worldvectorlogo.com/logos/paypal-3.svg
+  1. Anaaj AI:    https://www.anaaj.ai/assets/Footer%20Logo.png
+  1. A Robotic Services:    https://aroboticservices.com/assets/Logo-mIvZkugz.png
+  2. Vyomira:     https://res.cloudinary.com/dmhabztbf/image/upload/v1770127502/Vyomira_1_copy_3-removebg-preview_qsaev9.png
+  3. CodeWave:     https://codewave.it.com/assets/Logo_Orginal-BDXHym7S.png
+  4. GreenWrench Solutions:      https://www.greenwrenchsolutions.in/assets/GreenLogo-RH2irvlH.png
+  5. Mathed:     https://mathed2025.nith.ac.in/Assets/logo.ico
+  6. DESE - IISC banglore:     https://res.cloudinary.com/dinhcaf2c/image/upload/v1750332367/dese_o261go.jpg
+  7. NandniVerse:      src="https://yt3.googleusercontent.com/xB0EZsEWAU0h3jf4tjNFWN2y9q_HfQXfT3D1cMHOzIEdZ7R5-BsmA3iVv_Pq60DksAF8emf2Lw=s160-c-k-c0x00ffffff-no-rj"
+
 
 ================================================================================
   15. VOICE AGENT — ENGLISH DIALOG
@@ -666,34 +848,90 @@ A5: Absolutely — most clients start with a single high-impact workflow. The ro
 
 Q6: How do you handle data security?
 A6: Every deployment follows our security framework: encrypted data in transit and at rest, role-based access control, audit logging, and SOC2-aligned practices. We sign NDAs and DPAs as standard.
-
 ================================================================================
-  19. CONTACT PAGE OPTIONS
-================================================================================
+19. CONTACT PAGE OPTIONS
 
-Budget options:       < $10k, $10k – $25k, $25k – $50k, $50k+
-Timeline options:     Immediate, 1–2 months, 3+ months
-Contact methods:      Email, Phone Call, Calendly Booking
+Budget options:
+
+< ₹50k
+₹50k – ₹2L
+₹2L – ₹5L
+₹5L – ₹15L
+₹15L+
+
+Timeline options:
+
+Immediate
+Within 2–4 Weeks
+1–2 Months
+3+ Months
+Exploring Options
+
+Project types:
+
+AI Workflow Automation
+AI CRM Systems
+Voice AI / Calling Agents
+AI Chatbots
+Custom AI SaaS Products
+Lead Generation Systems
+AI Dashboards & Admin Panels
+Web Development + AI Integration
+Internal Business Automation
+Something Else
+
+Contact methods:
+
+Email
+WhatsApp
+Phone Call
+Google Meet
+Calendly Booking
 
 Process steps after submit:
-  1. We review your request
-  2. 30-min scoping call
-  3. Custom blueprint delivered
 
-Testimonial shown:    "Synapse took our manual onboarding process..." — James Davison, CTO, Finova Partners
-Response promise:     We'll respond within 24 hours. No spam, ever.
-CTA text:             Free 30-min call · No credit card required
+Business & workflow review
+30-minute strategy/scoping call
+AI opportunity & automation analysis
+Custom implementation roadmap delivered
+Development kickoff & deployment planning
 
-Testimonial quote:
-  "Synapse took our manual onboarding process — which required three full-time staff — and automated it end-to-end. What used to take two weeks now happens in under four hours. The ROI was immediate."
-  - James Davison, CTO, Finova Partners
+Primary CTA text:
+Book a Free AI Strategy Call
+
+Secondary CTA text:
+Get a Custom AI Automation Blueprint
+
+Response promise:
+We'll respond within a few hours — no spam, no unnecessary sales calls.
+
+Trust statement:
+Every project starts with understanding operations first — not forcing AI where it doesn't belong.
+
+Testimonial shown:
+"GoRan AI automated our lead handling and customer communication workflows completely. What used to take hours every day is now managed automatically in the background."
+— Rohit Verma, Managing Partner, Verma Property Consultants
+
+Alternative testimonial quotes:
+
+"The AI systems GoRan AI built helped us streamline operations without increasing team size. The impact on efficiency was visible within the first week."
+— Dr. Ankit Sharma, Founder, Shree Care Clinic
+
+"Their approach felt more like a technology partner than a development agency. Everything was designed around business outcomes, not just features."
+— Priyanshu Gupta, Owner, Urban Tadka Restaurant
+
+Closing section headline:
+Let's Build AI Systems That Actually Move Your Business Forward
+
+Closing section body:
+Whether you're looking to automate operations, improve lead conversion, deploy AI agents, or build an AI-native product from scratch — GoRan AI helps businesses turn AI into measurable operational advantage.
 
 ================================================================================
   20. PRIVACY POLICY
 ================================================================================
 
 Last updated:         May 24, 2026
-Contact email:        privacy@synapse-ai.agency
+Contact email:        goran.dotin@gmail.com
 
 Sections:
   1. Introduction
@@ -712,8 +950,8 @@ Sections:
 ================================================================================
 
 Last updated:         May 24, 2026
-Contact email:        legal@synapse-ai.agency
-Governing law:        England and Wales
+Contact email:         goran.dotin@gmail.com
+Governing law:        Indian
 
 Sections:
   1. Acceptance of Terms
@@ -738,7 +976,7 @@ Model:                gemini-2.5-flash
 Max tokens:           500
 Temperature:          0.7
 
-Initial bot message:  Hi! I'm the Synapse AI Assistant. Ask me anything about our AI Audits, Custom Product builds, or case studies!
+Initial bot message:  Hi! I'm the GoRan AI Assistant. Ask me anything about our AI Audits, Custom Product builds, or case studies!
 
 Quick-chips:
   - Services:     "What services do you offer?"
@@ -781,7 +1019,7 @@ Main nav links:
   Testimonials  → /testimonials
   Blog          → /blog
   Founder       → /founder
-  Our Process   → /process
+  Our Process   → /process ** remove the our process from the navbar create a small section somewhere on the home pageand link this page from there
   Contact       → /contact
 
 Services subnav:

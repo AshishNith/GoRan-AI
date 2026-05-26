@@ -2,8 +2,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import { MessageSquare, X, Send, Trash2, Sparkles } from 'lucide-react';
 import { useCalBooking } from './CalBookingModal';
 
-// 1. Synapse Context Data for System Prompt and Mock Responder
-const SYNAPSE_DATA = {
+// 1. GoRan AI Context Data for System Prompt and Mock Responder
+const GORAN_DATA = {
   services: [
     { name: 'AI Audit', desc: 'Identify where AI can cut costs and automate operations (2-3 weeks roadmap).' },
     { name: 'Product Development', desc: 'End-to-end custom AI products, agentic backends, and frontend builds (6-12 weeks).' },
@@ -11,31 +11,31 @@ const SYNAPSE_DATA = {
     { name: 'AI Training & Enablement', desc: 'Upskill your team with prompt engineering and custom no-code workshop programs.' }
   ],
   caseStudies: [
-    { client: 'IBS Insurance Brokers', impact: 'Saved 1,280 hours/month', desc: 'Automated data entry from PDFs into database using a custom document agent.' },
-    { client: 'Hospitadent Clinic', impact: '88+ new bookings/month', desc: 'Voice AI & webchat assistant scheduling patient appointments 24/7.' },
-    { client: 'UrbanWear Co.', impact: '50% faster fulfillment prep', desc: 'Custom Shopify-integrated batch order processing dashboard.' },
-    { client: 'Apex Logistics', impact: '4.5 hours/week saved per employee', desc: 'Secure internal policy search portal and employee prompt training.' }
+    { client: 'Maruti Techno Rubber', impact: '73% Faster Lead Conversion', desc: 'Automated sales lead follow-ups and WhatsApp/CRM systems in 35 days.' },
+    { client: 'Anaaj AI', impact: '12,000+ farmer queries automated', desc: 'Multilingual mobile assistant and admin tracking panel for agriculture.' },
+    { client: 'NexaCall Solutions', impact: '84% Inbound Calls Automated', desc: 'Voice agent platform built on Gemini Realtime API and LiveKit.' },
+    { client: 'EduConsult Global', impact: '3.2x Consultation Bookings', desc: 'AI-driven CRM and lead management ecosystem with personalized outreach.' }
   ]
 };
 
 const SYSTEM_PROMPT = `
-You are the official AI Assistant for Synapse, a premium AI agency. 
-Your goal is to guide visitors, answer their questions about Synapse's services, share metrics and details from case studies, and encourage them to book a free 30-minute scoping call (which they can do by filling out the form at the bottom of the page or clicking "Book a Scoping Call").
+You are the official AI Assistant for GoRan AI, a premium AI agency. 
+Your goal is to guide visitors, answer their questions about GoRan AI's services, share metrics and details from case studies, and encourage them to book a free 30-minute scoping call (which they can do by filling out the form at the bottom of the page or clicking "Book a Scoping Call").
 
-Synapse Services:
+GoRan AI Services:
 1. AI Audit (Discovery & Strategy): 2-3 weeks. Identifies cost reduction, automation opportunities, delivers roadmap & ROI matrix.
 2. Product Development (Engineering & Build): 6-12 weeks. End-to-end AI products, agentic backends (LangGraph, FastAPI, Python), interfaces (React, Tailwind), databases, and deployment.
 3. Product Management (Strategy & Execution): Ongoing monthly. Embeds a senior AI PM, backlog ownership, sprint planning, roadmapping.
 4. AI Training & Enablement (Education & Upskilling): 1 day to 6 weeks. Role-specific hands-on workshops, prompt engineering, no-code AI tools (Make, Zapier), private knowledge bases.
 
 Case Studies (Proven Results):
-1. IBS Insurance Brokers: Saved 1,280 hours of manual data entry/month, reduced processing times from 5 days to under 30 minutes, eliminated copy-paste errors for 92% of files. Tech stack: Python, FastAPI, Airtable, Google Document AI, Slack.
-2. Hospitadent Dental Clinic: Secured 88+ new patient bookings in month one, handled 920 inquiries entirely on autopilot. Tech stack: React, Node.js, Vapi Voice AI, OpenAI, Dentrix CRM.
-3. UrbanWear Co.: Cut fulfillment prep times in half (50% faster), extended same-day shipping cut-off from 10:00 AM to 3:00 PM, handled 40% volume spike. Tech stack: React, Tailwind, PostgreSQL, Shopify API, Node.js.
-4. Apex Logistics: Saved 4.5 hours/week per employee. Conversational search over policy manuals. Tech stack: Claude 3.5 Sonnet, OpenSearch Vector DB, Node, React, Tailwind.
+1. Maruti Techno Rubber: Reduced industrial lead response time from 9 hours to under 3 minutes, 73% faster lead conversion, implemented a WhatsApp automated CRM system in 35 days. Tech stack: React.js, Node.js, MongoDB, OpenAI API, WhatsApp Cloud API, Firebase.
+2. Anaaj AI: Light-weight multilingual mobile agriculture assistant automating 12,000+ farmer queries, crop disease detection, mandi prices. Tech stack: React Native, Firebase, Gemini API, Node.js, MongoDB, Express.js.
+3. NexaCall Solutions: Automated 84% of inbound support calls, Twilio & WebRTC realtime voice agents, LiveKit integrations. Tech stack: LiveKit, Gemini Realtime API, Node.js, WebRTC, Twilio, Redis.
+4. EduConsult Global: 3.2x qualified consultation bookings, AI CRM and automated nurture sequences with personalized outreach in 31 days. Tech stack: Next.js, FastAPI, PostgreSQL, OpenAI API, Calendly API, SendGrid.
 
 Core metrics: 99.9% uptime, 500k+ daily agent executions, 4.9/5 client rating.
-Response Tone: Professional, expert, friendly, helpful, and concise. Keep responses to under 2-3 short paragraphs where possible, using bullet points for readability. Bold important numbers and metrics. Do not mention that you are a language model or AI from Google. You are Synapse's custom assistant.
+Response Tone: Professional, expert, friendly, helpful, and concise. Keep responses to under 2-3 short paragraphs where possible, using bullet points for readability. Bold important numbers and metrics. Do not mention that you are a language model or AI from Google. You are GoRan AI's custom assistant.
 `;
 
 export default function Chatbot() {
@@ -44,7 +44,7 @@ export default function Chatbot() {
   const [messages, setMessages] = useState([
     {
       sender: 'bot',
-      text: "Hi! I'm the Synapse AI Assistant. Ask me anything about our AI Audits, Custom Product builds, or case studies!",
+      text: "Hi! I'm the GoRan AI Assistant. Ask me anything about our AI Audits, Custom Product builds, or case studies!",
       timestamp: new Date()
     }
   ]);
@@ -62,9 +62,9 @@ export default function Chatbot() {
   // Log warning if API key is missing
   useEffect(() => {
     const activeKey = import.meta.env.VITE_GEMINI_API_KEY;
-    if (!activeKey) {
+    if (!activeKey || activeKey === 'YOUR_GEMINI_API_KEY_HERE') {
       console.warn(
-        "Synapse Chatbot: VITE_GEMINI_API_KEY is not defined. The chatbot is currently running in Demo/Fallback Mode. To connect Gemini, create a .env file and add: VITE_GEMINI_API_KEY=your_key_here"
+        "GoRan AI Chatbot: VITE_GEMINI_API_KEY is not defined. The chatbot is currently running in Demo/Fallback Mode. To connect Gemini, create a .env file and add: VITE_GEMINI_API_KEY=your_key_here"
       );
     }
   }, []);
@@ -139,7 +139,7 @@ export default function Chatbot() {
     const q = userQuery.toLowerCase();
 
     if (q.includes('service') || q.includes('what do you do') || q.includes('offer')) {
-      return `Synapse offers **four core services** to embed AI into your business operations:
+      return `GoRan AI offers **four core services** to embed AI into your business operations:
       - **AI Audit**: A 2-3 week discovery process mapping your workflows to identify high-ROI automations.
       - **Product Development**: End-to-end custom AI products, agentic backends, and frontend builds (6-12 weeks).
       - **Product Management**: Embedding an experienced AI PM to guide sprints, prioritize features, and drive outcomes.
@@ -161,10 +161,10 @@ export default function Chatbot() {
 
     if (q.includes('case') || q.includes('portfolio') || q.includes('work') || q.includes('project') || q.includes('client')) {
       return `We have successfully delivered high-impact automation for several clients:
-      - **IBS Insurance Brokers**: Saved **1,280 hours/month** by automating policy document data entry from emails.
-      - **Hospitadent Dental Clinic**: Secured **88+ patient bookings** in month one with a 24/7 Voice AI & webchat assistant.
-      - **UrbanWear Co.**: Halved order prep times (**50% faster fulfillment**) with a custom batch-sorting dashboard.
-      - **Apex Logistics**: Saved **4.5 hours/week per employee** through an internal AI policy search portal.
+      - **Maruti Techno Rubber**: Reduced response time to **under 3 minutes** and achieved **73% faster lead conversion**.
+      - **Anaaj AI**: Automated over **12,000+ farmer queries** with a multilingual mobile assistant.
+      - **NexaCall Solutions**: Automated **84% of inbound support calls** using real-time AI calling agents.
+      - **EduConsult Global**: Increased student bookings by **3.2x** via AI CRM funnel automation.
       
       Which of these projects would you like to explore further?`;
     }
@@ -178,37 +178,36 @@ export default function Chatbot() {
       To get an exact scope and pricing blueprint, we recommend booking a free **30-minute scoping call**. You can request this in the contact section at the bottom of the page!`;
     }
 
-    if (q.includes('ibs') || q.includes('insurance') || q.includes('broker')) {
-      return `For **IBS Insurance Brokers**, we automated their heavy administrative backlog. 
+    if (q.includes('maruti') || q.includes('rubber') || q.includes('techno') || q.includes('lead')) {
+      return `For **Maruti Techno Rubber**, we automated their fragmented sales lead process. 
       
-      We built a custom document pipeline that monitors their inbox, extracts client info using OCR and LLMs, and updates their internal database. 
-      - **Impact**: Saved **1,280 hours of manual labor** every single month.
-      - **Speed**: Reduced processing times from **5 days down to under 30 minutes**.
-      - **Accuracy**: Eliminated copy-paste errors for **92%** of incoming files.`;
+      We built a centralized CRM system integrated with their website, WhatsApp, and email, which classifies incoming inquiries by industry and urgency.
+      - **Impact**: Lead response time dropped from **9 hours to under 3 minutes**.
+      - **Conversion**: Qualified lead conversion increased by **73%** in 60 days.`;
     }
 
-    if (q.includes('hospitadent') || q.includes('dent') || q.includes('booking') || q.includes('voice')) {
-      return `For **Hospitadent Dental Clinic**, we solved their after-hours lead-loss problem. 
+    if (q.includes('anaaj') || q.includes('agriculture') || q.includes('farmer')) {
+      return `For **Anaaj AI**, we developed a multilingual agriculture assistant. 
       
-      We deployed a **24/7 webchat & voice booking assistant** connected directly to their Dentrix CRM calendar.
-      - **Impact**: Secured **88+ new patient bookings** in the first 30 days entirely on autopilot.
-      - **Engagement**: Handled **920+ patient inquiries** about hours, pricing, and insurance, freeing up the reception desk.`;
+      Farmers can upload crop images, ask questions in local languages, and receive recommendations.
+      - **Impact**: Automated over **12,000 farmer queries** in the first launch phase.
+      - **Analytics**: Admin dashboard provides regional trends and user insights.`;
     }
 
-    if (q.includes('urban') || q.includes('wear') || q.includes('shopify') || q.includes('fulfillment')) {
-      return `For **UrbanWear Co.**, we built a custom fulfillment sorting engine. 
+    if (q.includes('nexacall') || q.includes('voice') || q.includes('call') || q.includes('support')) {
+      return `For **NexaCall Solutions**, we automated inbound support calls.
       
-      The tool parses raw Shopify payloads to batch-route orders color-coded by print hubs, optimizing warehouse packing lines.
-      - **Impact**: Cut shipment preparation times by **50% (in half)**.
-      - **Sales Support**: Allowed extending the same-day shipping cut-off from **10:00 AM to 3:00 PM**, helping handle Black Friday volume spikes easily.`;
+      We engineered Twilio & LiveKit real-time voice agents that converse naturally and schedule appointments.
+      - **Impact**: Automated **84% of inbound support calls**.
+      - **Savings**: Reduced wait times by **67%** and saved over **$240k** annually.`;
     }
 
-    if (q.includes('apex') || q.includes('logistics') || q.includes('training') || q.includes('search')) {
-      return `For **Apex Logistics**, we built a secure internal knowledge search portal and trained staff in prompt engineering.
+    if (q.includes('educonsult') || q.includes('student') || q.includes('consultation')) {
+      return `For **EduConsult Global**, we deployed an AI lead management ecosystem.
       
-      Support agents can query policy handbooks and carrier manuals in plain English to get cited policy answers instantly.
-      - **Impact**: Saved an average of **4.5 hours per employee per week** in search overhead.
-      - **Resolution**: Enabled team to resolve complex driver questions on the spot without callbacks.`;
+      The system automatically scores incoming inquiries, runs automated email/WhatsApp nurturing, and schedules booking calendars.
+      - **Impact**: Increased student bookings by **3.2x** in two months.
+      - **Efficiency**: Saved counselors hours of admin work daily.`;
     }
 
     if (q.includes('book') || q.includes('call') || q.includes('contact') || q.includes('scoping') || q.includes('blueprint')) {
@@ -217,11 +216,11 @@ export default function Chatbot() {
       You can request a free **Scoping Call** and receive a custom blueprint by filling out the contact form at the bottom of the page. Once submitted, our engineering team will get back to you within 24 hours to schedule a session. Let me know if you have any questions about what we discuss in the call!`;
     }
 
-    return `I can help you learn more about Synapse AI Agency! 
+    return `I can help you learn more about GoRan AI Agency! 
     
     Here is what you can ask:
     - **What services do you offer?** (Audits, builds, workshops)
-    - **Show me your case studies** (IBS Brokers, Hospitadent, etc.)
+    - **Show me your case studies** (Maruti Techno, Anaaj AI, etc.)
     - **How do we get started?** (Scoping call details)`;
   };
 
@@ -238,8 +237,8 @@ export default function Chatbot() {
     setIsTyping(true);
 
     // Get active API Key from environment variables
-    const activeKey = "AIzaSyACFXMNL9vGYNqDzlI_8NdYxDG1-fOzUuo";
-    // const activeKey = import.meta.env.VITE_GEMINI_API_KEY;
+    const envKey = import.meta.env.VITE_GEMINI_API_KEY;
+    const activeKey = envKey && envKey !== 'YOUR_GEMINI_API_KEY_HERE' ? envKey : "AIzaSyACFXMNL9vGYNqDzlI_8NdYxDG1-fOzUuo";
 
     if (!activeKey) {
       // Offline / Demo Mode Fallback
@@ -317,7 +316,7 @@ export default function Chatbot() {
     setMessages([
       {
         sender: 'bot',
-        text: "Chat cleared! Ask me anything about Synapse AI Agency services or case studies.",
+        text: "Chat cleared! Ask me anything about GoRan AI Agency services or case studies.",
         timestamp: new Date()
       }
     ]);
@@ -350,7 +349,7 @@ export default function Chatbot() {
                 <span className="absolute bottom-0 right-0 w-2 h-2 bg-green-400 rounded-full border border-brand-dark" />
               </div>
               <div className="text-left">
-                <h4 className="font-heading text-sm font-bold text-white tracking-wide">Synapse AI</h4>
+                <h4 className="font-heading text-sm font-bold text-white tracking-wide">GoRan AI</h4>
                 <p className="text-[10px] text-white/50 leading-none">Online Assistant</p>
               </div>
             </div>

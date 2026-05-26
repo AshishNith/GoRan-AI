@@ -17,6 +17,11 @@ export default function Home() {
     <main className="w-full bg-white">
       {/* Hero Section */}
       <section className="pt-40 pb-20 text-center relative min-h-screen flex items-center justify-center bg-gradient-to-b from-white via-white to-brand-bg-light overflow-hidden" id="hero">
+        {/* Background video */}
+        <video className="absolute inset-0 w-full h-full object-cover pointer-events-none" autoPlay loop muted playsInline>
+          <source src="/Herobg_video.mp4" type="video/mp4" />
+        </video>
+
         {/* Subtle noise overlay */}
         <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 256 256\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'n\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.65\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%%25\' height=\'100%%25\' filter=\'url(%23n)\'/%3E%3C/svg%3E")', backgroundRepeat: 'repeat', backgroundSize: '256px 256px' }} />
 
@@ -32,9 +37,9 @@ export default function Home() {
           {/* Headline and Image wrapper */}
           <div className="relative mb-6 flex justify-center items-center w-full animate-fadeIn">
             {/* Image Behind Text */}
-            <div className="absolute inset-0 flex justify-center items-center pointer-events-none z-0 opacity-70 md:opacity-100">
+            {/* <div className="absolute inset-0 flex justify-center items-center pointer-events-none z-0 opacity-70 md:opacity-100">
                <img src="/man.png" alt="" className="h-[150%] md:h-[180%] object-contain -translate-y-10" aria-hidden="true" />
-            </div>
+            </div> */}
 
             {/* Headline */}
             <h1 
@@ -81,6 +86,22 @@ export default function Home() {
       <section className="py-24 bg-white" id="steps">
         <div className="w-full max-w-300 mx-auto px-6">
           <StepsShowcase />
+
+          {/* Detailed Process Link Section */}
+          <div className="mt-16 text-center border-t border-brand-border pt-12">
+            <p className="text-brand-text-muted text-sm md:text-base mb-4 max-w-md mx-auto leading-relaxed">
+              Want a comprehensive look at how we work end-to-end? Explore our detailed 6-step roadmap from discovery to continuous support.
+            </p>
+            <Link
+              to="/process"
+              className="inline-flex items-center gap-2 bg-brand-yellow hover:bg-brand-yellow-hover text-brand-dark font-semibold text-sm py-3 px-6 rounded-full transition-all duration-200 hover:-translate-y-0.5 shadow-md border-none cursor-pointer"
+            >
+              <span>Explore Our Full 6-Step Process</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -168,7 +189,7 @@ export default function Home() {
       <section className="py-20 border-t border-brand-border bg-white text-center" id="trust">
         <div className="w-full max-w-300 mx-auto px-6">
           <h4 className="text-xs font-semibold uppercase tracking-wider text-brand-text-muted mb-10">Engineered to industry leading standards</h4>
-          <div className="grid grid-cols-3 gap-6 max-w-200 mx-auto max-sm:grid-cols-1 max-sm:gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-250 mx-auto max-sm:grid-cols-1 max-sm:gap-8">
             <div className="flex flex-col gap-2">
               <div className="font-heading text-4xl md:text-5xl font-bold text-brand-dark leading-none">99.9%</div>
               <div className="text-sm text-brand-text-muted font-medium">System Uptime</div>
@@ -180,6 +201,10 @@ export default function Home() {
             <div className="flex flex-col gap-2">
               <div className="font-heading text-4xl md:text-5xl font-bold text-brand-dark leading-none">4.9/5</div>
               <div className="text-sm text-brand-text-muted font-medium">Client Satisfaction Rating</div>
+            </div>
+            <div className="flex flex-col gap-2">
+              <div className="font-heading text-4xl md:text-5xl font-bold text-brand-dark leading-none">&lt;5hrs</div>
+              <div className="text-sm text-brand-text-muted font-medium">Avg. Response Time</div>
             </div>
           </div>
         </div>
@@ -223,23 +248,23 @@ function FaqChatList() {
     },
     {
       q: "How long does a typical AI Agent implementation take?",
-      a: "Most projects run 4–8 weeks from discovery to deployment. A standard AI Audit takes 5 days. Custom agent builds typically land at 6 weeks. We use pre-built connectors and modular architectures to ship fast without cutting corners on safety or reliability."
+      a: "Most implementations take 8-14 weeks from kickoff to production. The timeline depends on complexity, number of integrations, and data readiness. We start with a discovery phase to scope accurately and identify quick wins that can be delivered sooner."
     },
     {
       q: "Do I need a technical team to maintain the agent after deployment?",
-      a: "Not at all. We design every agent with self-healing fallbacks, monitoring dashboards, and human-in-the-loop escalation paths. Your ops team manages outcomes, not code. We also provide a 30-day post-launch support window for tuning and optimization."
+      a: "No — we design agents to be self-maintaining with clear dashboards, automatic error handling, and alerting. We provide a full handover session and documentation, and offer ongoing support packages if you'd like us to manage updates and improvements."
     },
     {
       q: "What systems can your agents integrate with?",
-      a: "We integrate with virtually any API — CRMs (Salesforce, HubSpot), communication tools (Slack, Teams, email), databases (Postgres, BigQuery), ERPs, and custom internal tools. If it has an API, we can connect it. For proprietary systems, we build custom connectors."
+      a: "Our agents integrate with virtually any system that has an API — CRMs (Salesforce, HubSpot), communication tools (Slack, Teams, Gmail), databases (PostgreSQL, Airtable, MongoDB), and custom internal tools. We also handle legacy systems without APIs through middleware adapters."
     },
     {
       q: "How do you handle data security and privacy?",
-      a: "Security is baked into every layer. All data is encrypted at rest and in transit. Agents operate in isolated containers with role-based access controls. We never train on client data. Every action is logged to an immutable audit trail. SOC 2 compliance is in progress."
+      a: "Security is built into every layer of our deployments. All data is encrypted in transit and at rest. We follow SOC2-aligned practices, provide audit logs, and sign NDAs and DPAs. Agents process data within your environment — we never store or retain sensitive information on our servers."
     },
     {
       q: "What happens if the agent makes a mistake?",
-      a: "Every agent includes configurable guardrails, confidence thresholds, and human approval gates for high-stakes actions. If a decision falls below the confidence threshold, the agent escalates to a human operator. You maintain full control over what the agent can and cannot do autonomously."
+      a: "Every agent includes human-in-the-loop checks for high-stakes decisions, confidence thresholds that flag uncertainty, and detailed audit trails for every action. If an error occurs, the agent logs it, alerts your team, and can roll back the action automatically. We also provide monitoring dashboards for full visibility."
     },
   ];
 

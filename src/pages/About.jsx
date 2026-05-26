@@ -5,27 +5,27 @@ import { useCalBooking } from '../components/CalBookingModal';
 const principles = [
   {
     title: 'Tailored, not templated',
-    body: 'Every agent we build is reverse-engineered from your existing processes, tools, and team structure. There are no starter kits or pre-built modules — only bespoke systems designed to slot into your workflow on day one.',
+    body: 'Every solution is built from first principles, never from a template.',
   },
   {
     title: 'Security is non-negotiable',
-    body: 'SOC 2-compliant methodologies, private LLM instances, encrypted data pipelines, and zero data retention by default. Your information never touches a shared environment.',
+    body: 'Encryption by default, compliance-first architecture, zero-trust principles.',
   },
   {
     title: 'End-to-end ownership',
-    body: 'From discovery and architecture through deployment and maintenance — we manage the full lifecycle. You get a production system, not a prototype.',
+    body: 'We design, build, deploy, and support. No handoffs, no dropped balls.',
   },
   {
     title: 'Human-centred automation',
-    body: 'We design agents that augment your people, not replace them. The goal is to free your team from repetitive drudgery so they can focus on judgment, creativity, and strategy.',
+    body: 'We automate the tedious, not the meaningful. Your team does more of what matters.',
   },
 ];
 
 const milestones = [
-  { year: '2023', label: 'Founded', detail: 'Started with a 3-person founding team and one client engagement.' },
-  { year: '2024', label: 'Scale', detail: '40+ enterprise agents deployed across 6 industries. 500k daily executions.' },
-  { year: '2025', label: 'Expansion', detail: 'Opened London and Singapore offices. Launched AI Training & Enablement practice.' },
-  { year: 'Now', label: 'Building', detail: 'Partnering with organisations of every size to make intelligent automation the default, not the exception.' },
+  { year: '2023', label: 'Founded', detail: 'Founded with a vision to make enterprise-grade AI accessible to every business.' },
+  { year: '2024', label: 'Scale', detail: 'Scaled to 40+ agent deployments across fintech, healthcare, logistics, and e-commerce.' },
+  { year: '2025', label: 'Expansion', detail: 'Expanded operations to London and Singapore with a team of 28 engineers and strategists.' },
+  { year: 'Now', label: 'Building', detail: 'Architecting the next generation of autonomous agent systems for global enterprises.' },
 ];
 
 export default function About() {
@@ -66,7 +66,7 @@ export default function About() {
           {/* Tag */}
           <div className="inline-flex items-center gap-2 mb-5">
             <span className="w-2 h-2 rounded-full bg-brand-yellow" />
-            <span className="text-xs font-semibold uppercase tracking-widest text-brand-text-muted">About Synapse</span>
+            <span className="text-xs font-semibold uppercase tracking-widest text-brand-text-muted">About GoRan AI</span>
           </div>
 
           {/* Heading */}
@@ -77,24 +77,24 @@ export default function About() {
 
           {/* Subtitle */}
           <p className="text-brand-text-muted text-lg md:text-xl leading-relaxed max-w-2xl mb-12">
-            Synapse was founded on a single conviction — businesses shouldn't be bottlenecked by manual workflows. We build highly tailored AI agents that operate precisely within your existing tools, so your team can focus on what matters most.
+            GoRan AI was founded on a single conviction — businesses shouldn't be bottlenecked by manual workflows. We build highly tailored AI agents that operate precisely within your existing tools, so your team can focus on what matters most.
           </p>
 
           {/* Meta stats row — same pattern as ServiceDetail hero */}
           <div className="flex flex-wrap items-center gap-6">
             <div className="flex flex-col gap-1">
               <span className="text-[10px] font-semibold uppercase tracking-widest text-brand-text-muted">Founded</span>
-              <span className="text-sm font-semibold text-brand-dark">2023</span>
+              <span className="text-sm font-semibold text-brand-dark">2026</span>
             </div>
             <div className="w-px h-8 bg-brand-border hidden sm:block" />
             <div className="flex flex-col gap-1">
               <span className="text-[10px] font-semibold uppercase tracking-widest text-brand-text-muted">Agents Deployed</span>
-              <span className="text-sm font-semibold text-brand-dark">40+</span>
+              <span className="text-sm font-semibold text-brand-dark">30+</span>
             </div>
             <div className="w-px h-8 bg-brand-border hidden sm:block" />
             <div className="flex flex-col gap-1">
               <span className="text-[10px] font-semibold uppercase tracking-widest text-brand-text-muted">Daily Executions</span>
-              <span className="text-sm font-semibold text-brand-dark">500k+</span>
+              <span className="text-sm font-semibold text-brand-dark">10k+</span>
             </div>
             <div className="w-px h-8 bg-brand-border hidden sm:block" />
             <div className="flex flex-col gap-1">

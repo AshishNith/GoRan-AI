@@ -8,44 +8,44 @@ const steps = [
     number: '01',
     title: 'Discovery & Audit',
     subtitle: 'Understanding your operational reality',
-    body: 'We embed with your team to map every workflow, data source, and bottleneck. Through stakeholder interviews, stack analysis, and process shadowing, we build a complete picture of where AI can have the highest impact — and where it shouldn\'t be applied at all.',
-    deliverables: ['Current-state workflow maps', 'Bottleneck analysis & ROI scoring', 'Data source inventory', 'Stakeholder alignment document'],
-    duration: '1–2 weeks',
+    body: 'We immerse ourselves in your operations — interviewing stakeholders, mapping current workflows, and analysing data pipelines. The goal is a complete picture of your business processes and a ranked list of AI automation opportunities.',
+    deliverables: ['Process maps & gap analysis', 'Opportunity scoring matrix', 'Stakeholder interview summaries', 'Draft implementation roadmap'],
+    duration: '1-2 weeks',
     color: '#F6C744',
   },
   {
     number: '02',
     title: 'Architecture & Design',
     subtitle: 'Blueprinting the agent system',
-    body: 'We translate your operational goals into a formal system architecture. This includes agent topology, data flow diagrams, vector storage schemas, API contracts, security boundaries, and failover strategies — every technical decision documented before a single line of code is written.',
-    deliverables: ['System architecture document', 'Agent interaction diagrams', 'API & integration specifications', 'Security & compliance review'],
-    duration: '1–2 weeks',
+    body: 'With a clear opportunity map, we design the system architecture — selecting AI models, designing data flows, planning integrations, and defining success metrics. You receive a detailed blueprint before any code is written.',
+    deliverables: ['System architecture diagram', 'Technology stack selection', 'Data flow & integration design', 'Success metric definitions'],
+    duration: '1-2 weeks',
     color: '#A855F7',
   },
   {
     number: '03',
     title: 'Build & Development',
     subtitle: 'Constructing your production agents',
-    body: 'Our engineers build the agent system using modular, auditable components. We develop LLM pipelines, RAG engines, tool integrations, and orchestration layers — with daily progress updates and incremental demos so you never wonder where things stand.',
-    deliverables: ['Working agent system', 'Integration with your stack', 'Internal testing environment', 'Daily build logs & demos'],
-    duration: '3–6 weeks',
+    body: 'Our engineering team builds the agent system in iterative sprints. We develop core logic, connect APIs, train or configure models, and build the interface. You see progress weekly with demo sessions.',
+    deliverables: ['Core agent logic & workflows', 'API integrations', 'Model configuration & training', 'Progress demos each sprint'],
+    duration: '3-6 weeks',
     color: '#3B82F6',
   },
   {
     number: '04',
     title: 'Testing & Security',
     subtitle: 'Hardening before deployment',
-    body: 'Every agent undergoes rigorous testing: unit tests on individual tools, integration tests on multi-step workflows, adversarial prompts to probe safety boundaries, and load testing at 2x your expected traffic. We also run a full security audit — data isolation, encryption, access controls — before anything reaches production.',
-    deliverables: ['Test coverage report', 'Security audit findings', 'Load test results', 'Safety loop verification'],
-    duration: '1–2 weeks',
+    body: 'Every agent undergoes rigorous testing — unit tests, integration tests, edge case scenarios, and security audits. We simulate real-world conditions to ensure reliability before any production deployment.',
+    deliverables: ['Test coverage report', 'Security audit results', 'Edge case documentation', 'Performance benchmarks'],
+    duration: '1-2 weeks',
     color: '#4ADE80',
   },
   {
     number: '05',
     title: 'Deployment & Launch',
     subtitle: 'Going live with zero disruption',
-    body: 'We deploy your agent system into production using gradual rollouts with automated rollback capabilities. Your team gets hands-on training, runbooks, and a dedicated launch support window. We monitor every metric closely for the first 72 hours to ensure stability.',
-    deliverables: ['Production deployment', 'Team training & runbooks', 'Monitoring dashboards', 'Launch support window'],
+    body: 'We deploy your agent system to production with a carefully orchestrated rollout — monitoring every metric, handling edge cases in real time, and ensuring zero disruption to existing operations.',
+    deliverables: ['Production deployment', 'Monitoring & alerting setup', 'Rollback procedures', 'Go-live report'],
     duration: '1 week',
     color: '#F59E0B',
   },
@@ -53,8 +53,8 @@ const steps = [
     number: '06',
     title: 'Support & Iteration',
     subtitle: 'Continuous improvement',
-    body: 'Post-launch, we provide ongoing monitoring, performance optimisation, and iterative enhancements. Agents learn from real usage patterns, and we proactively suggest improvements as your business evolves. You get a partner, not just a deliverable.',
-    deliverables: ['Ongoing performance monitoring', 'Quarterly optimisation reviews', 'Priority support channel', 'Continuous improvement roadmap'],
+    body: 'Post-launch, we provide ongoing support, performance monitoring, and iterative improvements. Your agent system evolves with your business — we add new capabilities, optimise existing workflows, and ensure peak performance.',
+    deliverables: ['Ongoing monitoring & support', 'Performance optimisation', 'Feature enhancements', 'Quarterly business reviews'],
     duration: 'Ongoing',
     color: '#EC4899',
   },
@@ -121,7 +121,7 @@ export default function Process() {
             <div className="w-px h-8 bg-brand-border hidden sm:block" />
             <div className="flex flex-col gap-1">
               <span className="text-[10px] font-semibold uppercase tracking-widest text-brand-text-muted">Average Timeline</span>
-              <span className="text-sm font-semibold text-brand-dark">8–14 Weeks</span>
+              <span className="text-sm font-semibold text-brand-dark">2–8 Weeks</span>
             </div>
             <div className="w-px h-8 bg-brand-border hidden sm:block" />
             <div className="flex flex-col gap-1">
@@ -281,28 +281,28 @@ export default function Process() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
             {[
               {
-                q: 'How long does a typical engagement take?',
-                a: 'Most projects run 8–14 weeks from kickoff to production deployment. The timeline depends on complexity, number of integrations, and security requirements. We\'ll give you a firm estimate during the scoping phase.',
+                q: 'How long does a full engagement typically take?',
+                a: 'Average end-to-end delivery is 8-14 weeks from kickoff to production deployment. Discovery and architecture take 2-4 weeks, build takes 3-6 weeks, and deployment takes 1-2 weeks. Timelines vary based on scope and complexity.',
               },
               {
-                q: 'Do I need a technical team to work with you?',
-                a: 'Not at all. We handle the entire technical implementation. You just need someone who understands your current workflows and can make decisions about what to automate. We guide the rest.',
+                q: 'What does your team need from us?',
+                a: 'We need access to key stakeholders for interviews, read-only access to your current tools and systems, and a primary point of contact who can make decisions. We handle the rest.',
+              },
+              {
+                q: 'Do you work with our existing tech stack?',
+                a: 'Yes — we design solutions that integrate with your existing tools. Our approach is to augment, not replace, your current systems. If a tool cannot integrate, we recommend alternatives.',
               },
               {
                 q: 'What happens after the agent is deployed?',
-                a: 'We provide ongoing monitoring, performance optimisation, and priority support. Agents are living systems — they improve over time as we analyse usage patterns and your business evolves.',
+                a: 'We provide a handover session, documentation, and a support period. We also offer ongoing optimisation and feature development as your needs evolve.',
               },
               {
-                q: 'Can you work with our existing tools?',
-                a: 'Yes. We integrate with any system that has an API — CRMs, ERPs, communication platforms, databases, and custom internal tools. During the audit phase, we catalogue your entire stack.',
+                q: 'Can we start with just one process?',
+                a: 'Absolutely — most clients start with a single high-impact workflow. The roadmap from Discovery helps you prioritise, and we can expand scope in subsequent phases.',
               },
               {
                 q: 'How do you handle data security?',
-                a: 'Security is built into every layer of our process. We use encrypted pipelines, private LLM instances, zero data retention by default, and follow SOC 2-compliant methodologies. Every deployment includes a full security audit.',
-              },
-              {
-                q: 'What if we need to change scope mid-project?',
-                a: 'Our linear process includes built-in review gates at the end of each phase. If priorities shift, we assess the impact and adjust the plan transparently — no surprises, no hidden costs.',
+                a: 'Every deployment follows our security framework: encrypted data in transit and at rest, role-based access control, audit logging, and SOC2-aligned practices. We sign NDAs and DPAs as standard.',
               },
             ].map((item, idx) => (
               <motion.div

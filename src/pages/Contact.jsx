@@ -3,9 +3,21 @@ import { Link } from 'react-router-dom';
 import { useCalBooking } from '../components/CalBookingModal';
 import VoiceAgent from '../components/VoiceAgent';
 
-const budgetOptions = ['< $10k', '$10k – $25k', '$25k – $50k', '$50k+'];
-const timelineOptions = ['Immediate', '1–2 months', '3+ months'];
-const contactMethods = ['Email', 'Phone Call', 'Calendly Booking'];
+const budgetOptions = ['< ₹50k', '₹50k – ₹2L', '₹2L – ₹5L', '₹5L – ₹15L', '₹15L+'];
+const timelineOptions = ['Immediate', 'Within 2–4 Weeks', '1–2 Months', '3+ Months', 'Exploring Options'];
+const contactMethods = ['Email', 'WhatsApp', 'Phone Call', 'Google Meet', 'Calendly Booking'];
+const projectTypes = [
+  'AI Workflow Automation',
+  'AI CRM Systems',
+  'Voice AI / Calling Agents',
+  'AI Chatbots',
+  'Custom AI SaaS Products',
+  'Lead Generation Systems',
+  'AI Dashboards & Admin Panels',
+  'Web Development + AI Integration',
+  'Internal Business Automation',
+  'Something Else'
+];
 
 export default function Contact() {
   const { openCalBooking } = useCalBooking();
@@ -14,10 +26,11 @@ export default function Contact() {
     email: '',
     phone: '',
     company: '',
+    projectType: 'AI Workflow Automation',
     targets: '',
     message: '',
-    budget: '$10k – $25k',
-    timeline: '1–2 months',
+    budget: '₹50k – ₹2L',
+    timeline: '1–2 Months',
     contactMethod: 'Email',
   });
 
@@ -73,7 +86,7 @@ export default function Contact() {
             <span className="text-brand-yellow">autonomous.</span>
           </h1>
           <p className="text-brand-text-muted text-base md:text-lg leading-relaxed max-w-xl">
-            Tell us about the workflows you want to automate. We'll review your operations and build a custom automation blueprint — on your timeline.
+            Every project starts with understanding operations first — not forcing AI where it doesn't belong. Tell us about the workflows you want to automate. We'll review your operations and build a custom automation blueprint — on your timeline.
           </p>
         </div>
 
@@ -88,17 +101,17 @@ export default function Contact() {
                 Direct contact
               </h3>
               <div className="flex flex-col gap-3">
-                <a href="mailto:hello@synapse-ai.agency" className="no-underline text-brand-dark font-medium text-sm hover:text-brand-yellow transition-colors flex items-center gap-3">
+                <a href="mailto:goran.dotin@gmail.com" className="no-underline text-brand-dark font-medium text-sm hover:text-brand-yellow transition-colors flex items-center gap-3">
                   <span className="w-8 h-8 rounded-lg bg-brand-yellow/10 flex items-center justify-center shrink-0">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F6C744" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 7L2 7"/></svg>
                   </span>
-                  hello@synapse-ai.agency
+                  goran.dotin@gmail.com
                 </a>
                 <div className="flex items-center gap-3 text-sm text-brand-text-muted">
                   <span className="w-8 h-8 rounded-lg bg-brand-yellow/10 flex items-center justify-center shrink-0">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F6C744" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                   </span>
-                  Avg. response: <span className="text-brand-dark font-semibold">under 5 min</span>
+                  Avg. response: <span className="text-brand-dark font-semibold">within a few hours</span>
                 </div>
               </div>
             </div>
@@ -110,13 +123,15 @@ export default function Contact() {
               </h3>
               <div className="flex flex-col gap-0">
                 {[
-                  { num: '01', title: 'We review your request', desc: 'Our team evaluates your project scope, budget, and timeline within 5 min.' },
-                  { num: '02', title: '30-min scoping call', desc: 'We hop on a quick call to understand your stack, pain points, and automation goals.' },
-                  { num: '03', title: 'Custom blueprint delivered', desc: 'You receive a detailed proposal with architecture, timeline, and fixed pricing — no surprises.' },
+                  { num: '01', title: 'Business & workflow review', desc: 'Our team evaluates your project scope, budget, and timeline to prepare.' },
+                  { num: '02', title: '30-minute strategy/scoping call', desc: 'We hop on a quick call to understand your stack, pain points, and automation goals.' },
+                  { num: '03', title: 'AI opportunity & automation analysis', desc: 'We identify key bottlenecks and build a prioritised opportunity map.' },
+                  { num: '04', title: 'Custom implementation roadmap delivered', desc: 'You receive a detailed blueprint proposal with architecture, timeline, and deliverables.' },
+                  { num: '05', title: 'Development kickoff & deployment planning', desc: 'Our engineering team starts building in sprints with structured rollout phases.' },
                 ].map((step, idx) => (
                   <div key={idx} className="flex gap-5 pb-8 last:pb-0 relative group">
                     {/* Vertical line connector */}
-                    {idx < 2 && (
+                    {idx < 4 && (
                       <div className="absolute left-3.75 top-9 bottom-0 w-px bg-brand-border group-last:hidden" />
                     )}
                     <span className="font-heading text-sm font-bold text-brand-yellow select-none bg-brand-yellow/10 w-8 h-8 rounded-lg flex items-center justify-center shrink-0 relative z-10">
@@ -148,13 +163,13 @@ export default function Contact() {
             {/* Testimonial */}
             <div className="border-l-4 border-brand-yellow pl-5">
               <p className="text-sm text-brand-text-muted leading-relaxed italic">
-                "Synapse took our manual onboarding process and turned it into an automated agent that saved us 200+ hours a month. The scoping was thorough, the build was on time, and the result was exactly what we needed."
+                "GoRan AI automated our lead handling and customer communication workflows completely. What used to take hours every day is now managed automatically in the background."
               </p>
               <div className="mt-3 flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-brand-dark flex items-center justify-center text-white text-[10px] font-bold font-heading">JD</div>
+                <div className="w-8 h-8 rounded-full bg-brand-dark flex items-center justify-center text-white text-[10px] font-bold font-heading">RV</div>
                 <div>
-                  <div className="text-xs font-semibold text-brand-dark">James Davison</div>
-                  <div className="text-[10px] text-brand-text-muted">CTO, Finova Partners</div>
+                  <div className="text-xs font-semibold text-brand-dark">Rohit Verma</div>
+                  <div className="text-[10px] text-brand-text-muted">Managing Partner, Verma Property Consultants</div>
                 </div>
               </div>
             </div>
@@ -173,7 +188,7 @@ export default function Contact() {
                   Blueprint Requested
                 </h2>
                 <p className="text-brand-text-muted text-sm leading-relaxed max-w-sm mb-8">
-                  Thank you, <strong className="text-brand-dark">{formData.name}</strong>. We've registered your request and sent a confirmation to <strong className="text-brand-dark">{formData.email}</strong>. Our team will reach out within 24 hours.
+                  Thank you, <strong className="text-brand-dark">{formData.name}</strong>. We've registered your request and sent a confirmation to <strong className="text-brand-dark">{formData.email}</strong>. Our team will reach out within a few hours.
                 </p>
 
                 <div className="w-full bg-brand-bg-light border border-brand-border rounded-xl p-5 mb-8 text-left flex flex-col gap-3">
@@ -183,6 +198,8 @@ export default function Contact() {
                   <div className="grid grid-cols-2 gap-y-2.5 gap-x-2 text-xs">
                     <span className="text-brand-text-muted">Company</span>
                     <span className="text-brand-dark font-semibold text-right truncate">{formData.company || '—'}</span>
+                    <span className="text-brand-text-muted">Project Type</span>
+                    <span className="text-brand-dark font-semibold text-right truncate">{formData.projectType || '—'}</span>
                     <span className="text-brand-text-muted">Budget</span>
                     <span className="text-brand-dark font-semibold text-right">{formData.budget}</span>
                     <span className="text-brand-text-muted">Timeline</span>
@@ -217,7 +234,7 @@ export default function Contact() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="flex flex-col gap-1.5">
                       <label className="text-[10px] font-semibold text-brand-text-muted uppercase tracking-wider">Phone Number</label>
-                      <input type="tel" name="phone" value={formData.phone} onChange={handleInputChange} placeholder="+1 234 567 890" className={inputClasses} />
+                      <input type="tel" name="phone" value={formData.phone} onChange={handleInputChange} placeholder="+91 98765 43210" className={inputClasses} />
                     </div>
                     <div className="flex flex-col gap-1.5">
                       <label className="text-[10px] font-semibold text-brand-text-muted uppercase tracking-wider">Company</label>
@@ -246,6 +263,27 @@ export default function Contact() {
                     </div>
                   </div>
 
+                  {/* Project Type selection */}
+                  <div className="flex flex-col gap-2">
+                    <label className="text-[10px] font-semibold text-brand-text-muted uppercase tracking-wider">Project Type</label>
+                    <div className="flex gap-2 flex-wrap">
+                      {projectTypes.map((opt) => (
+                        <button
+                          key={opt}
+                          type="button"
+                          onClick={() => handleSelectOption('projectType', opt)}
+                          className={`py-2 px-3 border rounded-lg font-medium text-xs text-center cursor-pointer transition-all duration-200 ${
+                            formData.projectType === opt
+                              ? 'bg-brand-yellow/15 border-brand-yellow text-brand-dark'
+                              : 'bg-white border-brand-border text-brand-text-muted hover:border-brand-text-muted/40'
+                          }`}
+                        >
+                          {opt}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
                   {/* Integrations */}
                   <div className="flex flex-col gap-1.5">
                     <label className="text-[10px] font-semibold text-brand-text-muted uppercase tracking-wider">Integrations / APIs</label>
@@ -256,13 +294,13 @@ export default function Contact() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="flex flex-col gap-2">
                       <label className="text-[10px] font-semibold text-brand-text-muted uppercase tracking-wider">Budget Range</label>
-                      <div className="grid grid-cols-2 gap-2">
+                      <div className="flex gap-2 flex-wrap">
                         {budgetOptions.map((opt) => (
                           <button
                             key={opt}
                             type="button"
                             onClick={() => handleSelectOption('budget', opt)}
-                            className={`py-2.5 px-2 border rounded-lg font-medium text-xs text-center cursor-pointer transition-all duration-200 ${
+                            className={`py-2 px-3.5 border rounded-lg font-medium text-xs text-center cursor-pointer transition-all duration-200 ${
                               formData.budget === opt
                                 ? 'bg-brand-yellow/15 border-brand-yellow text-brand-dark'
                                 : 'bg-white border-brand-border text-brand-text-muted hover:border-brand-text-muted/40'
@@ -275,13 +313,13 @@ export default function Contact() {
                     </div>
                     <div className="flex flex-col gap-2">
                       <label className="text-[10px] font-semibold text-brand-text-muted uppercase tracking-wider">Timeline</label>
-                      <div className="grid grid-cols-1 gap-2">
+                      <div className="flex gap-2 flex-wrap">
                         {timelineOptions.map((opt) => (
                           <button
                             key={opt}
                             type="button"
                             onClick={() => handleSelectOption('timeline', opt)}
-                            className={`py-2.5 px-2 border rounded-lg font-medium text-xs text-center cursor-pointer transition-all duration-200 ${
+                            className={`py-2 px-3.5 border rounded-lg font-medium text-xs text-center cursor-pointer transition-all duration-200 ${
                               formData.timeline === opt
                                 ? 'bg-brand-yellow/15 border-brand-yellow text-brand-dark'
                                 : 'bg-white border-brand-border text-brand-text-muted hover:border-brand-text-muted/40'
@@ -324,7 +362,7 @@ export default function Contact() {
                       </>
                     ) : (
                       <>
-                        <span>Send Blueprint Request</span>
+                        <span>Book a Free AI Strategy Call</span>
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M5 12h14M12 5l7 7-7 7" />
                         </svg>
@@ -333,7 +371,7 @@ export default function Contact() {
                   </button>
 
                   <p className="text-[10px] text-brand-text-muted/50 text-center mt-1">
-                    We'll respond within 24 hours. No spam, ever.
+                    We'll respond within a few hours — no spam, no unnecessary sales calls.
                   </p>
                 </form>
             )}

@@ -352,19 +352,19 @@ const steps = [
   {
     number: 1,
     title: "Scope & Architecture",
-    desc: "We convert your operational goals into formal agent specifications, scoping data requirements, vector storage, and safety loops.",
+    desc: "We convert your operational goals into formal agent specifications. Every integration point, data source, and success metric is documented before development begins — so there are no surprises later.",
     graphic: ScopeGraphic
   },
   {
     number: 2,
     title: "Connect & Integrate",
-    desc: "We securely integrate custom LLMs and RAG engines with your database and internal SaaS stack under strict permission bounds.",
+    desc: "We securely integrate custom LLMs and RAG engines with your existing tools — CRMs, databases, communication platforms, and APIs. Your agents become native extensions of your stack.",
     graphic: ConnectGraphic
   },
   {
     number: 3,
     title: "Deploy & Support",
-    desc: "We publish sandbox applications for internal testing, and then deploy live to your users with zero per-user licensing fees.",
+    desc: "We publish sandbox applications for internal testing, gather feedback, and iterate. Once validated, we deploy to production with monitoring, alerting, and ongoing optimisation.",
     graphic: DeployGraphic
   }
 ];

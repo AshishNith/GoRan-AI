@@ -2,85 +2,85 @@ import React, { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useCalBooking } from '../components/CalBookingModal';
 
-const caseStudiesData = {
-  'ibs-brokers': {
-    name: 'IBS Insurance Brokers',
-    tag: 'Workflow Automation',
-    headline: 'How we saved IBS Brokers 1,280 hours of manual data entry every single month',
-    timeline: '28 Days',
-    impact: '1,280 Hours Saved / Month',
-    services: ['AI Workflow Audit', 'Custom Document Pipeline', 'API Integration'],
-    techStack: ['Python', 'FastAPI', 'Airtable', 'Google Cloud Document AI', 'Slack API'],
-    challenge: 'IBS Insurance Brokers was facing a severe administrative backlog. With hundreds of new insurance applications arriving daily via email, client coordinators spent half their workdays manually reading incoming files, extracting key policy parameters, and copying them cell-by-cell into internal policy templates. This tedious, slow manual entry delayed customer policy issues by up to 5 business days and introduced human copy-paste errors in 8% of all policy records, leading to costly insurance claim discrepancies.',
-    discovery: 'We spent the first week shadowing the IBS client team to map out their document flows. We discovered that while applications were unstructured, they followed consistent semantic rules. The major bottleneck was identifying client data (names, social security numbers, vehicle details) and linking it to correct policy categories. By evaluating their systems, we mapped out a path to automate the ingestion from the shared inbox directly into their database via a central parsing node, eliminating the need for manual screen-switching.',
-    solution: 'We engineered a custom AI document pipeline. The system monitors the IBS inbound mail server, instantly catches incoming PDF applications, and forwards them to a cloud-based OCR parsing agent. This agent extracts form data, validates the extracted info against reference files, and writes it directly to the IBS database. We also added an internal review dashboard that flags low-confidence extractions for a quick human double-check, and sends automatic alerts via Slack whenever a policy is ready for issue.',
-    businessImpact: 'The impact was immediate. Within 28 days of launch, manual copy-pasting was eliminated for 92% of incoming files. The average policy processing cycle dropped from 5 days to under 30 minutes. Most importantly, the IBS team reclaimed 1,280 hours of manual work every month, allowing coordinators to focus on customer relationship management rather than sorting paperwork.',
+export const caseStudiesData = {
+  'maruti-techno-rubber': {
+    name: 'Maruti Techno Rubber Pvt. Ltd.',
+    tag: 'AI Sales Automation',
+    headline: 'How GoRan AI reduced industrial lead response time from 9 hours to under 3 minutes',
+    timeline: '35 Days',
+    impact: '73% Faster Lead Conversion',
+    services: ['AI Workflow Audit', 'AI CRM Setup', 'Lead Qualification System', 'WhatsApp Automation'],
+    techStack: ['React.js', 'Node.js', 'MongoDB', 'OpenAI API', 'WhatsApp Cloud API', 'Firebase'],
+    challenge: 'Maruti Techno Rubber generated leads through their website, exhibitions, WhatsApp, and distributor referrals, but the entire sales workflow was fragmented. Sales staff manually tracked inquiries in spreadsheets, delayed follow-ups caused hot leads to go cold, and no centralized CRM existed. The company had no visibility into lead status, quotation timelines, or customer engagement.',
+    discovery: 'After auditing their operations, we identified that the biggest issue wasn’t lead generation — it was lead handling speed. Every inquiry required manual classification before reaching the correct sales person. Follow-ups depended entirely on memory and internal communication. Their team also lacked analytics to understand which products or sectors generated the highest-value clients.',
+    solution: 'We implemented a centralized AI-powered CRM system integrated with the company website, WhatsApp, and email channels. Incoming leads are automatically categorized by industry, urgency, and product requirement using AI classification models. The system assigns leads to the right sales representative instantly, generates follow-up reminders automatically, and tracks every conversation in one dashboard. AI-generated quotation drafts and smart analytics were also integrated.',
+    businessImpact: 'Average response time dropped from 9 hours to under 3 minutes. Sales teams stopped missing follow-ups entirely, and management gained real-time visibility into pipeline performance. Within 60 days, qualified lead conversion increased by 73%, and the company reported significantly improved distributor communication and customer retention.',
     images: [
-      { url: '/audit_dashboard.png', caption: 'AI Audit Dashboard identifying manual process overheads' },
-      { url: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&auto=format&fit=crop', caption: 'Mapping workflow nodes during initial stakeholder discovery' },
-      { url: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=800&auto=format&fit=crop', caption: 'IBS Operations team review of automated pipeline rules' },
-      { url: '/workflow_graphic.png', caption: 'LLM-orchestrated document routing architecture' },
-      { url: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=800&auto=format&fit=crop', caption: 'Process layout mockups for internal validation dashboard' }
+      { url: 'https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=900', caption: 'CRM workflow optimization and lead routing dashboard' },
+      { url: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=900', caption: 'AI sales automation planning and CRM training session' },
+      { url: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=900', caption: 'Lead handling speed metrics and pipeline analytics' },
+      { url: 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=900', caption: 'Automated WhatsApp communication setup double-check' },
+      { url: 'https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?w=900', caption: 'Lead qualification pipeline visual chart' }
     ]
   },
-  'hospitadent': {
-    name: 'Hospitadent Dental Clinic',
-    tag: 'Voice AI & Scheduling',
-    headline: 'Securing 88+ new patient bookings in month one with 24/7 chat automation',
-    timeline: '3 weeks',
-    impact: '+88 Patient Bookings / Month',
-    services: ['Conversational Agent Development', 'Patient Booking Assistant', 'CRM Integration'],
-    techStack: ['React', 'Node.js', 'Vapi Voice AI', 'OpenAI API', 'Dentrix CRM'],
-    challenge: 'Hospitadent was losing potential patients who messaged them after-hours. Their front desk staff was overwhelmed during the day, resulting in unanswered phone calls and slow webchat response times. Patients inquiring about appointment availability or pricing options would abandon the chat and book with competitors if they did not receive a reply within 5 minutes. Hospitadent needed a way to provide instant, friendly, and accurate booking assistance 24 hours a day.',
-    discovery: 'Our team analyzed webchat transcripts and call logs. We found that 74% of patient questions were repetitive inquiries about insurance coverage, business hours, services, and appointment slots. The remaining 26% required complex medical assessment. This proved that a specialized conversational agent could handle the vast majority of patient interactions, qualifying their needs and booking them directly into the clinic\'s software scheduling calendar.',
-    solution: 'We constructed an automated booking assistant integrated directly into the Hospitadent website and CRM. Using vector retrieval (RAG), the bot answers general questions about pricing and insurance with high accuracy. The assistant integrates directly with Hospitadent\'s appointment calendar database (Dentrix), allowing users to view available slots and schedule bookings in real-time. If a patient requires specialized support, the bot captures their phone number and schedules a callback for the clinic staff.',
-    businessImpact: 'During the first 30 days of operation, the booking assistant handled 920 inquiries and secured 88+ new patient bookings entirely on autopilot. Patient satisfaction scores increased significantly due to the instant response time. The front-desk team now saves hours of phone time daily, allowing them to provide higher-quality in-person care to patients arriving at the clinics.',
+  'anaaj-ai': {
+    name: 'Anaaj AI',
+    tag: 'AI Agriculture Platform',
+    headline: 'How GoRan AI built an AI-powered agriculture assistant used by farmers across rural India',
+    timeline: '62 Days',
+    impact: '12,000+ Farmer Queries Automated',
+    services: ['AI Product Development', 'Mobile App Engineering', 'AI Assistant Training', 'Dashboard Development'],
+    techStack: ['React Native', 'Firebase', 'Gemini API', 'Node.js', 'MongoDB', 'Express.js'],
+    challenge: 'Farmers in rural regions struggled to access accurate agricultural guidance quickly. Most relied on local assumptions, delayed expert consultation, or scattered YouTube videos for crop decisions. Existing agriculture apps were overly complex, lacked regional accessibility, and failed to provide actionable real-time recommendations.',
+    discovery: 'During field research and product analysis, we discovered that farmers primarily needed fast answers to practical questions: crop disease identification, fertilizer usage, irrigation timing, mandi price insights, and government scheme guidance. The challenge was creating a system simple enough for non-technical users while still delivering intelligent recommendations.',
+    solution: 'We developed Anaaj AI — a multilingual AI-powered agriculture assistant accessible through a lightweight mobile app. Farmers can upload crop images, ask questions in local languages, and receive AI-generated recommendations instantly. An admin dashboard was created for crop monitoring, user analytics, notification systems, and AI performance tracking. We also integrated OTP authentication, AI knowledge workflows, and scalable backend infrastructure.',
+    businessImpact: 'Within the first launch phase, the platform automated over 12,000 farmer queries and significantly reduced dependency on manual support teams. Farmers reported faster decision-making around crop diseases and fertilizer planning, while administrators gained detailed analytics on regional agricultural trends and user behavior.',
     images: [
-      { url: '/booking_dashboard.png', caption: 'Real-time client reservation assistant statistics' },
-      { url: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&auto=format&fit=crop', caption: 'Hospitadent front-desk team enabled by automated booking assistance' },
-      { url: 'https://images.unsplash.com/photo-1516549655169-df83a0774514?w=800&auto=format&fit=crop', caption: 'Custom patient appointment scheduler interface' },
-      { url: '/rag_graphic.png', caption: 'Knowledge retrieval vector pipeline for patient queries' },
-      { url: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&auto=format&fit=crop', caption: 'Customer interaction dashboard with automatic sentiment flagging' }
+      { url: 'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=900', caption: 'Agricultural field data analysis dashboard' },
+      { url: 'https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=900', caption: 'Farmers checking multilingual crop assistant' },
+      { url: 'https://images.unsplash.com/photo-1523741543316-beb7fc7023d8?w=900', caption: 'AI crop disease classification interface testing' },
+      { url: 'https://images.unsplash.com/photo-1492496913980-501348b61469?w=900', caption: 'Admin monitoring panel for rural farmer inquiries' },
+      { url: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=900', caption: 'Mandi pricing and scheme analytics dashboard' }
     ]
   },
-  'urbanwear': {
-    name: 'UrbanWear Co.',
-    tag: 'Custom Dashboard & Fulfillment',
-    headline: 'Cutting e-commerce fulfillment prep times in half with custom order sorting',
-    timeline: '6 weeks',
-    impact: '50% Faster Fulfillment Prep',
-    services: ['SaaS Dashboard Design', 'Order Processing Engine', 'Database Optimization'],
-    techStack: ['React', 'Tailwind CSS', 'PostgreSQL', 'Shopify API', 'Node.js'],
-    challenge: 'UrbanWear Co. was experiencing rapid sales growth, but their manual fulfillment system was buckling under the load. Every morning, logistics staff spent hours reading through customer notes and order tags to sort custom apparel by size, print design, and shipping hub. This manual sorting delay meant that orders placed after 10:00 AM could not be shipped same-day, increasing order backlog and causing shipping delays during peak sales events.',
-    discovery: 'We mapped the order-to-shipment workflow and determined that the manual lookup phase was the major bottleneck. All order specifications were already present in the Shopify payload, but the warehouse workers lacked a simplified view to sort and tag them automatically. Building a custom interface that reads, parses, and dynamically groups orders in real-time would streamline the entire packing queue.',
-    solution: 'We designed a custom fulfillment dashboard. The engine automatically reads the raw Shopify order payload, runs parsing scripts, and assigns color-coded print-hub tags. Workers in the warehouse can view a simplified interface showing which orders match their specific printing machines. The dashboard updates live, enabling workers to print batch tags and pack custom apparel without opening individual order details.',
-    businessImpact: 'The custom dashboard cut fulfillment preparation time in half (50% faster prep) in the first week. UrbanWear was able to extend their same-day shipping cut-off time from 10:00 AM to 3:00 PM, increasing customer satisfaction. The company successfully handled a 40% increase in order volume during Black Friday sales without hiring additional temporary warehouse staff.',
+  'voice-agent-platform': {
+    name: 'NexaCall Solutions',
+    tag: 'AI Voice Automation',
+    headline: 'How GoRan AI automated 84% of inbound support calls using real-time AI voice agents',
+    timeline: '48 Days',
+    impact: '84% Call Automation Rate',
+    services: ['Voice AI Architecture', 'Realtime Agent Deployment', 'Telephony Integration', 'AI Workflow Engineering'],
+    techStack: ['LiveKit', 'Gemini Realtime API', 'Node.js', 'WebRTC', 'Twilio', 'Redis'],
+    challenge: 'NexaCall Solutions handled thousands of repetitive inbound support calls daily related to appointment confirmations, account queries, and basic troubleshooting. Human agents were overloaded with repetitive tasks, resulting in long wait times and rising operational costs. Existing IVR systems frustrated users due to rigid menu flows and poor conversational experience.',
+    discovery: 'We analyzed over 8,000 recorded support conversations and discovered that most customer interactions followed predictable patterns that could be handled conversationally by AI. However, the system needed low-latency speech processing, contextual memory, interruption handling, and real-time response generation to feel natural during live phone conversations.',
+    solution: 'GoRan AI engineered a realtime voice agent platform powered by LiveKit and Gemini Realtime APIs. The AI agents could answer calls, understand natural speech, access business knowledge bases, schedule appointments, escalate complex issues, and transfer calls to humans when necessary. We also built a monitoring dashboard with live transcripts, analytics, and conversation review tools for supervisors.',
+    businessImpact: 'The platform automated 84% of inbound support calls within the first deployment cycle. Average customer wait time dropped by 67%, and human support teams were freed to focus on high-priority issues. NexaCall estimated annual savings exceeding $240k in operational staffing costs while improving customer satisfaction scores significantly.',
     images: [
-      { url: '/sorting_dashboard.png', caption: 'Fulfillment queue showing automated tags and hub routing speed' },
-      { url: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&auto=format&fit=crop', caption: 'UrbanWear distribution center processing automated shipments' },
-      { url: 'https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?w=800&auto=format&fit=crop', caption: 'Order packaging line receiving automatic print tags' },
-      { url: '/security_graphic.png', caption: 'Data security and token validation architecture for customer orders' },
-      { url: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&auto=format&fit=crop', caption: 'Weekly order processing analytics and cost-reduction chart' }
+      { url: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=900', caption: 'AI voice agent realtime scheduling dashboard' },
+      { url: 'https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?w=900', caption: 'Voice call automation performance charts' },
+      { url: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=900', caption: 'LiveKit and Gemini Realtime API telephony integration' },
+      { url: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=900', caption: 'Live conversational transcript supervisor dashboard' },
+      { url: 'https://images.unsplash.com/photo-1484417894907-623942c8ee29?w=900', caption: 'Customer support agent call routing center' }
     ]
   },
-  'apex-logistics': {
-    name: 'Apex Logistics',
-    tag: 'Internal Enablement & Training',
-    headline: 'Helping Apex Logistics save 4.5 hours of boring administrative work per week',
-    timeline: '4 weeks',
-    impact: '4.5 Hours Saved / Week per Employee',
-    services: ['AI Enablement Workshops', 'Internal AI Search Portal', 'Prompt Engineering'],
-    techStack: ['Claude 3.5 Sonnet', 'OpenSearch Vector DB', 'Node.js', 'React', 'Tailwind CSS'],
-    challenge: 'Apex Logistics support agents and operations coordinators were losing valuable time looking up complex carrier rules, safety guidelines, and company policies. Staff spent up to an hour daily searching through outdated PDFs and internal wikis, leading to slow response times for drivers on the road. The company needed a secure way to let employees find accurate policy answers in seconds using conversational search.',
-    discovery: 'We conducted workshops and found that staff were manually searching the same 12 policy handbooks over and over. Furthermore, support agents did not know how to write effective prompts to get good answers from general-purpose AI chat tools. We realized that by combining structured prompt training with a custom search tool built on their actual handbooks, we could eliminate manual searching entirely.',
-    solution: 'We built a secure internal search portal for Apex Logistics. The portal uses a private vector database containing all policy PDFs and safety manuals. Support agents can type questions in plain English (e.g., "What is the policy for route deviations in heavy snow?") and get instant, referenced answers. We also conducted hands-on training workshops to teach staff prompt engineering and workflow automation techniques.',
-    businessImpact: 'The search portal and prompt training enabled Apex Logistics staff to save an average of 4.5 hours per employee per week. Driver support inquiries are resolved instantly on the first call rather than requiring a callback. The operations team has reported a significant reduction in administrative fatigue and higher employee confidence.',
+  'educonsult-ai': {
+    name: 'EduConsult Global',
+    tag: 'AI Lead Management',
+    headline: 'How GoRan AI increased student consultation bookings by 3.2x using AI-driven lead automation',
+    timeline: '31 Days',
+    impact: '3.2x Lead Booking Increase',
+    services: ['AI CRM Implementation', 'Funnel Automation', 'Lead Scoring System', 'Email Workflow Automation'],
+    techStack: ['Next.js', 'FastAPI', 'PostgreSQL', 'OpenAI API', 'Calendly API', 'SendGrid'],
+    challenge: 'EduConsult Global received hundreds of student inquiries daily for college admissions and overseas education consulting. Their counselors manually filtered leads, scheduled calls individually, and struggled to prioritize high-intent students. Follow-up delays caused a major drop-off in conversions, especially during admission seasons.',
+    discovery: 'We found that most leads never received personalized engagement quickly enough. Counselors spent more time organizing spreadsheets and scheduling meetings than actually consulting students. There was also no predictive system to identify which students were most likely to convert into paying clients.',
+    solution: 'We designed an AI-powered lead management ecosystem that automatically scores incoming student inquiries based on intent, academic background, and urgency. AI-generated personalized emails and WhatsApp messages nurture students automatically while integrating directly with Calendly for instant booking. The CRM dashboard provides real-time counselor allocation, conversion analytics, and pipeline forecasting.',
+    businessImpact: 'Consultation bookings increased by 3.2x within the first two months. Counselors reduced administrative workload dramatically and focused entirely on high-value consultations. Automated nurturing improved response consistency, reduced lead drop-offs, and helped EduConsult scale operations during peak admission periods without increasing staffing costs.',
     images: [
-      { url: '/training_dashboard.png', caption: 'Apex Internal developer search query performance dashboard' },
-      { url: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=800&auto=format&fit=crop', caption: 'Logistics coordinators learning to query internal AI systems' },
-      { url: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&auto=format&fit=crop', caption: 'Hands-on workshop showcasing custom copilot prompts' },
-      { url: '/tuning_graphic.png', caption: 'Fine-tuning loops for logistics routing LLMs' },
-      { url: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&auto=format&fit=crop', caption: 'Apex department heads validating administrative time savings' }
+      { url: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=900', caption: 'Student consultation funnel status dashboard' },
+      { url: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=900', caption: 'AI lead scoring system settings panel' },
+      { url: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=900', caption: 'Automated email and Calendly booking workflow' },
+      { url: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=900', caption: 'Nurturing conversation review and counselor assignment' },
+      { url: 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=900', caption: 'Admission cycle lead conversion dashboard' }
     ]
   }
 };

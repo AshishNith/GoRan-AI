@@ -2,21 +2,25 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Phone, PhoneOff, Mic, MicOff } from 'lucide-react';
 
 const DIALOG_EN = [
-  { time: 1.5, sender: 'user', text: "Hi, how fast can you build a custom document automation agent?" },
-  { time: 4.5, sender: 'agent', text: "We typically ship custom workflow agents, like document automation pipelines, in 3 to 4 weeks. For instance, for IBS Brokers, we automated their entire data entry queue in 28 days." },
-  { time: 12.0, sender: 'user', text: "That's fast. What tech stack do you use for agentic pipelines?" },
-  { time: 15.0, sender: 'agent', text: "We build backends using Python, FastAPI, and LangGraph for multi-agent workflows, and integrate them with databases like PostgreSQL and tools like Airtable or Slack." },
-  { time: 23.5, sender: 'user', text: "Awesome. How do I get started with a project scoping call?" },
-  { time: 26.0, sender: 'agent', text: "You can request a scoping blueprint by filling out the form right below this section, or I can schedule a callback for you if you leave your email!" }
+  { time: 1.5, duration: 4.0, sender: 'user', text: "Hey, I heard you guys build AI agents for businesses. What exactly does that mean?" },
+  { time: 6.0, duration: 13.0, sender: 'agent', text: "Great question. Essentially, we construct autonomous AI systems that handle complex workflows — processing documents, managing schedules, routing data — all without constant human oversight. Think of it like hiring a tireless digital employee." },
+  { time: 19.5, duration: 3.0, sender: 'user', text: "That sounds promising. What kind of tech stack do you typically use?" },
+  { time: 23.0, duration: 10.0, sender: 'agent', text: "We work with a range of models — GPT-4o, Claude 3.5, Gemini — and frameworks like LangGraph and CrewAI. The stack always depends on the client's existing infrastructure. We integrate with whatever you already use." },
+  { time: 33.5, duration: 2.5, sender: 'user', text: "And how long does a typical deployment take?" },
+  { time: 36.5, duration: 10.0, sender: 'agent', text: "Most projects go from kickoff to production in 8 to 14 weeks. The first two weeks are discovery and architecture — we map everything out before writing any code. You'll see progress every sprint." },
+  { time: 47.0, duration: 2.0, sender: 'user', text: "I'd like to move forward. How do we start?" },
+  { time: 49.5, duration: 9.0, sender: 'agent', text: "Let's schedule a 30-minute scoping call. We'll discuss your goals, answer your questions, and outline a clear path forward. No commitment needed." }
 ];
 
 const DIALOG_HI = [
-  { time: 1.5, sender: 'user', text: "नमस्ते, आप हमारे लिए दस्तावेज़ स्वचालन एजेंट को कितनी तेज़ी से तैयार कर सकते हैं?" },
-  { time: 4.5, sender: 'agent', text: "नमस्ते! हम सामान्य तौर पर दस्तावेज़ स्वचालन पाइपलाइन जैसे कस्टम एजेंट 3 से 4 हफ़्तों में बना लेते हैं। उदाहरण के लिए, हमने IBS Brokers के पूरे काम को केवल 28 दिनों में स्वचालित कर दिया था।" },
-  { time: 12.0, sender: 'user', text: "यह तो वाकई बहुत तेज़ है। आप इसके लिए किस तकनीकी स्टैक का उपयोग करते हैं?" },
-  { time: 15.0, sender: 'agent', text: "हम बैकएंड के लिए Python, FastAPI और LangGraph का उपयोग करते हैं, और इसे PostgreSQL डेटाबेस तथा Airtable या Slack जैसे टूल्स के साथ सुरक्षित रूप से जोड़ते हैं।" },
-  { time: 23.5, sender: 'user', text: "बहुत बढ़िया। मैं प्रोजेक्ट स्कोपिंग कॉल कैसे शुरू करूँ?" },
-  { time: 26.0, sender: 'agent', text: "आप इस सेक्शन के ठीक नीचे दिए गए फॉर्म को भरकर स्कोपिंग कॉल का अनुरोध कर सकते हैं, या फिर अपना ईमेल छोड़ दें तो मैं आपके लिए कॉल शेड्यूल कर दूँगी!" }
+  { time: 1.5, duration: 4.0, sender: 'user', text: "सुनिए, मैंने सुना है आप व्यवसायों के लिए AI एजेंट बनाते हैं। इसका वास्तव में क्या मतलब है?" },
+  { time: 6.0, duration: 13.0, sender: 'agent', text: "बहुत अच्छा सवाल है। हम स्वायत्त AI सिस्टम बनाते हैं जो जटिल वर्कफ़्लो को संभालते हैं — दस्तावेज़ प्रोसेस करना, शेड्यूल मैनेज करना, डेटा रूट करना — बिना लगातार मानवीय निगरानी के। इसे एक अथक डिजिटल कर्मचारी किराए पर लेने जैसा समझें।" },
+  { time: 19.5, duration: 3.0, sender: 'user', text: "यह आशाजनक लगता है। आप आमतौर पर किस तकनीकी स्टैक का उपयोग करते हैं?" },
+  { time: 23.0, duration: 10.0, sender: 'agent', text: "हम GPT-4o, Claude 3.5, Gemini जैसे मॉडल और LangGraph तथा CrewAI जैसे फ्रेमवर्क के साथ काम करते हैं। स्टैक हमेशा क्लाइंट के मौजूदा बुनियादी ढांचे पर निर्भर करता है। हम आपके द्वारा पहले से उपयोग किए जा रहे किसी भी चीज़ के साथ एकीकृत होते हैं।" },
+  { time: 33.5, duration: 2.5, sender: 'user', text: "और एक सामान्य डिप्लॉयमेंट में कितना समय लगता है?" },
+  { time: 36.5, duration: 10.0, sender: 'agent', text: "अधिकांश प्रोजेक्ट शुरू से प्रोडक्शन तक 8 से 14 सप्ताह में पूरे हो जाते हैं। पहले दो सप्ताह डिस्कवरी और आर्किटेक्चर के होते हैं — कोई कोड लिखने से पहले हम सब कुछ मैप कर लेते हैं। आप हर स्प्रिंट में प्रगति देखेंगे।" },
+  { time: 47.0, duration: 2.0, sender: 'user', text: "मैं आगे बढ़ना चाहूंगा। हम कैसे शुरू करें?" },
+  { time: 49.5, duration: 9.0, sender: 'agent', text: "चलिए 30 मिनट की स्कोपिंग कॉल शेड्यूल करते हैं। हम आपके लक्ष्यों पर चर्चा करेंगे, आपके सवालों के जवाब देंगे, और एक स्पष्ट रास्ता तैयार करेंगे। कोई प्रतिबद्धता नहीं।" }
 ];
 
 function OrbitingDot({ index, total, radius, size, color, duration, delay }) {
@@ -77,7 +81,7 @@ export default function VoiceAgent() {
       const timeElapsed = callDuration;
 
       const activeLine = activeDialog.find(line =>
-        timeElapsed >= line.time && timeElapsed < (line.time + 3.5)
+        timeElapsed >= line.time && timeElapsed < (line.time + line.duration)
       );
 
       if (activeLine) {
@@ -93,8 +97,8 @@ export default function VoiceAgent() {
         setActiveText('');
         setStatusLog(
           language === 'en'
-            ? 'Listening... Ask a question about Synapse.'
-            : 'सुन रहा हूँ... साइनेप्स के बारे में कुछ भी पूछें।'
+            ? 'Listening... Ask a question about GoRan AI.'
+            : 'सुन रहा हूँ... गोराॅन एआई के बारे में कुछ भी पूछें।'
         );
       }
     }, 200);
@@ -131,7 +135,7 @@ export default function VoiceAgent() {
 
   const startCall = () => {
     setCallState('CONNECTING');
-    setStatusLog(language === 'en' ? 'Connecting to Synapse network...' : 'साइनेप्स नेटवर्क से जुड़ रहा है...');
+    setStatusLog(language === 'en' ? 'Connecting to GoRan AI network...' : 'गोराॅन एआई नेटवर्क से जुड़ रहा है...');
 
     setTimeout(() => {
       setCallState('CONNECTED');
@@ -518,7 +522,7 @@ export default function VoiceAgent() {
                   <span className="font-medium">{language === 'en' ? 'Listening' : 'सुन रहा हूँ'}</span>
                 </div>
                 <span className="text-[10px] text-brand-text-muted/50">
-                  {language === 'en' ? 'Ask a question about Synapse...' : 'साइनेप्स के बारे में कुछ पूछें...'}
+                  {language === 'en' ? 'Ask a question about GoRan AI...' : 'गोराॅन एआई के बारे में कुछ पूछें...'}
                 </span>
               </div>
             )
