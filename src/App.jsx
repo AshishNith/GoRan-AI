@@ -18,6 +18,7 @@ import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
 import NotFound from './pages/NotFound';
 import Chatbot from './components/Chatbot';
+import WhatsAppWidget from './components/WhatsAppWidget';
 import AgentDetail from './pages/AgentDetail';
 import { CalBookingProvider } from './components/CalBookingModal';
 
@@ -64,6 +65,7 @@ function App() {
       </Routes>
       <Footer />
       <Chatbot />
+      <WhatsAppWidget />
       </CalBookingProvider>
     </div>
   );

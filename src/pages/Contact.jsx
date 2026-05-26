@@ -103,13 +103,19 @@ export default function Contact() {
               <div className="flex flex-col gap-3">
                 <a href="mailto:goran.dotin@gmail.com" className="no-underline text-brand-dark font-medium text-sm hover:text-brand-yellow transition-colors flex items-center gap-3">
                   <span className="w-8 h-8 rounded-lg bg-brand-yellow/10 flex items-center justify-center shrink-0">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F6C744" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 7L2 7"/></svg>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F6C744" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="M22 7l-10 7L2 7" /></svg>
                   </span>
                   goran.dotin@gmail.com
                 </a>
+                <a href="https://wa.me/919934225353?text=Hi%20GoRan%20AI,%20I'd%20like%20to%20discuss%20an%20AI%20automation%20project%20for%20my%20business." target="_blank" rel="noopener noreferrer" className="no-underline text-brand-dark font-medium text-sm hover:text-[#25D366] transition-colors flex items-center gap-3">
+                  <span className="w-8 h-8 rounded-lg bg-[#25D366]/10 flex items-center justify-center shrink-0 text-[#25D366]">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.739-1.45L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.42 9.864-9.864.002-2.637-1.03-5.115-2.905-6.99C16.457 1.875 13.99 .843 11.372.843 5.939.843 1.517 5.263 1.513 10.7c-.001 1.692.443 3.342 1.285 4.792l-1.026 3.748 3.875-.986zm11.367-7.397c-.3-.15-1.771-.875-2.046-.975-.275-.1-.475-.15-.675.15-.2.3-.775.975-.95 1.175-.175.2-.35.225-.65.075-3.04-1.257-4.743-3.69-5.468-4.942-.175-.3-.025-.45.075-.6l.45-.6c.1-.15.15-.25.225-.4.075-.15.038-.3-.013-.45-.05-.15-.475-1.15-.65-1.575-.171-.413-.343-.35-.475-.35-.125-.004-.27-.004-.413-.004-.143 0-.376.054-.572.27-.197.216-.752.735-.752 1.792s.77 2.08.877 2.225c.107.145 1.51 2.305 3.659 3.228.512.22 1.054.382 1.518.528.513.164.98.14 1.35.084.412-.06 1.77-.724 2.02-.975.25-.25.25-.475.25-.525-.001-.05-.1-.15-.4-.3z" /></svg>
+                  </span>
+                  WhatsApp
+                </a>
                 <div className="flex items-center gap-3 text-sm text-brand-text-muted">
                   <span className="w-8 h-8 rounded-lg bg-brand-yellow/10 flex items-center justify-center shrink-0">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F6C744" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F6C744" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></svg>
                   </span>
                   Avg. response: <span className="text-brand-dark font-semibold">within a few hours</span>
                 </div>
@@ -218,162 +224,157 @@ export default function Contact() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-                  {/* Name + Email row */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="flex flex-col gap-1.5">
-                      <label className="text-[10px] font-semibold text-brand-text-muted uppercase tracking-wider">Full Name *</label>
-                      <input type="text" name="name" value={formData.name} onChange={handleInputChange} placeholder="e.g. Sarah Jenkins" required className={inputClasses} />
-                    </div>
-                    <div className="flex flex-col gap-1.5">
-                      <label className="text-[10px] font-semibold text-brand-text-muted uppercase tracking-wider">Work Email *</label>
-                      <input type="email" name="email" value={formData.email} onChange={handleInputChange} placeholder="sarah@company.com" required className={inputClasses} />
-                    </div>
+                {/* Name + Email row */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-[10px] font-semibold text-brand-text-muted uppercase tracking-wider">Full Name *</label>
+                    <input type="text" name="name" value={formData.name} onChange={handleInputChange} placeholder="e.g. Sarah Jenkins" required className={inputClasses} />
                   </div>
-
-                  {/* Phone + Company row */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="flex flex-col gap-1.5">
-                      <label className="text-[10px] font-semibold text-brand-text-muted uppercase tracking-wider">Phone Number</label>
-                      <input type="tel" name="phone" value={formData.phone} onChange={handleInputChange} placeholder="+91 98765 43210" className={inputClasses} />
-                    </div>
-                    <div className="flex flex-col gap-1.5">
-                      <label className="text-[10px] font-semibold text-brand-text-muted uppercase tracking-wider">Company</label>
-                      <input type="text" name="company" value={formData.company} onChange={handleInputChange} placeholder="Acme Corp" className={inputClasses} />
-                    </div>
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-[10px] font-semibold text-brand-text-muted uppercase tracking-wider">Work Email *</label>
+                    <input type="email" name="email" value={formData.email} onChange={handleInputChange} placeholder="sarah@company.com" required className={inputClasses} />
                   </div>
+                </div>
 
-                  {/* Contact method */}
+                {/* Phone + Company row */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-[10px] font-semibold text-brand-text-muted uppercase tracking-wider">Phone Number</label>
+                    <input type="tel" name="phone" value={formData.phone} onChange={handleInputChange} placeholder="+91 98765 43210" className={inputClasses} />
+                  </div>
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-[10px] font-semibold text-brand-text-muted uppercase tracking-wider">Company</label>
+                    <input type="text" name="company" value={formData.company} onChange={handleInputChange} placeholder="Acme Corp" className={inputClasses} />
+                  </div>
+                </div>
+
+                {/* Contact method */}
+                <div className="flex flex-col gap-2">
+                  <label className="text-[10px] font-semibold text-brand-text-muted uppercase tracking-wider">Preferred contact method</label>
+                  <div className="flex gap-2 flex-wrap">
+                    {contactMethods.map((opt) => (
+                      <button
+                        key={opt}
+                        type="button"
+                        onClick={() => handleSelectOption('contactMethod', opt)}
+                        className={`py-2 px-3.5 border rounded-lg font-medium text-xs text-center cursor-pointer transition-all duration-200 ${formData.contactMethod === opt
+                            ? 'bg-brand-yellow/15 border-brand-yellow text-brand-dark'
+                            : 'bg-white border-brand-border text-brand-text-muted hover:border-brand-text-muted/40'
+                          }`}
+                      >
+                        {opt}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Project Type selection */}
+                <div className="flex flex-col gap-2">
+                  <label className="text-[10px] font-semibold text-brand-text-muted uppercase tracking-wider">Project Type</label>
+                  <div className="flex gap-2 flex-wrap">
+                    {projectTypes.map((opt) => (
+                      <button
+                        key={opt}
+                        type="button"
+                        onClick={() => handleSelectOption('projectType', opt)}
+                        className={`py-2 px-3 border rounded-lg font-medium text-xs text-center cursor-pointer transition-all duration-200 ${formData.projectType === opt
+                            ? 'bg-brand-yellow/15 border-brand-yellow text-brand-dark'
+                            : 'bg-white border-brand-border text-brand-text-muted hover:border-brand-text-muted/40'
+                          }`}
+                      >
+                        {opt}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Integrations */}
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-[10px] font-semibold text-brand-text-muted uppercase tracking-wider">Integrations / APIs</label>
+                  <input type="text" name="targets" value={formData.targets} onChange={handleInputChange} placeholder="e.g. Salesforce, Slack, Google Sheets, Airtable" className={inputClasses} />
+                </div>
+
+                {/* Budget + Timeline chips row */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="flex flex-col gap-2">
-                    <label className="text-[10px] font-semibold text-brand-text-muted uppercase tracking-wider">Preferred contact method</label>
+                    <label className="text-[10px] font-semibold text-brand-text-muted uppercase tracking-wider">Budget Range</label>
                     <div className="flex gap-2 flex-wrap">
-                      {contactMethods.map((opt) => (
+                      {budgetOptions.map((opt) => (
                         <button
                           key={opt}
                           type="button"
-                          onClick={() => handleSelectOption('contactMethod', opt)}
-                          className={`py-2 px-3.5 border rounded-lg font-medium text-xs text-center cursor-pointer transition-all duration-200 ${
-                            formData.contactMethod === opt
+                          onClick={() => handleSelectOption('budget', opt)}
+                          className={`py-2 px-3.5 border rounded-lg font-medium text-xs text-center cursor-pointer transition-all duration-200 ${formData.budget === opt
                               ? 'bg-brand-yellow/15 border-brand-yellow text-brand-dark'
                               : 'bg-white border-brand-border text-brand-text-muted hover:border-brand-text-muted/40'
-                          }`}
+                            }`}
                         >
                           {opt}
                         </button>
                       ))}
                     </div>
                   </div>
-
-                  {/* Project Type selection */}
                   <div className="flex flex-col gap-2">
-                    <label className="text-[10px] font-semibold text-brand-text-muted uppercase tracking-wider">Project Type</label>
+                    <label className="text-[10px] font-semibold text-brand-text-muted uppercase tracking-wider">Timeline</label>
                     <div className="flex gap-2 flex-wrap">
-                      {projectTypes.map((opt) => (
+                      {timelineOptions.map((opt) => (
                         <button
                           key={opt}
                           type="button"
-                          onClick={() => handleSelectOption('projectType', opt)}
-                          className={`py-2 px-3 border rounded-lg font-medium text-xs text-center cursor-pointer transition-all duration-200 ${
-                            formData.projectType === opt
+                          onClick={() => handleSelectOption('timeline', opt)}
+                          className={`py-2 px-3.5 border rounded-lg font-medium text-xs text-center cursor-pointer transition-all duration-200 ${formData.timeline === opt
                               ? 'bg-brand-yellow/15 border-brand-yellow text-brand-dark'
                               : 'bg-white border-brand-border text-brand-text-muted hover:border-brand-text-muted/40'
-                          }`}
+                            }`}
                         >
                           {opt}
                         </button>
                       ))}
                     </div>
                   </div>
+                </div>
 
-                  {/* Integrations */}
-                  <div className="flex flex-col gap-1.5">
-                    <label className="text-[10px] font-semibold text-brand-text-muted uppercase tracking-wider">Integrations / APIs</label>
-                    <input type="text" name="targets" value={formData.targets} onChange={handleInputChange} placeholder="e.g. Salesforce, Slack, Google Sheets, Airtable" className={inputClasses} />
-                  </div>
+                {/* Message */}
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-[10px] font-semibold text-brand-text-muted uppercase tracking-wider">Project Description</label>
+                  <textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    placeholder="Tell us about the workflows you need to automate, the tools you use, and what success looks like for your team..."
+                    rows={4}
+                    className="w-full bg-white border border-brand-border rounded-xl px-4 py-3 text-brand-text-main outline-none focus:border-brand-yellow/60 focus:ring-2 focus:ring-brand-yellow/10 transition-all duration-200 text-sm resize-none placeholder:text-brand-text-muted/40 shadow-[inset_0_1px_2px_rgba(0,0,0,0.02)]"
+                  />
+                </div>
 
-                  {/* Budget + Timeline chips row */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="flex flex-col gap-2">
-                      <label className="text-[10px] font-semibold text-brand-text-muted uppercase tracking-wider">Budget Range</label>
-                      <div className="flex gap-2 flex-wrap">
-                        {budgetOptions.map((opt) => (
-                          <button
-                            key={opt}
-                            type="button"
-                            onClick={() => handleSelectOption('budget', opt)}
-                            className={`py-2 px-3.5 border rounded-lg font-medium text-xs text-center cursor-pointer transition-all duration-200 ${
-                              formData.budget === opt
-                                ? 'bg-brand-yellow/15 border-brand-yellow text-brand-dark'
-                                : 'bg-white border-brand-border text-brand-text-muted hover:border-brand-text-muted/40'
-                            }`}
-                          >
-                            {opt}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                    <div className="flex flex-col gap-2">
-                      <label className="text-[10px] font-semibold text-brand-text-muted uppercase tracking-wider">Timeline</label>
-                      <div className="flex gap-2 flex-wrap">
-                        {timelineOptions.map((opt) => (
-                          <button
-                            key={opt}
-                            type="button"
-                            onClick={() => handleSelectOption('timeline', opt)}
-                            className={`py-2 px-3.5 border rounded-lg font-medium text-xs text-center cursor-pointer transition-all duration-200 ${
-                              formData.timeline === opt
-                                ? 'bg-brand-yellow/15 border-brand-yellow text-brand-dark'
-                                : 'bg-white border-brand-border text-brand-text-muted hover:border-brand-text-muted/40'
-                            }`}
-                          >
-                            {opt}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Message */}
-                  <div className="flex flex-col gap-1.5">
-                    <label className="text-[10px] font-semibold text-brand-text-muted uppercase tracking-wider">Project Description</label>
-                    <textarea
-                      name="message"
-                      value={formData.message}
-                      onChange={handleInputChange}
-                      placeholder="Tell us about the workflows you need to automate, the tools you use, and what success looks like for your team..."
-                      rows={4}
-                      className="w-full bg-white border border-brand-border rounded-xl px-4 py-3 text-brand-text-main outline-none focus:border-brand-yellow/60 focus:ring-2 focus:ring-brand-yellow/10 transition-all duration-200 text-sm resize-none placeholder:text-brand-text-muted/40 shadow-[inset_0_1px_2px_rgba(0,0,0,0.02)]"
-                    />
-                  </div>
-
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className={`w-full bg-brand-dark hover:bg-brand-dark-hover text-white py-3.5 rounded-xl font-semibold text-sm transition-all duration-300 border-none cursor-pointer mt-2 text-center shadow-[0_4px_12px_rgba(0,0,0,0.08)] flex items-center justify-center gap-2 ${
-                      isSubmitting ? 'opacity-85 cursor-not-allowed' : 'hover:-translate-y-0.5'
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className={`w-full bg-brand-dark hover:bg-brand-dark-hover text-white py-3.5 rounded-xl font-semibold text-sm transition-all duration-300 border-none cursor-pointer mt-2 text-center shadow-[0_4px_12px_rgba(0,0,0,0.08)] flex items-center justify-center gap-2 ${isSubmitting ? 'opacity-85 cursor-not-allowed' : 'hover:-translate-y-0.5'
                     }`}
-                  >
-                    {isSubmitting ? (
-                      <>
-                        <svg className="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                        </svg>
-                        Creating Request...
-                      </>
-                    ) : (
-                      <>
-                        <span>Book a Free AI Strategy Call</span>
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M5 12h14M12 5l7 7-7 7" />
-                        </svg>
-                      </>
-                    )}
-                  </button>
+                >
+                  {isSubmitting ? (
+                    <>
+                      <svg className="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                      </svg>
+                      Creating Request...
+                    </>
+                  ) : (
+                    <>
+                      <span>Book a Free AI Strategy Call</span>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                      </svg>
+                    </>
+                  )}
+                </button>
 
-                  <p className="text-[10px] text-brand-text-muted/50 text-center mt-1">
-                    We'll respond within a few hours — no spam, no unnecessary sales calls.
-                  </p>
-                </form>
+                <p className="text-[10px] text-brand-text-muted/50 text-center mt-1">
+                  We'll respond within a few hours — no spam, no unnecessary sales calls.
+                </p>
+              </form>
             )}
 
             {/* ── Or book a call ── */}

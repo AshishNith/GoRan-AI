@@ -42,7 +42,7 @@ export const blogPosts = {
       { type: 'paragraph', text: 'While building a basic prototype is easy, scaling it to run reliably without hitting API limits, getting domains blacklisted, or generating weird AI hallucinations requires high-grade systems engineering. You need advanced event-driven queues, strict safety guardrails, and secure proxy servers.' },
       { type: 'paragraph', text: 'If you want a production-grade automated lead generation and outreach pipeline deployed for your business on complete autopilot, let us engineer it for you. We\'ll map your customer persona, set up the scrapers, warm up domains, and deploy the agent loops tailored to your business.' },
       { type: 'paragraph', text: 'Let\'s start a conversation. You can book a direct scoping meeting or drop us a WhatsApp message to discuss how we can build this system for you today:' },
-      { type: 'cta', bookingUrl: 'https://cal.com/goranai', whatsappUrl: 'https://wa.me/919999999999?text=AI%20Outreach%20System%20Scoping' }
+      { type: 'cta', bookingUrl: 'https://cal.com/goranai', whatsappUrl: 'https://wa.me/919934225353?text=Hi%20GoRan%20AI,%20I%20just%20read%20your%20blog%20post%20about%20the%2010-minute%20lead%20outreach%20system%2520and%2520want%2520to%2520implement%2520it%2520for%2520my%2520business!' }
     ],
     tableOfContents: [
       { label: 'The Friction of Manual Prospecting', id: 'the-friction-of-manual-prospecting' },
