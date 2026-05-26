@@ -80,7 +80,7 @@ function CodeBlock({ code }) {
   };
 
   return (
-    <div className="my-10 rounded-2xl overflow-hidden border border-white/[0.08] bg-[#0E0E0E]">
+    <div className="my-10 rounded-2xl overflow-hidden border border-white/[0.08] bg-[#0E0E0E] w-full max-w-[calc(100vw-3rem)] sm:max-w-none">
       <div className="bg-[#171717] px-5 py-3 flex items-center justify-between border-b border-white/[0.06]">
         <div className="flex items-center gap-2">
           <div className="flex gap-1.5">
@@ -117,7 +117,7 @@ function CodeBlock({ code }) {
           ))}
         </div>
         {/* Code Content */}
-        <pre className="pl-4 flex-1 text-[#E4E4E7] m-0">
+        <pre className="pl-4 flex-1 text-[#E4E4E7] m-0 min-w-0 overflow-x-auto">
           <code className="block">
             {codeLines.map((line, idx) => (
               <span key={idx} className="block h-[22px] leading-[22px] whitespace-pre">
@@ -213,7 +213,7 @@ export default function BlogPost() {
             initial={{ opacity: 0, scale: 0.8, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: 20 }}
-            className="fixed bottom-6 right-6 z-50 flex flex-col items-center gap-2"
+            className="fixed bottom-6 right-6 md:right-auto md:left-6 z-50 flex flex-col items-center gap-2"
           >
             <button
               onClick={scrollToTop}
@@ -596,15 +596,15 @@ export default function BlogPost() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mt-20 rounded-3xl p-8 md:p-14 text-white text-center relative overflow-hidden"
+          className="mt-20 rounded-3xl p-6 sm:p-8 md:p-14 text-white text-center relative overflow-hidden"
           style={{ background: '#0E0E0E' }}
         >
           <div className="absolute inset-0 pointer-events-none">
             <div className="absolute top-[-50%] left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-brand-yellow blur-[120px] opacity-10" />
           </div>
           <div className="relative z-10 max-w-xl mx-auto">
-            <h2 className="text-2xl md:text-4xl font-heading font-bold leading-tight mb-4">
-              Ready to architect your own<br />autonomous system?
+            <h2 className="text-xl sm:text-2xl md:text-4xl font-heading font-bold leading-tight mb-4">
+              Ready to architect your own<br className="hidden sm:inline" /> autonomous system?
             </h2>
             <p className="text-white/60 text-xs md:text-sm leading-relaxed max-w-lg mx-auto mb-8 font-body">
               Book a scoping call. We'll outline your operations, evaluate data readiness, and provide a concrete automation roadmap.
