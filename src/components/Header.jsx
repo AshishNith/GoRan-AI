@@ -64,10 +64,10 @@ export default function Header() {
   const navbarClasses = 'relative w-full max-w-[1200px] rounded-[20px] grid grid-cols-[auto_1fr_auto] items-center gap-3 px-4 py-3 md:px-6 transition-all duration-300 bg-transparent';
 
   return (
-    <header className="fixed top-2 left-0 right-0 flex justify-center z-50 px-4">
+    <header className="fixed top-0 md:top-2 left-0 right-0 flex justify-center z-50 md:px-4">
       <nav className={navbarClasses}>
         <div className="flex items-center gap-2 shrink-0">
-          <Link to="/" className="flex items-center gap-2 no-underline rounded-full  px-3 py-1.5 transition-all duration-300 hover:border-brand-border">
+          <Link to="/" className="flex items-center gap-2 no-underline rounded-full  md:px-3 py-1.5 transition-all duration-300 hover:border-brand-border">
             <img
               src="/Logo.png"
               alt="GoRan AI Logo"

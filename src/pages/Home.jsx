@@ -17,7 +17,7 @@ export default function Home() {
   return (
     <main className="w-full bg-white">
       {/* Hero Section */}
-      <section className="pt-32 md:pt-24 pb-12 bg-white" id="hero">
+      <section className="pt-20 md:pt-24 pb-12 bg-white" id="hero">
         <div className="w-full max-w-[95vw] mx-auto ">
           <div className="text-center relative min-h-screen flex items-center justify-center bg-gradient-to-b from-white via-white to-brand-bg-light rounded-[28px] border border-brand-border overflow-hidden">
             {/* Background video */}
