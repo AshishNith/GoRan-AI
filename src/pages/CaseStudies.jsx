@@ -22,7 +22,7 @@ const immersiveProjects = [
     category: "Immersive UI Website",
     desc: "Interactive art catalog displaying generative visual portfolios, horizontal scrolling grids, and web canvas layers.",
     tech: ["React.js", "Tailwind CSS", "Vite", "GSAP"],
-    image: "https://images.unsplash.com/photo-1547891654-e66ed7edd96c?w=800&auto=format&fit=crop&q=80",
+    image: "https://image.thum.io/get/https://art-nexus-delta.vercel.app/",
     url: "https://art-nexus-delta.vercel.app/",
     status: "Active"
   },
@@ -32,7 +32,7 @@ const immersiveProjects = [
     category: "Modern UI Website",
     desc: "High-end CSS grid landing page showcasing fluid spacing, glassmorphic filters, and interactive UI nodes.",
     tech: ["HTML5", "Vanilla CSS", "JavaScript", "Vercel"],
-    image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&auto=format&fit=crop&q=80",
+    image: "https://image.thum.io/get/https://aura-grid-pi.vercel.app/",
     url: "https://aura-grid-pi.vercel.app/",
     status: "Active"
   },
@@ -42,7 +42,7 @@ const immersiveProjects = [
     category: "E-Commerce UI",
     desc: "Cloned juice brand frontend highlighting fluid micro-animations, slide transitions, and typographic layouts.",
     tech: ["React.js", "Vite", "Tailwind CSS", "Framer Motion"],
-    image: "https://images.unsplash.com/photo-1610970881699-44a5587caa90?w=800&auto=format&fit=crop&q=80",
+    image: "https://image.thum.io/get/https://raw-pressery-two.vercel.app/",
     url: "https://raw-pressery-two.vercel.app/",
     status: "Active"
   },
@@ -52,7 +52,7 @@ const immersiveProjects = [
     category: "Educational Portal",
     desc: "Mechanical engineering student chapter landing page featuring interactive structural timelines and team profiles.",
     tech: ["React.js", "Vite", "Framer Motion", "Tailwind CSS"],
-    image: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=800&auto=format&fit=crop&q=80",
+    image: "https://image.thum.io/get/https://asme-seven.vercel.app/",
     url: "https://asme-seven.vercel.app/",
     status: "Active"
   },
@@ -62,7 +62,7 @@ const immersiveProjects = [
     category: "Festival Web App",
     desc: "Symposium portal loaded with retro cybernetic visuals, scheduler loops, and dynamic registration filters.",
     tech: ["React.js", "Vite", "Tailwind CSS", "GSAP"],
-    image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&auto=format&fit=crop&q=80",
+    image: "https://image.thum.io/get/https://roboweek-3-0.vercel.app/",
     url: "https://roboweek-3-0.vercel.app/",
     status: "Active"
   },
