@@ -3,7 +3,7 @@ import React from 'react';
 const horizontalLogos = [
   { name: "", url: "https://www.anaaj.ai/assets/Footer%20Logo.png" },
   { name: "A Robotic Services", url: "https://aroboticservices.com/assets/Logo-mIvZkugz.png" },
-  { name: "Vyomira Tech Solutions", url: "https://res.cloudinary.com/dmhabztbf/image/upload/v1770127502/Vyomira_1_copy_3-removebg-preview_qsaev9.png" },
+  { name: "Vyomira Tech Solutions", url: "https://lh3.googleusercontent.com/gps-cs-s/APNQkAFXc1PpGYRXxGmZIG6vcIFwSU1w49cBVwjw80a05diLaM-_pdSnrRFo9qL__FCgalHnrHcuir3iGYg-imY7euDnrnX7koEpe7vwEI3_T4zf962gfdxYwzF8_2LTQ_KdXK2ezXPMBsJjRHan=s1360-w1360-h1020-rw" },
   { name: "", url: "https://codewave.it.com/assets/Logo_Orginal-BDXHym7S.png" },
   { name: "GreenWrench Solutions", url: "https://www.greenwrenchsolutions.in/assets/GreenLogo-RH2irvlH.png" },
   { name: "", url: "https://mathed2025.nith.ac.in/Assets/logo.ico" },
