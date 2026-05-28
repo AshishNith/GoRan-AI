@@ -5,15 +5,15 @@ import SEOHead from '../components/SEOHead';
 import { buildCaseStudySchema, buildBreadcrumbSchema } from '../seo/schemas';
 
 export const caseStudiesData = {
-  'maruti-techno-rubber': {
-    name: 'Maruti Techno Rubber Pvt. Ltd.',
+  'sales-lead-automation': {
+    name: 'Industrial Polymer Manufacturer',
     tag: 'AI Sales Automation',
     headline: 'How GoRan AI reduced industrial lead response time from 9 hours to under 3 minutes',
     timeline: '35 Days',
     impact: '73% Faster Lead Conversion',
     services: ['AI Workflow Audit', 'AI CRM Setup', 'Lead Qualification System', 'WhatsApp Automation'],
     techStack: ['React.js', 'Node.js', 'MongoDB', 'OpenAI API', 'WhatsApp Cloud API', 'Firebase'],
-    challenge: 'Maruti Techno Rubber generated leads through their website, exhibitions, WhatsApp, and distributor referrals, but the entire sales workflow was fragmented. Sales staff manually tracked inquiries in spreadsheets, delayed follow-ups caused hot leads to go cold, and no centralized CRM existed. The company had no visibility into lead status, quotation timelines, or customer engagement.',
+    challenge: 'An industrial polymer manufacturer generated leads through their website, exhibitions, WhatsApp, and distributor referrals, but the entire sales workflow was fragmented. Sales staff manually tracked inquiries in spreadsheets, delayed follow-ups caused hot leads to go cold, and no centralized CRM existed. The company had no visibility into lead status, quotation timelines, or customer engagement.',
     discovery: 'After auditing their operations, we identified that the biggest issue wasn’t lead generation — it was lead handling speed. Every inquiry required manual classification before reaching the correct sales person. Follow-ups depended entirely on memory and internal communication. Their team also lacked analytics to understand which products or sectors generated the highest-value clients.',
     solution: 'We implemented a centralized AI-powered CRM system integrated with the company website, WhatsApp, and email channels. Incoming leads are automatically categorized by industry, urgency, and product requirement using AI classification models. The system assigns leads to the right sales representative instantly, generates follow-up reminders automatically, and tracks every conversation in one dashboard. AI-generated quotation drafts and smart analytics were also integrated.',
     businessImpact: 'Average response time dropped from 9 hours to under 3 minutes. Sales teams stopped missing follow-ups entirely, and management gained real-time visibility into pipeline performance. Within 60 days, qualified lead conversion increased by 73%, and the company reported significantly improved distributor communication and customer retention.',

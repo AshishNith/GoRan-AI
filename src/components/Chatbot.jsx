@@ -11,7 +11,7 @@ const GORAN_DATA = {
     { name: 'AI Training & Enablement', desc: 'Upskill your team with prompt engineering and custom no-code workshop programs.' }
   ],
   caseStudies: [
-    { client: 'Maruti Techno Rubber', impact: '73% Faster Lead Conversion', desc: 'Automated sales lead follow-ups and WhatsApp/CRM systems in 35 days.' },
+    { client: 'Industrial Polymer Manufacturer', impact: '73% Faster Lead Conversion', desc: 'Automated sales lead follow-ups and WhatsApp/CRM systems in 35 days.' },
     { client: 'Anaaj AI', impact: '12,000+ farmer queries automated', desc: 'Multilingual mobile assistant and admin tracking panel for agriculture.' },
     { client: 'NexaCall Solutions', impact: '84% Inbound Calls Automated', desc: 'Voice agent platform built on Gemini Realtime API and LiveKit.' },
     { client: 'EduConsult Global', impact: '3.2x Consultation Bookings', desc: 'AI-driven CRM and lead management ecosystem with personalized outreach.' }
@@ -29,7 +29,7 @@ GoRan AI Services:
 4. AI Training & Enablement (Education & Upskilling): 1 day to 6 weeks. Role-specific hands-on workshops, prompt engineering, no-code AI tools (Make, Zapier), private knowledge bases.
 
 Case Studies (Proven Results):
-1. Maruti Techno Rubber: Reduced industrial lead response time from 9 hours to under 3 minutes, 73% faster lead conversion, implemented a WhatsApp automated CRM system in 35 days. Tech stack: React.js, Node.js, MongoDB, OpenAI API, WhatsApp Cloud API, Firebase.
+1. Industrial Polymer Manufacturer: Reduced industrial lead response time from 9 hours to under 3 minutes, 73% faster lead conversion, implemented a WhatsApp automated CRM system in 35 days. Tech stack: React.js, Node.js, MongoDB, OpenAI API, WhatsApp Cloud API, Firebase.
 2. Anaaj AI: Light-weight multilingual mobile agriculture assistant automating 12,000+ farmer queries, crop disease detection, mandi prices. Tech stack: React Native, Firebase, Gemini API, Node.js, MongoDB, Express.js.
 3. NexaCall Solutions: Automated 84% of inbound support calls, Twilio & WebRTC realtime voice agents, LiveKit integrations. Tech stack: LiveKit, Gemini Realtime API, Node.js, WebRTC, Twilio, Redis.
 4. EduConsult Global: 3.2x qualified consultation bookings, AI CRM and automated nurture sequences with personalized outreach in 31 days. Tech stack: Next.js, FastAPI, PostgreSQL, OpenAI API, Calendly API, SendGrid.
@@ -161,7 +161,7 @@ export default function Chatbot() {
 
     if (q.includes('case') || q.includes('portfolio') || q.includes('work') || q.includes('project') || q.includes('client')) {
       return `We have successfully delivered high-impact automation for several clients:
-      - **Maruti Techno Rubber**: Reduced response time to **under 3 minutes** and achieved **73% faster lead conversion**.
+      - **Industrial Polymer Manufacturer**: Reduced response time to **under 3 minutes** and achieved **73% faster lead conversion**.
       - **Anaaj AI**: Automated over **12,000+ farmer queries** with a multilingual mobile assistant.
       - **NexaCall Solutions**: Automated **84% of inbound support calls** using real-time AI calling agents.
       - **EduConsult Global**: Increased student bookings by **3.2x** via AI CRM funnel automation.
@@ -178,8 +178,8 @@ export default function Chatbot() {
       To get an exact scope and pricing blueprint, we recommend booking a free **30-minute scoping call**. You can request this in the contact section at the bottom of the page!`;
     }
 
-    if (q.includes('maruti') || q.includes('rubber') || q.includes('techno') || q.includes('lead')) {
-      return `For **Maruti Techno Rubber**, we automated their fragmented sales lead process. 
+    if (q.includes('industrial') || q.includes('rubber') || q.includes('polymer') || q.includes('lead')) {
+      return `For the **Industrial Polymer Manufacturer**, we automated their fragmented sales lead process. 
       
       We built a centralized CRM system integrated with their website, WhatsApp, and email, which classifies incoming inquiries by industry and urgency.
       - **Impact**: Lead response time dropped from **9 hours to under 3 minutes**.
@@ -220,7 +220,7 @@ export default function Chatbot() {
     
     Here is what you can ask:
     - **What services do you offer?** (Audits, builds, workshops)
-    - **Show me your case studies** (Maruti Techno, Anaaj AI, etc.)
+    - **Show me your case studies** (Sales Automation, Anaaj AI, etc.)
     - **How do we get started?** (Scoping call details)`;
   };
 

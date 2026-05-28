@@ -49,14 +49,14 @@ const pages: PageData[] = [
     leftContent: {
       tag: '01. AI Sales Automation',
       heading: 'Lead Response From 9 Hours to 3 Mins',
-      description: 'Maruti Techno Rubber faced fragmented sales inquiries across web, email, and WhatsApp, losing potential deals to delays. We built an AI CRM that categorises and assigns leads instantly. Lead conversion increased by 73%.',
+      description: 'A leading industrial polymer manufacturer faced fragmented sales inquiries across web, email, and WhatsApp, losing potential deals to delays. We built an AI CRM that categorises and assigns leads instantly. Lead conversion increased by 73%.',
       stats: [
-        { label: 'Client Partner', value: 'Maruti Techno' },
+        { label: 'Client Partner', value: 'Polymer Leader' },
         { label: 'Conversion Boost', value: '73% Higher' }
       ]
     },
     rightContent: null,
-    path: 'maruti-techno-rubber'
+    path: 'sales-lead-automation'
   },
   {
     leftBgImage: '/booking_dashboard.png',
