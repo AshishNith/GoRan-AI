@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Star, Quote, ArrowLeft, ChevronRight } from 'lucide-react';
 import { testimonialsList, testimonialCategories } from '../data/testimonials';
+import SEOHead from '../components/SEOHead';
+import { buildBreadcrumbSchema } from '../seo/schemas';
 
 export default function Testimonials() {
   const [activeCategory, setActiveCategory] = useState('All');
@@ -12,6 +14,15 @@ export default function Testimonials() {
 
   return (
     <main className="w-full bg-white relative overflow-hidden pt-32 pb-24 font-body min-h-screen">
+      <SEOHead
+        title="Client Testimonials | AI Automation Reviews — GoRan AI"
+        description="Read verified client testimonials from companies using GoRan AI's custom AI agents, voice automation, and CRM systems. Real results from real businesses."
+        canonicalPath="/testimonials"
+        schema={buildBreadcrumbSchema([
+          { name: 'Home', url: '/' },
+          { name: 'Testimonials' },
+        ])}
+      />
       <div className="absolute inset-0 pointer-events-none z-0">
         <div className="absolute top-[8%] left-[-5%] w-100 h-100 rounded-full bg-brand-yellow/4 blur-[100px]" />
         <div className="absolute bottom-[15%] right-[-5%] w-87.5 h-87.5 rounded-full bg-purple-500/4 blur-[100px]" />

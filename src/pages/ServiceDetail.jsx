@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useCalBooking } from '../components/CalBookingModal';
+import SEOHead from '../components/SEOHead';
+import { buildServiceSchema, buildBreadcrumbSchema } from '../seo/schemas';
 
 const servicesData = {
   'ai-audit': {
@@ -85,6 +87,13 @@ function CheckIcon() {
   );
 }
 
+const seoTitles = {
+  'ai-audit': 'AI Audit Services | Identify AI Opportunities for Your Business — GoRan AI',
+  'product-development': 'AI Product Development | Custom LLM Integration & Agentic Backends — GoRan AI',
+  'product-management': 'AI Product Management | Embedded AI PM Services — GoRan AI',
+  'ai-training': 'AI Training & Workshops | Team Upskilling & Prompt Engineering — GoRan AI',
+};
+
 export default function ServiceDetail() {
   const { openCalBooking } = useCalBooking();
   const { serviceId } = useParams();
@@ -109,7 +118,20 @@ export default function ServiceDetail() {
   }
 
   return (
-    <div className="w-full bg-white">
+    <main className="w-full bg-white pt-32 pb-24 font-body">
+      <SEOHead
+        title={seoTitles[serviceId] || `${service.name} | AI Services`}
+        description={service.subtitle}
+        canonicalPath={`/services/${serviceId}`}
+        schema={[
+          buildServiceSchema({ ...service, slug: serviceId }),
+          buildBreadcrumbSchema([
+            { name: 'Home', url: '/' },
+            { name: 'Services' },
+            { name: service.name },
+          ]),
+        ]}
+      />
 
       {/* ── Hero ── */}
       <section className="pt-36 pb-24 bg-white relative overflow-hidden">
@@ -259,7 +281,6 @@ export default function ServiceDetail() {
           </div>
         </div>
       </section>
-
-    </div>
+    </main>
   );
 }

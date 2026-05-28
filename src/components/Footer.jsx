@@ -37,6 +37,12 @@ const serviceLinks = [
   { label: 'AI Training', to: '/services/ai-training' },
 ];
 
+const agentLinks = [
+  { label: 'AI Calling Agent', to: '/agents/calling-agent' },
+  { label: 'WhatsApp Agent', to: '/agents/whatsapp-telegram-agent' },
+  { label: 'AI-Powered CRM', to: '/agents/ai-powered-crm' },
+];
+
 export default function Footer() {
   const { openCalBooking } = useCalBooking();
   const handleScrollToTop = () => {
@@ -63,7 +69,7 @@ export default function Footer() {
 
         {/* ── Upper Section: Brand + Stats ── */}
         <div className="pt-20 pb-16 border-b border-white/[0.06]">
-          <div className="grid grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr_1.2fr] gap-10 lg:gap-8">
+          <div className="grid grid-cols-2 lg:grid-cols-[1.4fr_0.8fr_0.8fr_0.8fr_1.2fr] gap-10 lg:gap-8">
             {/* Column 1: Brand */}
             <div className="flex flex-col gap-5 items-start col-span-2 lg:col-span-1">
               <Link
@@ -72,13 +78,13 @@ export default function Footer() {
               >
                 <img
                   src="/Logo.png"
-                  alt="GoRan AI Logo"
+                  alt="GoRan AI — India's Leading AI Automation Agency"
                   className="h-12 w-auto block"
                 />
               </Link>
 
               <p className="text-white/50 leading-relaxed text-sm max-w-[400px] lg:max-w-[300px]">
-                We design, build, and deploy custom AI agent systems that integrate with your existing tools, automate complex workflows, and scale with your business — from startups to enterprises.
+                GoRan AI is India’s leading AI automation agency. We build custom AI calling agents, voice agents, WhatsApp bots, AI-powered CRMs, and autonomous business workflows — from startups to global enterprises.
               </p>
 
               {/* Status indicator */}
@@ -129,6 +135,23 @@ export default function Footer() {
               <h4 className="text-white/30 text-[10px] font-semibold uppercase tracking-[0.2em]">Services</h4>
               <ul className="list-none p-0 m-0 flex flex-col gap-3">
                 {serviceLinks.map((link) => (
+                  <li key={link.label}>
+                    <Link
+                      to={link.to}
+                      className="no-underline text-white/60 hover:text-white transition-colors duration-200 text-sm font-medium"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Column 3b: Agents */}
+            <div className="flex flex-col gap-5 col-span-1">
+              <h4 className="text-white/30 text-[10px] font-semibold uppercase tracking-[0.2em]">AI Agents</h4>
+              <ul className="list-none p-0 m-0 flex flex-col gap-3">
+                {agentLinks.map((link) => (
                   <li key={link.label}>
                     <Link
                       to={link.to}

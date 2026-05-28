@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { useCalBooking } from '../components/CalBookingModal';
+import SEOHead from '../components/SEOHead';
+import { buildBreadcrumbSchema } from '../seo/schemas';
 
 const steps = [
   {
@@ -75,6 +77,15 @@ export default function Process() {
 
   return (
     <main className="w-full bg-white relative overflow-hidden">
+      <SEOHead
+        title="Our Process | How GoRan AI Builds & Deploys AI Agents"
+        description="GoRan AI's 6-phase process for building custom AI agents: Discovery & Audit, Architecture, Build, Testing, Deployment, and Ongoing Support. From idea to production in 8-14 weeks."
+        canonicalPath="/process"
+        schema={buildBreadcrumbSchema([
+          { name: 'Home', url: '/' },
+          { name: 'Our Process' },
+        ])}
+      />
 
       {/* ── Hero ── */}
       <section className="pt-36 pb-20 relative">

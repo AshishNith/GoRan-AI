@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useCalBooking } from '../components/CalBookingModal';
+import SEOHead from '../components/SEOHead';
+import { buildCaseStudySchema, buildBreadcrumbSchema } from '../seo/schemas';
 
 export const caseStudiesData = {
   'maruti-techno-rubber': {
@@ -109,6 +111,19 @@ export default function CaseStudyDetail() {
 
   return (
     <main className="w-full bg-white pt-32 pb-24 font-body">
+      <SEOHead
+        title={`${caseStudy.headline} | Case Study`}
+        description={`${caseStudy.challenge.substring(0, 155)}...`}
+        canonicalPath={`/case-studies/${caseStudyId}`}
+        schema={[
+          buildCaseStudySchema(caseStudy, caseStudyId),
+          buildBreadcrumbSchema([
+            { name: 'Home', url: '/' },
+            { name: 'Case Studies', url: '/case-studies' },
+            { name: caseStudy.name },
+          ]),
+        ]}
+      />
       {/* Hero Header */}
       <section className="border-b border-brand-border pb-16">
         <div className="w-full max-w-[1200px] mx-auto px-6">

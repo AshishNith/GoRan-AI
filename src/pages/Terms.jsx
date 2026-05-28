@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import SEOHead from '../components/SEOHead';
 
 export default function Terms() {
   useEffect(() => {
@@ -8,6 +9,11 @@ export default function Terms() {
 
   return (
     <main className="w-full bg-white relative overflow-hidden pt-36 pb-24">
+      <SEOHead
+        title="Terms of Service"
+        description="GoRan AI's terms of service. Review our service agreements, intellectual property policies, and client responsibilities."
+        canonicalPath="/terms"
+      />
       <div
         className="absolute inset-0 pointer-events-none opacity-40"
         style={{

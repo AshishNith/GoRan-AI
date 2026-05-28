@@ -4,6 +4,8 @@ import { motion, AnimatePresence } from 'motion/react';
 import { caseStudiesData } from './CaseStudyDetail';
 import { useCalBooking } from '../components/CalBookingModal';
 import { Cpu, ArrowRight, Sparkles, CheckCircle, Database, Layout, PhoneCall, Filter, Terminal, Activity, X, Laptop, Shield } from 'lucide-react';
+import SEOHead from '../components/SEOHead';
+import { buildBreadcrumbSchema } from '../seo/schemas';
 
 const serviceCategories = ['All', 'AI Automation', 'Product Development', 'Voice AI', 'AI CRM'];
 
@@ -203,6 +205,15 @@ export default function CaseStudies() {
 
   return (
     <main className="w-full bg-white relative overflow-hidden pt-36 pb-24 font-body">
+      <SEOHead
+        title="Case Studies | AI Automation Results & Client Projects — GoRan AI"
+        description="See how GoRan AI transformed businesses with custom AI agents, voice automation, WhatsApp bots, and AI-powered CRMs. Real results from real clients in India."
+        canonicalPath="/case-studies"
+        schema={buildBreadcrumbSchema([
+          { name: 'Home', url: '/' },
+          { name: 'Case Studies' },
+        ])}
+      />
       {/* Decorative ambient background */}
       <div className="absolute inset-0 pointer-events-none z-0">
         <div className="absolute top-[8%] left-[-5%] w-[450px] h-[450px] rounded-full bg-brand-yellow/3 blur-[120px]" />

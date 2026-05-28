@@ -4,6 +4,8 @@ import { motion, useScroll, useTransform, AnimatePresence } from 'motion/react';
 import { useCalBooking } from '../components/CalBookingModal';
 import { blogPosts, blogPostsList } from '../data/blog';
 import { ArrowLeft, Clock, Calendar, Share2, Copy, Check, ChevronUp, Sparkles, BookOpen, CheckCircle } from 'lucide-react';
+import SEOHead from '../components/SEOHead';
+import { buildBlogPostSchema, buildBreadcrumbSchema } from '../seo/schemas';
 
 function formatDate(dateStr) {
   return new Date(dateStr).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
@@ -205,6 +207,27 @@ export default function BlogPost() {
 
   return (
     <main className="w-full bg-white relative overflow-hidden pb-24 font-body">
+      <SEOHead
+        title={`${post.title}`}
+        description={post.excerpt}
+        canonicalPath={`/blog/${slug}`}
+        ogType="article"
+        article={{
+          publishedTime: post.date,
+          modifiedTime: post.date,
+          author: post.author,
+          section: post.category,
+          tags: post.tags,
+        }}
+        schema={[
+          buildBlogPostSchema(post, slug),
+          buildBreadcrumbSchema([
+            { name: 'Home', url: '/' },
+            { name: 'Blog', url: '/blog' },
+            { name: post.title },
+          ]),
+        ]}
+      />
       
       {/* Floating Scroll Radial Tracker + Top Button */}
       <AnimatePresence>

@@ -6,6 +6,8 @@ import ScrollStack, { ScrollStackItem } from '../components/ui/ScrollStack';
 import ScrollAdventure from '../components/ui/animated-scroll';
 import VoiceAgent from '../components/VoiceAgent';
 import { useCalBooking } from '../components/CalBookingModal';
+import SEOHead from '../components/SEOHead';
+import { organizationSchema, localBusinessSchema, buildFAQSchema } from '../seo/schemas';
 import TestimonialsSection from '../components/TestimonialsSection';
 import { Button05 } from '../components/ui/arrow-dots-button';
 
@@ -14,14 +16,31 @@ export default function Home() {
 
 
 
+  // FAQ data for schema
+  const homeFaqs = [
+    { question: 'What exactly is an AI Agent, and how is it different from a chatbot?', answer: 'An AI Agent is an autonomous system that perceives its environment, makes decisions, and takes actions to achieve specific goals. Unlike chatbots that only respond to prompts, agents execute multi-step workflows — they can query databases, send emails, update CRMs, escalate issues, and learn from outcomes without human intervention.' },
+    { question: 'How long does a typical AI Agent implementation take?', answer: 'Most implementations take 8-14 weeks from kickoff to production. The timeline depends on complexity, number of integrations, and data readiness.' },
+    { question: 'Do I need a technical team to maintain the agent after deployment?', answer: 'No — we design agents to be self-maintaining with clear dashboards, automatic error handling, and alerting.' },
+    { question: 'What systems can your agents integrate with?', answer: 'Our agents integrate with virtually any system that has an API — CRMs (Salesforce, HubSpot), communication tools (Slack, Teams, Gmail), databases (PostgreSQL, Airtable, MongoDB), and custom internal tools.' },
+    { question: 'How do you handle data security and privacy?', answer: 'Security is built into every layer of our deployments. All data is encrypted in transit and at rest. We follow SOC2-aligned practices, provide audit logs, and sign NDAs and DPAs.' },
+    { question: 'What happens if the agent makes a mistake?', answer: 'Every agent includes human-in-the-loop checks for high-stakes decisions, confidence thresholds that flag uncertainty, and detailed audit trails for every action.' },
+  ];
+
   return (
     <main className="w-full bg-white">
+      <SEOHead
+        title="GoRan AI — #1 AI Agency in India | AI Agents, Voice Agents & Automation"
+        description="GoRan AI is India's leading AI automation agency. We build custom AI calling agents, voice agents, WhatsApp agents, AI-powered CRMs, and autonomous business workflows. Founded by Ashish Ranjan."
+        canonicalPath="/"
+        noSuffix
+        schema={[organizationSchema, localBusinessSchema, buildFAQSchema(homeFaqs)]}
+      />
       {/* Hero Section */}
       <section className="pt-20 md:pt-24 pb-12 bg-white" id="hero">
         <div className="w-full max-w-[95vw] mx-auto ">
           <div className="text-center relative min-h-screen flex items-center justify-center bg-gradient-to-b from-white via-white to-brand-bg-light rounded-[28px] border border-brand-border overflow-hidden">
             {/* Background video */}
-            <video className="absolute inset-0 w-full h-full object-cover pointer-events-none" autoPlay loop muted playsInline>
+            <video className="absolute inset-0 w-full h-full object-cover pointer-events-none" autoPlay loop muted playsInline poster="/Favicon.png">
               <source src="/Herobg_video.mp4" type="video/mp4" />
             </video>
 
@@ -45,12 +64,16 @@ export default function Home() {
                 </div> */}
 
                 {/* Headline */}
-                <h1 
+                {/* Visually-hidden SEO h1 with target keywords */}
+                <h1 className="sr-only">GoRan AI — India's Leading AI Agency for Calling Agents, Voice Agents, WhatsApp Agents & Business Automation</h1>
+                <div 
                   className="font-heading font-black text-[#111] leading-[0.85] text-[clamp(3rem,17vw,4.5rem)] md:text-[clamp(4.5rem,11.5vw,9rem)] tracking-tighter z-10 relative uppercase text-center w-full select-none"
                   style={{ WebkitTextStroke: '2px #111', color: 'transparent', textShadow: '0 0 0 #111' }}
+                  aria-hidden="true"
+                  role="presentation"
                 >
                   RUN ON<br />AUTOPILOT
-                </h1>
+                </div>
               </div>
 
               {/* Subtext */}

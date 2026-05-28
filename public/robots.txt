@@ -1,0 +1,10 @@
+# GoRan AI — https://goran.in
+# AI Automation Agency | Custom AI Agents & Workflows
+
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /assets/
+
+# Sitemap
+Sitemap: https://goran.in/sitemap.xml

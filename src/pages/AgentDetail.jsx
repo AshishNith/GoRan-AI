@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { useCalBooking } from '../components/CalBookingModal';
+import SEOHead from '../components/SEOHead';
+import { buildServiceSchema, buildBreadcrumbSchema } from '../seo/schemas';
 import { Phone, MessageSquare, Database, ArrowLeft, ArrowRight, ShieldCheck, CheckCircle2, Cpu, Wrench, Settings } from 'lucide-react';
 
 const agentsData = {
@@ -163,6 +165,18 @@ const fadeUp = {
   transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] }
 };
 
+const seoTitles = {
+  'calling-agent': 'AI Calling Agent | Voice AI for Lead Qualification & Scheduling — GoRan AI',
+  'whatsapp-telegram-agent': 'WhatsApp AI Agent | Automated Chat Bot for Business — GoRan AI',
+  'ai-powered-crm': 'AI-Powered CRM | Lead Scraping & Pipeline Automation — GoRan AI',
+};
+
+const seoDescriptions = {
+  'calling-agent': 'Deploy natural-sounding AI voice calling agents that dial leads, qualify prospects, handle inbound inquiries, and schedule meetings 24/7. Built by GoRan AI, India\'s leading AI agency.',
+  'whatsapp-telegram-agent': 'Deploy intelligent WhatsApp and Telegram AI agents that capture leads, answer questions, display catalogs, and orchestrate orders in real-time. Built by GoRan AI.',
+  'ai-powered-crm': 'Automate lead scraping, pipeline enrichment, intent scoring, and personalized outreach routing with AI-powered CRM systems. Built by GoRan AI, India\'s leading AI agency.',
+};
+
 export default function AgentDetail() {
   const { openCalBooking } = useCalBooking();
   const { agentId } = useParams();
@@ -190,6 +204,19 @@ export default function AgentDetail() {
 
   return (
     <div className="w-full bg-white text-brand-dark min-h-screen relative overflow-hidden font-body">
+      <SEOHead
+        title={seoTitles[agentId] || `${agent.name} | AI Agent`}
+        description={seoDescriptions[agentId] || agent.subtitle}
+        canonicalPath={`/agents/${agentId}`}
+        schema={[
+          buildServiceSchema({ ...agent, slug: agentId, description: agent.description }),
+          buildBreadcrumbSchema([
+            { name: 'Home', url: '/' },
+            { name: 'Agents' },
+            { name: agent.name },
+          ]),
+        ]}
+      />
       {/* Subtle ambient gradients */}
       <div className="absolute inset-0 pointer-events-none z-0">
         <div 

@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useCalBooking } from '../components/CalBookingModal';
+import SEOHead from '../components/SEOHead';
+import { buildBreadcrumbSchema } from '../seo/schemas';
 
 const principles = [
   {
@@ -36,6 +38,15 @@ export default function About() {
 
   return (
     <main className="w-full bg-white relative overflow-hidden">
+      <SEOHead
+        title="About GoRan AI | AI Automation Agency Founded by Ashish Ranjan"
+        description="GoRan AI is an AI automation agency based in India, building custom AI agents, voice AI systems, WhatsApp bots, and autonomous business workflows. Learn about our mission, team, and approach."
+        canonicalPath="/about"
+        schema={buildBreadcrumbSchema([
+          { name: 'Home', url: '/' },
+          { name: 'About GoRan AI' },
+        ])}
+      />
 
       {/* ── Hero ── */}
       <section className="pt-36 pb-20 relative">

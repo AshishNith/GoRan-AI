@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useCalBooking } from '../components/CalBookingModal';
 import VoiceAgent from '../components/VoiceAgent';
+import SEOHead from '../components/SEOHead';
+import { buildBreadcrumbSchema } from '../seo/schemas';
 
 const budgetOptions = ['< ₹50k', '₹50k – ₹2L', '₹2L – ₹5L', '₹5L – ₹15L', '₹15L+'];
 const timelineOptions = ['Immediate', 'Within 2–4 Weeks', '1–2 Months', '3+ Months', 'Exploring Options'];
@@ -65,6 +67,15 @@ export default function Contact() {
 
   return (
     <main className="w-full min-h-screen bg-white relative overflow-hidden pt-36 pb-24 font-body">
+      <SEOHead
+        title="Contact GoRan AI | Book Free AI Strategy Call — AI Agency India"
+        description="Get in touch with GoRan AI. Book a free AI strategy call, request a custom automation blueprint, or message us on WhatsApp. India's leading AI automation agency."
+        canonicalPath="/contact"
+        schema={buildBreadcrumbSchema([
+          { name: 'Home', url: '/' },
+          { name: 'Contact' },
+        ])}
+      />
       <div className="absolute inset-0 pointer-events-none z-0">
         <div className="absolute top-[5%] left-[-8%] w-125 h-125 rounded-full bg-brand-yellow/4 blur-[100px]" />
         <div className="absolute bottom-[10%] right-[-8%] w-150 h-150 rounded-full bg-purple-500/3 blur-[120px]" />

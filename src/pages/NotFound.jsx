@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import SEOHead from '../components/SEOHead';
 
 export default function NotFound() {
   useEffect(() => {
@@ -8,6 +9,11 @@ export default function NotFound() {
 
   return (
     <main className="w-full min-h-screen bg-white relative overflow-hidden flex items-center justify-center pt-24 pb-24">
+      <SEOHead
+        title="Page Not Found"
+        description="This page doesn't exist on GoRan AI."
+        noIndex
+      />
       <div
         className="absolute inset-0 pointer-events-none opacity-40"
         style={{

@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { blogPostsList, categories } from '../data/blog';
 import { Grid, List, BookOpen, Search, ArrowRight, X, Cpu, Clock, Calendar, CornerDownRight, Tag, Sparkles } from 'lucide-react';
+import SEOHead from '../components/SEOHead';
+import { buildBreadcrumbSchema } from '../seo/schemas';
 
 const categoryColors = {
   'AI Strategy': { bg: 'rgba(246, 199, 68, 0.08)', text: '#F6C744', border: 'rgba(246, 199, 68, 0.2)' },
@@ -217,6 +219,15 @@ export default function Blog() {
 
   return (
     <main className="w-full bg-white relative overflow-hidden pt-36 pb-24 font-body">
+      <SEOHead
+        title="GoRan AI Blog | AI Automation, Voice Agents & Business AI Insights"
+        description="Deep-dives into multi-agent systems, AI automation playbooks, voice agent architectures, WhatsApp bots, and operational ROI metrics from GoRan AI."
+        canonicalPath="/blog"
+        schema={buildBreadcrumbSchema([
+          { name: 'Home', url: '/' },
+          { name: 'Blog' },
+        ])}
+      />
       {/* Decorative ambient background */}
       <div className="absolute inset-0 pointer-events-none z-0">
         <div className="absolute top-[8%] left-[-5%] w-[450px] h-[450px] rounded-full bg-brand-yellow/3 blur-[120px]" />

@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import SEOHead from '../components/SEOHead';
 
 export default function Privacy() {
   useEffect(() => {
@@ -8,6 +9,11 @@ export default function Privacy() {
 
   return (
     <main className="w-full bg-white relative overflow-hidden pt-36 pb-24">
+      <SEOHead
+        title="Privacy Policy"
+        description="GoRan AI's privacy policy. Learn how we collect, use, and protect your data when using our AI automation services and website."
+        canonicalPath="/privacy"
+      />
       <div
         className="absolute inset-0 pointer-events-none opacity-40"
         style={{
