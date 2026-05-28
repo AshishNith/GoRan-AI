@@ -40,7 +40,7 @@ export default function Home() {
         <div className="w-full max-w-[95vw] mx-auto ">
           <div className="text-center relative min-h-screen flex items-center justify-center bg-gradient-to-b from-white via-white to-brand-bg-light rounded-[28px] border border-brand-border overflow-hidden">
             {/* Background video */}
-            <video className="absolute inset-0 w-full h-full object-cover pointer-events-none" autoPlay loop muted playsInline poster="/Favicon.png">
+            <video className="absolute inset-0 w-full h-full object-cover pointer-events-none" autoPlay loop muted playsInline>
               <source src="/Herobg_video.mp4" type="video/mp4" />
             </video>
 
