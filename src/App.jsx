@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Lenis from 'lenis';
 import { Analytics } from '@vercel/analytics/react';
+import ReactGA from 'react-ga4';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -23,7 +24,15 @@ import WhatsAppWidget from './components/WhatsAppWidget';
 import AgentDetail from './pages/AgentDetail';
 import { CalBookingProvider } from './components/CalBookingModal';
 
+
 function App() {
+  const location = useLocation();
+
+  useEffect(() => {
+    // Send pageview to Google Analytics on route change
+    ReactGA.send({ hitType: 'pageview', page: location.pathname + location.search });
+  }, [location]);
+
   useEffect(() => {
     const lenis = new Lenis({
       duration: 1.2,
@@ -42,6 +51,7 @@ function App() {
       lenis.destroy();
     };
   }, []);
+
 
   return (
     <div className="min-h-full h-full flex flex-col">
