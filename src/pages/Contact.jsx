@@ -4,6 +4,7 @@ import { useCalBooking } from '../components/CalBookingModal';
 import VoiceAgent from '../components/VoiceAgent';
 import SEOHead from '../components/SEOHead';
 import { buildBreadcrumbSchema } from '../seo/schemas';
+import { Copy, Check, Sparkles } from 'lucide-react';
 
 const budgetOptions = ['< ₹50k', '₹50k – ₹2L', '₹2L – ₹5L', '₹5L – ₹15L', '₹15L+'];
 const timelineOptions = ['Immediate', 'Within 2–4 Weeks', '1–2 Months', '3+ Months', 'Exploring Options'];
@@ -20,6 +21,188 @@ const projectTypes = [
   'Internal Business Automation',
   'Something Else'
 ];
+
+// ── Local Fallback Blueprint Scoping Generator ──
+const generateLocalFallbackReport = (data) => {
+  const { name, company, projectType, targets, budget, timeline, message } = data;
+  const comp = company ? `at **${company}**` : '';
+  
+  let opportunities = '';
+  let questions = [];
+
+  switch(projectType) {
+    case 'AI Workflow Automation':
+      opportunities = `Integrating AI directly into your business processes will eliminate manual, highly repetitive administrative overhead. By connecting platforms like **${targets || 'your daily software stack'}**, we can build intelligent pipeline triggers that automatically classify and route incoming telemetry, saving up to 10-15 hours per week per employee.`;
+      questions = [
+        `What specific software tools or APIs (e.g. CRM, sheets, databases) are currently involved in this manual pipeline?`,
+        `How is data currently moved between these systems today (e.g. manual copy-paste, scheduled csv exports, basic webhooks)?`,
+        `What is the most critical event or trigger that should initiate this automated workflow (e.g. new email, database insert, webhook)?`
+      ];
+      break;
+    case 'AI CRM Systems':
+      opportunities = `An intelligent CRM system automatically scores incoming leads, maps their context, and assigns them to the correct representative. Based on your budget of **${budget}**, a custom CRM framework will significantly lower lead drop rates and increase overall conversion speed by up to 70%.`;
+      questions = [
+        `How are leads currently captured on your platforms, and what is your average lead response time today?`,
+        `Are there specific CRM tools (e.g., Salesforce, Hubspot) you want to integrate, or are you looking for a custom GoRan AI Admin Dashboard?`,
+        `What key metrics (e.g., lead scoring, deal stage, communication history) are most important for your sales dashboard?`
+      ];
+      break;
+    case 'Voice AI / Calling Agents':
+      opportunities = `A custom calling agent built on LiveKit and Gemini Realtime API will allow your business to automate up to 80% of inbound and outbound scoping calls, ensuring 24/7 responsiveness and extremely high customer satisfaction.`;
+      questions = [
+        `What are the most common scenarios or objections your human calling agents handle today?`,
+        `Which calling platforms or telephony services (e.g., Twilio, Vonage) is your business currently using or planning to use?`,
+        `How would you like the calling agent to handle follow-up actions like scheduling a call or updating your database?`
+      ];
+      break;
+    case 'AI Chatbots':
+      opportunities = `An advanced conversational chatbot will act as your 24/7 digital front office, resolving client questions instantly using your custom knowledge base and routing high-value prospects straight to your team.`;
+      questions = [
+        `Where is your primary business knowledge stored today (e.g. PDFs, website pages, internal wiki docs, database)?`,
+        `What are the 3 most frequent customer inquiries that take up the most time for your support team?`,
+        `Should the chatbot just answer questions, or should it trigger actions like creating bookings or generating lead records?`
+      ];
+      break;
+    default:
+      opportunities = `Automating your operations will help streamline high-friction points, allowing your team to focus on high-value strategy rather than repetitive data chores. With a timeline of **${timeline}**, we can map out a modular deployment structure that provides fast, low-risk operational wins.`;
+      questions = [
+        `What is the single biggest bottleneck in this current workflow that drains the most time from your day?`,
+        `What specific databases, systems, or tools (${targets || 'APIs'}) would this custom solution need to read and write from?`,
+        `How do you measure success for this project (e.g. hours saved, faster delivery times, reduced manual errors)?`
+      ];
+  }
+
+  return `### **Operational Review for ${name}** ${comp}
+
+Thank you for requesting a custom automation blueprint for your project (**${projectType}**). Here is our Lead Solution Architect's initial operational review of your requirements.
+
+---
+
+### **1. AI Opportunity & Analysis**
+${opportunities}
+
+---
+
+### **2. Customized Scoping Questions for our Call**
+To help us build your comprehensive technical architecture blueprint, please review these **3 critical discovery questions**:
+
+1. **${questions[0]}**
+2. **${questions[1]}**
+3. **${questions[2]}**
+
+---
+
+### **3. Strategic Next Steps**
+* **Project Scope**: ${projectType}
+* **Project Budget**: ${budget}
+* **Project Timeline**: ${timeline}
+* **Immediate Scoping Action**: Click **"Pick a Time"** below to book a free 30-minute scoping session. We will review your answers to these questions and deliver a complete, production-ready system architecture blueprint.`;
+};
+
+// ── Gemini API Scoping Report Generator ──
+const generateGeminiScopingReport = async (data) => {
+  const activeKey = import.meta.env.VITE_GEMINI_API_KEY;
+  if (!activeKey || activeKey === 'YOUR_GEMINI_API_KEY_HERE') {
+    throw new Error("Gemini API key is not configured.");
+  }
+
+  const systemInstruction = `
+You are the Lead Solutions Architect and AI Automations Engineer at GoRan AI, a premium AI agency.
+Your task is to analyze a new client's project request and draft a premium, customized initial operations scoping blueprint.
+This response will be displayed on our success screen and sent to their inbox.
+
+Respond using a structured, high-end professional outline:
+### **Operational Review for [Client Name]** [at Company]
+
+### **1. AI Opportunity & Analysis**
+Write a concise, expert operational assessment of their workflow description. Point out 1-2 manual bottlenecks and how AI can optimize them, referencing their chosen Project Type, Budget, and Timeline. Make it highly professional and custom-tailored (do not use generic fluff).
+
+### **2. Customized Scoping Questions for our Call**
+Formulate exactly 3 highly relevant, technically precise, and deep scoping questions based on their target integrations and project description. These questions should help us design their custom architecture. Ensure they are specific and direct.
+
+### **3. Strategic Next Steps**
+Provide a concise bulleted wrap-up confirming their parameters and inviting them to lock in a scoping call.
+
+Tone: Lead Architect, extremely expert, concise, friendly, and highly tailored. Avoid excessive preambles. Keep formatting in clear Markdown, using bolding (**text**) for important metrics or concepts. Limit the total output to under 300 words. Do not mention that you are a language model or Google product. You are GoRan AI's Solutions Architect.
+`;
+
+  const promptText = `
+Analyze the following client submission details:
+- Client Name: ${data.name}
+- Company: ${data.company || 'Not Specified'}
+- Project Type: ${data.projectType}
+- Target Integrations / APIs: ${data.targets || 'None specified'}
+- Budget Range: ${data.budget}
+- Expected Timeline: ${data.timeline}
+- Project Description: ${data.message || 'No description provided.'}
+`;
+
+  const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${activeKey}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      contents: [
+        {
+          role: 'user',
+          parts: [{ text: promptText }]
+        }
+      ],
+      systemInstruction: {
+        parts: [{ text: systemInstruction }]
+      },
+      generationConfig: {
+        maxOutputTokens: 800,
+        temperature: 0.7,
+      }
+    }),
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.error?.message || `HTTP error! Status: ${response.status}`);
+  }
+
+  const responseData = await response.json();
+  const reply = responseData.candidates?.[0]?.content?.parts?.[0]?.text;
+  if (!reply) {
+    throw new Error("Empty response received from Gemini.");
+  }
+  return reply;
+};
+
+// ── n8n Webhook Dispatcher & Responder ──
+const triggerN8nWebhook = async (data) => {
+  const webhookUrl = import.meta.env.VITE_N8N_WEBHOOK_URL;
+  if (!webhookUrl || webhookUrl.includes('your-n8n-instance.com')) {
+    console.info(
+      "GoRan AI Webhook: n8n Webhook URL is not set. Add VITE_N8N_WEBHOOK_URL to your .env file to enable n8n workflow triggers."
+    );
+    return null;
+  }
+
+  try {
+    const response = await fetch(webhookUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      throw new Error(`n8n webhook responded with status: ${response.status}`);
+    }
+
+    const responseData = await response.json();
+    console.log("GoRan AI Webhook: Successfully triggered n8n workflow!", responseData);
+    return responseData; // Returns { success: true, aiReport: "..." }
+  } catch (err) {
+    console.error("GoRan AI Webhook: Error calling n8n webhook:", err);
+    return null;
+  }
+};
 
 export default function Contact() {
   const { openCalBooking } = useCalBooking();
@@ -38,6 +221,8 @@ export default function Contact() {
 
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [aiReport, setAiReport] = useState('');
+  const [reportCopied, setReportCopied] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -52,15 +237,138 @@ export default function Contact() {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleCopyReport = () => {
+    if (!aiReport) return;
+    navigator.clipboard.writeText(aiReport);
+    setReportCopied(true);
+    setTimeout(() => setReportCopied(false), 2000);
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.name || !formData.email) return;
 
     setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
+    let report = '';
+    try {
+      // 1. Try to send to n8n Webhook
+      const n8nResult = await triggerN8nWebhook(formData);
+
+      if (n8nResult && n8nResult.aiReport) {
+        report = n8nResult.aiReport;
+      } else {
+        // Fallback: Generate custom scoping report on client-side
+        console.log("n8n webhook did not return an AI scoping report. Generating client-side strategy...");
+        try {
+          report = await generateGeminiScopingReport(formData);
+        } catch (err) {
+          console.warn("Gemini API direct scoping report failed, using high-quality local fallback engine.", err);
+          report = generateLocalFallbackReport(formData);
+        }
+      }
+
+      setAiReport(report);
+
+      // 2. Mark form as submitted successfully
       setFormSubmitted(true);
-    }, 900);
+    } catch (error) {
+      console.error("Submission failed:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  // Format scoping report text to match gold/dark theme beautifully
+  const formatReportText = (text) => {
+    if (!text) return '';
+
+    const lines = text.split('\n');
+    return lines.map((line, idx) => {
+      let content = line;
+
+      // Handle headers (### Header)
+      if (line.trim().startsWith('###')) {
+        const headerText = line.trim().replace(/^###\s*/, '');
+        const boldRegex = /\*\*(.*?)\*\*/g;
+        const parts = [];
+        let lastIndex = 0;
+        let match;
+        while ((match = boldRegex.exec(headerText)) !== null) {
+          if (match.index > lastIndex) {
+            parts.push(headerText.substring(lastIndex, match.index));
+          }
+          parts.push(<strong key={match.index} className="text-brand-yellow font-bold">{match[1]}</strong>);
+          lastIndex = boldRegex.lastIndex;
+        }
+        if (lastIndex < headerText.length) {
+          parts.push(headerText.substring(lastIndex));
+        }
+        return (
+          <h4 key={idx} className="font-heading font-bold text-sm text-brand-yellow mt-4 mb-2 first:mt-0 tracking-wide uppercase">
+            {parts.length > 0 ? parts : headerText}
+          </h4>
+        );
+      }
+
+      // Handle bold **text**
+      const boldRegex = /\*\*(.*?)\*\*/g;
+      const parts = [];
+      let lastIndex = 0;
+      let match;
+
+      while ((match = boldRegex.exec(content)) !== null) {
+        if (match.index > lastIndex) {
+          parts.push(content.substring(lastIndex, match.index));
+        }
+        parts.push(<strong key={match.index} className="font-semibold text-brand-yellow">{match[1]}</strong>);
+        lastIndex = boldRegex.lastIndex;
+      }
+      if (lastIndex < content.length) {
+        parts.push(content.substring(lastIndex));
+      }
+
+      const formattedContent = parts.length > 0 ? parts : content;
+
+      // Check if it's a list item
+      if (line.trim().startsWith('- ') || line.trim().startsWith('* ')) {
+        const itemText = line.trim().substring(2);
+        const boldItemRegex = /\*\*(.*?)\*\*/g;
+        const itemParts = [];
+        let itemLastIndex = 0;
+        let itemMatch;
+        while ((itemMatch = boldItemRegex.exec(itemText)) !== null) {
+          if (itemMatch.index > itemLastIndex) {
+            itemParts.push(itemText.substring(itemLastIndex, itemMatch.index));
+          }
+          itemParts.push(<strong key={itemMatch.index} className="font-semibold text-brand-yellow">{itemMatch[1]}</strong>);
+          itemLastIndex = boldItemRegex.lastIndex;
+        }
+        if (itemLastIndex < itemText.length) {
+          itemParts.push(itemText.substring(itemLastIndex));
+        }
+        return (
+          <li key={idx} className="list-disc ml-5 mb-2 text-xs text-white/80 leading-relaxed">
+            {itemParts.length > 0 ? itemParts : itemText}
+          </li>
+        );
+      }
+
+      // Horizontal rule
+      if (line.trim() === '---') {
+        return <div key={idx} className="my-4 h-px bg-gradient-to-r from-transparent via-brand-yellow/30 to-transparent" />;
+      }
+
+      // Empty lines
+      if (!line.trim()) {
+        return <div key={idx} className="h-2" />;
+      }
+
+      return (
+        <p key={idx} className="mb-2.5 text-xs text-white/80 leading-relaxed last:mb-0">
+          {formattedContent}
+        </p>
+      );
+    });
   };
 
   const inputClasses = "w-full bg-white border border-brand-border rounded-xl px-4 py-3 text-brand-text-main outline-none focus:border-brand-yellow/60 focus:ring-2 focus:ring-brand-yellow/10 transition-all duration-200 text-sm placeholder:text-brand-text-muted/40 shadow-[inset_0_1px_2px_rgba(0,0,0,0.02)]";
@@ -226,6 +534,64 @@ export default function Contact() {
                   </div>
                 </div>
 
+                {/* ── AI Scoping Blueprint Card ── */}
+                {aiReport && (
+                  <div className="w-full bg-[#0E0E0E] border border-brand-yellow/30 rounded-2xl p-6 md:p-7 text-left my-8 shadow-card-hover relative overflow-hidden animate-fadeIn">
+                    {/* Glowing blur background inside card */}
+                    <div className="absolute top-0 right-0 w-48 h-48 rounded-full bg-brand-yellow/5 blur-[50px] pointer-events-none" />
+
+                    {/* Active Status Badge */}
+                    <div className="flex items-center justify-between gap-3 border-b border-white/10 pb-4 mb-5">
+                      <div className="flex items-center gap-2">
+                        <span className="relative flex h-2 w-2">
+                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                          <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                        </span>
+                        <span className="text-[10px] font-bold tracking-widest text-brand-yellow uppercase flex items-center gap-1.5 font-heading">
+                          <Sparkles className="w-3.5 h-3.5" />
+                          AI Scoping Blueprint
+                        </span>
+                      </div>
+                      
+                      {/* Copy Action Button */}
+                      <button
+                        onClick={handleCopyReport}
+                        className="flex items-center gap-1.5 text-[10px] font-bold text-white/60 hover:text-brand-yellow uppercase tracking-widest border border-white/10 hover:border-brand-yellow/30 bg-white/5 hover:bg-brand-yellow/10 rounded-lg px-2.5 py-1.5 transition-all duration-200 cursor-pointer active:scale-95"
+                      >
+                        {reportCopied ? (
+                          <>
+                            <Check className="w-3.5 h-3.5 text-green-400" />
+                            <span>Copied!</span>
+                          </>
+                        ) : (
+                          <>
+                            <Copy className="w-3.5 h-3.5" />
+                            <span>Copy Details</span>
+                          </>
+                        )}
+                      </button>
+                    </div>
+
+                    {/* Scoping Blueprint Content */}
+                    <div className="space-y-3 max-h-[350px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-white/10 hover:scrollbar-thumb-white/20">
+                      {formatReportText(aiReport)}
+                    </div>
+
+                    {/* direct Cal Booking invitation within the blueprint */}
+                    <div className="mt-6 pt-5 border-t border-white/10 flex flex-col gap-3">
+                      <p className="text-[10px] text-white/40 leading-relaxed">
+                        To discuss these strategic opportunities and review your custom architecture blueprint, click the booking button below.
+                      </p>
+                      <button
+                        onClick={openCalBooking}
+                        className="w-full bg-brand-yellow hover:bg-brand-yellow-hover text-brand-dark font-semibold text-xs py-3 rounded-xl transition-all duration-200 hover:-translate-y-0.5 shadow-lg shadow-brand-yellow/10 border-none cursor-pointer text-center"
+                      >
+                        Schedule Free Scoping Session
+                      </button>
+                    </div>
+                  </div>
+                )}
+
                 <Link
                   to="/"
                   className="w-full bg-brand-dark hover:bg-brand-dark-hover text-white text-center font-semibold text-sm py-3 px-6 rounded-xl no-underline transition-all duration-300 inline-block hover:-translate-y-0.5"
@@ -370,7 +736,7 @@ export default function Contact() {
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                       </svg>
-                      Creating Request...
+                      AI Agent Scoping Blueprint...
                     </>
                   ) : (
                     <>
