@@ -25,6 +25,11 @@ const categoryColors = {
 };
 
 const postTakeaways = {
+  'ecommerce-backend-automation-before-ads': [
+    'Scaling ads on a leaky website causes high CAC; patch your funnel with 6 backend automations first.',
+    'Dual-channel confirmation (WhatsApp + Email) reduces RTO and fake orders while keeping support ticket levels low.',
+    'WhatsApp AI chat agents running 24/7 resolve 80% of support queries and capture late-night orders.'
+  ],
   '100-leads-10-minutes-automated-outreach': [
     'Autonomous agents perform parallel deep research on 100 leads under 10 minutes.',
     'By replacing static templates with context-aware pitches, click & reply rates increase 4X.',
