@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { X } from 'lucide-react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { CAL_BOOKING_URL } from '../lib/constants';
 
 const CalBookingContext = createContext();
@@ -10,6 +11,8 @@ export function useCalBooking() {
 
 export function CalBookingProvider({ children }) {
   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const openCalBooking = useCallback(() => setIsOpen(true), []);
   const closeCalBooking = useCallback(() => setIsOpen(false), []);
@@ -18,6 +21,36 @@ export function CalBookingProvider({ children }) {
     document.body.style.overflow = isOpen ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
   }, [isOpen]);
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    if (
+      params.get('book') === 'true' ||
+      params.get('booking') === 'true' ||
+      location.hash === '#book' ||
+      location.hash === '#booking'
+    ) {
+      openCalBooking();
+
+      // Clean up URL parameters/hash for clean experience
+      const newParams = new URLSearchParams(location.search);
+      newParams.delete('book');
+      newParams.delete('booking');
+      const newSearch = newParams.toString();
+
+      navigate(
+        {
+          pathname: location.pathname,
+          search: newSearch ? `?${newSearch}` : '',
+          hash:
+            location.hash === '#book' || location.hash === '#booking'
+              ? ''
+              : location.hash,
+        },
+        { replace: true }
+      );
+    }
+  }, [location, openCalBooking, navigate]);
 
   return (
     <CalBookingContext.Provider value={{ openCalBooking, closeCalBooking }}>
