@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 const horizontalLogos = [
   { name: "MathEd", url: "https://res.cloudinary.com/dvwpxb2oa/image/upload/v1780484846/copy_of_chatgpt_image_jun_3_2026_04_34_38_pm_zl5hql.png", invert: false },
   { name: "Anaaj AI", url: "https://res.cloudinary.com/dvwpxb2oa/image/upload/v1773933014/FullWhiteLogo_nlnlbh.svg", invert: false },
-  { name: "A Robotics Services", url: "https://res.cloudinary.com/dvwpxb2oa/image/upload/v1780485607/ChatGPT_Image_Jun_3_2026_04_47_02_PM_pr8u5m.png", invert: false },
+  { name: "A Robotics Services", url: "https://res.cloudinary.com/dvwpxb2oa/image/upload/v1780491579/ChatGPT_Image_Jun_3_2026_04_47_02_PM_tnbgan.png", invert: false },
   { name: "DESE - IISc Bangalore", url: "https://res.cloudinary.com/dinhcaf2c/image/upload/v1750332367/dese_o261go.jpg", invert: false },
   { name: "Vyomira Tech Solutions", url: "https://res.cloudinary.com/dvwpxb2oa/image/upload/v1780485044/ChatGPT_Image_Jun_3_2026_04_39_46_PM_1_e81kwv.png", invert: false },
   { name: "NandniVerse", url: "https://yt3.googleusercontent.com/xB0EZsEWAU0h3jf4tjNFWN2y9q_HfQXfT3D1cMHOzIEdZ7R5-BsmA3iVv_Pq60DksAF8emf2Lw=s160-c-k-c0x00ffffff-no-rj", invert: false },
