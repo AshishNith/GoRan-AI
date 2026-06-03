@@ -10,10 +10,12 @@ import { buildBreadcrumbSchema } from '../seo/schemas';
 const serviceCategories = ['All', 'AI Automation', 'Product Development', 'Voice AI', 'AI CRM'];
 
 const categoryColors = {
-  'AI Sales Automation': { bg: 'rgba(246, 199, 68, 0.08)', text: '#F6C744', border: 'rgba(246, 199, 68, 0.2)' },
   'AI Agriculture Platform': { bg: 'rgba(16, 185, 129, 0.08)', text: '#10B981', border: 'rgba(16, 185, 129, 0.2)' },
-  'AI Voice Automation': { bg: 'rgba(249, 115, 22, 0.08)', text: '#F97316', border: 'rgba(249, 115, 22, 0.2)' },
-  'AI Lead Management': { bg: 'rgba(168, 85, 247, 0.08)', text: '#A855F7', border: 'rgba(168, 85, 247, 0.2)' },
+  'E-Commerce AI Architecture': { bg: 'rgba(249, 115, 22, 0.08)', text: '#F97316', border: 'rgba(249, 115, 22, 0.2)' },
+  'E-Commerce & Logistics Automation': { bg: 'rgba(245, 158, 11, 0.08)', text: '#F59E0B', border: 'rgba(245, 158, 11, 0.2)' },
+  'Premium Web Platform': { bg: 'rgba(168, 85, 247, 0.08)', text: '#A855F7', border: 'rgba(168, 85, 247, 0.2)' },
+  'AI Lead Management & Routing': { bg: 'rgba(20, 184, 166, 0.08)', text: '#14B8A6', border: 'rgba(20, 184, 166, 0.2)' },
+  'Robotics Web & Automation': { bg: 'rgba(59, 130, 246, 0.08)', text: '#3B82F6', border: 'rgba(59, 130, 246, 0.2)' }
 };
 
 // Projects database split into 3 custom sections
@@ -191,10 +193,10 @@ export default function CaseStudies() {
       ...data,
       filters: [
         'All',
-        data.tag === 'AI Sales Automation' || data.tag === 'AI Voice Automation' || data.tag === 'AI Lead Management' ? 'AI Automation' : null,
-        data.tag === 'AI Agriculture Platform' ? 'Product Development' : null,
-        data.tag === 'AI Voice Automation' ? 'Voice AI' : null,
-        data.tag === 'AI Sales Automation' || data.tag === 'AI Lead Management' ? 'AI CRM' : null
+        data.tag === 'E-Commerce AI Architecture' || data.tag === 'AI Lead Management & Routing' || data.tag === 'Robotics Web & Automation' ? 'AI Automation' : null,
+        data.tag === 'AI Agriculture Platform' || data.tag === 'E-Commerce & Logistics Automation' || data.tag === 'Premium Web Platform' || data.tag === 'Robotics Web & Automation' ? 'Product Development' : null,
+        data.tag === 'E-Commerce AI Architecture' ? 'Voice AI' : null,
+        data.tag === 'E-Commerce AI Architecture' || data.tag === 'E-Commerce & Logistics Automation' || data.tag === 'AI Lead Management & Routing' ? 'AI CRM' : null
       ].filter(Boolean)
     };
   });

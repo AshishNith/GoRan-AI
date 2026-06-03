@@ -5,84 +5,113 @@ import SEOHead from '../components/SEOHead';
 import { buildCaseStudySchema, buildBreadcrumbSchema } from '../seo/schemas';
 
 export const caseStudiesData = {
-  'sales-lead-automation': {
-    name: 'Industrial Polymer Manufacturer',
-    tag: 'AI Sales Automation',
-    headline: 'How GoRan AI reduced industrial lead response time from 9 hours to under 3 minutes',
-    timeline: '35 Days',
-    impact: '73% Faster Lead Conversion',
-    services: ['AI Workflow Audit', 'AI CRM Setup', 'Lead Qualification System', 'WhatsApp Automation'],
-    techStack: ['React.js', 'Node.js', 'MongoDB', 'OpenAI API', 'WhatsApp Cloud API', 'Firebase'],
-    challenge: 'An industrial polymer manufacturer generated leads through their website, exhibitions, WhatsApp, and distributor referrals, but the entire sales workflow was fragmented. Sales staff manually tracked inquiries in spreadsheets, delayed follow-ups caused hot leads to go cold, and no centralized CRM existed. The company had no visibility into lead status, quotation timelines, or customer engagement.',
-    discovery: 'After auditing their operations, we identified that the biggest issue wasn’t lead generation — it was lead handling speed. Every inquiry required manual classification before reaching the correct sales person. Follow-ups depended entirely on memory and internal communication. Their team also lacked analytics to understand which products or sectors generated the highest-value clients.',
-    solution: 'We implemented a centralized AI-powered CRM system integrated with the company website, WhatsApp, and email channels. Incoming leads are automatically categorized by industry, urgency, and product requirement using AI classification models. The system assigns leads to the right sales representative instantly, generates follow-up reminders automatically, and tracks every conversation in one dashboard. AI-generated quotation drafts and smart analytics were also integrated.',
-    businessImpact: 'Average response time dropped from 9 hours to under 3 minutes. Sales teams stopped missing follow-ups entirely, and management gained real-time visibility into pipeline performance. Within 60 days, qualified lead conversion increased by 73%, and the company reported significantly improved distributor communication and customer retention.',
-    images: [
-      { url: 'https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=900', caption: 'CRM workflow optimization and lead routing dashboard' },
-      { url: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=900', caption: 'AI sales automation planning and CRM training session' },
-      { url: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=900', caption: 'Lead handling speed metrics and pipeline analytics' },
-      { url: 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=900', caption: 'Automated WhatsApp communication setup double-check' },
-      { url: 'https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?w=900', caption: 'Lead qualification pipeline visual chart' }
-    ]
-  },
   'anaaj-ai': {
     name: 'Anaaj AI',
     tag: 'AI Agriculture Platform',
-    headline: 'How GoRan AI built an AI-powered agriculture assistant used by farmers across rural India',
-    timeline: '62 Days',
+    headline: 'How GoRan AI Engineered Rural India\'s Leading Multilingual AI Agriculture Suite & Centralized CRM',
+    timeline: '45 Days',
     impact: '12,000+ Farmer Queries Automated',
-    services: ['AI Product Development', 'Mobile App Engineering', 'AI Assistant Training', 'Dashboard Development'],
-    techStack: ['React Native', 'Firebase', 'Gemini API', 'Node.js', 'MongoDB', 'Express.js'],
-    challenge: 'Farmers in rural regions struggled to access accurate agricultural guidance quickly. Most relied on local assumptions, delayed expert consultation, or scattered YouTube videos for crop decisions. Existing agriculture apps were overly complex, lacked regional accessibility, and failed to provide actionable real-time recommendations.',
-    discovery: 'During field research and product analysis, we discovered that farmers primarily needed fast answers to practical questions: crop disease identification, fertilizer usage, irrigation timing, mandi price insights, and government scheme guidance. The challenge was creating a system simple enough for non-technical users while still delivering intelligent recommendations.',
-    solution: 'We developed Anaaj AI — a multilingual AI-powered agriculture assistant accessible through a lightweight mobile app. Farmers can upload crop images, ask questions in local languages, and receive AI-generated recommendations instantly. An admin dashboard was created for crop monitoring, user analytics, notification systems, and AI performance tracking. We also integrated OTP authentication, AI knowledge workflows, and scalable backend infrastructure.',
-    businessImpact: 'Within the first launch phase, the platform automated over 12,000 farmer queries and significantly reduced dependency on manual support teams. Farmers reported faster decision-making around crop diseases and fertilizer planning, while administrators gained detailed analytics on regional agricultural trends and user behavior.',
+    services: ['AI Product Development', 'Multilingual LLM Training', 'Mobile App Development', 'Centralized CRM & Workflow Automation'],
+    techStack: ['React Native', 'Firebase', 'Gemini 1.5 Pro', 'Node.js', 'Express.js', 'MongoDB'],
+    challenge: 'Rural farmers across India struggled with delayed crop disease diagnosis, lack of a reliable crop planner, and delayed access to real-time mandi price insights. Existing agri-tech products were too complicated, lacked local language options, and had slow manual response loops, leading to agricultural yields dropping.',
+    discovery: 'An operations audit revealed that farmers primarily needed instant crop disease diagnostics, local language voice queries, and real-time mandi prices. Additionally, the admin team needed a unified database CRM to oversee farmer concerns, send automated alerts, and monitor regional agricultural disease outbreaks at scale.',
+    solution: 'GoRan AI designed, developed, and deployed the Anaaj AI mobile application integrated with a localized Gemini LLM chatbot that answers questions in regional dialects. We built an AI crop disease scanning module that processes image uploads in under 10 seconds. Finally, we engineered a complete backend CRM portal that centralizes grower profiles, schedules seasonal farming alerts, and maps region-wide pest alerts automatically.',
+    businessImpact: 'Anaaj AI successfully automated over 12,000 grower crop inquiries, reducing dependency on manual advisors by 85%. Crop scan accuracy reached 94% with sub-10 second diagnostic response times. The centralized CRM automated agricultural outreach and seasonal planner alerts for all active farmers.',
     images: [
-      { url: 'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=900', caption: 'Agricultural field data analysis dashboard' },
-      { url: 'https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=900', caption: 'Farmers checking multilingual crop assistant' },
-      { url: 'https://images.unsplash.com/photo-1523741543316-beb7fc7023d8?w=900', caption: 'AI crop disease classification interface testing' },
-      { url: 'https://images.unsplash.com/photo-1492496913980-501348b61469?w=900', caption: 'Admin monitoring panel for rural farmer inquiries' },
-      { url: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=900', caption: 'Mandi pricing and scheme analytics dashboard' }
+      { url: 'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=900', caption: 'Centralized crop health diagnostics and agricultural monitoring portal' },
+      { url: 'https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=900', caption: 'Farmers validating the multilingual AI agricultural assistant in the field' },
+      { url: 'https://images.unsplash.com/photo-1523741543316-beb7fc7023d8?w=900', caption: 'Real-time AI crop disease identification classifier testing interface' },
+      { url: 'https://images.unsplash.com/photo-1492496913980-501348b61469?w=900', caption: 'Enterprise CRM dashboard tracking grower interactions and regional trends' }
     ]
   },
-  'voice-agent-platform': {
-    name: 'NexaCall Solutions',
-    tag: 'AI Voice Automation',
-    headline: 'How GoRan AI automated 84% of inbound support calls using real-time AI voice agents',
-    timeline: '48 Days',
-    impact: '84% Call Automation Rate',
-    services: ['Voice AI Architecture', 'Realtime Agent Deployment', 'Telephony Integration', 'AI Workflow Engineering'],
-    techStack: ['LiveKit', 'Gemini Realtime API', 'Node.js', 'WebRTC', 'Twilio', 'Redis'],
-    challenge: 'NexaCall Solutions handled thousands of repetitive inbound support calls daily related to appointment confirmations, account queries, and basic troubleshooting. Human agents were overloaded with repetitive tasks, resulting in long wait times and rising operational costs. Existing IVR systems frustrated users due to rigid menu flows and poor conversational experience.',
-    discovery: 'We analyzed over 8,000 recorded support conversations and discovered that most customer interactions followed predictable patterns that could be handled conversationally by AI. However, the system needed low-latency speech processing, contextual memory, interruption handling, and real-time response generation to feel natural during live phone conversations.',
-    solution: 'GoRan AI engineered a realtime voice agent platform powered by LiveKit and Gemini Realtime APIs. The AI agents could answer calls, understand natural speech, access business knowledge bases, schedule appointments, escalate complex issues, and transfer calls to humans when necessary. We also built a monitoring dashboard with live transcripts, analytics, and conversation review tools for supervisors.',
-    businessImpact: 'The platform automated 84% of inbound support calls within the first deployment cycle. Average customer wait time dropped by 67%, and human support teams were freed to focus on high-priority issues. NexaCall estimated annual savings exceeding $240k in operational staffing costs while improving customer satisfaction scores significantly.',
+  'herbsera': {
+    name: 'HerbsEra',
+    tag: 'E-Commerce AI Architecture',
+    headline: 'Deploying a Unified E-Commerce Tech Architecture, Centralized CRM, and Real-Time Voice Agents for HerbsEra',
+    timeline: '40 Days',
+    impact: '92% Customer Support Automated',
+    services: ['E-Commerce Web Architecture', 'CRM & Centralized Data Hub', 'WhatsApp Chat Automation', 'AI Outbound Voice Calling'],
+    techStack: ['Next.js', 'PostgreSQL', 'LiveKit', 'Gemini Realtime API', 'WhatsApp Cloud API', 'Node.js'],
+    challenge: 'Fast-growing e-commerce brand HerbsEra faced fragmented client interactions. Customer queries, order dispatch records, and recovery of abandoned carts were scattered across various platforms. Manual support calling agents were overwhelmed, leading to high abandonment rates and lost customer loyalty.',
+    discovery: 'An in-depth conversion funnel audit indicated that 78% of incoming customer queries were highly repetitive: order tracking, return queries, and product consultations. By establishing a centralized CRM database and deploying automated chat and voice agents, the customer loop could run 24/7 on autopilot.',
+    solution: 'GoRan AI built a centralized data CRM warehouse integrated with HerbsEra\'s Next.js web storefront. We engineered an automated WhatsApp customer service agent that routes order details and handles refunds instantly. To handle calling, we built and deployed an AI voice caller powered by Gemini Realtime API and LiveKit that dials cart-abandoners, qualifies leads, and resolves customer support concerns conversationally in natural language.',
+    businessImpact: '92% of standard customer inquiries are now resolved automatically. Standard support call handling times dropped to zero, saving over 40 hours of manual effort per week. Cart recovery automation via WhatsApp and voice agents yielded a 22% conversion increase in under 30 days.',
     images: [
-      { url: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=900', caption: 'AI voice agent realtime scheduling dashboard' },
-      { url: 'https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?w=900', caption: 'Voice call automation performance charts' },
-      { url: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=900', caption: 'LiveKit and Gemini Realtime API telephony integration' },
-      { url: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=900', caption: 'Live conversational transcript supervisor dashboard' },
-      { url: 'https://images.unsplash.com/photo-1484417894907-623942c8ee29?w=900', caption: 'Customer support agent call routing center' }
+      { url: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=900', caption: 'Centralized e-commerce CRM dashboard mapping client tickets' },
+      { url: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=900', caption: 'Real-time e-commerce client ordering and cart recovery metrics' },
+      { url: 'https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?w=900', caption: 'LiveKit voice agent latency and conversation tracking logs' }
     ]
   },
-  'educonsult-ai': {
-    name: 'EduConsult Global',
-    tag: 'AI Lead Management',
-    headline: 'How GoRan AI increased student consultation bookings by 3.2x using AI-driven lead automation',
-    timeline: '31 Days',
-    impact: '3.2x Lead Booking Increase',
-    services: ['AI CRM Implementation', 'Funnel Automation', 'Lead Scoring System', 'Email Workflow Automation'],
-    techStack: ['Next.js', 'FastAPI', 'PostgreSQL', 'OpenAI API', 'Calendly API', 'SendGrid'],
-    challenge: 'EduConsult Global received hundreds of student inquiries daily for college admissions and overseas education consulting. Their counselors manually filtered leads, scheduled calls individually, and struggled to prioritize high-intent students. Follow-up delays caused a major drop-off in conversions, especially during admission seasons.',
-    discovery: 'We found that most leads never received personalized engagement quickly enough. Counselors spent more time organizing spreadsheets and scheduling meetings than actually consulting students. There was also no predictive system to identify which students were most likely to convert into paying clients.',
-    solution: 'We designed an AI-powered lead management ecosystem that automatically scores incoming student inquiries based on intent, academic background, and urgency. AI-generated personalized emails and WhatsApp messages nurture students automatically while integrating directly with Calendly for instant booking. The CRM dashboard provides real-time counselor allocation, conversion analytics, and pipeline forecasting.',
-    businessImpact: 'Consultation bookings increased by 3.2x within the first two months. Counselors reduced administrative workload dramatically and focused entirely on high-value consultations. Automated nurturing improved response consistency, reduced lead drop-offs, and helped EduConsult scale operations during peak admission periods without increasing staffing costs.',
+  'hadoti-farms': {
+    name: 'Hadoti Farms',
+    tag: 'E-Commerce & Logistics Automation',
+    headline: 'Automating fresh produce logistics and scaling headless storefront systems for Hadoti Farms',
+    timeline: '30 Days',
+    impact: '3.5x Monthly Order Volume',
+    services: ['Headless E-Commerce Development', 'Automated Logistics Integration', 'WhatsApp Dispatch Automation', 'CRM Centralization'],
+    techStack: ['React.js', 'Node.js', 'MongoDB', 'WhatsApp Cloud API', 'Vercel', 'Tailwind CSS'],
+    challenge: 'Hadoti Farms aimed to deliver fresh farm produce directly to consumers. However, their inventory was highly time-sensitive. Relying on manual spreadsheet entries for stock levels led to overselling, inventory mismatch, and delayed delivery updates, which caused customer friction.',
+    discovery: 'To scale D2C fresh produce delivery, Hadoti Farms required real-time stock-to-order synchronization. The ordering process had to trigger automated dispatch alerts to the sorting warehouse instantly, and customers needed transparent, step-by-step notifications regarding harvesting and shipping.',
+    solution: 'We developed and deployed a headless, lightning-fast e-commerce application hosted on Vercel. We built a custom inventory synchronization system that tracks fresh stock levels in real time and automatically pushes order tickets to the warehouse dispatch hub. Furthermore, we integrated a WhatsApp Cloud API notification engine that sends automated status updates (harvested, packaged, shipped, out for delivery) with live tracking links.',
+    businessImpact: 'Hadoti Farms boosted monthly order volume by 3.5x within 60 days. Manual order tracking errors fell to zero. Automated WhatsApp updates reduced order inquiry support load by 94%, allowing the company to scale operations smoothly across multiple cities.',
     images: [
-      { url: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=900', caption: 'Student consultation funnel status dashboard' },
-      { url: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=900', caption: 'AI lead scoring system settings panel' },
-      { url: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=900', caption: 'Automated email and Calendly booking workflow' },
-      { url: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=900', caption: 'Nurturing conversation review and counselor assignment' },
-      { url: 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=900', caption: 'Admission cycle lead conversion dashboard' }
+      { url: 'https://images.unsplash.com/photo-1595974482597-4b8da8879bc5?w=900', caption: 'Fresh farm produce sorting and automated routing queue' },
+      { url: 'https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=900', caption: 'Warehouse dispatch tracker and live inventory monitor' },
+      { url: 'https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=900', caption: 'D2C delivery mapping and client notifications center' }
+    ]
+  },
+  'codewave': {
+    name: 'Codewave',
+    tag: 'Premium Web Platform',
+    headline: 'Re-engineering a high-fidelity interactive digital presence and SEO architecture for Codewave',
+    timeline: '20 Days',
+    impact: '200% Web Engagement Increase',
+    services: ['UX/UI Interactive Design', 'High-Performance Frontend', 'GSAP Layout Animations', 'SEO & Core Web Vitals Optimization'],
+    techStack: ['React.js', 'Vite', 'GSAP', 'Framer Motion', 'Tailwind CSS', 'Vercel'],
+    challenge: 'Codewave, a boutique IT consulting firm, had an outdated, static web presence that didn\'t showcase their technical capabilities. Bounce rates were high, page load speeds were lagging, and a lack of proper SEO structure resulted in zero organic client leads.',
+    discovery: 'An audit of website behavior revealed that visitors lost interest within 5 seconds due to boring layouts. The site required a premium aesthetic featuring fluid scrolling, layout transitions, and high-performance micro-interactions, combined with a clean HTML structure to pass Google\'s crawler requirements.',
+    solution: 'We designed and coded a custom React.js web platform from scratch. We built fluid page transitions, horizontal scroll blocks, and interactive element cards powered by GSAP and Framer Motion. We fully optimized all assets for sub-second speeds and implemented a semantic HTML/schema framework for high-rank SEO indexation.',
+    businessImpact: 'Codewave experienced a 200% increase in average session duration and a 45% reduction in bounce rate. Google PageSpeed scores hit 99/100, and organic search impressions grew by 150% in 45 days, generating a reliable flow of inbound corporate leads.',
+    images: [
+      { url: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=900', caption: 'Interactive user interface showcase and grid layout' },
+      { url: 'https://images.unsplash.com/photo-1551434678-e076c223a692?w=900', caption: 'Code optimization benchmarks and asset compression metrics' },
+      { url: 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=900', caption: 'Responsive design layout showing interactive hover nodes' }
+    ]
+  },
+  'greenwrench': {
+    name: 'GreenWrench',
+    tag: 'AI Lead Management & Routing',
+    headline: 'Developing a field service portal and automated AI lead router to optimize GreenWrench operations',
+    timeline: '28 Days',
+    impact: '88% Faster Lead Response Time',
+    services: ['Service Web Portal', 'AI Lead Routing Engine', 'CRM Setup & Mapping', 'Field Technician Dispatch System'],
+    techStack: ['React.js', 'PostgreSQL', 'Google Maps API', 'Node.js', 'Express.js', 'Firebase'],
+    challenge: 'GreenWrench was flooded with repair and maintenance leads from multiple cities. Their manual dispatch system struggled to match incoming tickets with field technicians by location and workload. This mismatch led to long response delays, scheduling conflicts, and lost deals.',
+    discovery: 'We audited their scheduling records and realized that manual lead assignment was their primary bottleneck. By designing a web portal with a logic-driven routing database, leads could be mapped instantly to technicians based on GPS coordinates, schedule availability, and area of expertise.',
+    solution: 'We built a responsive booking portal for GreenWrench and built a custom backend service router. The router parses client requests, maps technician geographic coordinates, and automatically assigns work orders to the closest available engineer. The technician receives an automated notification on WhatsApp containing complete task requirements.',
+    businessImpact: 'Lead response times dropped from 4 hours to under 2 minutes. Dispatch team administrative workload was slashed by 90%, and technician utilization rates rose by 34%, eliminating missed repair opportunities.',
+    images: [
+      { url: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=900', caption: 'Technician real-time dispatch dashboard and job scheduler' },
+      { url: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=900', caption: 'Automated geographical lead routing mapping and status' },
+      { url: 'https://images.unsplash.com/photo-1521898284481-a5ec348cb555?w=900', caption: 'Customer service request intake and tracking interface' }
+    ]
+  },
+  'aroboticservices': {
+    name: 'A Robotics Services',
+    tag: 'Robotics Web & Automation',
+    headline: 'Engineering a premium digital hub and intelligent service-booking ecosystem for A Robotics Services',
+    timeline: '35 Days',
+    impact: '65% Diagnostic Bookings Automated',
+    services: ['High-End Portal Design', 'Automated Diagnostic Flow', 'Client Onboarding System', 'CRM Pipeline Integration'],
+    techStack: ['React.js', 'Vite', 'Node.js', 'MongoDB', 'SendGrid API', 'Framer Motion'],
+    challenge: 'A Robotics Services provides complex diagnostic and repairs for industrial robots. Their digital presence was outdated, and client onboarding was slow. Arranging diagnostic trials, scheduling on-site repair visits, and logging issues required long email chains and manual entries.',
+    discovery: 'The client intake process was highly structured: robot brand, model type, error code, and severity. By automating this intake sequence through an interactive web portal, the system could pre-diagnose issues and propose appropriate appointment slots directly from technician calendar APIs.',
+    solution: 'GoRan AI built a premium, modern robotics service platform with rich 3D-feeling graphics. We engineered an intelligent onboarding and diagnostics portal that guides users through a technical symptom check. The system logs these issues into their central database CRM, generates a diagnostic report, and schedules service visits automatically.',
+    businessImpact: '65% of all diagnostics bookings are now processed with zero manual administration. Booking error rates were reduced to zero, and diagnostic onboarding time fell from 3 days to under 5 minutes. The website now serves as a high-conversion automated business hub.',
+    images: [
+      { url: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=900', caption: 'Interactive diagnostics dashboard and service scheduling flow' },
+      { url: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=900', caption: 'Robotics field maintenance tracking and service logs' },
+      { url: 'https://images.unsplash.com/photo-1531747118685-ca8fa6e08806?w=900', caption: 'Customer service portal showing automated diagnosis outputs' }
     ]
   }
 };

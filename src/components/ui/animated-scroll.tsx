@@ -47,61 +47,76 @@ const pages: PageData[] = [
     leftBgImage: null,
     rightBgImage: '/audit_dashboard.png',
     leftContent: {
-      tag: '01. AI Sales Automation',
-      heading: 'Lead Response From 9 Hours to 3 Mins',
-      description: 'A leading industrial polymer manufacturer faced fragmented sales inquiries across web, email, and WhatsApp, losing potential deals to delays. We built an AI CRM that categorises and assigns leads instantly. Lead conversion increased by 73%.',
+      tag: '01. AI Agriculture Platform',
+      heading: 'AI Assistant for 12,000+ Farmers',
+      description: 'Rural farmers in India struggled to get prompt crop recommendations. We built Anaaj AI, a multilingual mobile assistant that answers queries, identifies diseases from images, and automates CRM workflows.',
       stats: [
-        { label: 'Client Partner', value: 'Polymer Leader' },
-        { label: 'Conversion Boost', value: '73% Higher' }
+        { label: 'Client Partner', value: 'Anaaj AI' },
+        { label: 'Queries Resolved', value: '12,000+' }
       ]
     },
     rightContent: null,
-    path: 'sales-lead-automation'
+    path: 'anaaj-ai'
   },
   {
     leftBgImage: '/booking_dashboard.png',
     rightBgImage: null,
     leftContent: null,
     rightContent: {
-      tag: '02. AI Agriculture Platform',
-      heading: 'AI Advisor for 12,000+ Farmers',
-      description: 'Farmers in rural India struggled to get prompt crop recommendations. We built Anaaj AI, a multilingual mobile assistant that answers queries, identifies diseases from images, and tracks mandi prices on autopilot.',
+      tag: '02. E-Commerce AI Architecture',
+      heading: '92% Customer Support Automated',
+      description: 'HerbsEra had fragmented customer touchpoints. We deployed a centralized e-commerce CRM, automated WhatsApp workflows, and implemented conversational real-time AI voice calling agents.',
       stats: [
-        { label: 'Client Partner', value: 'Anaaj AI' },
-        { label: 'Queries Resolved', value: '12,000+ Queries' }
+        { label: 'Client Partner', value: 'HerbsEra' },
+        { label: 'Support Automation', value: '92%' }
       ]
     },
-    path: 'anaaj-ai'
+    path: 'herbsera'
   },
   {
     leftBgImage: null,
     rightBgImage: '/sorting_dashboard.png',
     leftContent: {
-      tag: '03. AI Voice Automation',
-      heading: '84% Inbound Calls Automated',
-      description: 'NexaCall was overwhelmed by repetitive support queries and appointment bookings. We built a low-latency voice agent using LiveKit and Gemini Realtime API that handles natural phone conversations. 84% of calls are now automated.',
+      tag: '03. E-Commerce & Logistics',
+      heading: '3.5x Monthly Order Growth',
+      description: 'Hadoti Farms needed stock tracking and direct-to-consumer delivery automation. We built a headless e-commerce store and automated inventory dispatch updates on WhatsApp.',
       stats: [
-        { label: 'Client Partner', value: 'NexaCall' },
-        { label: 'Call Automation', value: '84% Automated' }
+        { label: 'Client Partner', value: 'Hadoti Farms' },
+        { label: 'Order Increase', value: '3.5x' }
       ]
     },
     rightContent: null,
-    path: 'voice-agent-platform'
+    path: 'hadoti-farms'
   },
   {
     leftBgImage: '/training_dashboard.png',
     rightBgImage: null,
     leftContent: null,
     rightContent: {
-      tag: '04. AI Lead Management',
-      heading: '3.2x Consultation Bookings Boost',
-      description: 'EduConsult had high student lead volumes but struggled with counselor matching and delayed follow-ups. We deployed an AI-driven CRM that pre-scores leads and nurtures them automatically via email and WhatsApp.',
+      tag: '04. AI Lead Management & Routing',
+      heading: '88% Faster Lead Response Time',
+      description: 'GreenWrench faced lead overload and scheduling bottlenecks. We built a booking portal and an AI service router that assigns repair requests to field technicians in under 2 minutes.',
       stats: [
-        { label: 'Client Partner', value: 'EduConsult' },
-        { label: 'Bookings Increase', value: '3.2x Bookings' }
+        { label: 'Client Partner', value: 'GreenWrench' },
+        { label: 'Response Speed', value: '< 2 mins' }
       ]
     },
-    path: 'educonsult-ai'
+    path: 'greenwrench'
+  },
+  {
+    leftBgImage: null,
+    rightBgImage: '/audit_dashboard.png',
+    leftContent: {
+      tag: '05. Robotics Web & Automation',
+      heading: '65% Diagnostics Booking Automated',
+      description: 'A Robotics Services needed dynamic technician scheduling. We built a premium portal and integrated diagnostic intake flow that schedules service visits without human overhead.',
+      stats: [
+        { label: 'Client Partner', value: 'A Robotics' },
+        { label: 'Onboarding Time', value: '< 5 mins' }
+      ]
+    },
+    rightContent: null,
+    path: 'aroboticservices'
   },
 ];
 

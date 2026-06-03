@@ -11,10 +11,12 @@ const GORAN_DATA = {
     { name: 'AI Training & Enablement', desc: 'Upskill your team with prompt engineering and custom no-code workshop programs.' }
   ],
   caseStudies: [
-    { client: 'Industrial Polymer Manufacturer', impact: '73% Faster Lead Conversion', desc: 'Automated sales lead follow-ups and WhatsApp/CRM systems in 35 days.' },
-    { client: 'Anaaj AI', impact: '12,000+ farmer queries automated', desc: 'Multilingual mobile assistant and admin tracking panel for agriculture.' },
-    { client: 'NexaCall Solutions', impact: '84% Inbound Calls Automated', desc: 'Voice agent platform built on Gemini Realtime API and LiveKit.' },
-    { client: 'EduConsult Global', impact: '3.2x Consultation Bookings', desc: 'AI-driven CRM and lead management ecosystem with personalized outreach.' }
+    { client: 'Anaaj AI', impact: '12,000+ grower queries automated', desc: 'Multilingual mobile assistant, scan diagnostics, and admin tracking CRM portal.' },
+    { client: 'HerbsEra', impact: '92% Customer Support Automated', desc: 'Centralized e-commerce CRM, automated WhatsApp workflows, and live AI voice calling agents.' },
+    { client: 'Hadoti Farms', impact: '3.5x Monthly Order Growth', desc: 'Headless e-commerce storefront linked to automated inventory routing and WhatsApp updates.' },
+    { client: 'Codewave', impact: '200% Web Engagement Increase', desc: 'Premium interactive website designed and built from scratch with high-fidelity GSAP animations.' },
+    { client: 'GreenWrench', impact: '88% Faster Lead Response Time', desc: 'Responsive service web portal and automated geo-routing logic to dispatch field technicians.' },
+    { client: 'A Robotics Services', impact: '65% Diagnostics Booking Automated', desc: 'Interactive diagnostic intake flow and calendar scheduling integration.' }
   ]
 };
 
@@ -29,10 +31,12 @@ GoRan AI Services:
 4. AI Training & Enablement (Education & Upskilling): 1 day to 6 weeks. Role-specific hands-on workshops, prompt engineering, no-code AI tools (Make, Zapier), private knowledge bases.
 
 Case Studies (Proven Results):
-1. Industrial Polymer Manufacturer: Reduced industrial lead response time from 9 hours to under 3 minutes, 73% faster lead conversion, implemented a WhatsApp automated CRM system in 35 days. Tech stack: React.js, Node.js, MongoDB, OpenAI API, WhatsApp Cloud API, Firebase.
-2. Anaaj AI: Light-weight multilingual mobile agriculture assistant automating 12,000+ farmer queries, crop disease detection, mandi prices. Tech stack: React Native, Firebase, Gemini API, Node.js, MongoDB, Express.js.
-3. NexaCall Solutions: Automated 84% of inbound support calls, Twilio & WebRTC realtime voice agents, LiveKit integrations. Tech stack: LiveKit, Gemini Realtime API, Node.js, WebRTC, Twilio, Redis.
-4. EduConsult Global: 3.2x qualified consultation bookings, AI CRM and automated nurture sequences with personalized outreach in 31 days. Tech stack: Next.js, FastAPI, PostgreSQL, OpenAI API, Calendly API, SendGrid.
+1. Anaaj AI: Multilingual mobile agriculture assistant and crop diagnostics scanner automating 12,000+ farmer queries, combined with centralized admin tracking CRM. Tech stack: React Native, Firebase, Gemini 1.5 Pro, Node.js, Express.js, MongoDB.
+2. HerbsEra: Centralized e-commerce CRM data hub, automated WhatsApp support bot, and outbound AI voice agent powered by Gemini Realtime and LiveKit that recovers abandoned carts. Tech stack: Next.js, PostgreSQL, LiveKit, Gemini Realtime API, WhatsApp Cloud API, Node.js.
+3. Hadoti Farms: Headless D2C e-commerce platform with automated stock routing and automated WhatsApp harvesting/delivery notifications. Tech stack: React.js, Node.js, MongoDB, WhatsApp Cloud API, Vercel, Tailwind CSS.
+4. Codewave: High-fidelity interactive IT consulting platform with smooth GSAP animations and optimized SEO architecture. Tech stack: React.js, Vite, GSAP, Framer Motion, Tailwind CSS, Vercel.
+5. GreenWrench: Booking web portal integrated with a custom backend geographical routing engine that assigns leads to field technicians automatically. Tech stack: React.js, PostgreSQL, Google Maps API, Node.js, Express.js, Firebase.
+6. A Robotics Services: High-end portal with smart troubleshooting diagnostic intake flow that schedules service diagnostics autonomously. Tech stack: React.js, Vite, Node.js, MongoDB, SendGrid API, Framer Motion.
 
 Core metrics: 99.9% uptime, 500k+ daily agent executions, 4.9/5 client rating.
 Response Tone: Professional, expert, friendly, helpful, and concise. Keep responses to under 2-3 short paragraphs where possible, using bullet points for readability. Bold important numbers and metrics. Do not mention that you are a language model or AI from Google. You are GoRan AI's custom assistant.
@@ -161,10 +165,12 @@ export default function Chatbot() {
 
     if (q.includes('case') || q.includes('portfolio') || q.includes('work') || q.includes('project') || q.includes('client')) {
       return `We have successfully delivered high-impact automation for several clients:
-      - **Industrial Polymer Manufacturer**: Reduced response time to **under 3 minutes** and achieved **73% faster lead conversion**.
       - **Anaaj AI**: Automated over **12,000+ farmer queries** with a multilingual mobile assistant.
-      - **NexaCall Solutions**: Automated **84% of inbound support calls** using real-time AI calling agents.
-      - **EduConsult Global**: Increased student bookings by **3.2x** via AI CRM funnel automation.
+      - **HerbsEra**: Achieved **92% customer support automation** and automated outbound cart recovery calls.
+      - **Hadoti Farms**: Scaled order capacity by **3.5x** with automated stock routing and WhatsApp alerts.
+      - **Codewave**: Created a custom web platform with a **200% engagement increase**.
+      - **GreenWrench**: Reduced lead response times by **88%** with geolocalized routing.
+      - **A Robotics Services**: Automated **65% of diagnostic scheduling**.
       
       Which of these projects would you like to explore further?`;
     }
@@ -178,12 +184,11 @@ export default function Chatbot() {
       To get an exact scope and pricing blueprint, we recommend booking a free **30-minute scoping call**. You can request this in the contact section at the bottom of the page!`;
     }
 
-    if (q.includes('industrial') || q.includes('rubber') || q.includes('polymer') || q.includes('lead')) {
-      return `For the **Industrial Polymer Manufacturer**, we automated their fragmented sales lead process. 
+    if (q.includes('herbsera') || q.includes('ecommerce') || q.includes('skincare')) {
+      return `For **HerbsEra**, we automated 92% of their e-commerce client operations.
       
-      We built a centralized CRM system integrated with their website, WhatsApp, and email, which classifies incoming inquiries by industry and urgency.
-      - **Impact**: Lead response time dropped from **9 hours to under 3 minutes**.
-      - **Conversion**: Qualified lead conversion increased by **73%** in 60 days.`;
+      We deployed a unified web platform, established a centralized CRM, and built real-time voice call agents that talk to customers.
+      - **Impact**: **92% support automation** and **22% rise in cart recovery** conversions.`;
     }
 
     if (q.includes('anaaj') || q.includes('agriculture') || q.includes('farmer')) {
@@ -194,20 +199,32 @@ export default function Chatbot() {
       - **Analytics**: Admin dashboard provides regional trends and user insights.`;
     }
 
-    if (q.includes('nexacall') || q.includes('voice') || q.includes('call') || q.includes('support')) {
-      return `For **NexaCall Solutions**, we automated inbound support calls.
+    if (q.includes('hadoti') || q.includes('farm') || q.includes('produce') || q.includes('logistics')) {
+      return `For **Hadoti Farms**, we automated direct-to-consumer crop distribution.
       
-      We engineered Twilio & LiveKit real-time voice agents that converse naturally and schedule appointments.
-      - **Impact**: Automated **84% of inbound support calls**.
-      - **Savings**: Reduced wait times by **67%** and saved over **$240k** annually.`;
+      We built a headless storefront on Vercel and connected it to automated WhatsApp status notifications.
+      - **Impact**: Boosted monthly order capacity by **3.5x** and reduced inquiry tickets by **94%**.`;
     }
 
-    if (q.includes('educonsult') || q.includes('student') || q.includes('consultation')) {
-      return `For **EduConsult Global**, we deployed an AI lead management ecosystem.
+    if (q.includes('codewave') || q.includes('it') || q.includes('website')) {
+      return `For **Codewave**, we built an interactive, high-fidelity corporate platform.
       
-      The system automatically scores incoming inquiries, runs automated email/WhatsApp nurturing, and schedules booking calendars.
-      - **Impact**: Increased student bookings by **3.2x** in two months.
-      - **Efficiency**: Saved counselors hours of admin work daily.`;
+      We implemented advanced GSAP scroll transitions and optimized the core web vitals for performance.
+      - **Impact**: **200% session duration increase** and sub-second load speeds.`;
+    }
+
+    if (q.includes('greenwrench') || q.includes('lead') || q.includes('dispatch') || q.includes('technician')) {
+      return `For **GreenWrench**, we optimized technician scheduling.
+      
+      We designed a booking portal linked to geolocalized routing that assigns work requests instantly.
+      - **Impact**: Slashed lead response times by **88%** (down to under 2 minutes).`;
+    }
+
+    if (q.includes('robotics') || q.includes('arobotics') || q.includes('diagnostics') || q.includes('onboarding')) {
+      return `For **A Robotics Services**, we built an automated symptom intake system.
+      
+      The system guides clients through diagnostic steps and schedules repair visits automatically.
+      - **Impact**: Automated **65% of diagnostics service bookings** with zero manual coordination loops.`;
     }
 
     if (q.includes('book') || q.includes('call') || q.includes('contact') || q.includes('scoping') || q.includes('blueprint')) {
