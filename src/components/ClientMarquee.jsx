@@ -8,6 +8,7 @@ const horizontalLogos = [
   { name: "", url: "https://yt3.googleusercontent.com/xB0EZsEWAU0h3jf4tjNFWN2y9q_HfQXfT3D1cMHOzIEdZ7R5-BsmA3iVv_Pq60DksAF8emf2Lw=s160-c-k-c0x00ffffff-no-rj" },
   { name: "", url: "https://codewave.it.com/assets/Logo_Orginal-BDXHym7S.png" },
   { name: "GreenWrench Solutions", url: "https://www.greenwrenchsolutions.in/assets/GreenLogo-RH2irvlH.png" },
+  { name: "Hadoti Farms", url: "https://hadoti-farms.vercel.app/Creatives/darkLogo.png" },
   { name: "", url: "https://mathed2025.nith.ac.in/Assets/logo.ico" },
 ];
 
