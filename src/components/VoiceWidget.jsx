@@ -76,12 +76,10 @@ export default function VoiceWidget() {
       socketRef.current = ws;
 
       ws.onopen = () => {
-        // Send initial setup payload
+        // Send initial setup payload pointing to Riya's DB persona
         ws.send(JSON.stringify({
           type: "setup",
-          voice: "Aoede",
-          systemInstruction: SYSTEM_INSTRUCTION,
-          temperature: 0.7
+          personaId: "riya-inbound"
         }));
 
         // Start capturing and streaming microphone audio

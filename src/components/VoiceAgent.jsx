@@ -99,9 +99,7 @@ export default function VoiceAgent() {
 
         ws.send(JSON.stringify({
           type: "setup",
-          voice: "Aoede",
-          systemInstruction: SYSTEM_INSTRUCTION,
-          temperature: 0.7
+          personaId: "riya-inbound"
         }));
 
         streamerRef.current.startRecording(
