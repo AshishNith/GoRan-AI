@@ -2,27 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Phone, PhoneOff, Mic, MicOff } from 'lucide-react';
 import { AudioStreamer } from '../utils/audioStreamer';
 
-const DIALOG_EN = [
-  { time: 1.5, duration: 4.0, sender: 'user', text: "Hey, I heard you guys build AI agents for businesses. What exactly does that mean?" },
-  { time: 6.0, duration: 13.0, sender: 'agent', text: "Great question. Essentially, we construct autonomous AI systems that handle complex workflows — processing documents, managing schedules, routing data — all without constant human oversight. Think of it like hiring a tireless digital employee." },
-  { time: 19.5, duration: 3.0, sender: 'user', text: "That sounds promising. What kind of tech stack do you typically use?" },
-  { time: 23.0, duration: 10.0, sender: 'agent', text: "We work with a range of models — GPT-4o, Claude 3.5, Gemini — and frameworks like LangGraph and CrewAI. The stack always depends on the client's existing infrastructure. We integrate with whatever you already use." },
-  { time: 33.5, duration: 2.5, sender: 'user', text: "And how long does a typical deployment take?" },
-  { time: 36.5, duration: 10.0, sender: 'agent', text: "Most projects go from kickoff to production in 8 to 14 weeks. The first two weeks are discovery and architecture — we map everything out before writing any code. You'll see progress every sprint." },
-  { time: 47.0, duration: 2.0, sender: 'user', text: "I'd like to move forward. How do we start?" },
-  { time: 49.5, duration: 9.0, sender: 'agent', text: "Let's schedule a 30-minute scoping call. We'll discuss your goals, answer your questions, and outline a clear path forward. No commitment needed." }
-];
-
-const DIALOG_HI = [
-  { time: 1.5, duration: 4.0, sender: 'user', text: "सुनिए, मैंने सुना है आप व्यवसायों के लिए AI एजेंट बनाते हैं। इसका वास्तव में क्या मतलब है?" },
-  { time: 6.0, duration: 13.0, sender: 'agent', text: "बहुत अच्छा सवाल है। हम स्वायत्त AI सिस्टम बनाते हैं जो जटिल वर्कफ़्लो को संभालते हैं — दस्तावेज़ प्रोसेस करना, शेड्यूल मैनेज करना, डेटा रूट करना — बिना लगातार मानवीय निगरानी के। इसे एक अथक डिजिटल कर्मचारी किराए पर लेने जैसा समझें।" },
-  { time: 19.5, duration: 3.0, sender: 'user', text: "यह आशाजनक लगता है। आप आमतौर पर किस तकनीकी स्टैक का उपयोग करते हैं?" },
-  { time: 23.0, duration: 10.0, sender: 'agent', text: "हम GPT-4o, Claude 3.5, Gemini जैसे मॉडल और LangGraph तथा CrewAI जैसे फ्रेमवर्क के साथ काम करते हैं। स्टैक हमेशा क्लाइंट के मौजूदा बुनियादी ढांचे पर निर्भर करता है। हम आपके द्वारा पहले से उपयोग किए जा रहे किसी भी चीज़ के साथ एकीकृत होते हैं।" },
-  { time: 33.5, duration: 2.5, sender: 'user', text: "और एक सामान्य डिप्लॉयमेंट में कितना समय लगता है?" },
-  { time: 36.5, duration: 10.0, sender: 'agent', text: "अधिकांश प्रोजेक्ट शुरू से प्रोडक्शन तक 8 से 14 सप्ताह में पूरे हो जाते हैं। पहले दो सप्ताह डिस्कवरी और आर्किटेक्चर के होते हैं — कोई कोड लिखने से पहले हम सब कुछ मैप कर लेते हैं। आप हर स्प्रिंट में प्रगति देखेंगे।" },
-  { time: 47.0, duration: 2.0, sender: 'user', text: "मैं आगे बढ़ना चाहूंगा। हम कैसे शुरू करें?" },
-  { time: 49.5, duration: 9.0, sender: 'agent', text: "चलिए 30 मिनट की स्कोपिंग कॉल शेड्यूल करते हैं। हम आपके लक्ष्यों पर चर्चा करेंगे, आपके सवालों के जवाब देंगे, और एक स्पष्ट रास्ता तैयार करेंगे। कोई प्रतिबद्धता नहीं।" }
-];
+const SYSTEM_INSTRUCTION = `You are GoRan AI's voice assistant, custom built for GoRan AI Agency. Guide users on GoRan AI's services: AI Audits (discovery & roadmap), custom Product Development (engineering and custom builds), Product Management, and AI Training. Encourage callers to book a free 30-minute scoping call (which they can request on the website). Mention key case studies: Anaaj AI, HerbsEra (92% support automation + live voice agent), Hadoti Farms, Codewave, GreenWrench, and A Robotics Services. Keep replies conversational, concise (under 2-3 sentences), warm, and helpful. Do not read out long lists of bullet points unless asked. Encourage booking a call.`;
 
 function OrbitingDot({ index, total, radius, size, color, duration, delay }) {
   const angle = (index / total) * 360;
@@ -49,11 +29,9 @@ function OrbitingDot({ index, total, radius, size, color, duration, delay }) {
 }
 
 export default function VoiceAgent() {
-  const [callMode, setCallMode] = useState('demo'); // 'demo' or 'live'
   const [callState, setCallState] = useState('IDLE'); // IDLE, CONNECTING, CONNECTED
-  const [language, setLanguage] = useState('en');
   const [isMuted, setIsMuted] = useState(false);
-  const [activeSpeech, setActiveSpeech] = useState('none');
+  const [activeSpeech, setActiveSpeech] = useState('none'); // user, agent, none
   const [activeText, setActiveText] = useState('');
   const [callDuration, setCallDuration] = useState(0);
   const [statusLog, setStatusLog] = useState('Ready to connect');
@@ -65,8 +43,6 @@ export default function VoiceAgent() {
   const streamerRef = useRef(null);
   const pingIntervalRef = useRef(null);
   const activeSpeechTimeoutRef = useRef(null);
-
-  const activeDialog = language === 'en' ? DIALOG_EN : DIALOG_HI;
 
   // Initialize AudioStreamer
   useEffect(() => {
@@ -94,39 +70,6 @@ export default function VoiceAgent() {
     return () => clearInterval(timer);
   }, [callState]);
 
-  // Demo Mode script runner
-  useEffect(() => {
-    if (callState !== 'CONNECTED' || callMode !== 'demo') return;
-
-    const logInterval = setInterval(() => {
-      const timeElapsed = callDuration;
-
-      const activeLine = activeDialog.find(line =>
-        timeElapsed >= line.time && timeElapsed < (line.time + line.duration)
-      );
-
-      if (activeLine) {
-        setActiveSpeech(activeLine.sender);
-        setActiveText(activeLine.text);
-        setStatusLog(
-          activeLine.sender === 'agent'
-            ? (language === 'en' ? 'Agent is speaking...' : 'एजेंट बोल रहा है...')
-            : (language === 'en' ? 'Listening...' : 'सुन रहा हूँ...')
-        );
-      } else {
-        setActiveSpeech('none');
-        setActiveText('');
-        setStatusLog(
-          language === 'en'
-            ? 'Listening... Ask a question about GoRan AI.'
-            : 'सुन रहा हूँ... गोराॅन एआई के बारे में कुछ भी पूछें।'
-        );
-      }
-    }, 200);
-
-    return () => clearInterval(logInterval);
-  }, [callState, callDuration, activeDialog, language, callMode]);
-
   // Continuous pulse phase for idle ring
   useEffect(() => {
     if (callState !== 'IDLE') return;
@@ -136,147 +79,112 @@ export default function VoiceAgent() {
     return () => clearInterval(interval);
   }, [callState]);
 
-  // Animate bar heights in Demo Mode
-  useEffect(() => {
-    if (callState !== 'CONNECTED') {
-      setBarHeights([4, 4, 4, 4, 4, 4, 4, 4]);
-      return;
-    }
-
-    if (callMode === 'demo') {
-      const interval = setInterval(() => {
-        if (activeSpeech !== 'none') {
-          setBarHeights(Array.from({ length: 8 }, () => Math.floor(Math.random() * 60) + 8));
-        } else {
-          setBarHeights(prev => prev.map(h => Math.max(4, h - 2)));
-        }
-      }, 120);
-
-      return () => clearInterval(interval);
-    }
-  }, [callState, activeSpeech, callMode]);
-
   const startCall = async () => {
-    if (callMode === 'demo') {
-      setCallState('CONNECTING');
-      setStatusLog(language === 'en' ? 'Connecting to GoRan AI network...' : 'गोराॅन एआई नेटवर्क से जुड़ रहा है...');
+    setCallState('CONNECTING');
+    setStatusLog('Initializing microphone...');
+    setIsMuted(false);
 
-      setTimeout(() => {
+    try {
+      await streamerRef.current.init();
+
+      setStatusLog('Connecting to live voice network...');
+
+      const wsUrl = "wss://goran-calling-agent.onrender.com/api/live";
+      const ws = new WebSocket(wsUrl);
+      socketRef.current = ws;
+
+      ws.onopen = () => {
         setCallState('CONNECTED');
-        setStatusLog(language === 'en' ? 'Connected' : 'कनेक्टेड');
-      }, 1500);
-    } else {
-      // Live Call Mode
-      setCallState('CONNECTING');
-      setStatusLog(language === 'en' ? 'Initializing microphone...' : 'माइक सक्षम किया जा रहा है...');
-      setIsMuted(false);
+        setStatusLog('Connected');
 
-      try {
-        await streamerRef.current.init();
+        ws.send(JSON.stringify({
+          type: "setup",
+          voice: "Aoede",
+          systemInstruction: SYSTEM_INSTRUCTION,
+          temperature: 0.7
+        }));
 
-        setStatusLog(language === 'en' ? 'Connecting to live voice network...' : 'वॉयस नेटवर्क से जुड़ा जा रहा है...');
-
-        const wsUrl = "wss://goran-calling-agent.onrender.com/api/live";
-        const ws = new WebSocket(wsUrl);
-        socketRef.current = ws;
-
-        ws.onopen = () => {
-          setCallState('CONNECTED');
-          setStatusLog(language === 'en' ? 'Connected (Live)' : 'कनेक्टेड (लाइव)');
-
-          const systemInstruction = language === 'en'
-            ? `You are GoRan AI's voice assistant, custom built for GoRan AI Agency. Guide users on GoRan AI's services: AI Audits (discovery & roadmap), custom Product Development (engineering and custom builds), Product Management, and AI Training. Encourage callers to book a free 30-minute scoping call (which they can request on the website). Mention key case studies: Anaaj AI, HerbsEra (92% support automation + live voice agent), Hadoti Farms, Codewave, GreenWrench, and A Robotics Services. Keep replies conversational, concise (under 2-3 sentences), warm, and helpful. Do not read out long lists of bullet points unless asked. Encourage booking a call.`
-            : `आप GoRan AI के वॉइस असिस्टेंट हैं, जो GoRan AI Agency के लिए विशेष रूप से बनाए गए हैं। कॉल करने वालों को GoRan AI की सेवाओं के बारे में जानकारी दें: AI ऑडिट (2-3 सप्ताह), उत्पाद विकास (6-12 सप्ताह), उत्पाद प्रबंधन और AI प्रशिक्षण। उन्हें मुफ़्त 30-मिनट की स्कोपिंग कॉल बुक करने के लिए प्रेरित करें। मुख्य केस स्टडीज का ज़िक्र करें: Anaaj AI, HerbsEra (92% समर्थन स्वचालन + लाइव वॉयस एजेंट), Hadoti Farms, Codewave, GreenWrench, और A Robotics Services। अपने उत्तर हमेशा अत्यंत संक्षिप्त (2-3 वाक्य), बातचीत के लहजे में और मददगार रखें।`;
-
-          ws.send(JSON.stringify({
-            type: "setup",
-            voice: "Aoede",
-            systemInstruction,
-            temperature: 0.7
-          }));
-
-          streamerRef.current.startRecording(
-            (base64Data) => {
-              if (ws.readyState === WebSocket.OPEN) {
-                ws.send(JSON.stringify({
-                  type: "audio",
-                  data: base64Data
-                }));
-              }
-            },
-            (volume) => {
-              if (volume > 5) {
-                setActiveSpeech('user');
-                resetActiveSpeechTimeout();
-                // Drive visualizer bars dynamically
-                setBarHeights(Array.from({ length: 8 }, () => Math.max(4, Math.round(4 + (volume / 6) * (0.6 + Math.random() * 0.8)))));
-              } else {
-                setBarHeights(prev => prev.map(h => Math.max(4, h - 2)));
-              }
+        streamerRef.current.startRecording(
+          (base64Data) => {
+            if (ws.readyState === WebSocket.OPEN) {
+              ws.send(JSON.stringify({
+                type: "audio",
+                data: base64Data
+              }));
             }
-          );
-
-          streamerRef.current.startPlayback((volume) => {
+          },
+          (volume) => {
             if (volume > 5) {
-              setActiveSpeech('agent');
+              setActiveSpeech('user');
               resetActiveSpeechTimeout();
               // Drive visualizer bars dynamically
               setBarHeights(Array.from({ length: 8 }, () => Math.max(4, Math.round(4 + (volume / 6) * (0.6 + Math.random() * 0.8)))));
             } else {
               setBarHeights(prev => prev.map(h => Math.max(4, h - 2)));
             }
-          });
-
-          pingIntervalRef.current = setInterval(() => {
-            if (ws.readyState === WebSocket.OPEN) {
-              ws.send(JSON.stringify({ type: "ping", id: Date.now() }));
-            }
-          }, 10000);
-        };
-
-        ws.onmessage = (event) => {
-          try {
-            const message = JSON.parse(event.data);
-
-            if (message.type === 'audio') {
-              streamerRef.current.playChunk(message.data);
-            } else if (message.type === 'output-transcription') {
-              setActiveText(message.text);
-              setActiveSpeech('agent');
-              resetActiveSpeechTimeout();
-            } else if (message.type === 'input-transcription') {
-              setActiveText(message.text);
-              setActiveSpeech('user');
-              resetActiveSpeechTimeout();
-            } else if (message.type === 'interrupted') {
-              streamerRef.current.clearPlayback();
-              setActiveSpeech('none');
-              setActiveText('');
-              setBarHeights([4, 4, 4, 4, 4, 4, 4, 4]);
-            } else if (message.type === 'error') {
-              setStatusLog(message.message);
-              endCall();
-            }
-          } catch (err) {
-            console.error("Error parsing message:", err);
           }
-        };
+        );
 
-        ws.onerror = (err) => {
-          console.error("WebSocket error:", err);
-          setStatusLog(language === 'en' ? 'Connection failed' : 'कनेक्शन विफल रहा');
-          endCall();
-        };
+        streamerRef.current.startPlayback((volume) => {
+          if (volume > 5) {
+            setActiveSpeech('agent');
+            resetActiveSpeechTimeout();
+            // Drive visualizer bars dynamically
+            setBarHeights(Array.from({ length: 8 }, () => Math.max(4, Math.round(4 + (volume / 6) * (0.6 + Math.random() * 0.8)))));
+          } else {
+            setBarHeights(prev => prev.map(h => Math.max(4, h - 2)));
+          }
+        });
 
-        ws.onclose = () => {
-          endCall();
-        };
+        pingIntervalRef.current = setInterval(() => {
+          if (ws.readyState === WebSocket.OPEN) {
+            ws.send(JSON.stringify({ type: "ping", id: Date.now() }));
+          }
+        }, 10000);
+      };
 
-      } catch (err) {
-        console.error("Microphone or live calling startup failed:", err);
-        setStatusLog(language === 'en' ? 'Microphone error' : 'माइक त्रुटि');
+      ws.onmessage = (event) => {
+        try {
+          const message = JSON.parse(event.data);
+
+          if (message.type === 'audio') {
+            streamerRef.current.playChunk(message.data);
+          } else if (message.type === 'output-transcription') {
+            setActiveText(message.text);
+            setActiveSpeech('agent');
+            resetActiveSpeechTimeout();
+          } else if (message.type === 'input-transcription') {
+            setActiveText(message.text);
+            setActiveSpeech('user');
+            resetActiveSpeechTimeout();
+          } else if (message.type === 'interrupted') {
+            streamerRef.current.clearPlayback();
+            setActiveSpeech('none');
+            setActiveText('');
+            setBarHeights([4, 4, 4, 4, 4, 4, 4, 4]);
+          } else if (message.type === 'error') {
+            setStatusLog(message.message);
+            endCall();
+          }
+        } catch (err) {
+          console.error("Error parsing message:", err);
+        }
+      };
+
+      ws.onerror = (err) => {
+        console.error("WebSocket error:", err);
+        setStatusLog('Connection failed');
         endCall();
-      }
+      };
+
+      ws.onclose = () => {
+        endCall();
+      };
+
+    } catch (err) {
+      console.error("Microphone or live calling startup failed:", err);
+      setStatusLog('Microphone error');
+      endCall();
     }
   };
 
@@ -300,19 +208,16 @@ export default function VoiceAgent() {
     setIsMuted(false);
     setActiveSpeech('none');
     setActiveText('');
-    setStatusLog(language === 'en' ? 'Ready to connect' : 'कनेक्ट करने के लिए तैयार');
+    setStatusLog('Ready to connect');
   };
 
   const toggleMute = () => {
     const nextMute = !isMuted;
     setIsMuted(nextMute);
-    if (callMode === 'live' && streamerRef.current) {
+    if (streamerRef.current) {
       streamerRef.current.setMute(nextMute);
     }
-    setStatusLog(nextMute
-      ? (language === 'en' ? 'Muted' : 'म्यूट किया गया')
-      : (language === 'en' ? 'Connected' : 'कनेक्टेड')
-    );
+    setStatusLog(nextMute ? 'Muted' : 'Connected');
   };
 
   const resetActiveSpeechTimeout = () => {
@@ -382,66 +287,6 @@ export default function VoiceAgent() {
           </h2>
         </div>
 
-        {/* Selector Panel */}
-        <div className="flex flex-col sm:flex-row gap-3 items-center">
-          
-          {/* Mode Selector */}
-          <div className="flex bg-black/5 p-0.5 rounded-lg border border-black/5">
-            <button
-              type="button"
-              onClick={() => setCallMode('demo')}
-              disabled={callState !== 'IDLE'}
-              className={`px-4 py-1.5 rounded-[7px] text-xs font-semibold cursor-pointer transition-all duration-200 ${
-                callMode === 'demo'
-                  ? 'bg-white text-brand-dark shadow-sm'
-                  : 'text-brand-text-muted hover:text-brand-dark disabled:opacity-50 disabled:cursor-not-allowed'
-              }`}
-            >
-              Demo Simulation
-            </button>
-            <button
-              type="button"
-              onClick={() => setCallMode('live')}
-              disabled={callState !== 'IDLE'}
-              className={`px-4 py-1.5 rounded-[7px] text-xs font-semibold cursor-pointer transition-all duration-200 ${
-                callMode === 'live'
-                  ? 'bg-white text-brand-dark shadow-sm'
-                  : 'text-brand-text-muted hover:text-brand-dark disabled:opacity-50 disabled:cursor-not-allowed'
-              }`}
-            >
-              Live Agent Call
-            </button>
-          </div>
-
-          {/* Language selector */}
-          <div className="flex bg-black/5 p-0.5 rounded-lg border border-black/5">
-            <button
-              type="button"
-              onClick={() => setLanguage('en')}
-              disabled={callState !== 'IDLE'}
-              className={`px-4 py-1.5 rounded-[7px] text-xs font-semibold cursor-pointer transition-all duration-200 ${
-                language === 'en'
-                  ? 'bg-white text-brand-dark shadow-sm'
-                  : 'text-brand-text-muted hover:text-brand-dark disabled:opacity-50 disabled:cursor-not-allowed'
-              }`}
-            >
-              English
-            </button>
-            <button
-              type="button"
-              onClick={() => setLanguage('hi')}
-              disabled={callState !== 'IDLE'}
-              className={`px-4 py-1.5 rounded-[7px] text-xs font-semibold cursor-pointer transition-all duration-200 ${
-                language === 'hi'
-                  ? 'bg-white text-brand-dark shadow-sm'
-                  : 'text-brand-text-muted hover:text-brand-dark disabled:opacity-50 disabled:cursor-not-allowed'
-              }`}
-            >
-              हिंदी
-            </button>
-          </div>
-        </div>
-
         {/* Voice circle */}
         <div className="voice-agent-orbit relative flex items-center justify-center mt-2">
           {/* ── IDLE STATE ── */}
@@ -466,7 +311,7 @@ export default function VoiceAgent() {
                 {Array.from({ length: 4 }).map((_, i) => (
                   <div
                     key={i}
-                    className="absolute w-1 h-1 rounded-full bg-purple-400/20"
+                    className="absolute w-1.5 h-1.5 rounded-full bg-purple-400/20"
                     style={{
                       top: '50%',
                       left: '50%',
@@ -624,18 +469,18 @@ export default function VoiceAgent() {
                 <>
                   <PhoneOff size={20} />
                   <span className="text-[8px] mt-0.5 font-bold uppercase tracking-wider">
-                    {language === 'en' ? 'End' : 'समाप्त'}
+                    End
                   </span>
                 </>
               ) : callState === 'CONNECTING' ? (
                 <span className="text-[9px] font-bold tracking-widest uppercase animate-pulse">
-                  {language === 'en' ? 'Linking' : 'कनेक्टिंग'}
+                  Linking
                 </span>
               ) : (
                 <>
                   <Phone size={20} />
                   <span className="text-[8px] mt-0.5 font-bold uppercase tracking-wider">
-                    {language === 'en' ? 'Call' : 'कॉल'}
+                    Call
                   </span>
                 </>
               )}
@@ -700,10 +545,7 @@ export default function VoiceAgent() {
                     className="text-[9px] font-semibold uppercase tracking-wider"
                     style={{ color: activeSpeech === 'agent' ? '#F6C744' : '#C084FC' }}
                   >
-                    {activeSpeech === 'user'
-                      ? (language === 'en' ? 'You' : 'आप')
-                      : (language === 'en' ? 'AI Support Agent' : 'एआई सपोर्ट एजेंट')
-                    }
+                    {activeSpeech === 'user' ? 'You' : 'AI Support Agent'}
                   </span>
                 </div>
                 <p className="text-sm text-brand-text-main leading-relaxed font-medium">
@@ -714,10 +556,10 @@ export default function VoiceAgent() {
               <div className="flex flex-col items-center gap-2 text-xs text-brand-text-muted">
                 <div className="flex items-center gap-1.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-ping" />
-                  <span className="font-medium">{language === 'en' ? 'Listening' : 'सुन रहा हूँ'}</span>
+                  <span className="font-medium">Listening</span>
                 </div>
                 <span className="text-[10px] text-brand-text-muted/50">
-                  {language === 'en' ? 'Ask a question about GoRan AI...' : 'गोराॅन एआई के बारे में कुछ पूछें...'}
+                  Ask a question about GoRan AI...
                 </span>
               </div>
             )
