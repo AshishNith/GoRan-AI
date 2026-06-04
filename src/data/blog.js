@@ -52,7 +52,7 @@ export const blogPosts = {
       { type: 'paragraph', text: 'Connecting multiple Shopify plugins, managing complex WhatsApp API integrations, and configuring AI agents that don\'t hallucinate requires specialized systems engineering. A messy stack of third-party plugins will slow down your website, clash with each other, and result in monthly subscription bloat.' },
       { type: 'paragraph', text: 'At GoRan AI, we build and deploy enterprise-grade e-commerce automation systems on complete autopilot. We will set up your WhatsApp Cloud API, build your conversational AI agents, connect shipping hooks, design custom abandoned cart loops, and build a unified analytics dashboard—completely customized to your brand.' },
       { type: 'paragraph', text: 'Let\'s turn your website into a high-converting, automated sales machine. You can book a direct scoping call with our team or drop us a WhatsApp message to get started:' },
-      { type: 'cta', bookingUrl: 'https://cal.com/goranai', whatsappUrl: 'https://wa.me/919934225353?text=Hi%20GoRan%20AI,%20I%20just%20read%20your%20blog%20post%20about%20E-commerce%20Backend%20Automation%2520and%2520want%2520to%2520implement%2520these%2520systems%2520for%2520my%2520brand!' }
+      { type: 'cta', bookingUrl: 'https://cal.com/goranai', whatsappUrl: 'https://wa.me/919934225353?text=Hi%20GoRan%20AI,%20I%20just%20read%20your%20blog%20post%20about%20E-commerce%20Backend%20Automation%20and%20want%20to%20implement%20these%20systems%20for%20my%20brand!' }
     ],
     tableOfContents: [
       { label: 'Why Lacking Backend Systems is Costing You Sales & Time', id: 'why-lacking-backend-systems-is-costing-you-sales-time' },
@@ -109,7 +109,7 @@ export const blogPosts = {
       { type: 'paragraph', text: 'While building a basic prototype is easy, scaling it to run reliably without hitting API limits, getting domains blacklisted, or generating weird AI hallucinations requires high-grade systems engineering. You need advanced event-driven queues, strict safety guardrails, and secure proxy servers.' },
       { type: 'paragraph', text: 'If you want a production-grade automated lead generation and outreach pipeline deployed for your business on complete autopilot, let us engineer it for you. We\'ll map your customer persona, set up the scrapers, warm up domains, and deploy the agent loops tailored to your business.' },
       { type: 'paragraph', text: 'Let\'s start a conversation. You can book a direct scoping meeting or drop us a WhatsApp message to discuss how we can build this system for you today:' },
-      { type: 'cta', bookingUrl: 'https://cal.com/goranai', whatsappUrl: 'https://wa.me/919934225353?text=Hi%20GoRan%20AI,%20I%20just%20read%20your%20blog%20post%20about%20the%2010-minute%20lead%20outreach%20system%2520and%2520want%2520to%2520implement%2520it%2520for%2520my%2520business!' }
+      { type: 'cta', bookingUrl: 'https://cal.com/goranai', whatsappUrl: 'https://wa.me/919934225353?text=Hi%20GoRan%20AI,%20I%20just%20read%20your%20blog%20post%20about%20the%2010-minute%20lead%20outreach%20system%20and%20want%20to%20implement%20it%20for%20my%20business!' }
     ],
     tableOfContents: [
       { label: 'The Friction of Manual Prospecting', id: 'the-friction-of-manual-prospecting' },
