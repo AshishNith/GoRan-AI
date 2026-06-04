@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Phone, PhoneOff, Mic, MicOff } from 'lucide-react';
+import { AudioStreamer } from '../utils/audioStreamer';
 
 const DIALOG_EN = [
   { time: 1.5, duration: 4.0, sender: 'user', text: "Hey, I heard you guys build AI agents for businesses. What exactly does that mean?" },
@@ -48,7 +49,8 @@ function OrbitingDot({ index, total, radius, size, color, duration, delay }) {
 }
 
 export default function VoiceAgent() {
-  const [callState, setCallState] = useState('IDLE');
+  const [callMode, setCallMode] = useState('demo'); // 'demo' or 'live'
+  const [callState, setCallState] = useState('IDLE'); // IDLE, CONNECTING, CONNECTED
   const [language, setLanguage] = useState('en');
   const [isMuted, setIsMuted] = useState(false);
   const [activeSpeech, setActiveSpeech] = useState('none');
@@ -59,8 +61,26 @@ export default function VoiceAgent() {
   const [barHeights, setBarHeights] = useState([4, 4, 4, 4, 4, 4, 4, 4]);
   const captionRef = useRef(null);
 
+  const socketRef = useRef(null);
+  const streamerRef = useRef(null);
+  const pingIntervalRef = useRef(null);
+  const activeSpeechTimeoutRef = useRef(null);
+
   const activeDialog = language === 'en' ? DIALOG_EN : DIALOG_HI;
 
+  // Initialize AudioStreamer
+  useEffect(() => {
+    streamerRef.current = new AudioStreamer();
+    return () => {
+      if (streamerRef.current) {
+        streamerRef.current.close();
+      }
+      clearInterval(pingIntervalRef.current);
+      clearTimeout(activeSpeechTimeoutRef.current);
+    };
+  }, []);
+
+  // Update Call Duration Timer
   useEffect(() => {
     let timer;
     if (callState === 'CONNECTED') {
@@ -74,8 +94,9 @@ export default function VoiceAgent() {
     return () => clearInterval(timer);
   }, [callState]);
 
+  // Demo Mode script runner
   useEffect(() => {
-    if (callState !== 'CONNECTED') return;
+    if (callState !== 'CONNECTED' || callMode !== 'demo') return;
 
     const logInterval = setInterval(() => {
       const timeElapsed = callDuration;
@@ -104,7 +125,7 @@ export default function VoiceAgent() {
     }, 200);
 
     return () => clearInterval(logInterval);
-  }, [callState, callDuration, activeDialog, language]);
+  }, [callState, callDuration, activeDialog, language, callMode]);
 
   // Continuous pulse phase for idle ring
   useEffect(() => {
@@ -115,35 +136,166 @@ export default function VoiceAgent() {
     return () => clearInterval(interval);
   }, [callState]);
 
-  // Animate bar heights based on speech activity
+  // Animate bar heights in Demo Mode
   useEffect(() => {
     if (callState !== 'CONNECTED') {
       setBarHeights([4, 4, 4, 4, 4, 4, 4, 4]);
       return;
     }
 
-    const interval = setInterval(() => {
-      if (activeSpeech !== 'none') {
-        setBarHeights(Array.from({ length: 8 }, () => Math.floor(Math.random() * 60) + 8));
-      } else {
-        setBarHeights(prev => prev.map(h => Math.max(4, h - 2)));
+    if (callMode === 'demo') {
+      const interval = setInterval(() => {
+        if (activeSpeech !== 'none') {
+          setBarHeights(Array.from({ length: 8 }, () => Math.floor(Math.random() * 60) + 8));
+        } else {
+          setBarHeights(prev => prev.map(h => Math.max(4, h - 2)));
+        }
+      }, 120);
+
+      return () => clearInterval(interval);
+    }
+  }, [callState, activeSpeech, callMode]);
+
+  const startCall = async () => {
+    if (callMode === 'demo') {
+      setCallState('CONNECTING');
+      setStatusLog(language === 'en' ? 'Connecting to GoRan AI network...' : 'गोराॅन एआई नेटवर्क से जुड़ रहा है...');
+
+      setTimeout(() => {
+        setCallState('CONNECTED');
+        setStatusLog(language === 'en' ? 'Connected' : 'कनेक्टेड');
+      }, 1500);
+    } else {
+      // Live Call Mode
+      setCallState('CONNECTING');
+      setStatusLog(language === 'en' ? 'Initializing microphone...' : 'माइक सक्षम किया जा रहा है...');
+      setIsMuted(false);
+
+      try {
+        await streamerRef.current.init();
+
+        setStatusLog(language === 'en' ? 'Connecting to live voice network...' : 'वॉयस नेटवर्क से जुड़ा जा रहा है...');
+
+        const wsUrl = "wss://goran-calling-agent.onrender.com/api/live";
+        const ws = new WebSocket(wsUrl);
+        socketRef.current = ws;
+
+        ws.onopen = () => {
+          setCallState('CONNECTED');
+          setStatusLog(language === 'en' ? 'Connected (Live)' : 'कनेक्टेड (लाइव)');
+
+          const systemInstruction = language === 'en'
+            ? `You are GoRan AI's voice assistant, custom built for GoRan AI Agency. Guide users on GoRan AI's services: AI Audits (discovery & roadmap), custom Product Development (engineering and custom builds), Product Management, and AI Training. Encourage callers to book a free 30-minute scoping call (which they can request on the website). Mention key case studies: Anaaj AI, HerbsEra (92% support automation + live voice agent), Hadoti Farms, Codewave, GreenWrench, and A Robotics Services. Keep replies conversational, concise (under 2-3 sentences), warm, and helpful. Do not read out long lists of bullet points unless asked. Encourage booking a call.`
+            : `आप GoRan AI के वॉइस असिस्टेंट हैं, जो GoRan AI Agency के लिए विशेष रूप से बनाए गए हैं। कॉल करने वालों को GoRan AI की सेवाओं के बारे में जानकारी दें: AI ऑडिट (2-3 सप्ताह), उत्पाद विकास (6-12 सप्ताह), उत्पाद प्रबंधन और AI प्रशिक्षण। उन्हें मुफ़्त 30-मिनट की स्कोपिंग कॉल बुक करने के लिए प्रेरित करें। मुख्य केस स्टडीज का ज़िक्र करें: Anaaj AI, HerbsEra (92% समर्थन स्वचालन + लाइव वॉयस एजेंट), Hadoti Farms, Codewave, GreenWrench, और A Robotics Services। अपने उत्तर हमेशा अत्यंत संक्षिप्त (2-3 वाक्य), बातचीत के लहजे में और मददगार रखें।`;
+
+          ws.send(JSON.stringify({
+            type: "setup",
+            voice: "Aoede",
+            systemInstruction,
+            temperature: 0.7
+          }));
+
+          streamerRef.current.startRecording(
+            (base64Data) => {
+              if (ws.readyState === WebSocket.OPEN) {
+                ws.send(JSON.stringify({
+                  type: "audio",
+                  data: base64Data
+                }));
+              }
+            },
+            (volume) => {
+              if (volume > 5) {
+                setActiveSpeech('user');
+                resetActiveSpeechTimeout();
+                // Drive visualizer bars dynamically
+                setBarHeights(Array.from({ length: 8 }, () => Math.max(4, Math.round(4 + (volume / 6) * (0.6 + Math.random() * 0.8)))));
+              } else {
+                setBarHeights(prev => prev.map(h => Math.max(4, h - 2)));
+              }
+            }
+          );
+
+          streamerRef.current.startPlayback((volume) => {
+            if (volume > 5) {
+              setActiveSpeech('agent');
+              resetActiveSpeechTimeout();
+              // Drive visualizer bars dynamically
+              setBarHeights(Array.from({ length: 8 }, () => Math.max(4, Math.round(4 + (volume / 6) * (0.6 + Math.random() * 0.8)))));
+            } else {
+              setBarHeights(prev => prev.map(h => Math.max(4, h - 2)));
+            }
+          });
+
+          pingIntervalRef.current = setInterval(() => {
+            if (ws.readyState === WebSocket.OPEN) {
+              ws.send(JSON.stringify({ type: "ping", id: Date.now() }));
+            }
+          }, 10000);
+        };
+
+        ws.onmessage = (event) => {
+          try {
+            const message = JSON.parse(event.data);
+
+            if (message.type === 'audio') {
+              streamerRef.current.playChunk(message.data);
+            } else if (message.type === 'output-transcription') {
+              setActiveText(message.text);
+              setActiveSpeech('agent');
+              resetActiveSpeechTimeout();
+            } else if (message.type === 'input-transcription') {
+              setActiveText(message.text);
+              setActiveSpeech('user');
+              resetActiveSpeechTimeout();
+            } else if (message.type === 'interrupted') {
+              streamerRef.current.clearPlayback();
+              setActiveSpeech('none');
+              setActiveText('');
+              setBarHeights([4, 4, 4, 4, 4, 4, 4, 4]);
+            } else if (message.type === 'error') {
+              setStatusLog(message.message);
+              endCall();
+            }
+          } catch (err) {
+            console.error("Error parsing message:", err);
+          }
+        };
+
+        ws.onerror = (err) => {
+          console.error("WebSocket error:", err);
+          setStatusLog(language === 'en' ? 'Connection failed' : 'कनेक्शन विफल रहा');
+          endCall();
+        };
+
+        ws.onclose = () => {
+          endCall();
+        };
+
+      } catch (err) {
+        console.error("Microphone or live calling startup failed:", err);
+        setStatusLog(language === 'en' ? 'Microphone error' : 'माइक त्रुटि');
+        endCall();
       }
-    }, 120);
-
-    return () => clearInterval(interval);
-  }, [callState, activeSpeech]);
-
-  const startCall = () => {
-    setCallState('CONNECTING');
-    setStatusLog(language === 'en' ? 'Connecting to GoRan AI network...' : 'गोराॅन एआई नेटवर्क से जुड़ रहा है...');
-
-    setTimeout(() => {
-      setCallState('CONNECTED');
-      setStatusLog(language === 'en' ? 'Connected' : 'कनेक्टेड');
-    }, 1500);
+    }
   };
 
   const endCall = () => {
+    clearInterval(pingIntervalRef.current);
+    clearTimeout(activeSpeechTimeoutRef.current);
+
+    if (socketRef.current) {
+      if (socketRef.current.readyState === WebSocket.OPEN || socketRef.current.readyState === WebSocket.CONNECTING) {
+        socketRef.current.close();
+      }
+      socketRef.current = null;
+    }
+
+    if (streamerRef.current) {
+      streamerRef.current.stopRecording();
+      streamerRef.current.stopPlayback();
+    }
+
     setCallState('IDLE');
     setIsMuted(false);
     setActiveSpeech('none');
@@ -152,11 +304,22 @@ export default function VoiceAgent() {
   };
 
   const toggleMute = () => {
-    setIsMuted(!isMuted);
-    setStatusLog(isMuted
-      ? (language === 'en' ? 'Connected' : 'कनेक्टेड')
-      : (language === 'en' ? 'Muted' : 'म्यूट किया गया')
+    const nextMute = !isMuted;
+    setIsMuted(nextMute);
+    if (callMode === 'live' && streamerRef.current) {
+      streamerRef.current.setMute(nextMute);
+    }
+    setStatusLog(nextMute
+      ? (language === 'en' ? 'Muted' : 'म्यूट किया गया')
+      : (language === 'en' ? 'Connected' : 'कनेक्टेड')
     );
+  };
+
+  const resetActiveSpeechTimeout = () => {
+    clearTimeout(activeSpeechTimeoutRef.current);
+    activeSpeechTimeoutRef.current = setTimeout(() => {
+      setActiveSpeech('none');
+    }, 3000);
   };
 
   const formatTime = (secs) => {
@@ -219,32 +382,64 @@ export default function VoiceAgent() {
           </h2>
         </div>
 
-        {/* Language selector */}
-        <div className="flex bg-black/5 p-0.5 rounded-lg border border-black/5">
-          <button
-            type="button"
-            onClick={() => setLanguage('en')}
-            disabled={callState !== 'IDLE'}
-            className={`px-4 py-1.5 rounded-[7px] text-xs font-semibold cursor-pointer transition-all duration-200 ${
-              language === 'en'
-                ? 'bg-white text-brand-dark shadow-sm'
-                : 'text-brand-text-muted hover:text-brand-dark disabled:opacity-50 disabled:cursor-not-allowed'
-            }`}
-          >
-            English
-          </button>
-          <button
-            type="button"
-            onClick={() => setLanguage('hi')}
-            disabled={callState !== 'IDLE'}
-            className={`px-4 py-1.5 rounded-[7px] text-xs font-semibold cursor-pointer transition-all duration-200 ${
-              language === 'hi'
-                ? 'bg-white text-brand-dark shadow-sm'
-                : 'text-brand-text-muted hover:text-brand-dark disabled:opacity-50 disabled:cursor-not-allowed'
-            }`}
-          >
-            हिंदी
-          </button>
+        {/* Selector Panel */}
+        <div className="flex flex-col sm:flex-row gap-3 items-center">
+          
+          {/* Mode Selector */}
+          <div className="flex bg-black/5 p-0.5 rounded-lg border border-black/5">
+            <button
+              type="button"
+              onClick={() => setCallMode('demo')}
+              disabled={callState !== 'IDLE'}
+              className={`px-4 py-1.5 rounded-[7px] text-xs font-semibold cursor-pointer transition-all duration-200 ${
+                callMode === 'demo'
+                  ? 'bg-white text-brand-dark shadow-sm'
+                  : 'text-brand-text-muted hover:text-brand-dark disabled:opacity-50 disabled:cursor-not-allowed'
+              }`}
+            >
+              Demo Simulation
+            </button>
+            <button
+              type="button"
+              onClick={() => setCallMode('live')}
+              disabled={callState !== 'IDLE'}
+              className={`px-4 py-1.5 rounded-[7px] text-xs font-semibold cursor-pointer transition-all duration-200 ${
+                callMode === 'live'
+                  ? 'bg-white text-brand-dark shadow-sm'
+                  : 'text-brand-text-muted hover:text-brand-dark disabled:opacity-50 disabled:cursor-not-allowed'
+              }`}
+            >
+              Live Agent Call
+            </button>
+          </div>
+
+          {/* Language selector */}
+          <div className="flex bg-black/5 p-0.5 rounded-lg border border-black/5">
+            <button
+              type="button"
+              onClick={() => setLanguage('en')}
+              disabled={callState !== 'IDLE'}
+              className={`px-4 py-1.5 rounded-[7px] text-xs font-semibold cursor-pointer transition-all duration-200 ${
+                language === 'en'
+                  ? 'bg-white text-brand-dark shadow-sm'
+                  : 'text-brand-text-muted hover:text-brand-dark disabled:opacity-50 disabled:cursor-not-allowed'
+              }`}
+            >
+              English
+            </button>
+            <button
+              type="button"
+              onClick={() => setLanguage('hi')}
+              disabled={callState !== 'IDLE'}
+              className={`px-4 py-1.5 rounded-[7px] text-xs font-semibold cursor-pointer transition-all duration-200 ${
+                language === 'hi'
+                  ? 'bg-white text-brand-dark shadow-sm'
+                  : 'text-brand-text-muted hover:text-brand-dark disabled:opacity-50 disabled:cursor-not-allowed'
+              }`}
+            >
+              हिंदी
+            </button>
+          </div>
         </div>
 
         {/* Voice circle */}
@@ -497,13 +692,13 @@ export default function VoiceAgent() {
                   <span
                     className="w-1.5 h-1.5 rounded-full"
                     style={{
-                      background: activeSpeech === 'agent' ? '#C084FC' : '#737373',
+                      background: activeSpeech === 'agent' ? '#F6C744' : '#C084FC',
                       animation: 'ping 1s ease-in-out infinite',
                     }}
                   />
                   <span
                     className="text-[9px] font-semibold uppercase tracking-wider"
-                    style={{ color: activeSpeech === 'agent' ? '#C084FC' : '#737373' }}
+                    style={{ color: activeSpeech === 'agent' ? '#F6C744' : '#C084FC' }}
                   >
                     {activeSpeech === 'user'
                       ? (language === 'en' ? 'You' : 'आप')
