@@ -322,7 +322,7 @@ export default function ScrollAdventure() {
               ref={(el) => {
                 leftPanelsRef.current[i] = el;
               }}
-              className={`w-full md:w-3/5 h-1/2 md:h-full absolute top-0 left-0 ${page.leftContent ? 'md:w-2/5' : 'md:w-3/5'}`}
+              className={`w-full h-1/2 md:h-full absolute top-0 left-0 ${page.leftContent ? 'md:w-2/5' : 'md:w-3/5'}`}
               style={{
                 transform: isFirst ? 'none' : 'translateY(100vh)',
                 willChange: 'transform',
@@ -381,7 +381,7 @@ export default function ScrollAdventure() {
               ref={(el) => {
                 rightPanelsRef.current[i] = el;
               }}
-              className={`w-full md:w-2/5 h-1/2 md:h-full absolute bottom-0 md:top-0 right-0 ${page.rightContent ? 'md:w-2/5' : 'md:w-3/5'}`}
+              className={`w-full h-1/2 md:h-full absolute bottom-0 md:top-0 right-0 ${page.rightContent ? 'md:w-2/5' : 'md:w-3/5'}`}
               style={{
                 transform: isFirst ? 'none' : 'translateY(-100vh)',
                 willChange: 'transform',

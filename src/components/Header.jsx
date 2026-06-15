@@ -33,6 +33,7 @@ export default function Header() {
   const navigate = useNavigate();
   const { openCalBooking } = useCalBooking();
   const [logoVisible, setLogoVisible] = useState(true);
+  const [visible, setVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
   useEffect(() => {
@@ -57,8 +58,19 @@ export default function Header() {
           // Scrolling UP (page going up): Show logo
           setLogoVisible(true);
         }
+        setVisible(true);
       } else {
         setLogoVisible(true);
+        if (currentScrollY < 50) {
+          setVisible(true);
+        } else if (currentScrollY > lastScrollY) {
+          // Scrolling DOWN (page going down): Hide navbar
+          setVisible(false);
+          setServicesOpen(false);
+        } else if (currentScrollY < lastScrollY) {
+          // Scrolling UP (page going up): Show navbar
+          setVisible(true);
+        }
       }
       setLastScrollY(currentScrollY);
     };
@@ -87,7 +99,7 @@ export default function Header() {
   const navbarClasses = 'relative w-full max-w-[1200px] rounded-[20px] grid grid-cols-[auto_1fr_auto] items-center gap-3 px-4 py-3 md:px-6 transition-all duration-300 bg-transparent';
 
   return (
-    <header className="fixed top-0 md:top-2 left-0 right-0 flex justify-center z-50 md:px-4">
+    <header className={`fixed top-0 md:top-2 left-0 right-0 flex justify-center z-50 md:px-4 transition-transform duration-300 ${visible ? 'translate-y-0' : 'md:-translate-y-[120%]'}`}>
       <nav className={navbarClasses}>
         <div className={`flex items-center gap-2 shrink-0 transition-all duration-300 ${!logoVisible ? 'max-md:opacity-0 max-md:-translate-y-5 max-md:pointer-events-none' : 'max-md:opacity-100 max-md:translate-y-0'}`}>
           <Link to="/" className="flex items-center gap-2 no-underline rounded-full  md:px-3 py-1.5 transition-all duration-300 hover:border-brand-border">
