@@ -23,11 +23,13 @@ import Chatbot from './components/Chatbot';
 import VoiceWidget from './components/VoiceWidget';
 import WhatsAppWidget from './components/WhatsAppWidget';
 import AgentDetail from './pages/AgentDetail';
+import D2CAutomation from './pages/D2CAutomation';
 import { CalBookingProvider } from './components/CalBookingModal';
 
 
 function App() {
   const location = useLocation();
+  const hideHeaderFooter = location.pathname === '/scale' || location.pathname === '/automate';
 
   useEffect(() => {
     // Send pageview to Google Analytics on route change
@@ -57,7 +59,7 @@ function App() {
   return (
     <div className="min-h-full h-full flex flex-col">
       <CalBookingProvider>
-      <Header />
+      {!hideHeaderFooter && <Header />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
@@ -73,12 +75,14 @@ function App() {
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/terms" element={<Terms />} />
         <Route path="/agents/:agentId" element={<AgentDetail />} />
+        <Route path="/scale" element={<D2CAutomation />} />
+        <Route path="/automate" element={<D2CAutomation />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
-      <Footer />
-      <Chatbot />
-      <VoiceWidget />
-      <WhatsAppWidget />
+      {!hideHeaderFooter && <Footer />}
+      {!hideHeaderFooter && <Chatbot />}
+      {!hideHeaderFooter && <VoiceWidget />}
+      {!hideHeaderFooter && <WhatsAppWidget />}
       <Analytics />
       </CalBookingProvider>
     </div>
