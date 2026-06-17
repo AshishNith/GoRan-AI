@@ -20,6 +20,7 @@ import {
 import { useCalBooking } from '../components/CalBookingModal';
 import SEOHead from '../components/SEOHead';
 import ClientMarquee from '../components/ClientMarquee';
+import Footer from '../components/Footer';
 
 // ── Local Fallback Blueprint Scoping Generator (Tailored for D2C) ──
 const generateD2CLocalReport = (data) => {
@@ -1489,32 +1490,7 @@ export default function D2CAutomation() {
         </div>
       </section>
 
-      {/* Minimal Footer (Matches standard dark footer theme of main site) */}
-      <footer className="border-t border-brand-border bg-brand-dark py-12 relative z-10 px-6 text-center text-white/50">
-        <div className="max-w-[1200px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
-          <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
-            <a href="/" className="inline-block mb-3">
-              <img src="/Logo.png" alt="GoRan AI Logo" className="h-9 rounded-lg" />
-            </a>
-            <p className="text-[10px] text-white/40 max-w-[320px] leading-relaxed">
-              GoRan AI: Scale your D2C brand operations on autopilot without scaling your manual support team.
-            </p>
-          </div>
-
-          <div className="flex flex-wrap justify-center gap-5 text-xs font-semibold text-white/40">
-            <a href="mailto:goran.dotin@gmail.com" className="hover:text-white transition-colors no-underline">goran.dotin@gmail.com</a>
-            <span>/</span>
-            <a href="https://wa.me/919934225353" className="hover:text-white transition-colors no-underline">WhatsApp Support</a>
-            <span>/</span>
-            <a href="/privacy" className="hover:text-white transition-colors no-underline">Privacy</a>
-            <span>/</span>
-            <a href="/terms" className="hover:text-white transition-colors no-underline">Terms</a>
-          </div>
-        </div>
-        <div className="text-[10px] text-white/30 mt-8 border-t border-white/[0.05] pt-6">
-          &copy; {new Date().getFullYear()} GoRan AI. All rights reserved.
-        </div>
-      </footer>
+      <Footer />
     </main>
   );
 }
