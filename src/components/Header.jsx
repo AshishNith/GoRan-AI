@@ -16,6 +16,7 @@ const serviceLinks = [
   { label: 'Product Development', to: '/services/product-development' },
   { label: 'Product Management', to: '/services/product-management' },
   { label: 'AI Training', to: '/services/ai-training' },
+  { label: 'Websites Showcase', to: '/services/websites' },
 ];
 
 const agentLinks = [

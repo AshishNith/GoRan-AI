@@ -24,6 +24,7 @@ import VoiceWidget from './components/VoiceWidget';
 import WhatsAppWidget from './components/WhatsAppWidget';
 import AgentDetail from './pages/AgentDetail';
 import D2CAutomation from './pages/D2CAutomation';
+import WebsitesShowcase from './pages/WebsitesShowcase';
 import { CalBookingProvider } from './components/CalBookingModal';
 
 
@@ -63,6 +64,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
+        <Route path="/services/websites" element={<WebsitesShowcase />} />
         <Route path="/services/:serviceId" element={<ServiceDetail />} />
         <Route path="/case-studies" element={<CaseStudies />} />
         <Route path="/case-studies/:caseStudyId" element={<CaseStudyDetail />} />
