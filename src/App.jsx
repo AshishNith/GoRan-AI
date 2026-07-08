@@ -25,12 +25,13 @@ import WhatsAppWidget from './components/WhatsAppWidget';
 import AgentDetail from './pages/AgentDetail';
 import D2CAutomation from './pages/D2CAutomation';
 import WebsitesShowcase from './pages/WebsitesShowcase';
+import LinkedinAutomation from './pages/LinkedinAutomation';
 import { CalBookingProvider } from './components/CalBookingModal';
 
 
 function App() {
   const location = useLocation();
-  const hideHeaderFooter = location.pathname === '/scale' || location.pathname === '/automate';
+  const hideHeaderFooter = location.pathname === '/scale' || location.pathname === '/automate' || location.pathname === '/linkedin-automation';
 
   useEffect(() => {
     // Send pageview to Google Analytics on route change
@@ -79,6 +80,7 @@ function App() {
         <Route path="/agents/:agentId" element={<AgentDetail />} />
         <Route path="/scale" element={<D2CAutomation />} />
         <Route path="/automate" element={<D2CAutomation />} />
+        <Route path="/linkedin-automation" element={<LinkedinAutomation />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       {!hideHeaderFooter && <Footer />}

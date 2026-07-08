@@ -1,0 +1,4392 @@
+{
+  "name": "LinkedinPost Creator + Poster",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## 📝 Setup checklist before running\n\n1. **Google Sheet** — add these columns to Sheet1 (some already exist): `post_id, idea, post_text, image_prompt, media_type, media_url, post_title, status, telegram_chat_id, telegram_message_id, telegram_file_id, posted_at`\n2. **Add idea rows** yourself with `post_id`, `idea` (topic/brief) and `status = idea`. Everything else is filled in automatically.\n3. **Telegram bot** — create a bot with @BotFather, then:\n   - Set the bot token in BOTH \"Config – Bot Token\" nodes (Lane 1 and Lane 2)\n   - Set your numeric chat id in \"Config – Telegram Chat ID\" (Lane 1). Message your bot once and check `https://api.telegram.org/bot<TOKEN>/getUpdates` to find it.\n   - Create a Telegram credential (bot token) and attach it to the \"Telegram Trigger\" node so n8n can register the webhook.\n4. **Gemini** — reuses your existing Google Gemini (PaLM) API credential. Model names used: `gemini-3.5-flash` for text and `gemini-3.1-flash-image` (\"Nano Banana 2\") for images/image-edits. Check ai.google.dev if these have since been renamed/retired.\n5. **LinkedIn** — reuses your existing LinkedIn OAuth2 credential. Remember the known blocker: `registerUpload` returns 403 ACCESS_DENIED until the Community Management API product is approved on your LinkedIn Developer App.\n6. Approved posts are NOT published instantly — they wait for the Lane 3 schedule trigger (8AM/5:30PM by default) to actually publish, matching your original design.",
+        "height": 480,
+        "width": 460,
+        "color": 5
+      },
+      "id": "6c20dbb5-7667-4c57-8045-404df7505fbd",
+      "name": "README - Setup",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        560,
+        -416
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Lane guide\n\n**Lane 1 (top)** — picks up an `idea` row, drafts post text + image with Gemini, sends it to Telegram with Approve / Reject / Edit Text / Edit Image buttons, sets status = `awaiting_review`.\n\n**Lane 2 (middle)** — the Telegram Trigger. Handles button taps (approve/reject/ask-for-edit) and handles plain text replies (treated as edit instructions when a draft is awaiting an edit).\n\n**Lane 3 (bottom)** — your original publish pipeline, now triggered on `status = approved` instead of `pending`, publishing at the scheduled times.",
+        "height": 300,
+        "width": 420,
+        "color": 4
+      },
+      "id": "7f2a4669-1d40-46a7-ab94-0eac75ed9c97",
+      "name": "README - Lane Guide",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1152,
+        -416
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 30
+            }
+          ]
+        }
+      },
+      "id": "8fbb0ac5-8937-4ef9-8762-2154b0c275ca",
+      "name": "Schedule - Check For New Ideas",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        112,
+        208
+      ]
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1g6GeHxttCiBx2JOx_k1wJ9JlnMlpESDakSQLeiPqBDk/edit?gid=0#gid=0",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1g6GeHxttCiBx2JOx_k1wJ9JlnMlpESDakSQLeiPqBDk/edit#gid=0"
+        },
+        "options": {}
+      },
+      "id": "ce65d33f-7acc-4823-b70a-f02f6067a198",
+      "name": "Get Idea Rows",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.4,
+      "position": [
+        336,
+        208
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "qLoD5jkKy9ilWSZW",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "filter-idea-only",
+              "leftValue": "={{ $json.status }}",
+              "rightValue": "idea",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "666bf33a-99bf-4eec-87de-d17320e81cc4",
+      "name": "Filter Status = idea",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2,
+      "position": [
+        560,
+        208
+      ]
+    },
+    {
+      "parameters": {
+        "sortFieldsUi": {
+          "sortField": [
+            {
+              "fieldName": "post_id"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "c4956a8e-dc61-441e-b5fc-85d23183bc18",
+      "name": "Sort Ideas by post_id",
+      "type": "n8n-nodes-base.sort",
+      "typeVersion": 1,
+      "position": [
+        784,
+        208
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "0d95b913-2e73-4064-895e-9eaf4bef8a9e",
+      "name": "Take First Idea",
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        1008,
+        208
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "check-has-idea",
+              "leftValue": "={{ $json.post_id.toString() }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "5148f31b-3c7f-433e-ae8e-3dc52ee35b36",
+      "name": "Any Idea Found?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        1232,
+        208
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e18b05a5-79f8-4aca-97b5-2f70fbcc67ce",
+              "name": "telegram_chat_id",
+              "value": "8308747879",
+              "type": "string"
+            },
+            {
+              "id": "9c0c78a9-c58b-461d-901c-c0ebe37e78e5",
+              "name": "telegram_bot_token",
+              "value": "8448368315:AAENQAKjAxXqZt4n5nBlVDtJ5h0o5PvctcU",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "12243b5f-66ab-423b-a390-68573ba7e2f1",
+      "name": "Config - Telegram Chat ID",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1456,
+        64
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const idea = $('Get Idea Rows').first().json.idea;\nconst prompt = 'You are a senior LinkedIn ghostwriter. Based on this idea, write an engaging, '\n  + 'scroll-stopping LinkedIn post (150-250 words).\\n\\n'\n  + 'Idea: \"' + idea + '\"\\n\\n'\n  + 'Rules:\\n- Start with a strong 1-line hook\\n- Short punchy paragraphs (1-3 sentences each)\\n'\n  + '- Conversational, first-person tone\\n- End with 3-5 relevant hashtags\\n'\n  + '- Return ONLY the finished post text, no preamble, no quotation marks, no markdown.';\n\nreturn [{ json: { ...$json, text_prompt: prompt } }];"
+      },
+      "id": "a60b799b-6a17-426b-9c2e-6bd3b7bfe08f",
+      "name": "Build Text Prompt",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1680,
+        208
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googlePalmApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { contents: [ { parts: [ { text: $json.text_prompt } ] } ] } }}",
+        "options": {}
+      },
+      "id": "8f649fb5-f229-4c1e-bbc2-6412266f5f73",
+      "name": "Gemini - Generate Post Text",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1904,
+        208
+      ],
+      "credentials": {
+        "googlePalmApi": {
+          "id": "JZpvtd0FFFyD5jZa",
+          "name": "Paid API Key"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const res = $json;\nconst text = res.candidates?.[0]?.content?.parts?.map(p => p.text || '').join('').trim();\nif (!text) { throw new Error('Gemini did not return post text: ' + JSON.stringify(res)); }\nreturn [{ json: { post_text: text } }];"
+      },
+      "id": "f5fdc97a-69a1-4fd8-bb9c-e53dacd5d4a6",
+      "name": "Extract Post Text",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2128,
+        208
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const idea = $('Get Idea Rows').first().json.idea;\nconst postText = $input.first().json.post_text;\nconst prompt = 'Create a clean, modern, professional illustration (16:9) suitable as a LinkedIn post '\n  + 'image for this topic: \"' + idea + 'content:' +  postText + '\".\\n'\n  + 'Style: minimal, flat vector illustration, soft corporate colour palette, '\n  + 'no text overlays, no logos, no watermarks.';\nreturn [{ json: { image_prompt: prompt } }];"
+      },
+      "id": "7cce8256-71b9-4a22-bf83-909e680091b8",
+      "name": "Build Image Prompt",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2352,
+        208
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image:generateContent",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googlePalmApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { contents: [ { parts: [ { text: $json.image_prompt } ] } ], generationConfig: { responseModalities: [\"IMAGE\"] } } }}",
+        "options": {}
+      },
+      "id": "e2ac6b85-250f-4b62-b1e3-593e1d826af9",
+      "name": "Gemini - Generate Image",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2576,
+        208
+      ],
+      "credentials": {
+        "googlePalmApi": {
+          "id": "JZpvtd0FFFyD5jZa",
+          "name": "Paid API Key"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const res = $json;\nconst parts = res.candidates?.[0]?.content?.parts || [];\nconst imgPart = parts.find(p => p.inlineData || p.inline_data);\nconst inline = imgPart ? (imgPart.inlineData || imgPart.inline_data) : null;\nif (!inline) { throw new Error('Gemini did not return image data: ' + JSON.stringify(res)); }\nreturn [{ json: { image_base64: inline.data, mime_type: inline.mimeType || inline.mime_type || 'image/png' } }];"
+      },
+      "id": "5cbd8bbd-9187-4639-bd84-3979921b93d3",
+      "name": "Extract Generated Image",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2800,
+        208
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "jsonToBinary",
+        "convertAllData": false,
+        "sourceKey": "image_base64",
+        "options": {
+          "encoding": "base64",
+          "fileName": "post-image.png",
+          "mimeType": "={{ $json.mime_type }}"
+        }
+      },
+      "id": "cd13794b-c77f-4809-9336-98c3f78f24c4",
+      "name": "Convert Image Base64 to Binary",
+      "type": "n8n-nodes-base.moveBinaryData",
+      "typeVersion": 1,
+      "position": [
+        3024,
+        208
+      ]
+    },
+    {
+      "parameters": {
+        "name": "={{ 'post-' + $('Take First Idea').item.json.post_id + '.png' }}",
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "root",
+          "cachedResultName": "/ (Root folder)"
+        },
+        "options": {}
+      },
+      "id": "5af669af-c4a9-4492-ac39-247f2d15aeb8",
+      "name": "Upload Image to Drive",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        3248,
+        112
+      ],
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "taw0ArT9nORumnHs",
+          "name": "Google Drive account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ 'https://api.telegram.org/bot' + $('Config - Telegram Chat ID').item.json.telegram_bot_token + '/sendPhoto' }}",
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "chat_id",
+              "value": "={{ $('Config - Telegram Chat ID').item.json.telegram_chat_id }}"
+            },
+            {
+              "name": "caption",
+              "value": "={{ $('Extract Post Text').item.json.post_text }}"
+            },
+            {
+              "name": "reply_markup",
+              "value": "={{ JSON.stringify({ inline_keyboard: [ [ { text: '✅ Approve', callback_data: 'approve|' + $('Take First Idea').item.json.post_id }, { text: '❌ Reject', callback_data: 'reject|' + $('Take First Idea').item.json.post_id } ], [ { text: '✏️ Edit Text', callback_data: 'edit_content|' + $('Take First Idea').item.json.post_id }, { text: '🖼️ Edit Image', callback_data: 'edit_image|' + $('Take First Idea').item.json.post_id } ] ] }) }}"
+            },
+            {
+              "parameterType": "formBinaryData",
+              "name": "photo",
+              "inputDataFieldName": "data"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "ae7c5b7a-7f1c-4595-bb62-20329e47d354",
+      "name": "Send Draft to Telegram",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3568,
+        416
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combinationMode": "mergeByPosition",
+        "options": {}
+      },
+      "id": "ff8b5243-79d3-405a-8ca1-6b00cec0e686",
+      "name": "Merge Drive + Telegram Info",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2.1,
+      "position": [
+        3472,
+        208
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1g6GeHxttCiBx2JOx_k1wJ9JlnMlpESDakSQLeiPqBDk/edit?gid=0#gid=0",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1g6GeHxttCiBx2JOx_k1wJ9JlnMlpESDakSQLeiPqBDk/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "post_id": "={{ $('Take First Idea').item.json.post_id }}",
+            "status": "awaiting_review",
+            "post_text": "={{ $('Extract Post Text').item.json.post_text }}",
+            "image_prompt": "={{ $('Build Image Prompt').item.json.image_prompt }}",
+            "media_type": "image",
+            "media_url": "={{ $json.id }}",
+            "telegram_chat_id": "={{ $('Config - Telegram Chat ID').item.json.telegram_chat_id }}",
+            "telegram_message_id": "={{ $json.result ? $json.result.message_id : $json.message_id }}",
+            "telegram_file_id": "={{ (($json.result ? $json.result.photo : $json.photo) || []).slice(-1)[0]?.file_id }}"
+          },
+          "matchingColumns": [
+            "post_id"
+          ],
+          "schema": [
+            {
+              "id": "post_id",
+              "displayName": "post_id",
+              "required": false,
+              "defaultMatch": true,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "idea",
+              "displayName": "idea",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "post_text",
+              "displayName": "post_text",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "image_prompt",
+              "displayName": "image_prompt",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "media_type",
+              "displayName": "media_type",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "media_url",
+              "displayName": "media_url",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "post_title",
+              "displayName": "post_title",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "telegram_chat_id",
+              "displayName": "telegram_chat_id",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "telegram_message_id",
+              "displayName": "telegram_message_id",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "telegram_file_id",
+              "displayName": "telegram_file_id",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "posted_at",
+              "displayName": "posted_at",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "31e7a752-54a3-4cb3-aa12-da4959917d82",
+      "name": "Save Review State to Sheet",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.4,
+      "position": [
+        3696,
+        208
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "qLoD5jkKy9ilWSZW",
+          "name": "Google Sheets account"
+        }
+      },
+      "notes": "Writes the AI draft + image location + telegram message info back to the sheet, status=awaiting_review"
+    },
+    {
+      "parameters": {
+        "updates": [
+          "message",
+          "callback_query"
+        ],
+        "additionalFields": {}
+      },
+      "id": "37b7129f-d5fa-4f5c-9083-7d3b88ed2f72",
+      "name": "Telegram Trigger",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        112,
+        1136
+      ],
+      "webhookId": "3511f835-6443-4560-b4be-f2672d811158",
+      "credentials": {
+        "telegramApi": {
+          "id": "AZtTPNiOZd4uRunS",
+          "name": "Telegram account"
+        }
+      },
+      "notes": "Requires a Telegram credential (bot token) so n8n can register the webhook."
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "7cd84d96-1040-4c6d-b705-2dae2c823a8e",
+              "name": "telegram_bot_token",
+              "value": "REPLACE_WITH_YOUR_BOT_TOKEN",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a797f262-5bea-4f08-a2ec-ebd2fb28d46e",
+      "name": "Config - Bot Token (Handler)",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        336,
+        1136
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "is-cb",
+              "leftValue": "={{ $json.callback_query ? 'yes' : 'no' }}",
+              "rightValue": "yes",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "efd5a36d-3e42-4755-b35f-bf60b4857963",
+      "name": "Is Callback Query?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        560,
+        1136
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "is-text",
+              "leftValue": "={{ ($json.message && $json.message.text) ? 'yes' : 'no' }}",
+              "rightValue": "yes",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "6f156d27-e39a-4edc-b043-cc3589a92dff",
+      "name": "Is Plain Text Message?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        784,
+        1344
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "d005b06b-c5da-40f6-a350-e064fc0b0dc2",
+      "name": "NoOp - Ignore Other Updates",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1008,
+        1536
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const cq = $json.callback_query;\nconst parts = (cq.data || '').split('|');\nreturn [{ json: {\n  action: parts[0],\n  post_id: parts[1],\n  chat_id: cq.message.chat.id,\n  message_id: cq.message.message_id,\n  callback_query_id: cq.id,\n  original_caption: cq.message.caption || ''\n} }];"
+      },
+      "id": "165085a0-1858-4ff7-8822-7f263cd5d56f",
+      "name": "Parse Callback Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        832,
+        752
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ 'https://api.telegram.org/bot' + $('Config - Bot Token (Handler)').item.json.telegram_bot_token + '/answerCallbackQuery' }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { callback_query_id: $json.callback_query_id } }}",
+        "options": {}
+      },
+      "id": "2ed4af43-0523-48a8-9de9-961b6da76304",
+      "name": "Answer Callback Query",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1056,
+        752
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ 'https://api.telegram.org/bot' + $('Config - Bot Token (Handler)').item.json.telegram_bot_token + '/editMessageCaption' }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { chat_id: $('Parse Callback Data').item.json.chat_id, message_id: $('Parse Callback Data').item.json.message_id, caption: ($('Parse Callback Data').item.json.original_caption || '') + '\\n\\n' + ({ approve: '✅ Approved — queued for the next scheduled LinkedIn post.', reject: '❌ Rejected.', edit_content: '✏️ Waiting for your text change...', edit_image: '🖼️ Waiting for your image change...' }[$('Parse Callback Data').item.json.action] || ''), reply_markup: { inline_keyboard: [] } } }}",
+        "options": {}
+      },
+      "id": "1811bf83-6617-43ba-883d-0e7e12a3e5c7",
+      "name": "Edit Message - Update Status",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1280,
+        752
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Parse Callback Data').item.json.action }}",
+                    "rightValue": "approve",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "54b52de8-a2fe-438f-8eaf-114a5fce4fe4"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "approve"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Parse Callback Data').item.json.action }}",
+                    "rightValue": "reject",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "91fbd773-2550-4472-8ae3-b799832cdbe5"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "reject"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Parse Callback Data').item.json.action }}",
+                    "rightValue": "edit_content",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "cabc5f5b-e0f4-467e-aaea-a3369588b2d8"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "edit_content"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Parse Callback Data').item.json.action }}",
+                    "rightValue": "edit_image",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "62f8605d-0275-4f03-a81b-f0315404ce83"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "edit_image"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "c616975a-fed8-4ebc-924f-bec2dc85ded1",
+      "name": "Switch on Action",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        1504,
+        752
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1g6GeHxttCiBx2JOx_k1wJ9JlnMlpESDakSQLeiPqBDk/edit?gid=0#gid=0",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1-iP9zdvVumFurSDacVb2ub9d6BsKkM6-KScRWF0JBfk/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "post_id": "={{ $('Parse Callback Data').item.json.post_id }}",
+            "status": "approved"
+          },
+          "matchingColumns": [
+            "post_id"
+          ],
+          "schema": [
+            {
+              "id": "post_id",
+              "displayName": "post_id",
+              "required": false,
+              "defaultMatch": true,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "idea",
+              "displayName": "idea",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "post_text",
+              "displayName": "post_text",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "image_prompt",
+              "displayName": "image_prompt",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "media_type",
+              "displayName": "media_type",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "media_url",
+              "displayName": "media_url",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "post_title",
+              "displayName": "post_title",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "telegram_chat_id",
+              "displayName": "telegram_chat_id",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "telegram_message_id",
+              "displayName": "telegram_message_id",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "telegram_file_id",
+              "displayName": "telegram_file_id",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "posted_at",
+              "displayName": "posted_at",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "caaad243-9716-4d0a-903c-716cbfb2d47f",
+      "name": "Update Sheet - Approved",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.4,
+      "position": [
+        1728,
+        608
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "qLoD5jkKy9ilWSZW",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1g6GeHxttCiBx2JOx_k1wJ9JlnMlpESDakSQLeiPqBDk/edit?gid=0#gid=0",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1-iP9zdvVumFurSDacVb2ub9d6BsKkM6-KScRWF0JBfk/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "post_id": "={{ $('Parse Callback Data').item.json.post_id }}",
+            "status": "rejected"
+          },
+          "matchingColumns": [
+            "post_id"
+          ],
+          "schema": [
+            {
+              "id": "post_id",
+              "displayName": "post_id",
+              "required": false,
+              "defaultMatch": true,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "idea",
+              "displayName": "idea",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "post_text",
+              "displayName": "post_text",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "image_prompt",
+              "displayName": "image_prompt",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "media_type",
+              "displayName": "media_type",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "media_url",
+              "displayName": "media_url",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "post_title",
+              "displayName": "post_title",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "telegram_chat_id",
+              "displayName": "telegram_chat_id",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "telegram_message_id",
+              "displayName": "telegram_message_id",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "telegram_file_id",
+              "displayName": "telegram_file_id",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "posted_at",
+              "displayName": "posted_at",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "4b735531-0171-4559-a2fc-c7339ed0c52d",
+      "name": "Update Sheet - Rejected",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.4,
+      "position": [
+        1728,
+        752
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "qLoD5jkKy9ilWSZW",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1g6GeHxttCiBx2JOx_k1wJ9JlnMlpESDakSQLeiPqBDk/edit?gid=0#gid=0",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1-iP9zdvVumFurSDacVb2ub9d6BsKkM6-KScRWF0JBfk/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "post_id": "={{ $('Parse Callback Data').item.json.post_id }}",
+            "status": "awaiting_edit_content"
+          },
+          "matchingColumns": [
+            "post_id"
+          ],
+          "schema": [
+            {
+              "id": "post_id",
+              "displayName": "post_id",
+              "required": false,
+              "defaultMatch": true,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "idea",
+              "displayName": "idea",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "post_text",
+              "displayName": "post_text",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "image_prompt",
+              "displayName": "image_prompt",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "media_type",
+              "displayName": "media_type",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "media_url",
+              "displayName": "media_url",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "post_title",
+              "displayName": "post_title",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "telegram_chat_id",
+              "displayName": "telegram_chat_id",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "telegram_message_id",
+              "displayName": "telegram_message_id",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "telegram_file_id",
+              "displayName": "telegram_file_id",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "posted_at",
+              "displayName": "posted_at",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "b202671f-96cd-475c-9595-b586ec3cb00d",
+      "name": "Update Sheet - Awaiting Edit Text",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.4,
+      "position": [
+        1728,
+        896
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "qLoD5jkKy9ilWSZW",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1g6GeHxttCiBx2JOx_k1wJ9JlnMlpESDakSQLeiPqBDk/edit?gid=0#gid=0",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1-iP9zdvVumFurSDacVb2ub9d6BsKkM6-KScRWF0JBfk/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "post_id": "={{ $('Parse Callback Data').item.json.post_id }}",
+            "status": "awaiting_edit_image"
+          },
+          "matchingColumns": [
+            "post_id"
+          ],
+          "schema": [
+            {
+              "id": "post_id",
+              "displayName": "post_id",
+              "required": false,
+              "defaultMatch": true,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "idea",
+              "displayName": "idea",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "post_text",
+              "displayName": "post_text",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "image_prompt",
+              "displayName": "image_prompt",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "media_type",
+              "displayName": "media_type",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "media_url",
+              "displayName": "media_url",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "post_title",
+              "displayName": "post_title",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "telegram_chat_id",
+              "displayName": "telegram_chat_id",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "telegram_message_id",
+              "displayName": "telegram_message_id",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "telegram_file_id",
+              "displayName": "telegram_file_id",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "posted_at",
+              "displayName": "posted_at",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "818529af-4fa5-450c-a99f-034019695032",
+      "name": "Update Sheet - Awaiting Edit Image",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.4,
+      "position": [
+        1728,
+        1056
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "qLoD5jkKy9ilWSZW",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ 'https://api.telegram.org/bot' + $('Config - Bot Token (Handler)').item.json.telegram_bot_token + '/sendMessage' }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { chat_id: $('Parse Callback Data').item.json.chat_id, text: '✏️ Reply with the change you want for the TEXT of post #' + $('Parse Callback Data').item.json.post_id } }}",
+        "options": {}
+      },
+      "id": "1f034a66-34ee-4f9d-8037-1bd6ee3b134a",
+      "name": "Ask For Text Change",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1952,
+        896
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ 'https://api.telegram.org/bot' + $('Config - Bot Token (Handler)').item.json.telegram_bot_token + '/sendMessage' }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { chat_id: $('Parse Callback Data').item.json.chat_id, text: '🖼️ Reply with the change you want for the IMAGE of post #' + $('Parse Callback Data').item.json.post_id } }}",
+        "options": {}
+      },
+      "id": "b91b5963-a42b-4003-a3ea-83c410207abe",
+      "name": "Ask For Image Change",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1952,
+        1056
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const msg = $json.message;\nreturn [{ json: { incoming_text: msg.text, chat_id: msg.chat.id } }];"
+      },
+      "id": "716a6687-42f3-4039-913a-b6d59b9f9eb7",
+      "name": "Extract Incoming Message",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1008,
+        1344
+      ]
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1g6GeHxttCiBx2JOx_k1wJ9JlnMlpESDakSQLeiPqBDk/edit?gid=0#gid=0",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1g6GeHxttCiBx2JOx_k1wJ9JlnMlpESDakSQLeiPqBDk/edit#gid=0"
+        },
+        "options": {}
+      },
+      "id": "59968620-13e4-47e3-aacb-dd2e18631af6",
+      "name": "Get All Sheet Rows",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.4,
+      "position": [
+        1232,
+        1344
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "qLoD5jkKy9ilWSZW",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const target = $('Extract Incoming Message').first().json;\nconst rows = $input.all();\nconst match = rows.find(r => String(r.json.telegram_chat_id) === String(target.chat_id)\n  && ['awaiting_edit_content', 'awaiting_edit_image'].includes(r.json.status));\nif (!match) { return [{ json: { found: false, chat_id: target.chat_id } }]; }\nreturn [{ json: { found: true, ...match.json, incoming_text: target.incoming_text, chat_id: target.chat_id } }];"
+      },
+      "id": "a114e74f-2c36-4626-8caa-efdad8c74a2e",
+      "name": "Find Row Awaiting Edit",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1456,
+        1344
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "found-check",
+              "leftValue": "={{ $json.found ? 'yes' : 'no' }}",
+              "rightValue": "yes",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "65ff7f45-0bec-421d-a66d-44c1e3aa455f",
+      "name": "Any Awaiting Edit Found?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        1680,
+        1344
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ 'https://api.telegram.org/bot' + $('Config - Bot Token (Handler)').item.json.telegram_bot_token + '/sendMessage' }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { chat_id: $json.chat_id, text: 'There\\'s no draft currently waiting on your edits.' } }}",
+        "options": {}
+      },
+      "id": "103221d1-d392-46a5-b4fd-1de36f2f6700",
+      "name": "Send - Nothing Pending",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1904,
+        1488
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.status }}",
+                    "rightValue": "awaiting_edit_content",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "6c9b45db-68d4-413c-ba3c-375d39a7bd43"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "edit_content"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.status }}",
+                    "rightValue": "awaiting_edit_image",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "0975a1f3-c848-42cd-b27f-ed243aa8e4f2"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "edit_image"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "5227f388-259e-4833-ba2b-ecf6f673af9a",
+      "name": "Switch on Pending Status",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        1904,
+        1344
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const idea = $json.idea;\nconst currentText = $json.post_text;\nconst change = $json.incoming_text;\nconst prompt = 'Here is the current LinkedIn post draft:\\n\"\"\"' + currentText + '\"\"\"\\n\\n'\n  + 'The original idea/topic was: \"' + idea + '\"\\n\\n'\n  + 'The user wants this change applied: \"' + change + '\"\\n\\n'\n  + 'Rewrite the LinkedIn post applying that change, keeping the rest of the good parts intact. '\n  + 'Return ONLY the updated post text, no preamble, no quotation marks, no markdown.';\nreturn [{ json: { text_prompt: prompt } }];"
+      },
+      "id": "a201df47-93a1-403f-90b7-639e292aa11c",
+      "name": "Build Rewrite Prompt",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2128,
+        1248
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googlePalmApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { contents: [ { parts: [ { text: $json.text_prompt } ] } ] } }}",
+        "options": {}
+      },
+      "id": "2bac87db-82da-467c-ba63-3d5849ac8cff",
+      "name": "Gemini - Rewrite Text",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2352,
+        1248
+      ],
+      "credentials": {
+        "googlePalmApi": {
+          "id": "JZpvtd0FFFyD5jZa",
+          "name": "Paid API Key"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const res = $json;\nconst text = res.candidates?.[0]?.content?.parts?.map(p => p.text || '').join('').trim();\nif (!text) { throw new Error('Gemini did not return post text: ' + JSON.stringify(res)); }\nreturn [{ json: { post_text: text } }];"
+      },
+      "id": "644de05a-ac06-48f5-a28f-3c734da07db9",
+      "name": "Extract Rewritten Text",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2576,
+        1248
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ 'https://api.telegram.org/bot' + $('Config - Bot Token (Handler)').item.json.telegram_bot_token + '/sendPhoto' }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { chat_id: $('Find Row Awaiting Edit').item.json.chat_id, photo: $('Find Row Awaiting Edit').item.json.telegram_file_id, caption: $('Extract Rewritten Text').item.json.post_text, reply_markup: { inline_keyboard: [ [ { text: '✅ Approve', callback_data: 'approve|' + $('Find Row Awaiting Edit').item.json.post_id }, { text: '❌ Reject', callback_data: 'reject|' + $('Find Row Awaiting Edit').item.json.post_id } ], [ { text: '✏️ Edit Text', callback_data: 'edit_content|' + $('Find Row Awaiting Edit').item.json.post_id }, { text: '🖼️ Edit Image', callback_data: 'edit_image|' + $('Find Row Awaiting Edit').item.json.post_id } ] ] } } }}",
+        "options": {}
+      },
+      "id": "0b0bb649-1c53-421d-823f-9e963a217c03",
+      "name": "Send Updated Draft (Text Edit)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2800,
+        1248
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1g6GeHxttCiBx2JOx_k1wJ9JlnMlpESDakSQLeiPqBDk/edit?gid=0#gid=0",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1-iP9zdvVumFurSDacVb2ub9d6BsKkM6-KScRWF0JBfk/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "post_id": "={{ $('Find Row Awaiting Edit').item.json.post_id }}",
+            "post_text": "={{ $('Extract Rewritten Text').item.json.post_text }}",
+            "status": "awaiting_review",
+            "telegram_message_id": "={{ $json.result ? $json.result.message_id : $json.message_id }}"
+          },
+          "matchingColumns": [
+            "post_id"
+          ],
+          "schema": [
+            {
+              "id": "post_id",
+              "displayName": "post_id",
+              "required": false,
+              "defaultMatch": true,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "idea",
+              "displayName": "idea",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "post_text",
+              "displayName": "post_text",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "image_prompt",
+              "displayName": "image_prompt",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "media_type",
+              "displayName": "media_type",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "media_url",
+              "displayName": "media_url",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "post_title",
+              "displayName": "post_title",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "telegram_chat_id",
+              "displayName": "telegram_chat_id",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "telegram_message_id",
+              "displayName": "telegram_message_id",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "telegram_file_id",
+              "displayName": "telegram_file_id",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "posted_at",
+              "displayName": "posted_at",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "84f5fcca-221f-408d-a8c3-5e2b49d4b9a6",
+      "name": "Update Sheet - Applied Text Edit",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.4,
+      "position": [
+        3024,
+        1248
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "qLoD5jkKy9ilWSZW",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const change = $json.incoming_text;\nconst prompt = 'Edit the attached image as follows: \"' + change + '\". Keep it professional, minimal, '\n  + 'and suitable as a LinkedIn post image. Do not add any text overlays, logos or watermarks.';\nreturn [{ json: { ...$json, edit_prompt: prompt } }];"
+      },
+      "id": "f3c7f377-7f8e-43c7-a1ea-7a65c2cca723",
+      "name": "Build Image Edit Prompt",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2128,
+        1488
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $json.media_url }}",
+          "mode": "url"
+        },
+        "options": {}
+      },
+      "id": "c777b4ef-39a3-41ec-aa88-2045256b796a",
+      "name": "Download Current Image From Drive",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        2352,
+        1488
+      ],
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "taw0ArT9nORumnHs",
+          "name": "Google Drive account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const buffer = await this.helpers.getBinaryDataBuffer(0, 'data');\nconst base64 = buffer.toString('base64');\nreturn [{ json: { image_base64: base64 } }];"
+      },
+      "id": "4a0a8775-f884-4214-9eca-6f3a46ecea6f",
+      "name": "Convert Image Binary to Base64",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2576,
+        1488
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image:generateContent",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googlePalmApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { contents: [ { parts: [ { inline_data: { mime_type: 'image/png', data: $json.image_base64 } }, { text: $('Build Image Edit Prompt').item.json.edit_prompt } ] } ], generationConfig: { responseModalities: [\"IMAGE\"] } } }}",
+        "options": {}
+      },
+      "id": "db152c30-5d36-4301-9b96-4aa450417add",
+      "name": "Gemini - Edit Image",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2800,
+        1488
+      ],
+      "credentials": {
+        "googlePalmApi": {
+          "id": "JZpvtd0FFFyD5jZa",
+          "name": "Paid API Key"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const res = $json;\nconst parts = res.candidates?.[0]?.content?.parts || [];\nconst imgPart = parts.find(p => p.inlineData || p.inline_data);\nconst inline = imgPart ? (imgPart.inlineData || imgPart.inline_data) : null;\nif (!inline) { throw new Error('Gemini did not return image data: ' + JSON.stringify(res)); }\nreturn [{ json: { image_base64: inline.data, mime_type: inline.mimeType || inline.mime_type || 'image/png' } }];"
+      },
+      "id": "6240251e-2dad-4494-b119-540a259c1808",
+      "name": "Extract Edited Image",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3024,
+        1488
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "jsonToBinary",
+        "convertAllData": false,
+        "sourceKey": "image_base64",
+        "options": {
+          "fileName": "post-image-edited.png",
+          "mimeType": "={{ $json.mime_type }}"
+        }
+      },
+      "id": "0d927b25-cd73-4f2c-a2c6-5db9cade8328",
+      "name": "Convert Edited Image to Binary",
+      "type": "n8n-nodes-base.moveBinaryData",
+      "typeVersion": 1,
+      "position": [
+        3248,
+        1488
+      ]
+    },
+    {
+      "parameters": {
+        "name": "={{ 'post-' + $('Find Row Awaiting Edit').item.json.post_id + '-edited.png' }}",
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "root",
+          "cachedResultName": "/ (Root folder)"
+        },
+        "options": {}
+      },
+      "id": "bf35fc24-1eaa-4dfb-965d-c4105afc8597",
+      "name": "Upload Edited Image to Drive",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        3472,
+        1392
+      ],
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "taw0ArT9nORumnHs",
+          "name": "Google Drive account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ 'https://api.telegram.org/bot' + $('Config - Bot Token (Handler)').item.json.telegram_bot_token + '/sendPhoto' }}",
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "chat_id",
+              "value": "={{ $('Find Row Awaiting Edit').item.json.chat_id }}"
+            },
+            {
+              "name": "caption",
+              "value": "={{ $('Find Row Awaiting Edit').item.json.post_text }}"
+            },
+            {
+              "name": "reply_markup",
+              "value": "={{ JSON.stringify({ inline_keyboard: [ [ { text: '✅ Approve', callback_data: 'approve|' + $('Find Row Awaiting Edit').item.json.post_id }, { text: '❌ Reject', callback_data: 'reject|' + $('Find Row Awaiting Edit').item.json.post_id } ], [ { text: '✏️ Edit Text', callback_data: 'edit_content|' + $('Find Row Awaiting Edit').item.json.post_id }, { text: '🖼️ Edit Image', callback_data: 'edit_image|' + $('Find Row Awaiting Edit').item.json.post_id } ] ] }) }}"
+            },
+            {
+              "parameterType": "formBinaryData",
+              "name": "photo",
+              "inputDataFieldName": "data"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "f8288e59-d2be-433d-a657-beda5e0b1b75",
+      "name": "Send Updated Draft (Image Edit)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3472,
+        1584
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combinationMode": "mergeByPosition",
+        "options": {}
+      },
+      "id": "e1e8febb-c4ed-44ff-af03-6a19625bcfb9",
+      "name": "Merge Edited Image Info",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2.1,
+      "position": [
+        3696,
+        1488
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1g6GeHxttCiBx2JOx_k1wJ9JlnMlpESDakSQLeiPqBDk/edit?gid=0#gid=0",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1-iP9zdvVumFurSDacVb2ub9d6BsKkM6-KScRWF0JBfk/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "post_id": "={{ $('Find Row Awaiting Edit').item.json.post_id }}",
+            "media_url": "={{ $json.id }}",
+            "status": "awaiting_review",
+            "telegram_message_id": "={{ $json.result ? $json.result.message_id : $json.message_id }}",
+            "telegram_file_id": "={{ (($json.result ? $json.result.photo : $json.photo) || []).slice(-1)[0]?.file_id }}"
+          },
+          "matchingColumns": [
+            "post_id"
+          ],
+          "schema": [
+            {
+              "id": "post_id",
+              "displayName": "post_id",
+              "required": false,
+              "defaultMatch": true,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "idea",
+              "displayName": "idea",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "post_text",
+              "displayName": "post_text",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "image_prompt",
+              "displayName": "image_prompt",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "media_type",
+              "displayName": "media_type",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "media_url",
+              "displayName": "media_url",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "post_title",
+              "displayName": "post_title",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "telegram_chat_id",
+              "displayName": "telegram_chat_id",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "telegram_message_id",
+              "displayName": "telegram_message_id",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "telegram_file_id",
+              "displayName": "telegram_file_id",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "posted_at",
+              "displayName": "posted_at",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "ee389248-5f19-4f26-ac10-7fb37427fef9",
+      "name": "Update Sheet - Applied Image Edit",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.4,
+      "position": [
+        3920,
+        1488
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "qLoD5jkKy9ilWSZW",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 8 * * *"
+            },
+            {
+              "field": "cronExpression",
+              "expression": "30 17 * * *"
+            }
+          ]
+        }
+      },
+      "id": "6a50656d-25fd-4a4a-831f-40f9f6bb85e4",
+      "name": "Schedule - Publish Approved Posts",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        320,
+        2608
+      ]
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1g6GeHxttCiBx2JOx_k1wJ9JlnMlpESDakSQLeiPqBDk/edit?gid=0#gid=0",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1g6GeHxttCiBx2JOx_k1wJ9JlnMlpESDakSQLeiPqBDk/edit#gid=0"
+        },
+        "options": {}
+      },
+      "id": "5707d3f9-dd5b-4c0c-9927-85d14ed52bc6",
+      "name": "Get Approved Posts",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.4,
+      "position": [
+        544,
+        2608
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "qLoD5jkKy9ilWSZW",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "filter-approved-only",
+              "leftValue": "={{ $json.status }}",
+              "rightValue": "approved",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "32d6ca9d-4032-43af-9d0e-0859ca6db31a",
+      "name": "Filter Status = approved",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2,
+      "position": [
+        768,
+        2608
+      ]
+    },
+    {
+      "parameters": {
+        "sortFieldsUi": {
+          "sortField": [
+            {
+              "fieldName": "post_id"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "69e7e5a4-dc07-490c-9f73-9020b8d88a33",
+      "name": "Sort Approved by post_id",
+      "type": "n8n-nodes-base.sort",
+      "typeVersion": 1,
+      "position": [
+        992,
+        2608
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "eddb1cd6-a819-4b50-8fa6-a118c62e22ef",
+      "name": "Take First Approved Row",
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        1216,
+        2608
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "check-has-approved",
+              "leftValue": "={{ $json.post_id.toString() }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "2670c140-ab2b-4684-bf39-89c0ae77c098",
+      "name": "Any Approved Post?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        1440,
+        2608
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.media_type }}",
+                    "rightValue": "image",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "6b5aeba5-6023-4d2a-85c1-5e79e4d710e8"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "image"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.media_type }}",
+                    "rightValue": "pdf",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "d261f65b-2a2d-4eb5-9f90-bb0840deae0b"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "pdf"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.media_type }}",
+                    "rightValue": "none",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "2101d205-b2d5-48b1-966c-99084e5a1c41"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "none"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a74fb49e-2072-4dba-8207-fa91f4e2e8ed",
+      "name": "Switch on media_type",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        1664,
+        2576
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $json.media_url }}",
+          "mode": "url"
+        },
+        "options": {}
+      },
+      "id": "7b4298ec-8210-45ee-90d4-664bf7021a1e",
+      "name": "Download Image from Drive",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        2160,
+        2272
+      ],
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "taw0ArT9nORumnHs",
+          "name": "Google Drive account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $json.media_url }}",
+          "mode": "url"
+        },
+        "options": {}
+      },
+      "id": "4634f0a4-f489-4cce-b369-42d20a6201eb",
+      "name": "Download PDF from Drive",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        2352,
+        2592
+      ],
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "taw0ArT9nORumnHs",
+          "name": "Google Drive account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.linkedin.com/v2/assets?action=registerUpload",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-Restli-Protocol-Version",
+              "value": "2.0.0"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ {\n  \"registerUploadRequest\": {\n    \"recipes\": [\"urn:li:digitalmediaRecipe:feedshare-image\"],\n    \"owner\": \"urn:li:person:Fqa_q-MHod\",\n    \"serviceRelationships\": [{\n      \"relationshipType\": \"OWNER\",\n      \"identifier\": \"urn:li:userGeneratedContent\"\n    }]\n  }\n} }}",
+        "options": {}
+      },
+      "id": "06c5ce7d-2fb3-4c64-84f1-0181cfecb93f",
+      "name": "Register Image Upload",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2384,
+        2048
+      ],
+      "credentials": {
+        "oAuth2Api": {
+          "id": "9vezc8RBOmSCEXyP",
+          "name": "Unnamed credential 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combinationMode": "mergeByPosition",
+        "options": {}
+      },
+      "id": "50e4fe66-bd91-4849-a9e5-2da8b22d25e7",
+      "name": "Merge Image Data",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2.1,
+      "position": [
+        2592,
+        2224
+      ]
+    },
+    {
+      "parameters": {
+        "method": "PUT",
+        "url": "={{ $json.value.uploadMechanism['com.linkedin.digitalmedia.uploading.MediaUploadHttpRequest'].uploadUrl }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/octet-stream"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "binaryData",
+        "inputDataFieldName": "data",
+        "options": {}
+      },
+      "id": "6ff8e27f-8165-4bc4-9009-32df4a7c53e5",
+      "name": "Upload Image Binary to LinkedIn",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2880,
+        2272
+      ],
+      "credentials": {
+        "oAuth2Api": {
+          "id": "9vezc8RBOmSCEXyP",
+          "name": "Unnamed credential 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.linkedin.com/v2/assets?action=registerUpload",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-Restli-Protocol-Version",
+              "value": "2.0.0"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ {\n  \"registerUploadRequest\": {\n    \"recipes\": [\"urn:li:digitalmediaRecipe:feedshare-document\"],\n    \"owner\": \"urn:li:person:Fqa_q-MHod\",\n    \"serviceRelationships\": [{\n      \"relationshipType\": \"OWNER\",\n      \"identifier\": \"urn:li:userGeneratedContent\"\n    }]\n  }\n} }}",
+        "options": {}
+      },
+      "id": "decf1f00-ebac-4f97-bcb0-4c496d28772a",
+      "name": "Register PDF Upload",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2592,
+        2512
+      ],
+      "credentials": {
+        "oAuth2Api": {
+          "id": "9vezc8RBOmSCEXyP",
+          "name": "Unnamed credential 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "mergeByFields": {
+          "values": [
+            {}
+          ]
+        },
+        "options": {}
+      },
+      "id": "e80de2db-d8f9-44cf-9c38-813044d9411a",
+      "name": "Merge PDF Data",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2.1,
+      "position": [
+        2848,
+        2592
+      ]
+    },
+    {
+      "parameters": {
+        "method": "PUT",
+        "url": "={{ $json.value.uploadMechanism['com.linkedin.digitalmedia.uploading.MediaUploadHttpRequest'].uploadUrl }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/pdf"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "binaryData",
+        "inputDataFieldName": "data",
+        "options": {}
+      },
+      "id": "899b6e75-b6eb-4fbb-9228-fe6d93f590cf",
+      "name": "Upload PDF Binary to LinkedIn",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3008,
+        2592
+      ],
+      "credentials": {
+        "oAuth2Api": {
+          "id": "9vezc8RBOmSCEXyP",
+          "name": "Unnamed credential 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.linkedin.com/v2/ugcPosts",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
+        "sendHeaders": true,
+        "specifyHeaders": "json",
+        "jsonHeaders": "={\n  \"X-Restli-Protocol-Version\": \"2.0.0\",\n  \"Content-Type\": \"application/json\"\n}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{\n  {\n    \"author\": \"urn:li:person:Fqa_q-MHod\",\n    \"lifecycleState\": \"PUBLISHED\",\n    \"specificContent\": {\n      \"com.linkedin.ugc.ShareContent\": {\n        \"shareCommentary\": {\n          \"text\": $('Take First Approved Row').item.json.post_text\n        },\n        \"shareMediaCategory\": \"IMAGE\",\n        \"media\": [\n          {\n            \"status\": \"READY\",\n            \"media\": $('Register Image Upload').item.json.value.asset\n          }\n        ]\n      }\n    },\n    \"visibility\": {\n      \"com.linkedin.ugc.MemberNetworkVisibility\": \"PUBLIC\"\n    }\n  }\n}}",
+        "options": {}
+      },
+      "id": "3268ebbe-05c6-4a37-b10f-4d0ff9613912",
+      "name": "Post with Image",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3024,
+        2272
+      ],
+      "credentials": {
+        "oAuth2Api": {
+          "id": "9vezc8RBOmSCEXyP",
+          "name": "Unnamed credential 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.linkedin.com/v2/ugcPosts",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-Restli-Protocol-Version",
+              "value": "2.0.0"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ {\n  \"author\": \"urn:li:person:Fqa_q-MHod\",\n  \"lifecycleState\": \"PUBLISHED\",\n  \"specificContent\": {\n    \"com.linkedin.ugc.ShareContent\": {\n      \"shareCommentary\": {\n        \"text\": $('Take First Approved Row').item.json.post_text\n      },\n      \"shareMediaCategory\": \"RICH\",\n      \"media\": [\n        {\n          \"status\": \"READY\",\n          \"media\": $('Register PDF Upload').item.json.value.asset,\n          \"title\": {\n            \"text\": $('Take First Approved Row').item.json.post_title\n          }\n        }\n      ]\n    }\n  },\n  \"visibility\": {\n    \"com.linkedin.ugc.MemberNetworkVisibility\": \"PUBLIC\"\n  }\n} }}",
+        "options": {}
+      },
+      "id": "28b2e2e1-f738-4baf-a500-a53950418bfc",
+      "name": "Post with PDF",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3216,
+        2592
+      ],
+      "credentials": {
+        "oAuth2Api": {
+          "id": "9vezc8RBOmSCEXyP",
+          "name": "Unnamed credential 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.linkedin.com/v2/ugcPosts",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-Restli-Protocol-Version",
+              "value": "2.0.0"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ {\n  \"author\": \"urn:li:person:Fqa_q-MHod\",\n  \"lifecycleState\": \"PUBLISHED\",\n  \"specificContent\": {\n    \"com.linkedin.ugc.ShareContent\": {\n      \"shareCommentary\": {\n        \"text\": $('Take First Approved Row').item.json.post_text\n      },\n      \"shareMediaCategory\": \"NONE\"\n    }\n  },\n  \"visibility\": {\n    \"com.linkedin.ugc.MemberNetworkVisibility\": \"PUBLIC\"\n  }\n} }}",
+        "options": {}
+      },
+      "id": "1fe993ef-cdf4-4789-a306-e0bd5fc91cd8",
+      "name": "Post Text Only",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3184,
+        2960
+      ],
+      "credentials": {
+        "oAuth2Api": {
+          "id": "9vezc8RBOmSCEXyP",
+          "name": "Unnamed credential 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1g6GeHxttCiBx2JOx_k1wJ9JlnMlpESDakSQLeiPqBDk/edit?gid=0#gid=0",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1-iP9zdvVumFurSDacVb2ub9d6BsKkM6-KScRWF0JBfk/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "post_id": "={{ $('Take First Approved Row').item.json.post_id }}",
+            "status": "posted",
+            "posted_at": "={{ new Date().toISOString() }}"
+          },
+          "matchingColumns": [
+            "post_id"
+          ],
+          "schema": [
+            {
+              "id": "post_id",
+              "displayName": "post_id",
+              "required": false,
+              "defaultMatch": true,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "idea",
+              "displayName": "idea",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "post_text",
+              "displayName": "post_text",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "image_prompt",
+              "displayName": "image_prompt",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "media_type",
+              "displayName": "media_type",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "media_url",
+              "displayName": "media_url",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "post_title",
+              "displayName": "post_title",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "telegram_chat_id",
+              "displayName": "telegram_chat_id",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "telegram_message_id",
+              "displayName": "telegram_message_id",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "telegram_file_id",
+              "displayName": "telegram_file_id",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "posted_at",
+              "displayName": "posted_at",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "b7579eca-a139-415e-aa77-dabbcc2ab96f",
+      "name": "Mark as Posted (Image)",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.4,
+      "position": [
+        3248,
+        2272
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "qLoD5jkKy9ilWSZW",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1g6GeHxttCiBx2JOx_k1wJ9JlnMlpESDakSQLeiPqBDk/edit?gid=0#gid=0",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1-iP9zdvVumFurSDacVb2ub9d6BsKkM6-KScRWF0JBfk/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "post_id": "={{ $('Take First Approved Row').item.json.post_id }}",
+            "status": "posted",
+            "posted_at": "={{ new Date().toISOString() }}"
+          },
+          "matchingColumns": [
+            "post_id"
+          ],
+          "schema": [
+            {
+              "id": "post_id",
+              "displayName": "post_id",
+              "required": false,
+              "defaultMatch": true,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "idea",
+              "displayName": "idea",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "post_text",
+              "displayName": "post_text",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "image_prompt",
+              "displayName": "image_prompt",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "media_type",
+              "displayName": "media_type",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "media_url",
+              "displayName": "media_url",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "post_title",
+              "displayName": "post_title",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "telegram_chat_id",
+              "displayName": "telegram_chat_id",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "telegram_message_id",
+              "displayName": "telegram_message_id",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "telegram_file_id",
+              "displayName": "telegram_file_id",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "posted_at",
+              "displayName": "posted_at",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "2a05a4ef-e25f-4dff-9125-dfebd38c38b6",
+      "name": "Mark as Posted (PDF)",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.4,
+      "position": [
+        3424,
+        2592
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "qLoD5jkKy9ilWSZW",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1g6GeHxttCiBx2JOx_k1wJ9JlnMlpESDakSQLeiPqBDk/edit?gid=0#gid=0",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1-iP9zdvVumFurSDacVb2ub9d6BsKkM6-KScRWF0JBfk/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "post_id": "={{ $('Take First Approved Row').item.json.post_id }}",
+            "status": "posted",
+            "posted_at": "={{ new Date().toISOString() }}"
+          },
+          "matchingColumns": [
+            "post_id"
+          ],
+          "schema": [
+            {
+              "id": "post_id",
+              "displayName": "post_id",
+              "required": false,
+              "defaultMatch": true,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "idea",
+              "displayName": "idea",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "post_text",
+              "displayName": "post_text",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "image_prompt",
+              "displayName": "image_prompt",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "media_type",
+              "displayName": "media_type",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "media_url",
+              "displayName": "media_url",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "post_title",
+              "displayName": "post_title",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "telegram_chat_id",
+              "displayName": "telegram_chat_id",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "telegram_message_id",
+              "displayName": "telegram_message_id",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "telegram_file_id",
+              "displayName": "telegram_file_id",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "posted_at",
+              "displayName": "posted_at",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "91fc2212-4fd7-4859-b735-156e5186e76e",
+      "name": "Mark as Posted (Text)",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.4,
+      "position": [
+        3456,
+        2960
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "qLoD5jkKy9ilWSZW",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ 'https://api.telegram.org/bot' + $('Config - Telegram Chat ID').item.json.telegram_bot_token + '/sendPhoto' }}",
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "chat_id",
+              "value": "={{ $('Config - Telegram Chat ID').item.json.telegram_chat_id }}"
+            },
+            {
+              "parameterType": "formBinaryData",
+              "name": "photo",
+              "inputDataFieldName": "data"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "3cc7ef25-e0a4-4d1f-afc6-b1550813743c",
+      "name": "Send Draft to Telegram (Photo)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3200,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ 'https://api.telegram.org/bot' + $('Config - Telegram Chat ID').item.json.telegram_bot_token + '/sendMessage' }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { chat_id: $('Config - Telegram Chat ID').item.json.telegram_chat_id, text: $('Extract Post Text').item.json.post_text, reply_markup: { inline_keyboard: [ [ { text: '✅ Approve', callback_data: 'approve|' + $('Take First Idea').item.json.post_id }, { text: '❌ Reject', callback_data: 'reject|' + $('Take First Idea').item.json.post_id } ], [ { text: '✏️ Edit Text', callback_data: 'edit_content|' + $('Take First Idea').item.json.post_id }, { text: '🖼️ Edit Image', callback_data: 'edit_image|' + $('Take First Idea').item.json.post_id } ] ] } } }}",
+        "options": {}
+      },
+      "id": "37cb2737-9a90-4223-b007-9a7b0dcb6a83",
+      "name": "Send Draft to Telegram (Text)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3328,
+        400
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule - Check For New Ideas": {
+      "main": [
+        [
+          {
+            "node": "Get Idea Rows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Idea Rows": {
+      "main": [
+        [
+          {
+            "node": "Filter Status = idea",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter Status = idea": {
+      "main": [
+        [
+          {
+            "node": "Sort Ideas by post_id",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sort Ideas by post_id": {
+      "main": [
+        [
+          {
+            "node": "Take First Idea",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Take First Idea": {
+      "main": [
+        [
+          {
+            "node": "Any Idea Found?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Any Idea Found?": {
+      "main": [
+        [
+          {
+            "node": "Config - Telegram Chat ID",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Config - Telegram Chat ID": {
+      "main": [
+        [
+          {
+            "node": "Build Text Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Text Prompt": {
+      "main": [
+        [
+          {
+            "node": "Gemini - Generate Post Text",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gemini - Generate Post Text": {
+      "main": [
+        [
+          {
+            "node": "Extract Post Text",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Post Text": {
+      "main": [
+        [
+          {
+            "node": "Build Image Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Image Prompt": {
+      "main": [
+        [
+          {
+            "node": "Gemini - Generate Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gemini - Generate Image": {
+      "main": [
+        [
+          {
+            "node": "Extract Generated Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Generated Image": {
+      "main": [
+        [
+          {
+            "node": "Convert Image Base64 to Binary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert Image Base64 to Binary": {
+      "main": [
+        [
+          {
+            "node": "Upload Image to Drive",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Send Draft to Telegram (Photo)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload Image to Drive": {
+      "main": [
+        [
+          {
+            "node": "Merge Drive + Telegram Info",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Draft to Telegram": {
+      "main": [
+        []
+      ]
+    },
+    "Merge Drive + Telegram Info": {
+      "main": [
+        [
+          {
+            "node": "Save Review State to Sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Config - Bot Token (Handler)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Config - Bot Token (Handler)": {
+      "main": [
+        [
+          {
+            "node": "Is Callback Query?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Callback Query?": {
+      "main": [
+        [
+          {
+            "node": "Parse Callback Data",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Is Plain Text Message?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Plain Text Message?": {
+      "main": [
+        [
+          {
+            "node": "Extract Incoming Message",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "NoOp - Ignore Other Updates",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Callback Data": {
+      "main": [
+        [
+          {
+            "node": "Answer Callback Query",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Answer Callback Query": {
+      "main": [
+        [
+          {
+            "node": "Edit Message - Update Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Message - Update Status": {
+      "main": [
+        [
+          {
+            "node": "Switch on Action",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch on Action": {
+      "main": [
+        [
+          {
+            "node": "Update Sheet - Approved",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Update Sheet - Rejected",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Update Sheet - Awaiting Edit Text",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Update Sheet - Awaiting Edit Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Sheet - Awaiting Edit Text": {
+      "main": [
+        [
+          {
+            "node": "Ask For Text Change",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Sheet - Awaiting Edit Image": {
+      "main": [
+        [
+          {
+            "node": "Ask For Image Change",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Incoming Message": {
+      "main": [
+        [
+          {
+            "node": "Get All Sheet Rows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get All Sheet Rows": {
+      "main": [
+        [
+          {
+            "node": "Find Row Awaiting Edit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find Row Awaiting Edit": {
+      "main": [
+        [
+          {
+            "node": "Any Awaiting Edit Found?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Any Awaiting Edit Found?": {
+      "main": [
+        [
+          {
+            "node": "Switch on Pending Status",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send - Nothing Pending",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch on Pending Status": {
+      "main": [
+        [
+          {
+            "node": "Build Rewrite Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Build Image Edit Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Rewrite Prompt": {
+      "main": [
+        [
+          {
+            "node": "Gemini - Rewrite Text",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gemini - Rewrite Text": {
+      "main": [
+        [
+          {
+            "node": "Extract Rewritten Text",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Rewritten Text": {
+      "main": [
+        [
+          {
+            "node": "Send Updated Draft (Text Edit)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Updated Draft (Text Edit)": {
+      "main": [
+        [
+          {
+            "node": "Update Sheet - Applied Text Edit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Image Edit Prompt": {
+      "main": [
+        [
+          {
+            "node": "Download Current Image From Drive",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download Current Image From Drive": {
+      "main": [
+        [
+          {
+            "node": "Convert Image Binary to Base64",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert Image Binary to Base64": {
+      "main": [
+        [
+          {
+            "node": "Gemini - Edit Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gemini - Edit Image": {
+      "main": [
+        [
+          {
+            "node": "Extract Edited Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Edited Image": {
+      "main": [
+        [
+          {
+            "node": "Convert Edited Image to Binary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert Edited Image to Binary": {
+      "main": [
+        [
+          {
+            "node": "Upload Edited Image to Drive",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Send Updated Draft (Image Edit)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload Edited Image to Drive": {
+      "main": [
+        [
+          {
+            "node": "Merge Edited Image Info",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Updated Draft (Image Edit)": {
+      "main": [
+        [
+          {
+            "node": "Merge Edited Image Info",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge Edited Image Info": {
+      "main": [
+        [
+          {
+            "node": "Update Sheet - Applied Image Edit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule - Publish Approved Posts": {
+      "main": [
+        [
+          {
+            "node": "Get Approved Posts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Approved Posts": {
+      "main": [
+        [
+          {
+            "node": "Filter Status = approved",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter Status = approved": {
+      "main": [
+        [
+          {
+            "node": "Sort Approved by post_id",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sort Approved by post_id": {
+      "main": [
+        [
+          {
+            "node": "Take First Approved Row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Take First Approved Row": {
+      "main": [
+        [
+          {
+            "node": "Any Approved Post?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Any Approved Post?": {
+      "main": [
+        [
+          {
+            "node": "Switch on media_type",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch on media_type": {
+      "main": [
+        [
+          {
+            "node": "Download Image from Drive",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Download PDF from Drive",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Post Text Only",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download Image from Drive": {
+      "main": [
+        [
+          {
+            "node": "Register Image Upload",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge Image Data",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Register Image Upload": {
+      "main": [
+        [
+          {
+            "node": "Merge Image Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge Image Data": {
+      "main": [
+        [
+          {
+            "node": "Upload Image Binary to LinkedIn",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload Image Binary to LinkedIn": {
+      "main": [
+        [
+          {
+            "node": "Post with Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Post with Image": {
+      "main": [
+        [
+          {
+            "node": "Mark as Posted (Image)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download PDF from Drive": {
+      "main": [
+        [
+          {
+            "node": "Register PDF Upload",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge PDF Data",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Register PDF Upload": {
+      "main": [
+        [
+          {
+            "node": "Merge PDF Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge PDF Data": {
+      "main": [
+        [
+          {
+            "node": "Upload PDF Binary to LinkedIn",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload PDF Binary to LinkedIn": {
+      "main": [
+        [
+          {
+            "node": "Post with PDF",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Post with PDF": {
+      "main": [
+        [
+          {
+            "node": "Mark as Posted (PDF)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Post Text Only": {
+      "main": [
+        [
+          {
+            "node": "Mark as Posted (Text)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Draft to Telegram (Photo)": {
+      "main": [
+        [
+          {
+            "node": "Send Draft to Telegram (Text)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Draft to Telegram (Text)": {
+      "main": [
+        [
+          {
+            "node": "Merge Drive + Telegram Info",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "d12418ed-baad-492d-a6a3-86d1d08fe4d9",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "948f46cabdf7dc6a889894017bccf24e1310194e4724177faa2c33361769cff9"
+  },
+  "id": "KtM4DB3IcjSJ6dvH",
+  "tags": []
+}
