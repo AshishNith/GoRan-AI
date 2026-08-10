@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { useCalBooking } from '../components/CalBookingModal';
 import SEOHead from '../components/SEOHead';
-import { founderSchema, buildBreadcrumbSchema } from '../seo/schemas';
+import { founderSchema, coFounderSchema, buildBreadcrumbSchema } from '../seo/schemas';
 
 const timeline = [
   { stamp: '2020', event: 'Wrote first custom Python automation scripts to rescue local businesses from spreadsheet entry hell.' },
@@ -49,14 +49,15 @@ export default function Founder() {
   return (
     <main className="w-full bg-white relative overflow-hidden">
       <SEOHead
-        title="Ashish Ranjan — Founder & AI Systems Architect"
-        description="Ashish Ranjan is the founder of GoRan AI, India's leading AI automation agency. He architects autonomous multi-agent systems, voice AI pipelines, and enterprise automation solutions."
+        title="Founders & Leadership — Ashish Ranjan & Madhavendra Mishra | GoRan AI"
+        description="Meet Ashish Ranjan (Founder & AI Systems Architect) and Madhavendra Mishra (Co-Founder & AI Operations Lead), leading GoRan AI's autonomous business automation agency."
         canonicalPath="/founder"
         schema={[
           founderSchema,
+          coFounderSchema,
           buildBreadcrumbSchema([
             { name: 'Home', url: '/' },
-            { name: 'Ashish Ranjan — Founder' },
+            { name: 'Founders & Leadership' },
           ]),
         ]}
       />
@@ -98,7 +99,7 @@ export default function Founder() {
 
             <div className="w-full aspect-3/4 max-h-125 border border-brand-border bg-brand-bg-light overflow-hidden">
               <img
-                src="/Founder.png.png"
+                src="/Ashish.jpeg"
                 alt="Ashish Ranjan — Founder of GoRan AI, AI Systems Architect and Automation Expert in India"
                 className="w-full h-full object-cover"
               />
@@ -106,6 +107,8 @@ export default function Founder() {
           </div>
         </div>
       </section>
+
+
 
       {/* ──────────────────────────────────────── */}
       {/* CORE ARCHITECTURE — Biography */}

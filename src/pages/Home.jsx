@@ -10,6 +10,7 @@ import SEOHead from '../components/SEOHead';
 import { organizationSchema, localBusinessSchema, buildFAQSchema } from '../seo/schemas';
 import TestimonialsSection from '../components/TestimonialsSection';
 import { Button05 } from '../components/ui/arrow-dots-button';
+import InstagramReels from '../components/InstagramReels';
 
 export default function Home() {
   const { openCalBooking } = useCalBooking();
@@ -30,7 +31,7 @@ export default function Home() {
     <main className="w-full bg-white">
       <SEOHead
         title="GoRan AI — #1 AI Agency in India | AI Agents, Voice Agents & Automation"
-        description="GoRan AI is India's leading AI automation agency. We build custom AI calling agents, voice agents, WhatsApp agents, AI-powered CRMs, and autonomous business workflows. Founded by Ashish Ranjan."
+        description="GoRan AI is India's leading AI automation agency. We build custom AI calling agents, voice agents, WhatsApp agents, AI-powered CRMs, and autonomous business workflows. Founded by Ashish Ranjan & Madhavendra Mishra."
         canonicalPath="/"
         noSuffix
         schema={[organizationSchema, localBusinessSchema, buildFAQSchema(homeFaqs)]}
@@ -233,8 +234,125 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Leadership & Founders Section */}
+      <section className="py-20 md:py-28 bg-white border-t border-brand-border relative overflow-hidden" id="leadership">
+        <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle, #111 0.5px, transparent 0.5px)', backgroundSize: '40px 40px', opacity: 0.03 }} />
+        <div className="absolute top-1/2 left-[-5%] w-96 h-96 rounded-full bg-brand-yellow/5 blur-[120px] pointer-events-none" />
+        <div className="absolute bottom-0 right-[-5%] w-96 h-96 rounded-full bg-purple-500/5 blur-[120px] pointer-events-none" />
+
+        <div className="w-full max-w-300 mx-auto px-6 relative z-10">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 mb-3">
+              <span className="w-2.5 h-2.5 rounded-full bg-brand-yellow" />
+              <span className="text-xs font-semibold uppercase tracking-widest text-brand-text-muted">Leadership & Vision</span>
+            </div>
+            <h2 className="text-3xl md:text-5xl font-heading font-bold text-brand-dark leading-tight tracking-tight">
+              Meet the Founders Behind GoRan AI
+            </h2>
+            <p className="text-brand-text-muted text-base md:text-lg leading-relaxed max-w-2xl mx-auto mt-4">
+              Engineered by architects obsessed with operational scale, low-latency agentic workflows, and automated leverage.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 max-w-250 mx-auto">
+            {/* Ashish Ranjan - Founder */}
+            <div className="rounded-3xl border border-brand-border bg-gradient-to-b from-white to-brand-bg-light/60 p-6 md:p-8 flex flex-col justify-between hover:border-brand-yellow/50 transition-all duration-300 group hover:shadow-xl hover:shadow-black/5">
+              <div>
+                <div className="relative w-full aspect-[4/5] rounded-2xl overflow-hidden mb-6 border border-brand-border bg-brand-bg-light">
+                  <img
+                    src="/Ashish.jpeg"
+                    alt="Ashish Ranjan — Founder & AI Systems Architect"
+                    className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
+                  />
+                  <div className="absolute top-4 left-4 bg-brand-dark/90 backdrop-blur-md text-white text-[11px] font-semibold uppercase tracking-wider px-3 py-1.5 rounded-full border border-white/10">
+                    Founder
+                  </div>
+                </div>
+                <div className="flex items-center justify-between mb-2">
+                  <h3 className="text-2xl md:text-3xl font-heading font-bold text-brand-dark">Ashish Ranjan</h3>
+                  <a
+                    href="https://www.linkedin.com/in/ashish-ranjan-goran"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-9 h-9 rounded-full border border-brand-border flex items-center justify-center text-brand-dark hover:bg-brand-yellow hover:border-brand-yellow transition-colors duration-200"
+                    title="Ashish Ranjan LinkedIn"
+                  >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                    </svg>
+                  </a>
+                </div>
+                <p className="text-xs font-semibold uppercase tracking-widest text-brand-yellow mb-4">Founder & AI Systems Architect</p>
+                <p className="text-sm text-brand-text-muted leading-relaxed mb-6">
+                  Architects high-concurrency multi-agent swarms, custom LLM backends, and low-latency voice pipelines for enterprise workflows.
+                </p>
+              </div>
+              <div className="pt-4 border-t border-brand-border flex items-center justify-between">
+                <Link
+                  to="/founder"
+                  className="inline-flex items-center gap-2 text-xs font-bold text-brand-dark hover:text-brand-yellow transition-colors uppercase tracking-wider"
+                >
+                  View Founder Profile
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-300 group-hover:translate-x-1">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </Link>
+              </div>
+            </div>
+
+            {/* Madhavendra Mishra - Co-Founder */}
+            <div className="rounded-3xl border border-brand-border bg-gradient-to-b from-white to-brand-bg-light/60 p-6 md:p-8 flex flex-col justify-between hover:border-brand-yellow/50 transition-all duration-300 group hover:shadow-xl hover:shadow-black/5">
+              <div>
+                <div className="relative w-full aspect-[4/5] rounded-2xl overflow-hidden mb-6 border border-brand-border bg-brand-bg-light">
+                  <img
+                    src="/Madhavendra.png"
+                    alt="Madhavendra Mishra — Co-Founder & Head of Sales"
+                    className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
+                  />
+                  <div className="absolute top-4 left-4 bg-brand-dark/90 backdrop-blur-md text-white text-[11px] font-semibold uppercase tracking-wider px-3 py-1.5 rounded-full border border-white/10">
+                    Co-Founder
+                  </div>
+                </div>
+                <div className="flex items-center justify-between mb-2">
+                  <h3 className="text-2xl md:text-3xl font-heading font-bold text-brand-dark">Madhavendra Mishra</h3>
+                  <a
+                    href="https://www.linkedin.com/company/goran-ai"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-9 h-9 rounded-full border border-brand-border flex items-center justify-center text-brand-dark hover:bg-brand-yellow hover:border-brand-yellow transition-colors duration-200"
+                    title="Madhavendra Mishra LinkedIn"
+                  >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                    </svg>
+                  </a>
+                </div>
+                <p className="text-xs font-semibold uppercase tracking-widest text-brand-yellow mb-4">Co-Founder & Head of Sales</p>
+                <p className="text-sm text-brand-text-muted leading-relaxed mb-6">
+                  Leads overall sales strategy, client acquisition, and enterprise partnerships — driving growth by onboarding key business accounts onto GoRan AI's automation platform.
+                </p>
+              </div>
+              <div className="pt-4 border-t border-brand-border flex items-center justify-between">
+                <Link
+                  to="/co-founder"
+                  className="inline-flex items-center gap-2 text-xs font-bold text-brand-dark hover:text-brand-yellow transition-colors uppercase tracking-wider"
+                >
+                  View Co-Founder Profile
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-300 group-hover:translate-x-1">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Testimonials Section */}
       <TestimonialsSection limit={3} />
+
+      {/* Instagram Reels Preview Section */}
+      <InstagramReels />
 
       {/* FAQ Section */}
       <section className="py-20 md:py-28 bg-white relative overflow-hidden" id="faq">

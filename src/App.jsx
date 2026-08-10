@@ -12,6 +12,7 @@ import CaseStudies from './pages/CaseStudies';
 import Contact from './pages/Contact';
 import About from './pages/About';
 import Founder from './pages/Founder';
+import CoFounder from './pages/CoFounder';
 import Process from './pages/Process';
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
@@ -70,6 +71,7 @@ function App() {
         <Route path="/case-studies" element={<CaseStudies />} />
         <Route path="/case-studies/:caseStudyId" element={<CaseStudyDetail />} />
         <Route path="/founder" element={<Founder />} />
+        <Route path="/co-founder" element={<CoFounder />} />
         <Route path="/process" element={<Process />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/blog/:slug" element={<BlogPost />} />

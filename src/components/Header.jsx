@@ -7,7 +7,7 @@ const navLinks = [
   { label: 'About', to: '/about' },
   { label: 'Case Studies', to: '/case-studies' },
   { label: 'Blog', to: '/blog' },
-  { label: 'Founder', to: '/founder' },
+  { label: 'Founders', to: '/founder' },
   { label: 'Contact', to: '/contact' },
 ];
 

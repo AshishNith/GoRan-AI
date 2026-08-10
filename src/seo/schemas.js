@@ -12,12 +12,20 @@ export const organizationSchema = {
   image: LOGO_URL,
   description: 'GoRan AI is India\'s leading AI automation agency specializing in AI calling agents, voice agents, WhatsApp agents, AI-powered CRM, AI audits, and autonomous business workflow automation.',
   foundingDate: '2023',
-  founder: {
-    '@type': 'Person',
-    name: 'Ashish Ranjan',
-    url: `${SITE_URL}/founder`,
-    jobTitle: 'Founder & AI Systems Architect',
-  },
+  founder: [
+    {
+      '@type': 'Person',
+      name: 'Ashish Ranjan',
+      url: `${SITE_URL}/founder`,
+      jobTitle: 'Founder & AI Systems Architect',
+    },
+    {
+      '@type': 'Person',
+      name: 'Madhavendra Mishra',
+      url: `${SITE_URL}/founder`,
+      jobTitle: 'Co-Founder & Head of Sales',
+    },
+  ],
   contactPoint: [
     {
       '@type': 'ContactPoint',
@@ -127,6 +135,33 @@ export const founderSchema = {
   sameAs: [
     'https://www.linkedin.com/in/ashish-ranjan-goran',
     'https://github.com/AshishNith',
+  ],
+};
+
+// ─── Person Schema (Madhavendra Mishra) ───
+export const coFounderSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Madhavendra Mishra',
+  alternateName: 'Madhavendra Mishra GoRan',
+  url: `${SITE_URL}/co-founder`,
+  jobTitle: 'Co-Founder & Head of Sales',
+  description: 'Madhavendra Mishra is the co-founder and Head of Sales at GoRan AI. He leads business development, client acquisition, sales operations, and strategic partnerships for enterprise AI automation solutions.',
+  worksFor: {
+    '@type': 'Organization',
+    name: 'GoRan AI',
+    url: SITE_URL,
+  },
+  knowsAbout: [
+    'Artificial Intelligence',
+    'B2B Sales',
+    'Client Acquisition',
+    'Business Development',
+    'Strategic Partnerships',
+    'Enterprise Growth',
+  ],
+  sameAs: [
+    'https://www.linkedin.com/company/goran-ai',
   ],
 };
 

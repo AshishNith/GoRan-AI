@@ -26,7 +26,7 @@ const pageLinks = [
   { label: 'About', to: '/about' },
   { label: 'Testimonials', to: '/testimonials' },
   { label: 'Blog', to: '/blog' },
-  { label: 'Founder', to: '/founder' },
+  { label: 'Founders', to: '/founder' },
   { label: 'Our Process', to: '/process' },
   { label: 'Contact', to: '/contact' },
 ];
