@@ -9,7 +9,7 @@ const salesMilestones = [
   { stamp: '2022', event: 'Led enterprise sales & B2B growth pipelines, focusing on high-ticket client acquisition.' },
   { stamp: '2023', event: 'Pioneered early AI automation adoption for enterprise sales ops, reducing sales cycle times by 40%.' },
   { stamp: '2024', event: 'Built high-converting B2B outreach and lead qualification frameworks powered by voice and AI agents.' },
-  { stamp: '2025', event: 'Co-Founded GoRan AI as Head of Sales, taking advanced AI automation solutions to enterprise clients worldwide.' },
+  { stamp: '2025', event: 'Joined GoRan AI as Sales & Marketing Head, taking advanced AI automation solutions to enterprise clients worldwide.' },
   { stamp: 'NOW', event: 'Scaling client operations, enterprise accounts, and strategic AI deployment partnerships globally.' },
 ];
 
@@ -43,19 +43,19 @@ export default function CoFounder() {
   return (
     <main className="w-full bg-white relative overflow-hidden">
       <SEOHead
-        title="Madhavendra Mishra — Co-Founder & Head of Sales | GoRan AI"
-        description="Madhavendra Mishra is the co-founder and Head of Sales at GoRan AI. He drives enterprise sales, client acquisition, and strategic partnership growth for AI automation solutions."
+        title="Piyush Rana — Sales & Marketing Head | GoRan AI"
+        description="Piyush Rana is the Sales & Marketing Head at GoRan AI. He drives enterprise sales, client acquisition, and strategic partnership growth for AI automation solutions."
         canonicalPath="/co-founder"
         schema={[
           coFounderSchema,
           buildBreadcrumbSchema([
             { name: 'Home', url: '/' },
-            { name: 'Madhavendra Mishra — Co-Founder' },
+            { name: 'Piyush Rana — Sales & Marketing Head' },
           ]),
         ]}
       />
 
-      {/* HERO — Co-Founder Identity */}
+      {/* HERO — Sales & Marketing Head Identity */}
       <section className="pt-36 pb-24 relative">
         <div
           className="absolute inset-0 pointer-events-none opacity-30"
@@ -76,13 +76,13 @@ export default function CoFounder() {
               </div>
 
               <h1 className="text-[clamp(2.8rem,7vw,5.5rem)] font-heading font-bold text-brand-dark leading-[0.92] tracking-tight mb-4">
-                Madhavendra<br />Mishra
+                Piyush<br />Rana
               </h1>
 
               <div className="h-px w-full max-w-75 bg-brand-border mb-4" />
 
               <p className="text-sm md:text-base font-semibold text-brand-yellow tracking-widest uppercase mb-6">
-                Co-Founder &amp; Head of Sales
+                Sales &amp; Marketing Head
               </p>
 
               <motion.p
@@ -107,7 +107,7 @@ export default function CoFounder() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-12 h-12 rounded-full border border-brand-border flex items-center justify-center text-brand-dark hover:bg-brand-yellow hover:border-brand-yellow transition-colors duration-200"
-                  title="Madhavendra Mishra LinkedIn"
+                  title="Piyush Rana LinkedIn"
                 >
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
@@ -118,8 +118,8 @@ export default function CoFounder() {
 
             <div className="w-full aspect-3/4 max-h-125 border border-brand-border bg-brand-bg-light overflow-hidden rounded-2xl shadow-lg">
               <img
-                src="/Madhavendra.png"
-                alt="Madhavendra Mishra — Co-Founder & Head of Sales at GoRan AI"
+                src="/Piyush.png"
+                alt="Piyush Rana — Sales & Marketing Head at GoRan AI"
                 className="w-full h-full object-cover"
               />
             </div>
@@ -142,10 +142,10 @@ export default function CoFounder() {
                   <div className="w-full aspect-square max-w-50 border border-brand-border bg-white rounded-2xl flex items-center justify-center p-6 shadow-sm">
                     <div className="flex flex-col items-center gap-2 text-center">
                       <div className="w-14 h-14 rounded-full border-2 border-brand-yellow bg-brand-yellow/10 flex items-center justify-center">
-                        <span className="font-heading font-bold text-brand-dark text-xl">MM</span>
+                        <span className="font-heading font-bold text-brand-dark text-xl">PR</span>
                       </div>
-                      <span className="font-heading font-bold text-sm text-brand-dark mt-2">Madhavendra Mishra</span>
-                      <span className="text-[11px] text-brand-yellow font-semibold uppercase tracking-wider">Head of Sales</span>
+                      <span className="font-heading font-bold text-sm text-brand-dark mt-2">Piyush Rana</span>
+                      <span className="text-[11px] text-brand-yellow font-semibold uppercase tracking-wider">Sales &amp; Marketing</span>
                     </div>
                   </div>
                   <p className="text-xs text-brand-text-muted leading-relaxed max-w-50">
@@ -161,10 +161,10 @@ export default function CoFounder() {
                   Driving Growth Through Client Partnership
                 </h3>
                 <p className="text-brand-text-muted text-base leading-relaxed mb-6">
-                  As Head of Sales, Madhavendra Mishra leads the growth engine of GoRan AI. He works directly with founders, CEOs, and Operations Directors across industries to identify high-leverage automation opportunities and convert them into tailored AI agent implementations.
+                  As Sales & Marketing Head, Piyush Rana leads the growth engine of GoRan AI. He works directly with founders, CEOs, and Operations Directors across industries to identify high-leverage automation opportunities and convert them into tailored AI agent implementations.
                 </p>
                 <p className="text-brand-text-muted text-base leading-relaxed">
-                  From initial discovery calls to contract structuring and post-deployment scaling, Madhavendra ensures that every client receives a seamless experience with clear, upfront ROI calculations and dedicated executive oversight.
+                  From initial discovery calls to contract structuring and post-deployment scaling, Piyush ensures that every client receives a seamless experience with clear, upfront ROI calculations and dedicated executive oversight.
                 </p>
               </motion.div>
 
@@ -245,13 +245,13 @@ export default function CoFounder() {
               Ready to accelerate your <span className="text-brand-yellow">business growth?</span>
             </h2>
             <p className="text-brand-text-muted text-base md:text-lg leading-relaxed max-w-lg mx-auto mb-10">
-              Schedule a direct scoping call with Madhavendra Mishra to discover how custom AI agents can automate your lead flow and client operations.
+              Schedule a direct scoping call with Piyush Rana to discover how custom AI agents can automate your lead flow and client operations.
             </p>
             <button
               onClick={openCalBooking}
               className="inline-flex items-center gap-2 bg-brand-dark text-white font-semibold text-sm py-3.5 px-8 rounded-full transition-all duration-300 hover:bg-brand-dark-hover hover:-translate-y-0.5 shadow-[0_4px_12px_rgba(0,0,0,0.1)] border-none cursor-pointer group"
             >
-              Book Call with Head of Sales
+              Book Call with Sales & Marketing Head
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-200 group-hover:translate-x-1">
                 <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>

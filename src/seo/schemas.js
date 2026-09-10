@@ -19,11 +19,13 @@ export const organizationSchema = {
       url: `${SITE_URL}/founder`,
       jobTitle: 'Founder & AI Systems Architect',
     },
+  ],
+  employee: [
     {
       '@type': 'Person',
-      name: 'Madhavendra Mishra',
-      url: `${SITE_URL}/founder`,
-      jobTitle: 'Co-Founder & Head of Sales',
+      name: 'Piyush Rana',
+      url: `${SITE_URL}/co-founder`,
+      jobTitle: 'Sales & Marketing Head',
     },
   ],
   contactPoint: [
@@ -138,15 +140,15 @@ export const founderSchema = {
   ],
 };
 
-// ─── Person Schema (Madhavendra Mishra) ───
+// ─── Person Schema (Piyush Rana) ───
 export const coFounderSchema = {
   '@context': 'https://schema.org',
   '@type': 'Person',
-  name: 'Madhavendra Mishra',
-  alternateName: 'Madhavendra Mishra GoRan',
+  name: 'Piyush Rana',
+  alternateName: 'Piyush Rana GoRan',
   url: `${SITE_URL}/co-founder`,
-  jobTitle: 'Co-Founder & Head of Sales',
-  description: 'Madhavendra Mishra is the co-founder and Head of Sales at GoRan AI. He leads business development, client acquisition, sales operations, and strategic partnerships for enterprise AI automation solutions.',
+  jobTitle: 'Sales & Marketing Head',
+  description: 'Piyush Rana is the Sales & Marketing Head at GoRan AI. He leads business development, client acquisition, sales operations, and strategic partnerships for enterprise AI automation solutions.',
   worksFor: {
     '@type': 'Organization',
     name: 'GoRan AI',

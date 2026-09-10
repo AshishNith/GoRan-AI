@@ -49,8 +49,8 @@ export default function Founder() {
   return (
     <main className="w-full bg-white relative overflow-hidden">
       <SEOHead
-        title="Founders & Leadership — Ashish Ranjan & Madhavendra Mishra | GoRan AI"
-        description="Meet Ashish Ranjan (Founder & AI Systems Architect) and Madhavendra Mishra (Co-Founder & AI Operations Lead), leading GoRan AI's autonomous business automation agency."
+        title="Founders & Leadership — Ashish Ranjan & Piyush Rana | GoRan AI"
+        description="Meet Ashish Ranjan (Founder & AI Systems Architect) and Piyush Rana (Sales & Marketing Head), leading GoRan AI's autonomous business automation agency."
         canonicalPath="/founder"
         schema={[
           founderSchema,
