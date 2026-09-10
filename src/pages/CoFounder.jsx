@@ -118,7 +118,7 @@ export default function CoFounder() {
 
             <div className="w-full aspect-3/4 max-h-125 border border-brand-border bg-brand-bg-light overflow-hidden rounded-2xl shadow-lg">
               <img
-                src="/Piyush.png"
+                src="/Piyush.jpg"
                 alt="Piyush Rana — Sales & Marketing Head at GoRan AI"
                 className="w-full h-full object-cover"
               />

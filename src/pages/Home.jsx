@@ -305,7 +305,7 @@ export default function Home() {
               <div>
                 <div className="relative w-full aspect-[4/5] rounded-2xl overflow-hidden mb-6 border border-brand-border bg-brand-bg-light">
                   <img
-                    src="/Piyush.png"
+                    src="/Piyush.jpg"
                     alt="Piyush Rana — Sales & Marketing Head"
                     className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
                   />
