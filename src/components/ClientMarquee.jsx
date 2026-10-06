@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 const horizontalLogos = [
+  { name: "Million Flats", url: "https://www.millionflats.com/_next/image?url=%2FLOGO.jpeg&w=256&q=75", invert: false },
   { name: "MathEd", url: "https://res.cloudinary.com/dvwpxb2oa/image/upload/v1780484846/copy_of_chatgpt_image_jun_3_2026_04_34_38_pm_zl5hql.png", invert: false },
   { name: "Anaaj AI", url: "https://res.cloudinary.com/dvwpxb2oa/image/upload/v1773933014/FullWhiteLogo_nlnlbh.svg", invert: false },
   { name: "A Robotics Services", url: "https://res.cloudinary.com/dvwpxb2oa/image/upload/v1780491579/ChatGPT_Image_Jun_3_2026_04_47_02_PM_tnbgan.png", invert: false },
@@ -11,7 +12,6 @@ const horizontalLogos = [
   { name: "Codewave", url: "https://codewave.it.com/assets/Logo_Orginal-BDXHym7S.png", invert: false },
   { name: "GreenWrench Solutions", url: "https://www.greenwrenchsolutions.in/assets/GreenLogo-RH2irvlH.png", invert: false },
   { name: "Hadoti Farms", url: "https://hadoti-farms.vercel.app/Creatives/whiteLogo.png", invert: false },
-  { name: "Million Flats", url: "https://www.millionflats.com/_next/image?url=%2FLOGO.jpeg&w=256&q=75", invert: false },
 ];
 
 function ClientLogoItem({ logo }) {
