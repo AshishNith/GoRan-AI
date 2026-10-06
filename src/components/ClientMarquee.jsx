@@ -11,6 +11,7 @@ const horizontalLogos = [
   { name: "Codewave", url: "https://codewave.it.com/assets/Logo_Orginal-BDXHym7S.png", invert: false },
   { name: "GreenWrench Solutions", url: "https://www.greenwrenchsolutions.in/assets/GreenLogo-RH2irvlH.png", invert: false },
   { name: "Hadoti Farms", url: "https://hadoti-farms.vercel.app/Creatives/whiteLogo.png", invert: false },
+  { name: "Million Flats", url: "https://www.millionflats.com/_next/image?url=%2FLOGO.jpeg&w=256&q=75", invert: false },
 ];
 
 function ClientLogoItem({ logo }) {
