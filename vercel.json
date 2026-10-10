@@ -1,6 +1,10 @@
 {
   "rewrites": [
     {
+      "source": "/api/agent/outbound/:path*",
+      "destination": "https://goran-calling-agent.onrender.com/api/outbound/:path*"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }

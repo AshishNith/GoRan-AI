@@ -23,6 +23,7 @@ import {
 } from 'lucide-react';
 import SEOHead from '../components/SEOHead';
 import { useCalBooking } from '../components/CalBookingModal';
+import QualificationLiveDemo from '../components/QualificationLiveDemo';
 
 // Paste the Loom embed link here (https://www.loom.com/embed/<id>) once the walkthrough is recorded.
 // While empty, the video block stays hidden.
@@ -432,10 +433,10 @@ export default function Qualification() {
               <ArrowDown size={16} />
             </button>
             <button
-              onClick={() => document.getElementById('call-demo')?.scrollIntoView({ behavior: 'smooth' })}
+              onClick={() => document.getElementById('try-live')?.scrollIntoView({ behavior: 'smooth' })}
               className="w-full sm:w-auto bg-brand-bg-light hover:bg-[#F2F2F2] text-brand-dark font-semibold text-base py-4 px-8 rounded-full border border-brand-border transition-all duration-200 cursor-pointer flex items-center justify-center"
             >
-              Watch a Sample Call
+              Try It Live
             </button>
           </div>
 
@@ -773,6 +774,9 @@ export default function Qualification() {
           </div>
         </div>
       </section>
+
+      {/* ── Live demo: real phone call + browser call ── */}
+      <QualificationLiveDemo />
 
       {/* ── What comes out of the funnel ── */}
       <section className="relative z-10 py-20 md:py-24 bg-white px-6">
