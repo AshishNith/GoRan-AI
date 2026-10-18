@@ -11,7 +11,7 @@ export const instagramReels = [
   },
   {
     id: "reel-3",
-    reelId: "DTieU8Tk2fY",
-    permalink: "https://www.instagram.com/reel/DTieU8Tk2fY/"
+    reelId: "DapzgRlzBpw",
+    permalink: "https://www.instagram.com/reel/DapzgRlzBpw/"
   }
 ];
