@@ -47,6 +47,9 @@ const CASES = [
   },
 ];
 
+// Only this many case studies scroll in full. The rest are blurred behind a "Show more" button
+const FULL = 3;
+
 // Wide, tall-enough screens without reduced motion get the pinned horizontal track
 const PIN_QUERY = '(min-width: 1024px) and (min-height: 640px) and (prefers-reduced-motion: no-preference)';
 const CARD_WIDTH = 'min(1100px, 86vw)';
@@ -104,7 +107,24 @@ function BrowserFrame({ name, image, flip }) {
   );
 }
 
-function CaseCard({ item, index, horizontal }) {
+// Sits over the first blurred card and sends people on to the full list
+function ShowMore({ hidden, className = 'absolute inset-0 z-20 px-6', ...rest }) {
+  return (
+    <div className={`flex flex-col items-center justify-center gap-4 text-center ${className}`} {...rest}>
+      <span className="rounded-full border border-brand-border bg-white/80 backdrop-blur px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-brand-text-muted">
+        {hidden} more case studies
+      </span>
+      <Link
+        to="/case-studies"
+        className="inline-flex items-center gap-2 rounded-full bg-brand-yellow hover:bg-brand-yellow-hover text-brand-dark font-semibold text-base py-3.5 px-8 shadow-[0_18px_40px_-12px_rgba(246,199,68,0.7)] transition-all duration-200 hover:-translate-y-0.5 no-underline"
+      >
+        Show more <ArrowRight size={16} />
+      </Link>
+    </div>
+  );
+}
+
+function CaseCard({ item, index, horizontal, blurred = false, overlay = null }) {
   const data = caseStudiesData[item.id];
   if (!data) return null;
   const flip = index % 2 === 1;
@@ -112,10 +132,16 @@ function CaseCard({ item, index, horizontal }) {
   return (
     <li
       data-case
-      className={horizontal ? 'shrink-0 h-full' : 'mb-5 md:mb-8'}
+      className={horizontal ? 'relative shrink-0 h-full' : 'relative mb-5 md:mb-8'}
       style={horizontal ? { width: CARD_WIDTH } : undefined}
     >
-      <div data-card className="group/card relative h-full">
+      {overlay}
+      <div
+        data-card
+        inert={blurred || undefined}
+        aria-hidden={blurred || undefined}
+        className={`group/card relative h-full ${blurred ? 'blur-[10px] opacity-60 pointer-events-none select-none' : ''}`}
+      >
         <article
           className={`relative h-full overflow-hidden rounded-3xl text-white grid ${horizontal ? 'grid-cols-[1.02fr_1fr]' : 'grid-cols-1 md:grid-cols-[1.02fr_1fr]'}`}
           style={{ background: 'linear-gradient(135deg, #1c1f1f 0%, #0d0f0f 55%, #0b0c0c 100%)' }}
@@ -142,6 +168,17 @@ function CaseCard({ item, index, horizontal }) {
             }}
           />
 
+          {/* Frame lines crossing the card, with a white dot riding them. Positions match the dot's
+              offset path in index.css (22px top and bottom, 26px left and right). Desktop only, so
+              the lines never cut across the stacked phone layout. */}
+          <div aria-hidden className="hidden md:block absolute inset-0 pointer-events-none">
+            <span className="absolute inset-x-0 top-[22px] h-px bg-gradient-to-r from-white/40 via-white/12 to-white/8" />
+            <span className="absolute inset-x-0 bottom-[22px] h-px bg-gradient-to-r from-white/12 to-white/8" />
+            <span className="absolute inset-y-0 left-[26px] w-px bg-gradient-to-b from-white/40 via-white/12 to-white/8" />
+            <span className="absolute inset-y-0 right-[26px] w-px bg-gradient-to-b from-white/12 to-white/8" />
+            <span className="card-dot hidden md:block" style={{ animationDelay: `${-index * 3.3}s` }} />
+          </div>
+
           {/* Copy */}
           <div className={`relative flex flex-col justify-center p-7 md:p-12 ${flip ? 'md:order-2' : ''}`}>
             <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
@@ -153,7 +190,7 @@ function CaseCard({ item, index, horizontal }) {
             </div>
 
             <div
-              data-metric={item.metric}
+              data-metric={blurred ? undefined : item.metric}
               className="font-heading font-bold leading-none mt-5 text-6xl md:text-8xl bg-gradient-to-r from-white to-brand-yellow bg-clip-text text-transparent"
             >
               {item.metric}
@@ -254,9 +291,16 @@ export default function CaseStudiesSection() {
       const pin = root.querySelector('[data-pin]');
       const track = root.querySelector('[data-track]');
       const cards = Array.from(track.children);
-      const last = cards.length - 1;
-      // Slide until the last card sits where the first one started, in the middle of the screen
-      const distance = () => cards[last].offsetLeft - cards[0].offsetLeft;
+      const more = root.querySelector('[data-more]');
+      const view = track.parentElement;
+      const spacing = () => cards[1].offsetLeft - cards[0].offsetLeft;
+      // Where the third card sits in the middle of the screen
+      const centred = () => cards[FULL - 1].offsetLeft - cards[0].offsetLeft;
+      // Then the track stops a little further on, with the third card near the left edge, so the
+      // blurred cards and the Show more button fill the right side
+      const distance = () => centred() + Math.max(0, (view.clientWidth - cards[FULL - 1].offsetWidth) / 2 - 24);
+      const stops = () => [...Array(FULL).keys()].map((i) => (i * spacing()) / distance()).concat(1);
+      const nearest = (value) => stops().reduce((best, stop) => (Math.abs(stop - value) < Math.abs(best - value) ? stop : best), 0);
 
       const slide = gsap.to(track, {
         x: () => -distance(),
@@ -270,18 +314,24 @@ export default function CaseStudiesSection() {
           scrub: 0.6,
           invalidateOnRefresh: true,
           // Settle on the nearest card, never fling past several on a fast scroll
-          snap: { snapTo: 1 / last, inertia: false, duration: { min: 0.2, max: 0.6 }, delay: 0.1, ease: 'power1.inOut' },
+          snap: { snapTo: nearest, inertia: false, duration: { min: 0.2, max: 0.6 }, delay: 0.1, ease: 'power1.inOut' },
           onUpdate: (self) => {
-            const position = self.progress * last;
+            const position = Math.min(FULL - 1, (self.progress * distance()) / spacing());
             segmentRefs.current.forEach((bar, idx) => {
               if (bar) bar.style.transform = `scaleX(${Math.min(1, Math.max(0, position - idx + 1))})`;
             });
+            // The Show more button comes in once the last full card has settled
+            if (more) {
+              const show = Math.min(1, Math.max(0, (self.progress - 0.82) / 0.14));
+              more.style.opacity = String(show);
+              more.style.pointerEvents = show > 0.6 ? 'auto' : 'none';
+            }
           },
         },
       });
 
       // The card in the middle is full size; its neighbours shrink back and fade
-      cards.forEach((card) => {
+      cards.slice(0, FULL).forEach((card) => {
         gsap.timeline({
           scrollTrigger: { trigger: card, containerAnimation: slide, start: 'left right', end: 'right left', scrub: true },
         })
@@ -310,7 +360,7 @@ export default function CaseStudiesSection() {
               <ViewAllLink />
               {/* Progress: one bar per case study */}
               <div className="flex gap-2" aria-hidden="true">
-                {CASES.map((item, idx) => (
+                {CASES.slice(0, FULL).map((item, idx) => (
                   <span key={item.id} className="block w-10 h-1 rounded-full bg-brand-border overflow-hidden">
                     <span
                       ref={(el) => { segmentRefs.current[idx] = el; }}
@@ -323,16 +373,27 @@ export default function CaseStudiesSection() {
             </div>
           </SectionHeader>
 
-          <div className="flex-1 min-h-0 mt-8">
+          <div className="relative flex-1 min-h-0 mt-8">
             <ol
               data-track
               className="list-none m-0 p-0 flex h-full gap-8 will-change-transform"
               style={{ paddingInline: `calc((100% - ${CARD_WIDTH}) / 2)` }}
             >
               {CASES.map((item, index) => (
-                <CaseCard key={item.id} item={item} index={index} horizontal />
+                <CaseCard
+                  key={item.id}
+                  item={item}
+                  index={index}
+                  horizontal
+                  blurred={index >= FULL}
+                />
               ))}
             </ol>
+            <ShowMore
+              data-more
+              hidden={CASES.length - FULL}
+              className="absolute inset-y-0 right-0 z-20 w-[clamp(220px,20vw,300px)] opacity-0 pointer-events-none"
+            />
           </div>
         </div>
       </section>
@@ -345,8 +406,14 @@ export default function CaseStudiesSection() {
         <SectionHeader className="mb-12 md:mb-16" />
 
         <ol className="list-none m-0 p-0">
-          {CASES.map((item, index) => (
-            <CaseCard key={item.id} item={item} index={index} />
+          {CASES.slice(0, FULL + 1).map((item, index) => (
+            <CaseCard
+              key={item.id}
+              item={item}
+              index={index}
+              blurred={index >= FULL}
+              overlay={index === FULL ? <ShowMore hidden={CASES.length - FULL} /> : null}
+            />
           ))}
         </ol>
 
