@@ -110,7 +110,33 @@ video {
   background-size: 16px 16px;
 }
 
+/* White glowing dot circling the soft outline round each step (rounded-3xl = 24px corners) */
+@keyframes card-dot-orbit {
+  from { offset-distance: 0%; }
+  to { offset-distance: 100%; }
+}
+
+.card-dot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  border-radius: 9999px;
+  background: #fff;
+  box-shadow: 0 0 0 1px rgba(23, 23, 23, 0.06), 0 0 5px 2px #fff, 0 0 12px 4px rgba(23, 23, 23, 0.2);
+  offset-path: inset(0px round 24px);
+  offset-rotate: 0deg;
+  animation: card-dot-orbit 9s linear infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .card-dot {
+    animation: none;
+    offset-distance: 12%;
+  }
+
   .clients-marquee-track {
     animation: none;
   }

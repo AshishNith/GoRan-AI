@@ -219,31 +219,36 @@ const steps = [
 
 const pad = (n) => String(n).padStart(2, '0');
 
-// The dark text card for one step on the timeline.
+// One step's copy, with no card behind it: just a soft rectangular line round the text and a
+// white glowing dot travelling along it (each step starts its dot at a different point).
 function StepText({ step, index }) {
   const next = steps[index + 1];
   return (
-    <div className="relative h-full bg-brand-dark text-white rounded-3xl overflow-hidden flex flex-col p-6 md:p-8">
-      <div className="absolute -top-24 -right-16 w-72 h-72 rounded-full bg-brand-yellow/15 blur-[90px] pointer-events-none" />
+    <div className="relative h-full flex flex-col rounded-3xl p-6 md:p-8">
+      <div aria-hidden className="absolute inset-0 rounded-3xl pointer-events-none">
+        <span className="absolute inset-0 rounded-3xl border border-brand-dark/[0.07] blur-[2px]" />
+        <span className="absolute inset-0 rounded-3xl border border-brand-dark/[0.06]" />
+        <span className="card-dot" style={{ animationDelay: `${-index * 3}s` }} />
+      </div>
 
       <div className="relative flex items-center justify-between">
         <span className="inline-flex items-center gap-2 bg-brand-yellow text-brand-dark rounded-full pl-1 pr-3 py-1 text-xs font-bold uppercase tracking-wider">
           <span className="w-6 h-6 rounded-full bg-brand-dark text-brand-yellow flex items-center justify-center font-heading text-[11px]">{pad(index + 1)}</span>
           Step
         </span>
-        <span className="font-mono text-xs text-white/40 tabular-nums">{pad(index + 1)} / {pad(steps.length)}</span>
+        <span className="font-mono text-xs text-brand-text-muted/70 tabular-nums">{pad(index + 1)} / {pad(steps.length)}</span>
       </div>
 
-      <h3 className="relative font-heading font-bold leading-tight text-white m-0 text-2xl md:text-3xl mt-6">
+      <h3 className="relative font-heading font-bold leading-tight text-brand-dark m-0 text-2xl md:text-3xl mt-6">
         {step.title}
       </h3>
-      <p className="relative text-white/60 leading-relaxed m-0 mt-4 max-w-[500px] text-[0.95rem] md:text-base">
+      <p className="relative text-brand-text-muted leading-relaxed m-0 mt-4 max-w-[500px] text-[0.95rem] md:text-base">
         {step.desc}
       </p>
 
-      <ul className="relative list-none m-0 p-0 mt-auto grid grid-cols-1 sm:grid-cols-3 md:grid-cols-1 xl:grid-cols-3 gap-2.5 pt-6">
+      <ul className="relative list-none m-0 p-0 mt-6 mb-6 flex flex-col gap-3">
         {step.deliverables.map((item) => (
-          <li key={item} className="flex items-center gap-2 bg-white/[0.06] border border-white/10 rounded-2xl px-3.5 py-3 text-sm font-semibold text-white">
+          <li key={item} className="flex items-center gap-3 text-sm font-semibold text-brand-dark">
             <span className="w-5 h-5 rounded-full bg-brand-yellow text-brand-dark flex items-center justify-center shrink-0">
               <Check size={12} strokeWidth={3} />
             </span>
@@ -252,20 +257,17 @@ function StepText({ step, index }) {
         ))}
       </ul>
 
-      <div className="relative flex items-center justify-between gap-4 border-t border-white/10 mt-6 pt-5 text-sm">
+      <div className="relative flex items-center gap-3 border-t border-brand-border mt-auto pt-5 text-sm">
         {next ? (
           <>
-            <span className="text-white/40">Next</span>
-            <span className="flex items-center gap-2 font-semibold text-white">
-              {next.title} <ArrowRight size={14} className="text-brand-yellow" />
-            </span>
+            <span className="text-brand-text-muted">Next</span>
+            <ArrowRight size={14} className="text-brand-yellow" />
+            <span className="font-semibold text-brand-dark">{next.title}</span>
           </>
         ) : (
           <>
-            <span className="text-white/40">Result</span>
-            <span className="flex items-center gap-2 font-semibold text-brand-yellow">
-              <span className="w-2 h-2 rounded-full bg-emerald-400" /> Your agent is live
-            </span>
+            <span className="w-2 h-2 rounded-full bg-emerald-500" />
+            <span className="font-semibold text-brand-dark">Your agent is live</span>
           </>
         )}
       </div>
