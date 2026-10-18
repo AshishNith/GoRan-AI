@@ -28,12 +28,13 @@ import D2CAutomation from './pages/D2CAutomation';
 import WebsitesShowcase from './pages/WebsitesShowcase';
 import LinkedinAutomation from './pages/LinkedinAutomation';
 import Qualification from './pages/Qualification';
+import Demo from './pages/Demo';
 import { CalBookingProvider } from './components/CalBookingModal';
 
 
 function App() {
   const location = useLocation();
-  const hideHeaderFooter = location.pathname === '/scale' || location.pathname === '/automate' || location.pathname === '/linkedin-automation' || location.pathname === '/qualification';
+  const hideHeaderFooter = location.pathname === '/scale' || location.pathname === '/automate' || location.pathname === '/linkedin-automation' || location.pathname === '/qualification' || location.pathname === '/demo';
 
   useEffect(() => {
     // Send pageview to Google Analytics on route change
@@ -85,6 +86,7 @@ function App() {
         <Route path="/automate" element={<D2CAutomation />} />
         <Route path="/linkedin-automation" element={<LinkedinAutomation />} />
         <Route path="/qualification" element={<Qualification />} />
+        <Route path="/demo" element={<Demo />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       {!hideHeaderFooter && <Footer />}
