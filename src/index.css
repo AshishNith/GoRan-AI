@@ -1,7 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-/* 1. Design System Theme Tokens (Tailwind CSS v4 Configuration) */
 @theme {
   --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-body: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -25,6 +24,12 @@
 }
 
 /* 2. Global Base Adjustments & Grid Layout */
+/* The whole site is sized in rem, so trimming the root size scales type, spacing and components
+   together. Raise it back towards 100% to make everything larger again. */
+html {
+  font-size: 93.75%;
+}
+
 body {
   font-family: var(--font-body);
   color: var(--color-brand-text-main);
@@ -136,6 +141,91 @@ video {
 
 .hero-portal:has(> section[data-gp-motion="on"]) > .hero-after {
   margin-top: -100svh;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scroll-horizontal {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes scroll-horizontal-reverse {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+.animate-scroll-horizontal {
+  animation: scroll-horizontal var(--scroll-duration, 40s) linear infinite;
+}
+
+.animate-scroll-horizontal-reverse {
+  animation: scroll-horizontal-reverse var(--scroll-duration, 40s) linear infinite;
+}
+
+/* Hovering a row pauses it so the answer can be read */
+.group:hover > .animate-scroll-horizontal,
+.group:hover > .animate-scroll-horizontal-reverse {
+  animation-play-state: paused;
+}
+
+/* Rows fade out towards both edges */
+.scroller-mask {
+  mask-image: linear-gradient(to right, transparent, #000 9%, #000 91%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 9%, #000 91%, transparent);
+}
+
+/* FAQ loop (components/ui/faq-loop): open cells, no boxes. A soft hairline with a faint blur splits
+   each cell from the next, and the same line runs between the two rows. */
+.faq-loop-cell {
+  position: relative;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  width: 20rem;
+  padding: 2.25rem 1.75rem;
+}
+
+@media (min-width: 640px) {
+  .faq-loop-cell {
+    width: 26rem;
+  }
+}
+
+.faq-loop-cell::after {
+  content: '';
+  position: absolute;
+  top: 1.75rem;
+  bottom: 1.75rem;
+  right: 0;
+  width: 1px;
+  pointer-events: none;
+  filter: blur(0.6px);
+  background: linear-gradient(to bottom, transparent, rgba(23, 23, 23, 0.16) 22%, rgba(23, 23, 23, 0.16) 78%, transparent);
+  box-shadow: 0 0 10px 1px rgba(23, 23, 23, 0.07);
+}
+
+.faq-loop-rule {
+  height: 1px;
+  margin: 0.5rem 0;
+  pointer-events: none;
+  filter: blur(0.6px);
+  background: linear-gradient(to right, transparent, rgba(23, 23, 23, 0.16) 18%, rgba(23, 23, 23, 0.16) 82%, transparent);
+  box-shadow: 0 0 10px 1px rgba(23, 23, 23, 0.07);
+}
+
+/* Reduced motion: no looping, each row is just a row you can scroll by hand */
+@media (prefers-reduced-motion: reduce) {
+  .animate-scroll-horizontal,
+  .animate-scroll-horizontal-reverse {
+    animation: none;
+  }
+
+  .scroller-mask {
+    overflow-x: auto;
+  }
 }
 
 /* Dotted canvas behind the process step visuals */
