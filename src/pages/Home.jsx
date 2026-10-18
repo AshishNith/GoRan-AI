@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import ClientMarquee from '../components/ClientMarquee';
 import HeroPortal from '../components/HeroPortal';
@@ -11,6 +11,7 @@ import { useCalBooking } from '../components/CalBookingModal';
 import SEOHead from '../components/SEOHead';
 import { organizationSchema, localBusinessSchema, buildFAQSchema } from '../seo/schemas';
 import TestimonialsSection from '../components/TestimonialsSection';
+import FaqSection from '../components/ui/faq-loop';
 import InstagramReels from '../components/InstagramReels';
 
 export default function Home() {
@@ -289,15 +290,7 @@ export default function Home() {
           <div className="absolute top-1/2 left-[-10%] w-150 h-150 rounded-full bg-brand-yellow/3 blur-[120px]" />
           <div className="absolute bottom-0 right-[-10%] w-125 h-125 rounded-full bg-purple-500/3 blur-[100px]" />
         </div>
-        <div className="w-full max-w-225 mx-auto px-6 relative z-10">
-          <div className="text-center mb-14">
-            
-            <h2 className="text-3xl md:text-4xl font-heading font-bold text-brand-dark leading-tight">
-              Answers to common questions
-            </h2>
-          </div>
-          <FaqChatList />
-        </div>
+        <FaqSection data={faqLoopData} />
       </section>
 
       {/* Interactive Voice Agent Showcase */}
@@ -306,106 +299,39 @@ export default function Home() {
   );
 }
 
-function FaqChatList() {
-  const [openIndex, setOpenIndex] = useState(null);
+// The home FAQ with its full answers
+const faqItems = [
+  {
+    q: "What exactly is an AI Agent, and how is it different from a chatbot?",
+    a: "An AI Agent is an autonomous system that perceives its environment, makes decisions, and takes actions to achieve specific goals. Unlike chatbots that only respond to prompts, agents execute multi-step workflows — they can query databases, send emails, update CRMs, escalate issues, and learn from outcomes without human intervention."
+  },
+  {
+    q: "How long does a typical AI Agent implementation take?",
+    a: "Most implementations take 8-14 weeks from kickoff to production. The timeline depends on complexity, number of integrations, and data readiness. We start with a discovery phase to scope accurately and identify quick wins that can be delivered sooner."
+  },
+  {
+    q: "Do I need a technical team to maintain the agent after deployment?",
+    a: "No — we design agents to be self-maintaining with clear dashboards, automatic error handling, and alerting. We provide a full handover session and documentation, and offer ongoing support packages if you'd like us to manage updates and improvements."
+  },
+  {
+    q: "What systems can your agents integrate with?",
+    a: "Our agents integrate with virtually any system that has an API — CRMs (Salesforce, HubSpot), communication tools (Slack, Teams, Gmail), databases (PostgreSQL, Airtable, MongoDB), and custom internal tools. We also handle legacy systems without APIs through middleware adapters."
+  },
+  {
+    q: "How do you handle data security and privacy?",
+    a: "Security is built into every layer of our deployments. All data is encrypted in transit and at rest. We follow SOC2-aligned practices, provide audit logs, and sign NDAs and DPAs. Agents process data within your environment — we never store or retain sensitive information on our servers."
+  },
+  {
+    q: "What happens if the agent makes a mistake?",
+    a: "Every agent includes human-in-the-loop checks for high-stakes decisions, confidence thresholds that flag uncertainty, and detailed audit trails for every action. If an error occurs, the agent logs it, alerts your team, and can roll back the action automatically. We also provide monitoring dashboards for full visibility."
+  },
+];
 
-  const toggle = (idx) => setOpenIndex(openIndex === idx ? null : idx);
-
-  const faqs = [
-    {
-      q: "What exactly is an AI Agent, and how is it different from a chatbot?",
-      a: "An AI Agent is an autonomous system that perceives its environment, makes decisions, and takes actions to achieve specific goals. Unlike chatbots that only respond to prompts, agents execute multi-step workflows — they can query databases, send emails, update CRMs, escalate issues, and learn from outcomes without human intervention."
-    },
-    {
-      q: "How long does a typical AI Agent implementation take?",
-      a: "Most implementations take 8-14 weeks from kickoff to production. The timeline depends on complexity, number of integrations, and data readiness. We start with a discovery phase to scope accurately and identify quick wins that can be delivered sooner."
-    },
-    {
-      q: "Do I need a technical team to maintain the agent after deployment?",
-      a: "No — we design agents to be self-maintaining with clear dashboards, automatic error handling, and alerting. We provide a full handover session and documentation, and offer ongoing support packages if you'd like us to manage updates and improvements."
-    },
-    {
-      q: "What systems can your agents integrate with?",
-      a: "Our agents integrate with virtually any system that has an API — CRMs (Salesforce, HubSpot), communication tools (Slack, Teams, Gmail), databases (PostgreSQL, Airtable, MongoDB), and custom internal tools. We also handle legacy systems without APIs through middleware adapters."
-    },
-    {
-      q: "How do you handle data security and privacy?",
-      a: "Security is built into every layer of our deployments. All data is encrypted in transit and at rest. We follow SOC2-aligned practices, provide audit logs, and sign NDAs and DPAs. Agents process data within your environment — we never store or retain sensitive information on our servers."
-    },
-    {
-      q: "What happens if the agent makes a mistake?",
-      a: "Every agent includes human-in-the-loop checks for high-stakes decisions, confidence thresholds that flag uncertainty, and detailed audit trails for every action. If an error occurs, the agent logs it, alerts your team, and can roll back the action automatically. We also provide monitoring dashboards for full visibility."
-    },
-  ];
-
-  const colors = ['#3B82F6', '#C084FC', '#4ADE80', '#F5A623', '#F472B6', '#60A5FA'];
-
-  return (
-    <div className="flex flex-col gap-3">
-      {faqs.map((faq, i) => {
-        const isOpen = openIndex === i;
-        const color = colors[i % colors.length];
-
-        return (
-          <div
-            key={i}
-            className={`rounded-2xl border transition-all duration-300 cursor-pointer ${
-              isOpen
-                ? 'border-transparent shadow-xl shadow-black/4'
-                : 'border-brand-border hover:border-brand-text-muted/30'
-            }`}
-            style={{ background: isOpen ? '#0E0E0E' : '#FAFAFA' }}
-            onClick={() => toggle(i)}
-          >
-            {/* Question row */}
-            <div className="flex items-start sm:items-center gap-3 sm:gap-4 px-4 sm:px-6 py-5">
-              <span
-                className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 text-xs font-bold font-heading transition-colors duration-300"
-                style={{
-                  background: isOpen ? `${color}20` : `${color}10`,
-                  color: isOpen ? color : '#171717',
-                }}
-              >
-                {String(i + 1).padStart(2, '0')}
-              </span>
-              <span
-                className={`flex-1 text-sm font-semibold leading-snug transition-colors duration-300 ${
-                  isOpen ? 'text-white' : 'text-brand-dark'
-                }`}
-              >
-                {faq.q}
-              </span>
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke={isOpen ? '#F6C744' : '#737373'}
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className={`shrink-0 transition-transform duration-300 ${isOpen ? 'rotate-45' : ''}`}
-              >
-                <path d="M12 5v14M5 12h14" />
-              </svg>
-            </div>
-
-            {/* Answer — collapsible */}
-            <div
-              className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                isOpen ? 'max-h-80 opacity-100' : 'max-h-0 opacity-0'
-              }`}
-            >
-              <div className="px-6 pb-6 pt-0">
-                <div className="w-full h-px bg-white/8 mb-5" />
-                <p className="text-sm leading-relaxed text-white/70">
-                  {faq.a}
-                </p>
-              </div>
-            </div>
-          </div>
-        );
-      })}
-    </div>
-  );
-}
+const faqLoopData = {
+  mainTitle: 'Answers to common questions',
+  mainSubtitle: 'Still have a question? Book a call and ask us directly.',
+  rows: [
+    { id: 'row1', speed: '70s', direction: 'left', faqItems: faqItems.slice(0, 3).map((f, i) => ({ id: `q${i + 1}`, question: f.q, answer: f.a })) },
+    { id: 'row2', speed: '60s', direction: 'right', faqItems: faqItems.slice(3, 6).map((f, i) => ({ id: `q${i + 4}`, question: f.q, answer: f.a })) },
+  ],
+};
