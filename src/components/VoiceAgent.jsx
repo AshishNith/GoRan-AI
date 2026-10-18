@@ -264,6 +264,10 @@ export default function VoiceAgent() {
           from { transform: rotate(0deg); }
           to { transform: rotate(360deg); }
         }
+        @keyframes voice-idle-bar {
+          0%, 100% { transform: scaleY(0.35); }
+          50% { transform: scaleY(1); }
+        }
         @keyframes wave-drift {
           0% { transform: translateX(-3%) scaleX(1); }
           100% { transform: translateX(3%) scaleX(1.05); }
@@ -280,9 +284,12 @@ export default function VoiceAgent() {
               Customer Support 24 X 7
             </span>
           </div>
-          <h2 className="text-2xl md:text-3xl font-heading font-bold text-brand-dark leading-tight">
+          <h2 className="text-3xl md:text-5xl font-heading font-bold text-brand-dark leading-[1.1]">
             Speak with our AI agent
           </h2>
+          <p className="mt-4 mb-0 max-w-[440px] mx-auto text-base md:text-lg leading-relaxed text-brand-text-muted">
+            A live voice agent that answers questions about GoRan AI, in plain conversation.
+          </p>
         </div>
 
         {/* Voice circle */}
@@ -419,9 +426,47 @@ export default function VoiceAgent() {
           )}
 
           {/* Main circle */}
-          <div className="relative w-52 h-52 sm:w-60 sm:h-60 rounded-full flex items-center justify-center bg-white border border-brand-border shadow-lg">
-            {/* Inner glow */}
-            <div className="absolute inset-0 rounded-full bg-linear-to-br from-brand-yellow/3 to-transparent pointer-events-none" />
+          <div
+            className="relative w-56 h-56 sm:w-64 sm:h-64 rounded-full flex items-center justify-center shadow-[0_30px_70px_-25px_rgba(0,0,0,0.7)]"
+            style={{ background: 'linear-gradient(135deg, #1c1f1f 0%, #0d0f0f 55%, #0b0c0c 100%)' }}
+          >
+            {/* Spotlight from the top-left and a bright edge where it lands, as on the other dark cards */}
+            <div
+              aria-hidden
+              className="absolute inset-0 rounded-full pointer-events-none"
+              style={{
+                background: 'radial-gradient(ellipse 55% 55% at 15% 12%, rgba(255,255,255,0.3), transparent 70%)',
+              }}
+            />
+            <span
+              aria-hidden
+              className="absolute inset-0 rounded-full p-px pointer-events-none"
+              style={{
+                background: 'linear-gradient(135deg, rgba(255,255,255,0.65), rgba(255,255,255,0.08) 35%, rgba(255,255,255,0.05))',
+                mask: 'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)',
+                maskComposite: 'exclude',
+                WebkitMask: 'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)',
+                WebkitMaskComposite: 'xor',
+              }}
+            />
+
+            {/* Idle waveform, drifting quietly until a call starts */}
+            {callState === 'IDLE' && (
+              <div aria-hidden className="absolute inset-x-10 top-[66%] flex h-8 items-center justify-center gap-1">
+                {Array.from({ length: 15 }).map((_, i) => (
+                  <span
+                    key={i}
+                    className="w-0.5 rounded-full bg-white/35"
+                    style={{
+                      height: `${10 + ((i * 7) % 5) * 5}px`,
+                      transformOrigin: 'center',
+                      animation: `voice-idle-bar ${1.6 + (i % 4) * 0.3}s ease-in-out infinite`,
+                      animationDelay: `${i * 0.09}s`,
+                    }}
+                  />
+                ))}
+              </div>
+            )}
 
             {/* Visualizer ring — connected */}
             {callState === 'CONNECTED' && !isMuted && (
@@ -436,8 +481,8 @@ export default function VoiceAgent() {
                         ? '#F6C744'
                         : activeSpeech === 'user'
                           ? '#C084FC'
-                          : '#E5E7EB',
-                      opacity: activeSpeech !== 'none' ? 0.8 : 0.2,
+                          : 'rgba(255,255,255,0.35)',
+                      opacity: activeSpeech !== 'none' ? 0.9 : 0.5,
                     }}
                   />
                 ))}
@@ -457,12 +502,16 @@ export default function VoiceAgent() {
             {/* Central button */}
             <button
               onClick={callState === 'IDLE' ? startCall : endCall}
-              className={`relative z-10 w-18 h-18 rounded-full flex flex-col items-center justify-center transition-all duration-300 cursor-pointer active:scale-90 ${
+              aria-label={callState === 'CONNECTED' ? 'End call' : 'Start a voice call with our AI agent'}
+              className={`relative z-10 w-20 h-20 -translate-y-3 rounded-full flex flex-col items-center justify-center transition-all duration-300 cursor-pointer active:scale-90 ${
                 callState === 'CONNECTED'
                   ? 'bg-red-500 text-white hover:bg-red-600 shadow-lg shadow-red-500/20'
                   : 'bg-brand-yellow text-brand-dark hover:bg-brand-yellow-hover shadow-lg shadow-brand-yellow/20 hover:scale-105'
               }`}
             >
+              {callState === 'IDLE' && (
+                <span aria-hidden className="absolute inset-0 rounded-full bg-brand-yellow/50 animate-ping" style={{ animationDuration: '2.4s' }} />
+              )}
               {callState === 'CONNECTED' ? (
                 <>
                   <PhoneOff size={20} />
@@ -561,7 +610,20 @@ export default function VoiceAgent() {
                 </span>
               </div>
             )
-          ) : null}
+          ) : (
+            <div className="flex flex-col items-center gap-5 text-center">
+              <p className="m-0 text-sm text-brand-text-muted">
+                Tap the button to start a live voice call. Your browser will ask for microphone access.
+              </p>
+              <div className="flex flex-wrap items-center justify-center gap-2">
+                {['What does GoRan AI build?', 'How long does a project take?', 'Can you automate my WhatsApp?'].map((q) => (
+                  <span key={q} className="rounded-full border border-brand-border bg-white/70 px-3.5 py-1.5 text-xs text-brand-text-muted">
+                    &ldquo;{q}&rdquo;
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
 
       </div>
