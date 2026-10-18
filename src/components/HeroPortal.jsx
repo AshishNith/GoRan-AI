@@ -3,6 +3,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import GlyphPortal from './ui/glyph-portal';
 import { Button05 } from './ui/arrow-dots-button';
 
+// The hero keeps Outfit; the rest of the site's headings use Mileast (see index.css)
 const HEADING_FACE = '"Outfit", "Arial Black", Arial, sans-serif';
 const FALLBACK_FACE = '"Arial Black", Arial, sans-serif';
 const WORD = 'AUTOPILOT';
@@ -59,7 +60,7 @@ function HeroFront({ onBook }) {
       <div
         aria-hidden="true"
         className="absolute inset-x-0 text-center font-heading font-bold uppercase leading-none select-none text-[clamp(3rem,17vw,4.5rem)] md:text-[clamp(4.5rem,11.5vw,9rem)] bottom-[calc(100%-var(--gp-word-top,35%)+0.1em)]"
-        style={{ color: INK }}
+        style={{ color: INK, fontFamily: HEADING_FACE }}
       >
         RUN ON
       </div>

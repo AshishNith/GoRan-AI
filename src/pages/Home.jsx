@@ -190,9 +190,9 @@ export default function Home() {
               <div>
                 <div className="relative w-full aspect-[4/5] rounded-2xl overflow-hidden mb-6 border border-brand-border bg-brand-bg-light">
                   <img
-                    src="/Ashish.jpeg"
+                    src="/Ashish.webp"
                     alt="Ashish Ranjan — Founder & AI Systems Architect"
-                    className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
+                    className="w-full h-full object-cover object-top group-hover:scale-[1.03] transition-transform duration-500"
                   />
                   <div className="absolute top-4 left-4 bg-brand-dark/90 backdrop-blur-md text-white text-[11px] font-semibold uppercase tracking-wider px-3 py-1.5 rounded-full border border-white/10">
                     Founder
@@ -237,7 +237,7 @@ export default function Home() {
                   <img
                     src="/Piyush.jpg"
                     alt="Piyush Rana — Sales & Marketing Head"
-                    className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
+                    className="w-full h-full object-cover object-top group-hover:scale-[1.03] transition-transform duration-500"
                   />
                   <div className="absolute top-4 left-4 bg-brand-dark/90 backdrop-blur-md text-white text-[11px] font-semibold uppercase tracking-wider px-3 py-1.5 rounded-full border border-white/10">
                     Sales &amp; Marketing Head

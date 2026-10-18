@@ -1,8 +1,29 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+/* Mileast: display serif for headings. The weight range stops browsers faking a bold on top of its
+   single weight, so font-bold headings keep the drawn letterforms.
+   NOTE: the files in public/fonts are the DEMO release (personal use only). Swap in the licensed
+   files from sronstudio.com before this ships to production. */
+@font-face {
+  font-family: 'Mileast';
+  src: url('/fonts/mileast.otf') format('opentype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Mileast';
+  src: url('/fonts/mileast-italic.otf') format('opentype');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* 1. Design System Theme Tokens (Tailwind CSS v4 Configuration) */
 @theme {
-  --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-heading: 'Mileast', 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-body: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 
   /* Brand Colors */

@@ -99,9 +99,9 @@ export default function Founder() {
 
             <div className="w-full aspect-3/4 max-h-125 border border-brand-border bg-brand-bg-light overflow-hidden">
               <img
-                src="/Ashish.jpeg"
+                src="/Ashish.webp"
                 alt="Ashish Ranjan — Founder of GoRan AI, AI Systems Architect and Automation Expert in India"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover object-top"
               />
             </div>
           </div>
