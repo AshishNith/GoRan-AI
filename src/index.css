@@ -104,6 +104,40 @@ video {
   transform: scale(1.04);
 }
 
+/* Home hero portal: the hero has its own CTAs, so drop the portal's built-in caption */
+.hero-portal [data-gp-caption] {
+  display: none;
+}
+
+/* No panel after the fly-through. With motion on, the hero holds for one screen of scroll (its
+   empty content block) while the next section is pulled up behind it by the same height, then the
+   hero clears (--hero-clear) to reveal it. Without motion it is a plain one-screen hero. */
+.hero-portal [data-gp-content] {
+  min-height: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  pointer-events: none !important;
+}
+
+.hero-portal > section {
+  position: relative;
+  z-index: 1;
+  pointer-events: none;
+  background: rgb(255 255 255 / calc(1 - var(--hero-clear, 0)));
+}
+
+.hero-portal > section[data-gp-ready] [data-gp-field] {
+  opacity: calc(1 - var(--hero-clear, 0)) !important;
+}
+
+.hero-portal > section[data-gp-motion="on"] [data-gp-content] {
+  min-height: var(--gp-height) !important;
+}
+
+.hero-portal:has(> section[data-gp-motion="on"]) > .hero-after {
+  margin-top: -100svh;
+}
+
 /* Dotted canvas behind the process step visuals */
 .steps-visual-bg {
   background-image: radial-gradient(circle, rgba(23, 23, 23, 0.09) 1px, transparent 1px);

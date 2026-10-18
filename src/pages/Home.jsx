@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import ClientMarquee from '../components/ClientMarquee';
+import HeroPortal from '../components/HeroPortal';
 import StepsShowcase from '../components/StepsShowcase';
 import ProcessHero from '../components/ProcessHero';
 import ScrollStack, { ScrollStackItem } from '../components/ui/ScrollStack';
@@ -10,7 +11,6 @@ import { useCalBooking } from '../components/CalBookingModal';
 import SEOHead from '../components/SEOHead';
 import { organizationSchema, localBusinessSchema, buildFAQSchema } from '../seo/schemas';
 import TestimonialsSection from '../components/TestimonialsSection';
-import { Button05 } from '../components/ui/arrow-dots-button';
 import InstagramReels from '../components/InstagramReels';
 
 export default function Home() {
@@ -38,74 +38,11 @@ export default function Home() {
         schema={[organizationSchema, localBusinessSchema, buildFAQSchema(homeFaqs)]}
       />
       {/* Hero Section */}
-      <section className="pt-20 md:pt-24 pb-12 bg-white" id="hero">
-        <div className="w-full max-w-[95vw] mx-auto ">
-          <div className="text-center relative min-h-screen flex items-center justify-center bg-gradient-to-b from-white via-white to-brand-bg-light rounded-[28px] border border-brand-border overflow-hidden">
-            {/* Background video */}
-            <video className="absolute inset-0 w-full h-full object-cover pointer-events-none" autoPlay loop muted playsInline>
-              <source src="/Herobg_video.mp4" type="video/mp4" />
-            </video>
-
-            {/* Subtle noise overlay */}
-            <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 256 256\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'n\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.65\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%%25\' height=\'100%%25\' filter=\'url(%23n)\'/%3E%3C/svg%3E")', backgroundRepeat: 'repeat', backgroundSize: '256px 256px' }} />
-
-            {/* Decorative gradient orbs */}
-            <div className="absolute top-[-10%] left-[-5%] w-[70%] h-[70%] rounded-full bg-brand-yellow/[0.03] blur-[120px] pointer-events-none" />
-            <div className="absolute bottom-[-10%] right-[-5%] w-[60%] h-[60%] rounded-full bg-purple-500/[0.03] blur-[120px] pointer-events-none" />
-
-            {/* Subtle dot grid */}
-            <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle, #111 0.5px, transparent 0.5px)', backgroundSize: '40px 40px', opacity: 0.04 }} />
-
-            <div className="w-full max-w-[1000px] mx-auto px-6 relative z-10 flex flex-col items-center">
-              
-              {/* Headline and Image wrapper */}
-              <div className="relative mb-6 flex justify-center items-center w-full animate-fadeIn">
-                {/* Image Behind Text */}
-                {/* <div className="absolute inset-0 flex justify-center items-center pointer-events-none z-0 opacity-70 md:opacity-100">
-                   <img src="/man.png" alt="" className="h-[150%] md:h-[180%] object-contain -translate-y-10" aria-hidden="true" />
-                </div> */}
-
-                {/* Headline */}
-                {/* Visually-hidden SEO h1 with target keywords */}
-                <h1 className="sr-only">GoRan AI — India's Leading AI Agency for Calling Agents, Voice Agents, WhatsApp Agents & Business Automation</h1>
-                <div 
-                  className="font-heading font-black text-[#111] leading-[0.85] text-[clamp(3rem,17vw,4.5rem)] md:text-[clamp(4.5rem,11.5vw,9rem)] tracking-tighter z-10 relative uppercase text-center w-full select-none"
-                  style={{ WebkitTextStroke: '2px #111', color: 'transparent', textShadow: '0 0 0 #111' }}
-                  aria-hidden="true"
-                  role="presentation"
-                >
-                  RUN ON<br />AUTOPILOT
-                </div>
-              </div>
-
-              {/* Subtext */}
-              <p className="text-brand-text-muted text-lg md:text-xl max-w-[600px] leading-relaxed mt-6 mb-10 z-10 relative animate-fadeIn" style={{ animationDelay: '0.15s' }}>
-                AI agents that run your business while you sleep
-              </p>
-
-              {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-3 w-full z-10 relative animate-fadeIn" style={{ animationDelay: '0.3s' }}>
-                <Button05
-                  label="Book a Call"
-                  onClick={openCalBooking}
-                  className="min-w-[160px] sm:min-w-0"
-                />
-                <Button05
-                  label="See Our Work"
-                  to="/case-studies"
-                  variant="light"
-                  className="min-w-[160px] sm:min-w-0"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Client Showcase Section sits behind the hero and is revealed as it clears */}
+      <HeroPortal onBook={openCalBooking} after={<ClientMarquee />} />
 
 
 
-      {/* Client Showcase Section */}
-      <ClientMarquee />
 
       {/* Automation Showcase Section */}
       <section className="pt-24 bg-white" id="automation">
