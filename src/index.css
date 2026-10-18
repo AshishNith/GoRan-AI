@@ -69,16 +69,51 @@ video {
   -webkit-mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
 }
 
+/* No `gap` here: spacing lives on each logo, so translating -50% lands exactly on the second half */
 .clients-marquee-track {
   display: inline-flex;
-  gap: 24px;
   align-items: center;
-  animation: marquee-scroll 25s linear infinite;
+  animation: marquee-scroll 60s linear infinite;
   width: max-content;
+}
+
+.clients-marquee-reverse {
+  animation-direction: reverse;
 }
 
 .clients-marquee-track:hover {
   animation-play-state: paused;
+}
+
+/* Logos are single-colour silhouettes used as masks, so the colour comes from here */
+.client-logo-mark {
+  background-color: var(--color-brand-text-muted);
+  opacity: 0.85;
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  transition: background-color 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+}
+
+.client-logo:hover .client-logo-mark {
+  background-color: var(--color-brand-dark);
+  opacity: 1;
+  transform: scale(1.04);
+}
+
+/* Dotted canvas behind the process step visuals */
+.steps-visual-bg {
+  background-image: radial-gradient(circle, rgba(23, 23, 23, 0.09) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .clients-marquee-track {
+    animation: none;
+  }
 }
 
 @keyframes marquee-scroll {

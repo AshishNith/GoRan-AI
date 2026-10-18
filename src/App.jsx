@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Lenis from 'lenis';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Analytics } from '@vercel/analytics/react';
 import ReactGA from 'react-ga4';
 import Header from './components/Header';
@@ -31,6 +33,8 @@ import Qualification from './pages/Qualification';
 import Demo from './pages/Demo';
 import { CalBookingProvider } from './components/CalBookingModal';
 
+gsap.registerPlugin(ScrollTrigger);
+
 
 function App() {
   const location = useLocation();
@@ -48,14 +52,15 @@ function App() {
       smoothWheel: true,
     });
 
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-
-    requestAnimationFrame(raf);
+    // Drive Lenis from GSAP's ticker and tell ScrollTrigger on every Lenis scroll, so pinned
+    // sections (steps, case studies, testimonials) move in the same frame as the page and don't jump.
+    const update = (time) => lenis.raf(time * 1000);
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(update);
+    gsap.ticker.lagSmoothing(0);
 
     return () => {
+      gsap.ticker.remove(update);
       lenis.destroy();
     };
   }, []);

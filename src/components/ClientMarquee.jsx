@@ -1,66 +1,79 @@
-import React, { useState } from 'react';
-
-const horizontalLogos = [
-  { name: "Million Flats", url: "/clients/million-flats.png", invert: false, onLight: true },
-  { name: "Visvam", url: "/clients/visvam.png", invert: false, onLight: true },
-  { name: "Sasteghar", url: "/clients/sasteghar.png", invert: false, onLight: true },
-  { name: "MathEd", url: "https://res.cloudinary.com/dvwpxb2oa/image/upload/v1780484846/copy_of_chatgpt_image_jun_3_2026_04_34_38_pm_zl5hql.png", invert: false },
-  { name: "Anaaj AI", url: "https://res.cloudinary.com/dvwpxb2oa/image/upload/v1773933014/FullWhiteLogo_nlnlbh.svg", invert: false },
-  { name: "A Robotics Services", url: "https://res.cloudinary.com/dvwpxb2oa/image/upload/v1780491579/ChatGPT_Image_Jun_3_2026_04_47_02_PM_tnbgan.png", invert: false },
-  { name: "DESE - IISc Bangalore", url: "https://res.cloudinary.com/dinhcaf2c/image/upload/v1750332367/dese_o261go.jpg", invert: false },
-  { name: "Vyomira Tech Solutions", url: "https://res.cloudinary.com/dvwpxb2oa/image/upload/v1780485044/ChatGPT_Image_Jun_3_2026_04_39_46_PM_1_e81kwv.png", invert: false },
-  { name: "NandniVerse", url: "https://yt3.googleusercontent.com/xB0EZsEWAU0h3jf4tjNFWN2y9q_HfQXfT3D1cMHOzIEdZ7R5-BsmA3iVv_Pq60DksAF8emf2Lw=s160-c-k-c0x00ffffff-no-rj", invert: false },
-  { name: "Herbsera", url: "https://res.cloudinary.com/dvwpxb2oa/image/upload/v1780485724/ChatGPT_Image_Jun_3_2026_04_51_26_PM_hgo6dh.png", invert: false },
-  { name: "Codewave", url: "https://codewave.it.com/assets/Logo_Orginal-BDXHym7S.png", invert: false },
-  { name: "GreenWrench Solutions", url: "/clients/greenwrench.png", invert: false, onLight: true },
-  { name: "Hadoti Farms", url: "https://hadoti-farms.vercel.app/Creatives/whiteLogo.png", invert: false },
+// Single-colour silhouettes in /public/clients/mono, tinted with CSS so every logo shares one style.
+// `w` and `h` are the file's pixel size; they set each logo's display size (see logoSize).
+const ROWS = [
+  [
+    { name: "Million Flats", file: "million-flats", w: 256, h: 114 },
+    { name: "Visvam", file: "visvam", w: 649, h: 160 },
+    { name: "Sasteghar", file: "sasteghar", w: 302, h: 160 },
+    { name: "MathEd", file: "mathed", w: 483, h: 160 },
+    { name: "Anaaj AI", file: "anaaj", w: 482, h: 160 },
+    { name: "A Robotics Services", file: "arobotics", w: 497, h: 160 },
+    { name: "DESE - IISc Bangalore", file: "dese", w: 123, h: 148 },
+  ],
+  [
+    { name: "Vyomira Tech Solutions", file: "vyomira", w: 794, h: 160 },
+    { name: "NandniVerse", file: "nandniverse", w: 159, h: 159 },
+    { name: "Herbsera", file: "herbsera", w: 728, h: 160 },
+    { name: "Codewave", file: "codewave", w: 775, h: 133 },
+    { name: "GreenWrench Solutions", file: "greenwrench", w: 158, h: 160 },
+    { name: "Hadoti Farms", file: "hadoti", w: 430, h: 160 },
+  ],
 ];
 
-function ClientLogoItem({ logo }) {
-  const [hasError, setHasError] = useState(false);
+// Give every logo roughly the same visual area, so wide wordmarks and square badges look balanced
+const LOGO_AREA = 5200;
+const logoSize = ({ w, h }) => {
+  const ratio = w / h;
+  const height = Math.min(54, Math.max(24, Math.sqrt(LOGO_AREA / ratio)));
+  return { width: Math.round(height * ratio), height: Math.round(height) };
+};
 
+function ClientLogo({ logo }) {
+  const url = `url(/clients/mono/${logo.file}.png)`;
   return (
-    <div className={`client-logo-card group relative flex items-center justify-center border shadow-[0_4px_15px_rgba(0,0,0,0.15)] hover:shadow-[0_12px_30px_rgba(0,0,0,0.3)] hover:border-brand-yellow/30 rounded-2xl h-20 w-44 px-6 select-none shrink-0 transition-all duration-300 hover:-translate-y-1 mx-1.5 cursor-pointer ${logo.onLight ? 'bg-white border-white/80 hover:bg-white' : 'bg-[#121212] border-white/[0.08] hover:bg-[#1a1a1a]'}`}>
-      {!hasError ? (
-        <img
-          src={logo.url}
-          alt={`${logo.name} Logo`}
-          onError={() => setHasError(true)}
-          className={`relative max-h-10 max-w-full object-contain ${logo.onLight ? '' : 'opacity-85'} group-hover:opacity-100 group-hover:scale-[1.03] transition-all duration-300 select-none pointer-events-none ${logo.invert ? 'invert' : ''}`}
-          loading="lazy"
-        />
-      ) : (
-        <span className="font-heading text-xs font-black tracking-widest text-white/50 group-hover:text-white transition-colors duration-300 text-center uppercase leading-tight select-none">
-          {logo.name}
-        </span>
-      )}
+    <li className="client-logo shrink-0 flex items-center justify-center px-7 md:px-9 h-16">
+      <span
+        role="img"
+        aria-label={logo.name}
+        title={logo.name}
+        className="client-logo-mark block"
+        style={{ ...logoSize(logo), WebkitMaskImage: url, maskImage: url }}
+      />
+    </li>
+  );
+}
+
+function MarqueeRow({ logos, reverse }) {
+  // Two identical halves; the track slides by exactly one half, so the loop has no visible jump.
+  // Each half repeats the row twice so it is wider than ultra-wide screens.
+  const half = [...logos, ...logos];
+  return (
+    <div className="clients-marquee-container">
+      <ul className={`clients-marquee-track list-none m-0 p-0 ${reverse ? 'clients-marquee-reverse' : ''}`}>
+        {[...half, ...half].map((logo, idx) => (
+          <ClientLogo key={idx} logo={logo} />
+        ))}
+      </ul>
     </div>
   );
 }
 
 export default function ClientMarquee() {
-  // Triple the items to ensure there is no blank space on ultra-wide screens
-  const marqueeItems = [...horizontalLogos, ...horizontalLogos, ...horizontalLogos];
-
   return (
-    <section className="py-14 bg-brand-bg-light border-t border-b border-brand-border/60 text-center overflow-hidden relative">
-      {/* Soft background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-white/40 to-transparent pointer-events-none" />
-      
-      <div className="w-full max-w-[1200px] mx-auto px-6 mb-8 relative z-10">
-        <h4 className="text-[11px] font-bold uppercase tracking-[0.2em] text-brand-text-muted select-none">
+    <section className="py-14 md:py-16 bg-brand-bg-light border-t border-b border-brand-border/60 text-center overflow-hidden relative">
+      <div className="w-full max-w-[1200px] mx-auto px-6 mb-8 relative z-10 flex items-center justify-center gap-4">
+        <span className="hidden sm:block h-px w-12 bg-brand-border" />
+        <h4 className="text-[11px] font-bold uppercase tracking-[0.2em] text-brand-text-muted select-none m-0">
           Trusted by operators at scale
         </h4>
+        <span className="hidden sm:block h-px w-12 bg-brand-border" />
       </div>
 
-      <div className="clients-marquee-container relative py-4 z-10">
-        <div className="clients-marquee-track">
-          {marqueeItems.map((logo, idx) => (
-            <ClientLogoItem key={idx} logo={logo} />
-          ))}
-        </div>
+      <div className="relative z-10 flex flex-col gap-2 md:gap-3">
+        {ROWS.map((logos, idx) => (
+          <MarqueeRow key={idx} logos={logos} reverse={idx % 2 === 1} />
+        ))}
       </div>
     </section>
   );
 }
-
