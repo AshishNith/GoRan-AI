@@ -4,7 +4,7 @@ import ClientMarquee from '../components/ClientMarquee';
 import StepsShowcase from '../components/StepsShowcase';
 import ProcessHero from '../components/ProcessHero';
 import ScrollStack, { ScrollStackItem } from '../components/ui/ScrollStack';
-import ScrollAdventure from '../components/ui/animated-scroll';
+import CaseStudiesSection from '../components/CaseStudiesSection';
 import VoiceAgent from '../components/VoiceAgent';
 import { useCalBooking } from '../components/CalBookingModal';
 import SEOHead from '../components/SEOHead';
@@ -138,7 +138,7 @@ export default function Home() {
       </section>
 
       {/* Case Studies Section */}
-      <ScrollAdventure />
+      <CaseStudiesSection />
 
       {/* Services Section */}
       <section className="py-24 bg-white border-t border-brand-border" id="services">
