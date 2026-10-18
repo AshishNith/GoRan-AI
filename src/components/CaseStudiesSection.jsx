@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import gsap from 'gsap';
@@ -47,8 +47,20 @@ const CASES = [
   },
 ];
 
-const STACK_TOP = 96; // px from the top of the screen where the first card sticks
-const STACK_STEP = 20; // px each later card sticks lower, so the stack stays visible
+// Wide, tall-enough screens without reduced motion get the pinned horizontal track
+const PIN_QUERY = '(min-width: 1024px) and (min-height: 640px) and (prefers-reduced-motion: no-preference)';
+const CARD_WIDTH = 'min(1100px, 86vw)';
+
+function useMediaQuery(query) {
+  const [matches, setMatches] = useState(() => typeof window !== 'undefined' && window.matchMedia(query).matches);
+  useEffect(() => {
+    const list = window.matchMedia(query);
+    const onChange = () => setMatches(list.matches);
+    list.addEventListener('change', onChange);
+    return () => list.removeEventListener('change', onChange);
+  }, [query]);
+  return matches;
+}
 
 const TILT_LEFT = 'md:[transform:rotateY(-8deg)_rotateX(3deg)] md:group-hover/card:[transform:rotateY(0deg)_rotateX(0deg)]';
 const TILT_RIGHT = 'md:[transform:rotateY(8deg)_rotateX(3deg)] md:group-hover/card:[transform:rotateY(0deg)_rotateX(0deg)]';
@@ -92,21 +104,20 @@ function BrowserFrame({ name, image, flip }) {
   );
 }
 
-function CaseCard({ item, index }) {
+function CaseCard({ item, index, horizontal }) {
   const data = caseStudiesData[item.id];
   if (!data) return null;
   const flip = index % 2 === 1;
-  const topOffset = STACK_TOP + index * STACK_STEP;
 
   return (
     <li
       data-case
-      className="md:sticky md:top-[var(--stack-top)] md:h-[540px] mb-5 md:mb-14"
-      style={{ '--stack-top': `${topOffset}px` }}
+      className={horizontal ? 'shrink-0 h-full' : 'mb-5 md:mb-8'}
+      style={horizontal ? { width: CARD_WIDTH } : undefined}
     >
-      <div data-card className="group/card relative h-full origin-top">
+      <div data-card className="group/card relative h-full">
         <article
-          className="relative h-full overflow-hidden rounded-3xl text-white grid grid-cols-1 md:grid-cols-[1.02fr_1fr]"
+          className={`relative h-full overflow-hidden rounded-3xl text-white grid ${horizontal ? 'grid-cols-[1.02fr_1fr]' : 'grid-cols-1 md:grid-cols-[1.02fr_1fr]'}`}
           style={{ background: 'linear-gradient(135deg, #1c1f1f 0%, #0d0f0f 55%, #0b0c0c 100%)' }}
         >
           <div
@@ -173,73 +184,165 @@ function CaseCard({ item, index }) {
             </div>
           </div>
 
-          {/* Darkens the card as the next one slides over it */}
-          <div data-dim aria-hidden className="absolute inset-0 rounded-3xl bg-black opacity-0 pointer-events-none" />
         </article>
       </div>
     </li>
   );
 }
 
+function SectionHeader({ className = '', align = 'center', children }) {
+  return (
+    <div className={className}>
+      <div className={align === 'center' ? 'text-center' : ''}>
+        <span className="text-xs font-bold uppercase tracking-[0.2em] text-brand-text-muted">Our past work</span>
+        <h2 className="text-3xl md:text-5xl font-heading font-bold text-brand-dark leading-[1.1] mt-3 mb-0 text-balance">
+          Real stories. Real <span className="text-brand-yellow">business growth</span>
+        </h2>
+        <p className={`text-brand-text-muted text-base md:text-lg leading-relaxed max-w-[520px] mt-4 mb-0 ${align === 'center' ? 'mx-auto' : ''}`}>
+          Custom AI tools that solve actual operational headaches. Here is what we have delivered.
+        </p>
+      </div>
+      {children}
+    </div>
+  );
+}
+
+function ViewAllLink() {
+  return (
+    <Link
+      to="/case-studies"
+      className="inline-flex items-center gap-2 bg-brand-yellow hover:bg-brand-yellow-hover text-brand-dark font-semibold text-sm py-3 px-6 rounded-full transition-all duration-200 hover:-translate-y-0.5 shadow-md shrink-0"
+    >
+      View all case studies <ArrowRight size={14} />
+    </Link>
+  );
+}
+
+// Desktop: the section pins and scrolling slides the case studies sideways, one at a time.
+// Phones, short screens and reduced motion get a plain vertical list.
 export default function CaseStudiesSection() {
   const rootRef = useRef(null);
+  const segmentRefs = useRef([]);
+  const horizontal = useMediaQuery(PIN_QUERY);
 
   useLayoutEffect(() => {
     const root = rootRef.current;
     if (!root) return;
 
-    const mm = gsap.matchMedia();
-
-    // The headline numbers count up the first time each card comes into view
-    mm.add('(prefers-reduced-motion: no-preference)', () => {
-      root.querySelectorAll('[data-metric]').forEach((el) => {
-        const { value, decimals, suffix } = parseMetric(el.dataset.metric);
-        const counter = { v: 0 };
-        el.textContent = formatMetric(0, decimals, suffix);
-        gsap.to(counter, {
-          v: value,
-          duration: 1.6,
-          ease: 'power2.out',
-          onUpdate: () => { el.textContent = formatMetric(counter.v, decimals, suffix); },
-          scrollTrigger: { trigger: el, start: 'top 85%', once: true },
-        });
+    const countUp = (el, scrollTrigger) => {
+      const { value, decimals, suffix } = parseMetric(el.dataset.metric);
+      const counter = { v: 0 };
+      el.textContent = formatMetric(0, decimals, suffix);
+      gsap.to(counter, {
+        v: value,
+        duration: 1.6,
+        ease: 'power2.out',
+        onUpdate: () => { el.textContent = formatMetric(counter.v, decimals, suffix); },
+        scrollTrigger: { ...scrollTrigger, once: true },
       });
-    });
+    };
 
-    // Desktop: each card shrinks back and dims as the next one slides up over it
-    mm.add('(min-width: 768px) and (prefers-reduced-motion: no-preference)', () => {
-      const items = root.querySelectorAll('[data-case]');
-      items.forEach((item, i) => {
-        const next = items[i + 1];
-        if (!next) return;
-        const card = item.querySelector('[data-card]');
-        const dim = item.querySelector('[data-dim]');
-        const scrollTrigger = {
-          trigger: next,
-          start: 'top bottom',
-          end: `top ${STACK_TOP + (i + 1) * STACK_STEP}px`,
-          scrub: true,
-        };
-        gsap.to(card, { scale: 0.94, ease: 'none', scrollTrigger });
-        gsap.to(dim, { opacity: 0.45, ease: 'none', scrollTrigger });
+    const ctx = gsap.context(() => {
+      const metrics = Array.from(root.querySelectorAll('[data-metric]'));
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (!horizontal) {
+        if (!reduce) metrics.forEach((el) => countUp(el, { trigger: el, start: 'top 85%' }));
+        return;
+      }
+
+      const pin = root.querySelector('[data-pin]');
+      const track = root.querySelector('[data-track]');
+      const cards = Array.from(track.children);
+      const last = cards.length - 1;
+      // Slide until the last card sits where the first one started, in the middle of the screen
+      const distance = () => cards[last].offsetLeft - cards[0].offsetLeft;
+
+      const slide = gsap.to(track, {
+        x: () => -distance(),
+        ease: 'none',
+        scrollTrigger: {
+          id: 'case-studies-horizontal',
+          trigger: pin,
+          start: 'top top',
+          end: () => `+=${distance()}`,
+          pin: true,
+          scrub: 0.6,
+          invalidateOnRefresh: true,
+          // Settle on the nearest card, never fling past several on a fast scroll
+          snap: { snapTo: 1 / last, inertia: false, duration: { min: 0.2, max: 0.6 }, delay: 0.1, ease: 'power1.inOut' },
+          onUpdate: (self) => {
+            const position = self.progress * last;
+            segmentRefs.current.forEach((bar, idx) => {
+              if (bar) bar.style.transform = `scaleX(${Math.min(1, Math.max(0, position - idx + 1))})`;
+            });
+          },
+        },
       });
-    });
 
-    return () => mm.revert();
-  }, []);
+      // The card in the middle is full size; its neighbours shrink back and fade
+      cards.forEach((card) => {
+        gsap.timeline({
+          scrollTrigger: { trigger: card, containerAnimation: slide, start: 'left right', end: 'right left', scrub: true },
+        })
+          .fromTo(card, { scale: 0.88, opacity: 0.4 }, { scale: 1, opacity: 1, ease: 'none', duration: 1 })
+          .to(card, { scale: 0.88, opacity: 0.4, ease: 'none', duration: 1 });
+      });
+
+      // Count up as each card arrives; the first one is already in place when the section arrives
+      metrics.forEach((el, idx) => {
+        countUp(el, idx === 0
+          ? { trigger: pin, start: 'top 60%' }
+          : { trigger: el, containerAnimation: slide, start: 'left 70%' });
+      });
+    }, root);
+
+    ScrollTrigger.refresh();
+    return () => ctx.revert();
+  }, [horizontal]);
+
+  if (horizontal) {
+    return (
+      <section ref={rootRef} className="bg-white border-t border-brand-border" id="case-studies">
+        <div data-pin className="h-screen flex flex-col pt-24 pb-10 overflow-hidden">
+          <SectionHeader align="left" className="w-full max-w-275 mx-auto px-6 flex items-end justify-between gap-10 shrink-0">
+            <div className="flex flex-col items-end gap-5 shrink-0">
+              <ViewAllLink />
+              {/* Progress: one bar per case study */}
+              <div className="flex gap-2" aria-hidden="true">
+                {CASES.map((item, idx) => (
+                  <span key={item.id} className="block w-10 h-1 rounded-full bg-brand-border overflow-hidden">
+                    <span
+                      ref={(el) => { segmentRefs.current[idx] = el; }}
+                      className="block h-full w-full bg-brand-yellow origin-left"
+                      style={{ transform: `scaleX(${idx === 0 ? 1 : 0})` }}
+                    />
+                  </span>
+                ))}
+              </div>
+            </div>
+          </SectionHeader>
+
+          <div className="flex-1 min-h-0 mt-8">
+            <ol
+              data-track
+              className="list-none m-0 p-0 flex h-full gap-8 will-change-transform"
+              style={{ paddingInline: `calc((100% - ${CARD_WIDTH}) / 2)` }}
+            >
+              {CASES.map((item, index) => (
+                <CaseCard key={item.id} item={item} index={index} horizontal />
+              ))}
+            </ol>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section ref={rootRef} className="bg-white border-t border-brand-border py-20 md:py-28" id="case-studies">
       <div className="w-full max-w-275 mx-auto px-6">
-        <div className="text-center mb-12 md:mb-16">
-          <span className="text-xs font-bold uppercase tracking-[0.2em] text-brand-text-muted">Our past work</span>
-          <h2 className="text-3xl md:text-5xl font-heading font-bold text-brand-dark leading-[1.1] mt-3 mb-0 text-balance">
-            Real stories. Real <span className="text-brand-yellow">business growth</span>
-          </h2>
-          <p className="text-brand-text-muted text-base md:text-lg leading-relaxed max-w-[520px] mx-auto mt-4 mb-0">
-            Custom AI tools that solve actual operational headaches. Here is what we have delivered.
-          </p>
-        </div>
+        <SectionHeader className="mb-12 md:mb-16" />
 
         <ol className="list-none m-0 p-0">
           {CASES.map((item, index) => (
@@ -248,12 +351,7 @@ export default function CaseStudiesSection() {
         </ol>
 
         <div className="text-center mt-6 md:mt-4">
-          <Link
-            to="/case-studies"
-            className="inline-flex items-center gap-2 bg-brand-yellow hover:bg-brand-yellow-hover text-brand-dark font-semibold text-sm py-3 px-6 rounded-full transition-all duration-200 hover:-translate-y-0.5 shadow-md"
-          >
-            View all case studies <ArrowRight size={14} />
-          </Link>
+          <ViewAllLink />
         </div>
       </div>
     </section>
