@@ -44,33 +44,17 @@ export default function Home() {
 
 
 
-      {/* Automation Showcase Section */}
-      <section className="pt-24 bg-white" id="automation">
-        <div className="w-full max-w-300 mx-auto px-6">
-          <ProcessHero />
+      {/* Delivery Process Section */}
+      <section className="py-12 md:py-16 bg-white" id="steps">
+        <div className="w-full max-w-[95vw] mx-auto">
+          <StepsShowcase />
         </div>
       </section>
 
-      {/* Delivery Process Section */}
-      <section className="pt-20 pb-24 bg-white" id="steps">
-        <div className="w-full max-w-300 mx-auto px-6">
-          <StepsShowcase />
-
-          {/* Detailed Process Link Section */}
-          <div className="mt-16 text-center border-t border-brand-border pt-12">
-            <p className="text-brand-text-muted text-sm md:text-base mb-4 max-w-md mx-auto leading-relaxed">
-              Want a comprehensive look at how we work end-to-end? Explore our detailed 6-step roadmap from discovery to continuous support.
-            </p>
-            <Link
-              to="/process"
-              className="inline-flex items-center gap-2 bg-brand-yellow hover:bg-brand-yellow-hover text-brand-dark font-semibold text-sm py-3 px-6 rounded-full transition-all duration-200 hover:-translate-y-0.5 shadow-md border-none cursor-pointer"
-            >
-              <span>Explore Our Full 6-Step Process</span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </Link>
-          </div>
+      {/* Automation Showcase Section */}
+      <section className="pt-12 md:pt-16 bg-white" id="automation">
+        <div className="w-full max-w-[1640px] mx-auto px-3 md:px-6">
+          <ProcessHero />
         </div>
       </section>
 

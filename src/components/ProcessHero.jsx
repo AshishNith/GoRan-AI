@@ -352,6 +352,18 @@ export default function ProcessHero({ className = '' }) {
       <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-2/5 bg-gradient-to-b from-brand-bg-light via-brand-bg-light/80 to-transparent" />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-1/4 bg-gradient-to-t from-brand-bg-light via-brand-bg-light/80 to-transparent" />
 
+      {/* Blurred edges on both sides, so the cards seem to slip out of view rather than be cut off */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-y-0 left-0 z-10 w-[22%] backdrop-blur-[6px] bg-gradient-to-r from-brand-bg-light via-brand-bg-light/70 to-transparent"
+        style={{ maskImage: 'linear-gradient(to right, #000 30%, transparent)', WebkitMaskImage: 'linear-gradient(to right, #000 30%, transparent)' }}
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-y-0 right-0 z-10 w-[22%] backdrop-blur-[6px] bg-gradient-to-l from-brand-bg-light via-brand-bg-light/70 to-transparent"
+        style={{ maskImage: 'linear-gradient(to left, #000 30%, transparent)', WebkitMaskImage: 'linear-gradient(to left, #000 30%, transparent)' }}
+      />
+
       <div className="relative z-20 flex h-full flex-col items-center justify-between py-10 md:py-14 text-center">
         <div className="px-6">
           <span className="text-xs font-bold uppercase tracking-[0.2em] text-brand-text-muted">What our agents handle</span>
