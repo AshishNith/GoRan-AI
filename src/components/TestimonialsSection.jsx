@@ -12,6 +12,8 @@ const PULL_QUOTES = {
   'rohit-verma': 'We close deals much faster than before.',
   'aditya-jain': 'Operational mistakes reduced massively.',
   'simran-kaur': 'Saved our team countless hours every week.',
+  'prashant-jain': 'Over 12,000 farmer queries resolved.',
+  'mukul-khandelwal': 'Orders grew 3.5x in 60 days.',
 };
 
 export default function TestimonialsSection() {
@@ -24,6 +26,7 @@ export default function TestimonialsSection() {
         testimonial: PULL_QUOTES[item.id] ?? item.quote.split('. ')[0],
         by: `${item.name}, ${item.role}, ${item.company}`,
         initials: item.initials,
+        imgSrc: item.image ?? undefined,
       })),
     [],
   );

@@ -65,6 +65,30 @@ export const testimonials = {
     category: 'Event Management',
     tags: ['AI Workflow', 'Client Management', 'Scheduling'],
   },
+  'prashant-jain': {
+    id: 'prashant-jain',
+    name: 'Prashant Jain',
+    role: 'Founder & Educator at Unacademy',
+    company: 'Anaaj AI',
+    initials: 'PJ',
+    image: null, // set to a path like '/people/prashant-jain.webp' to show a photo instead of initials
+    quote: 'GoRan AI built our multilingual crop assistant and CRM in 45 days. Farmers now get answers in their own language, and more than 12,000 queries have been resolved without a manual advisor.',
+    rating: 5,
+    category: 'Agriculture',
+    tags: ['Multilingual AI', 'Mobile App', 'CRM'],
+  },
+  'mukul-khandelwal': {
+    id: 'mukul-khandelwal',
+    name: 'Mukul Khandelwal',
+    role: 'Founder',
+    company: 'Hadoti Farms',
+    initials: 'MK',
+    image: null,
+    quote: 'Our monthly orders grew 3.5x within 60 days of launch. Stock now syncs with every order in real time, and the WhatsApp updates handle most of the delivery questions our customers used to call about.',
+    rating: 5,
+    category: 'E-Commerce & Logistics',
+    tags: ['Inventory Sync', 'WhatsApp Automation', 'Headless Store'],
+  },
 };
 
 export const testimonialsList = Object.values(testimonials);
