@@ -1,8 +1,10 @@
 import { useLayoutEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { MotionConfig } from 'motion/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ConnectVisual, DeployVisual, SpecVisual, VisualStage } from './StepVisuals';
+import { ArrowRight } from 'lucide-react';
+import { BlueprintIllustration, ConnectIllustration, LaunchIllustration } from './ProcessIllustrations';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -10,194 +12,192 @@ const pad = (n) => String(n).padStart(2, '0');
 
 const steps = [
   {
+    tag: 'Blueprint',
     title: 'Scope & Architecture',
-    desc: 'We turn your goals into a clear agent spec. Every integration, data source and success metric is written down before we build, so there are no surprises later.',
+    desc: 'We turn your goals into a clear agent spec. Every integration, data source and success metric is written down before we build.',
     deliverables: ['Agent spec', 'Data map', 'Success metrics'],
-    visual: SpecVisual,
+    art: BlueprintIllustration,
   },
   {
+    tag: 'Integration',
     title: 'Connect & Integrate',
-    desc: 'We connect custom LLMs and RAG engines to the tools you already run: CRMs, databases, messaging and APIs. The agent works inside your stack, not beside it.',
+    desc: 'We connect custom LLMs and RAG engines to the tools you already run: CRMs, databases, messaging and APIs.',
     deliverables: ['CRM & APIs', 'LLM + RAG', 'Secure access'],
-    visual: ConnectVisual,
+    art: ConnectIllustration,
   },
   {
+    tag: 'Go live',
     title: 'Deploy & Support',
-    desc: 'You test it in a sandbox first and we iterate on your feedback. Then it goes live with monitoring, alerts and ongoing tuning.',
+    desc: 'You test it in a sandbox and we iterate on your feedback. Then it goes live with monitoring, alerts and ongoing tuning.',
     deliverables: ['Sandbox testing', 'Monitoring', 'Ongoing tuning'],
-    visual: DeployVisual,
+    art: LaunchIllustration,
   },
 ];
 
-// One step as a dark glass card: a spotlight from the top-left, hairline frame lines that cross the
-// card, and a white dot riding them (each card starts its dot at a different point). The title,
-// a one-line label and the description sit centred in the middle.
-function StepText({ step, index }) {
+// Desktop: the cards climb like steps. Each sits RISE px higher than the one before it, and the path
+// runs through a node NODE_GAP px above each card's top edge.
+const RISE = 64;
+const NODE_GAP = 36;
+const LAST = steps.length - 1;
+const cardOffset = (index) => (LAST - index) * RISE;
+const nodeY = (index) => cardOffset(index) + NODE_GAP;
+const nodeX = (index) => ((index + 0.5) / steps.length) * 1000;
+const PATH_HEIGHT = cardOffset(0) + NODE_GAP * 2;
+
+// A stepped line: flat into each node, then an S-bend up to the next
+function stepPath() {
+  const points = steps.map((_, idx) => [nodeX(idx), nodeY(idx)]);
+  let d = `M0 ${points[0][1]} L${points[0][0]} ${points[0][1]}`;
+  for (let i = 1; i < points.length; i++) {
+    const [x0, y0] = points[i - 1];
+    const [x1, y1] = points[i];
+    const mid = (x0 + x1) / 2;
+    d += ` C${mid} ${y0} ${mid} ${y1} ${x1} ${y1}`;
+  }
+  return `${d} L1000 ${points[LAST][1]}`;
+}
+const STEP_PATH = stepPath();
+
+function Path({ className = '' }) {
   return (
-    <div
-      className="relative h-full min-h-[280px] flex flex-col items-center justify-center text-center rounded-2xl px-10 py-14 md:px-14 text-white"
-      style={{ background: 'linear-gradient(135deg, #1c1f1f 0%, #0d0f0f 55%, #0b0c0c 100%)' }}
-    >
-      <div aria-hidden className="absolute inset-0 rounded-2xl overflow-hidden pointer-events-none">
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              'radial-gradient(ellipse 45% 50% at 0% 0%, rgba(255,255,255,0.5), transparent 70%), conic-gradient(from 90deg at 0% 0%, transparent 8deg, rgba(255,255,255,0.34) 40deg, transparent 72deg)',
-            maskImage: 'radial-gradient(circle at 0% 0%, #000 0%, #000 25%, transparent 90%)',
-            WebkitMaskImage: 'radial-gradient(circle at 0% 0%, #000 0%, #000 25%, transparent 90%)',
-          }}
-        />
-        <span className="absolute inset-x-0 top-[22px] h-px bg-gradient-to-r from-white/45 via-white/15 to-white/10" />
-        <span className="absolute inset-x-0 bottom-[22px] h-px bg-gradient-to-r from-white/15 to-white/10" />
-        <span className="absolute inset-y-0 left-[26px] w-px bg-gradient-to-b from-white/45 via-white/15 to-white/10" />
-        <span className="absolute inset-y-0 right-[26px] w-px bg-gradient-to-b from-white/15 to-white/10" />
+    <svg viewBox={`0 0 1000 ${PATH_HEIGHT}`} preserveAspectRatio="none" className={`absolute inset-x-0 top-0 w-full overflow-visible ${className}`} style={{ height: PATH_HEIGHT }} aria-hidden="true">
+      <path d={STEP_PATH} fill="none" stroke="currentColor" strokeWidth="1.5" vectorEffect="non-scaling-stroke" />
+    </svg>
+  );
+}
+
+function StepCard({ step, index }) {
+  const Art = step.art;
+  return (
+    <article data-card className="flex h-full flex-col rounded-3xl border border-white/[0.07] bg-[#262626] p-6">
+      <div className="flex items-center gap-3">
+        <span className="font-mono text-xs font-semibold text-brand-yellow">{pad(index + 1)}</span>
+        <span className="h-px w-6 bg-white/15" />
+        <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-white/45">{step.tag}</span>
       </div>
-      {/* Edge of the card, brightest where the light lands */}
-      <span
-        aria-hidden
-        className="absolute inset-0 rounded-2xl pointer-events-none p-px"
+      <h3 className="m-0 mt-4 font-heading text-xl md:text-2xl font-bold text-white">{step.title}</h3>
+      <p className="m-0 mt-3 text-sm md:text-[0.95rem] leading-relaxed text-white/55">{step.desc}</p>
+
+      <div
+        className="relative mt-6 h-[170px] md:h-[180px] rounded-2xl bg-[#202020] overflow-hidden flex items-center justify-center p-3"
         style={{
-          background: 'linear-gradient(135deg, rgba(255,255,255,0.75), rgba(255,255,255,0.1) 30%, rgba(255,255,255,0.06))',
-          mask: 'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)',
-          maskComposite: 'exclude',
-          WebkitMask: 'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)',
-          WebkitMaskComposite: 'xor',
+          backgroundImage:
+            'linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px)',
+          backgroundSize: '22px 22px',
         }}
-      />
-      <span aria-hidden className="card-dot pointer-events-none" style={{ animationDelay: `${-index * 3.3}s` }} />
-
-      <h3 className="relative font-heading font-bold leading-tight m-0 text-3xl md:text-4xl bg-gradient-to-r from-white to-brand-yellow bg-clip-text text-transparent">
-        {step.title}
-      </h3>
-      <p className="relative m-0 mt-3 text-xs font-bold uppercase tracking-[0.18em] text-white/70">
-        {step.deliverables.join(' · ')}
-      </p>
-      <p className="relative m-0 mt-5 max-w-[420px] text-sm md:text-[0.95rem] leading-relaxed text-white/55">
-        {step.desc}
-      </p>
-    </div>
+      >
+        <Art />
+      </div>
+    </article>
   );
 }
 
-function StepsHeading({ className = '' }) {
-  return (
-    <div className={className}>
-      <span className="text-xs font-bold uppercase tracking-[0.2em] text-brand-text-muted">Our process · 3 steps</span>
-      <h2 className="text-3xl md:text-5xl font-heading font-bold text-brand-dark leading-[1.1] mt-3 mb-0 text-balance">
-        From blueprint to a <span className="text-brand-yellow">live agent</span>
-      </h2>
-      <p className="text-brand-text-muted text-base leading-relaxed max-w-[460px] mx-auto mt-4 mb-0">
-        From the first blueprint to a live agent, we handle the complexity and keep it secure.
-      </p>
-    </div>
-  );
-}
-
-// Scroll timeline: a yellow line draws down the middle as you scroll, each step lights up when the
-// line reaches it, and its graphic and card slide in. Phones keep the line on the left edge.
+// Process section: a dark panel where the three steps climb from blueprint to a live agent. Scrolling
+// draws the stepped path up through them and each node lights up as the line reaches it.
 export default function StepsShowcase() {
   const rootRef = useRef(null);
-  const railRef = useRef(null);
-  const fillRef = useRef(null);
 
   useLayoutEffect(() => {
     const root = rootRef.current;
     if (!root) return;
+    const fill = root.querySelector('[data-path-fill]');
+    const nodes = Array.from(root.querySelectorAll('[data-node]'));
+    const cards = Array.from(root.querySelectorAll('[data-card]'));
+
+    const draw = (progress) => {
+      fill.style.clipPath = `inset(0 ${(1 - progress) * 100}% 0 0)`;
+      nodes.forEach((node, idx) => { node.dataset.active = String(progress * 1000 >= nodeX(idx) - 20); });
+    };
 
     const mm = gsap.matchMedia();
 
-    mm.add('(prefers-reduced-motion: no-preference)', () => {
-      // The line fills from the top to the bottom of the rail as the section scrolls past
-      gsap.fromTo(
-        fillRef.current,
-        { scaleY: 0 },
-        {
-          scaleY: 1,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: railRef.current,
-            start: 'top 55%',
-            end: 'bottom 55%',
-            scrub: 0.4,
-          },
-        },
-      );
-
-      root.querySelectorAll('[data-step]').forEach((row) => {
-        // The step lights up once the line has reached its dot
-        ScrollTrigger.create({
-          trigger: row,
-          start: 'top 55%',
-          onEnter: () => { row.dataset.active = 'true'; },
-          onLeaveBack: () => { row.dataset.active = 'false'; },
-        });
-
-        gsap.from(row.querySelectorAll('[data-reveal]'), {
-          opacity: 0,
-          y: 48,
-          duration: 0.8,
-          ease: 'power3.out',
-          stagger: 0.15,
-          scrollTrigger: { trigger: row, start: 'top 80%', once: true },
-        });
+    mm.add('(min-width: 768px) and (prefers-reduced-motion: no-preference)', () => {
+      const state = { p: 0 };
+      draw(0);
+      gsap.to(state, {
+        p: 1,
+        ease: 'none',
+        onUpdate: () => draw(state.p),
+        scrollTrigger: { trigger: root.querySelector('[data-steps]'), start: 'top 80%', end: 'top 30%', scrub: 0.5 },
+      });
+      gsap.from(cards, {
+        opacity: 0,
+        y: 40,
+        duration: 0.8,
+        ease: 'power3.out',
+        stagger: 0.14,
+        scrollTrigger: { trigger: root.querySelector('[data-steps]'), start: 'top 75%', once: true },
       });
     });
 
-    // Reduced motion: the line is drawn in full and every step is already lit
-    mm.add('(prefers-reduced-motion: reduce)', () => {
-      gsap.set(fillRef.current, { scaleY: 1 });
-      root.querySelectorAll('[data-step]').forEach((row) => { row.dataset.active = 'true'; });
-    });
+    // Phones and reduced motion: the path is drawn in full and every node is lit
+    mm.add('(max-width: 767px), (prefers-reduced-motion: reduce)', () => draw(1));
 
     return () => mm.revert();
   }, []);
 
   return (
     <MotionConfig reducedMotion="user">
-    <div ref={rootRef}>
-      <StepsHeading className="text-center mb-12 md:mb-16" />
+      <div ref={rootRef} className="relative overflow-hidden rounded-[32px] bg-[#1c1c1c] text-white px-6 py-14 md:px-12 md:py-20">
+        <div
+          aria-hidden
+          className="absolute inset-0 pointer-events-none"
+          style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px)', backgroundSize: '28px 28px' }}
+        />
+        <div aria-hidden className="absolute -top-40 right-[-10%] w-[520px] h-[520px] rounded-full bg-brand-yellow/[0.06] blur-[120px] pointer-events-none" />
 
-      <div className="relative max-w-[1080px] mx-auto">
-        {/* The rail: grey track with the yellow line drawn over it */}
-        <div ref={railRef} aria-hidden className="absolute top-0 bottom-0 left-5 md:left-1/2 -translate-x-1/2 w-0.5 bg-brand-border rounded-full">
-          <div ref={fillRef} className="absolute inset-0 bg-brand-yellow rounded-full origin-top" style={{ transform: 'scaleY(0)' }} />
-        </div>
-
-        <ol className="list-none m-0 p-0 flex flex-col gap-14 md:gap-24">
-          {steps.map((step, index) => {
-            const Visual = step.visual;
-            const flip = index % 2 === 1;
-            return (
-              <li
-                key={step.title}
-                data-step
-                data-active="false"
-                className="group/step relative pl-12 md:pl-0 md:grid md:grid-cols-2 md:gap-x-24 md:items-stretch"
+        <div className="relative max-w-[1200px] mx-auto">
+          {/* Heading on the left, the pitch and the full roadmap link on the right */}
+          <div className="grid grid-cols-1 md:grid-cols-[1.15fr_1fr] gap-8 md:gap-16 md:items-end">
+            <div>
+              <h2 className="m-0 font-heading font-bold text-4xl md:text-6xl leading-[1.05] tracking-tight text-balance">
+                From blueprint to a <span className="text-brand-yellow">live agent</span>
+              </h2>
+            </div>
+            <div className="md:pb-2">
+              <p className="m-0 text-base md:text-lg leading-relaxed text-white/55">
+                Three steps, one team. We handle the complexity, keep it secure, and stay with you after launch.
+              </p>
+              <Link
+                to="/process"
+                className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-white no-underline group"
               >
-                {/* The dot on the rail */}
-                <span
-                  aria-hidden
-                  className="absolute left-5 md:left-1/2 top-6 md:top-1/2 -translate-x-1/2 md:-translate-y-1/2 z-10 w-9 h-9 md:w-10 md:h-10 rounded-full bg-white border-2 border-brand-border text-brand-text-muted flex items-center justify-center font-heading text-sm font-bold transition-all duration-500 group-data-[active=true]/step:bg-brand-yellow group-data-[active=true]/step:border-brand-yellow group-data-[active=true]/step:text-brand-dark group-data-[active=true]/step:scale-110 group-data-[active=true]/step:shadow-[0_0_0_8px_rgba(246,199,68,0.2)]"
-                >
-                  {pad(index + 1)}
+                See the full 6-step roadmap
+                <span className="flex w-7 h-7 items-center justify-center rounded-full bg-brand-yellow text-brand-dark transition-transform duration-300 group-hover:translate-x-1">
+                  <ArrowRight size={14} />
                 </span>
+              </Link>
+            </div>
+          </div>
 
-                <div data-reveal className={`${flip ? 'md:order-2' : ''} mb-3 md:mb-0`}>
-                  <VisualStage className="h-[350px] md:h-full md:min-h-[340px]">
-                    <Visual />
-                  </VisualStage>
-                </div>
+          {/* The steps climb to the right, joined by a stepped path through a node above each card */}
+          <div data-steps className="relative mt-14 md:mt-16">
+            <div className="hidden md:block" aria-hidden="true">
+              <Path className="text-white/15" />
+              <div data-path-fill className="absolute inset-0" style={{ clipPath: 'inset(0 0 0 0)' }}>
+                <Path className="text-brand-yellow/80" />
+              </div>
+            </div>
 
-                <div data-reveal className={flip ? 'md:order-1' : ''}>
-                  <StepText step={step} index={index} />
+            <div className="relative grid grid-cols-1 md:grid-cols-3 gap-5 md:items-start">
+              {steps.map((step, idx) => (
+                <div key={step.title} className="relative md:pt-[var(--step-top)]" style={{ '--step-top': `${cardOffset(idx) + NODE_GAP * 2}px` }}>
+                  <span
+                    data-node
+                    data-active="true"
+                    aria-hidden="true"
+                    className="group/node absolute left-1/2 hidden md:flex w-10 h-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-[#1c1c1c] transition-colors duration-500 data-[active=true]:border-brand-yellow/40"
+                    style={{ top: nodeY(idx) }}
+                  >
+                    <span className="w-2.5 h-2.5 rounded-full bg-white/40 transition-all duration-500 group-data-[active=true]/node:bg-brand-yellow group-data-[active=true]/node:shadow-[0_0_14px_rgba(246,199,68,0.95)]" />
+                  </span>
+                  <StepCard step={step} index={idx} />
                 </div>
-              </li>
-            );
-          })}
-        </ol>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
     </MotionConfig>
   );
 }
