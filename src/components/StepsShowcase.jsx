@@ -1,5 +1,5 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { motion, MotionConfig } from 'motion/react';
+import { useLayoutEffect, useRef } from 'react';
+import { motion } from 'motion/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
@@ -14,7 +14,6 @@ import {
   Sheet,
   Webhook,
 } from 'lucide-react';
-import ProcessHero from './ProcessHero';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -220,11 +219,11 @@ const steps = [
 
 const pad = (n) => String(n).padStart(2, '0');
 
-// The dark text card for one step. Used by the pinned slider and the stacked cards.
-function StepText({ step, index, compact = false }) {
+// The dark text card for one step on the timeline.
+function StepText({ step, index }) {
   const next = steps[index + 1];
   return (
-    <div className={`relative h-full bg-brand-dark text-white rounded-3xl overflow-hidden flex flex-col ${compact ? 'p-6' : 'p-8 xl:p-10'}`}>
+    <div className="relative h-full bg-brand-dark text-white rounded-3xl overflow-hidden flex flex-col p-6 md:p-8">
       <div className="absolute -top-24 -right-16 w-72 h-72 rounded-full bg-brand-yellow/15 blur-[90px] pointer-events-none" />
 
       <div className="relative flex items-center justify-between">
@@ -235,14 +234,14 @@ function StepText({ step, index, compact = false }) {
         <span className="font-mono text-xs text-white/40 tabular-nums">{pad(index + 1)} / {pad(steps.length)}</span>
       </div>
 
-      <h3 className={`relative font-heading font-bold leading-tight text-white m-0 ${compact ? 'text-2xl mt-6' : 'text-3xl xl:text-[2.6rem] mt-8 xl:mt-10'}`}>
+      <h3 className="relative font-heading font-bold leading-tight text-white m-0 text-2xl md:text-3xl mt-6">
         {step.title}
       </h3>
-      <p className={`relative text-white/60 leading-relaxed m-0 mt-4 max-w-[500px] ${compact ? 'text-[0.95rem]' : 'text-base xl:text-lg'}`}>
+      <p className="relative text-white/60 leading-relaxed m-0 mt-4 max-w-[500px] text-[0.95rem] md:text-base">
         {step.desc}
       </p>
 
-      <ul className={`relative list-none m-0 p-0 mt-auto grid grid-cols-1 sm:grid-cols-3 gap-2.5 ${compact ? 'pt-6' : 'pt-8'}`}>
+      <ul className="relative list-none m-0 p-0 mt-auto grid grid-cols-1 sm:grid-cols-3 md:grid-cols-1 xl:grid-cols-3 gap-2.5 pt-6">
         {step.deliverables.map((item) => (
           <li key={item} className="flex items-center gap-2 bg-white/[0.06] border border-white/10 rounded-2xl px-3.5 py-3 text-sm font-semibold text-white">
             <span className="w-5 h-5 rounded-full bg-brand-yellow text-brand-dark flex items-center justify-center shrink-0">
@@ -287,181 +286,120 @@ function StepsHeading({ className = '' }) {
   return (
     <div className={className}>
       <span className="text-xs font-bold uppercase tracking-[0.2em] text-brand-text-muted">Our process · 3 steps</span>
-      <h3 className="text-2xl xl:text-3xl font-heading font-bold text-brand-dark leading-[1.1] mt-3 mb-0 text-balance">
+      <h2 className="text-3xl md:text-5xl font-heading font-bold text-brand-dark leading-[1.1] mt-3 mb-0 text-balance">
         From blueprint to a <span className="text-brand-yellow">live agent</span>
-      </h3>
+      </h2>
+      <p className="text-brand-text-muted text-base leading-relaxed max-w-[460px] mx-auto mt-4 mb-0">
+        From the first blueprint to a live agent, we handle the complexity and keep it secure.
+      </p>
     </div>
   );
 }
 
-// Phones, short screens and anyone who prefers reduced motion get the steps stacked
-function StackedSteps() {
-  return (
-    <>
-      <ProcessHero className="mb-12" />
-      <StepsHeading className="mb-6 max-w-[620px] mx-auto" />
-      <div className="grid grid-cols-1 gap-6 max-w-[620px] mx-auto">
-        {steps.map((step, index) => {
-          const Visual = step.visual;
-          return (
-            <motion.article
-              key={step.title}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={inView}
-              transition={{ duration: 0.5, ease: 'easeOut' }}
-              className="flex flex-col gap-2.5"
-            >
-              <VisualStage className="h-[250px]">
-                <Visual />
-              </VisualStage>
-              <StepText step={step} index={index} compact />
-            </motion.article>
-          );
-        })}
-      </div>
-    </>
-  );
-}
-
-// Desktop: the section pins, scrolling slides the dark step cards sideways on the right,
-// and the graphic on the left swaps to the step in front.
-function PinnedSteps() {
-  const pinRef = useRef(null);
-  const trackRef = useRef(null);
-  const segmentRefs = useRef([]);
-  // `runs` counts how often each step has come to the front; it keys the graphic so its build-up replays
-  const [{ active, runs }, setStage] = useState(() => ({ active: 0, runs: steps.map(() => 0) }));
-  const lastIndex = steps.length - 1;
+// Scroll timeline: a yellow line draws down the middle as you scroll, each step lights up when the
+// line reaches it, and its graphic and card slide in. Phones keep the line on the left edge.
+export default function StepsShowcase() {
+  const rootRef = useRef(null);
+  const railRef = useRef(null);
+  const fillRef = useRef(null);
 
   useLayoutEffect(() => {
-    const pinEl = pinRef.current;
-    const track = trackRef.current;
-    if (!pinEl || !track) return;
+    const root = rootRef.current;
+    if (!root) return;
 
-    const ctx = gsap.context(() => {
-      // Slide until the last card sits where the first one started
-      const distance = () => track.children[lastIndex].offsetLeft - track.children[0].offsetLeft;
+    const mm = gsap.matchMedia();
 
-      gsap.to(track, {
-        x: () => -distance(),
-        ease: 'none',
-        scrollTrigger: {
-          id: 'steps-horizontal',
-          trigger: pinEl,
-          start: 'top top',
-          end: () => `+=${window.innerHeight * lastIndex}`,
-          pin: true,
-          scrub: 0.6,
-          invalidateOnRefresh: true,
-          // This pin sits above the case-studies and testimonials pins, so it must be measured first
-          refreshPriority: 1,
-          onUpdate: (self) => {
-            const position = self.progress * lastIndex;
-            const next = Math.round(position);
-            setStage((prev) => (prev.active === next ? prev : {
-              active: next,
-              runs: prev.runs.map((count, idx) => (idx === next ? count + 1 : count)),
-            }));
-            // Step 1's bar starts full; each later bar fills as its card slides in
-            segmentRefs.current.forEach((bar, idx) => {
-              if (bar) bar.style.transform = `scaleX(${Math.min(1, Math.max(0, position - idx + 1))})`;
-            });
+    mm.add('(prefers-reduced-motion: no-preference)', () => {
+      // The line fills from the top to the bottom of the rail as the section scrolls past
+      gsap.fromTo(
+        fillRef.current,
+        { scaleY: 0 },
+        {
+          scaleY: 1,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: railRef.current,
+            start: 'top 55%',
+            end: 'bottom 55%',
+            scrub: 0.4,
           },
         },
+      );
+
+      root.querySelectorAll('[data-step]').forEach((row) => {
+        // The step lights up once the line has reached its dot
+        ScrollTrigger.create({
+          trigger: row,
+          start: 'top 55%',
+          onEnter: () => { row.dataset.active = 'true'; },
+          onLeaveBack: () => { row.dataset.active = 'false'; },
+        });
+
+        gsap.from(row.querySelectorAll('[data-reveal]'), {
+          opacity: 0,
+          y: 48,
+          duration: 0.8,
+          ease: 'power3.out',
+          stagger: 0.15,
+          scrollTrigger: { trigger: row, start: 'top 80%', once: true },
+        });
       });
-    }, pinEl);
-    // Pins further down may already exist (e.g. after a resize into the pinned layout); re-measure them
-    // now that this pin's spacing is in the page
-    ScrollTrigger.refresh();
+    });
 
-    return () => {
-      ctx.revert();
-      ScrollTrigger.refresh();
-    };
-  }, [lastIndex]);
+    // Reduced motion: the line is drawn in full and every step is already lit
+    mm.add('(prefers-reduced-motion: reduce)', () => {
+      gsap.set(fillRef.current, { scaleY: 1 });
+      root.querySelectorAll('[data-step]').forEach((row) => { row.dataset.active = 'true'; });
+    });
 
-  return (
-    <div ref={pinRef} className="h-screen flex flex-col pt-24 pb-8">
-      <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-6 items-end mb-8 shrink-0">
-        <StepsHeading />
-        {/* Progress: one bar per step */}
-        <ol className="list-none m-0 p-0 grid grid-cols-3 gap-3" aria-label="Process progress">
-          {steps.map((item, idx) => (
-            <li key={item.title} aria-current={idx === active ? 'step' : undefined}>
-              <div className="h-1 rounded-full bg-brand-border overflow-hidden">
-                <div
-                  ref={(el) => { segmentRefs.current[idx] = el; }}
-                  className="h-full w-full bg-brand-yellow origin-left"
-                  style={{ transform: `scaleX(${idx === 0 ? 1 : 0})` }}
-                />
-              </div>
-              <div className={`mt-2.5 text-xs font-semibold transition-colors duration-300 ${idx === active ? 'text-brand-dark' : 'text-brand-text-muted/60'}`}>
-                <span className="font-mono mr-1.5">{pad(idx + 1)}</span>{item.title}
-              </div>
-            </li>
-          ))}
-        </ol>
-      </div>
-
-      <div className="flex-1 min-h-0 grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-6">
-        {/* Left: the graphic for the step in front. All three stay mounted and crossfade. */}
-        <VisualStage>
-          {steps.map((item, idx) => {
-            const StepVisual = item.visual;
-            const isActive = idx === active;
-            return (
-              <motion.div
-                key={item.title}
-                aria-hidden={!isActive}
-                initial={false}
-                animate={{ opacity: isActive ? 1 : 0, x: isActive ? 0 : idx < active ? -40 : 40, scale: isActive ? 1 : 0.96 }}
-                transition={{ duration: 0.5, ease: 'easeOut' }}
-                className="absolute inset-0 flex items-center justify-center pointer-events-none"
-              >
-                <div className="w-full flex items-center justify-center scale-[1.3] xl:scale-[1.45]">
-                  <StepVisual key={runs[idx]} />
-                </div>
-              </motion.div>
-            );
-          })}
-        </VisualStage>
-
-        {/* Right: the dark step cards, moved sideways by the scroll */}
-        <div className="min-h-0 overflow-hidden rounded-3xl">
-          <div ref={trackRef} className="flex gap-6 h-full will-change-transform">
-            {steps.map((item, idx) => (
-              <article key={item.title} className="w-full h-full shrink-0">
-                <StepText step={item} index={idx} />
-              </article>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-const PIN_QUERY = '(min-width: 1024px) and (min-height: 700px) and (prefers-reduced-motion: no-preference)';
-
-export default function StepsShowcase() {
-  const [pinned, setPinned] = useState(() => typeof window !== 'undefined' && window.matchMedia(PIN_QUERY).matches);
-
-  useEffect(() => {
-    const query = window.matchMedia(PIN_QUERY);
-    const onChange = () => setPinned(query.matches);
-    query.addEventListener('change', onChange);
-    return () => query.removeEventListener('change', onChange);
+    return () => mm.revert();
   }, []);
 
   return (
-    <MotionConfig reducedMotion="user">
-      {pinned ? (
-        <>
-          <ProcessHero />
-          <PinnedSteps />
-        </>
-      ) : <StackedSteps />}
-    </MotionConfig>
+    <div ref={rootRef}>
+      <StepsHeading className="text-center mb-12 md:mb-16" />
+
+      <div className="relative max-w-[1080px] mx-auto">
+        {/* The rail: grey track with the yellow line drawn over it */}
+        <div ref={railRef} aria-hidden className="absolute top-0 bottom-0 left-5 md:left-1/2 -translate-x-1/2 w-0.5 bg-brand-border rounded-full">
+          <div ref={fillRef} className="absolute inset-0 bg-brand-yellow rounded-full origin-top" style={{ transform: 'scaleY(0)' }} />
+        </div>
+
+        <ol className="list-none m-0 p-0 flex flex-col gap-14 md:gap-24">
+          {steps.map((step, index) => {
+            const Visual = step.visual;
+            const flip = index % 2 === 1;
+            return (
+              <li
+                key={step.title}
+                data-step
+                data-active="false"
+                className="group/step relative pl-12 md:pl-0 md:grid md:grid-cols-2 md:gap-x-24 md:items-stretch"
+              >
+                {/* The dot on the rail */}
+                <span
+                  aria-hidden
+                  className="absolute left-5 md:left-1/2 top-6 md:top-1/2 -translate-x-1/2 md:-translate-y-1/2 z-10 w-9 h-9 md:w-10 md:h-10 rounded-full bg-white border-2 border-brand-border text-brand-text-muted flex items-center justify-center font-heading text-sm font-bold transition-all duration-500 group-data-[active=true]/step:bg-brand-yellow group-data-[active=true]/step:border-brand-yellow group-data-[active=true]/step:text-brand-dark group-data-[active=true]/step:scale-110 group-data-[active=true]/step:shadow-[0_0_0_8px_rgba(246,199,68,0.2)]"
+                >
+                  {pad(index + 1)}
+                </span>
+
+                <div data-reveal className={`${flip ? 'md:order-2' : ''} mb-3 md:mb-0`}>
+                  <VisualStage className="h-[240px] md:h-full md:min-h-[320px]">
+                    <div className="w-full flex items-center justify-center md:scale-[1.2]">
+                      <Visual />
+                    </div>
+                  </VisualStage>
+                </div>
+
+                <div data-reveal className={flip ? 'md:order-1' : ''}>
+                  <StepText step={step} index={index} />
+                </div>
+              </li>
+            );
+          })}
+        </ol>
+      </div>
+    </div>
   );
 }

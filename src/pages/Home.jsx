@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import ClientMarquee from '../components/ClientMarquee';
 import StepsShowcase from '../components/StepsShowcase';
+import ProcessHero from '../components/ProcessHero';
 import ScrollStack, { ScrollStackItem } from '../components/ui/ScrollStack';
 import ScrollAdventure from '../components/ui/animated-scroll';
 import VoiceAgent from '../components/VoiceAgent';
@@ -106,8 +107,15 @@ export default function Home() {
       {/* Client Showcase Section */}
       <ClientMarquee />
 
+      {/* Automation Showcase Section */}
+      <section className="pt-24 bg-white" id="automation">
+        <div className="w-full max-w-300 mx-auto px-6">
+          <ProcessHero />
+        </div>
+      </section>
+
       {/* Delivery Process Section */}
-      <section className="py-24 bg-white" id="steps">
+      <section className="pt-20 pb-24 bg-white" id="steps">
         <div className="w-full max-w-300 mx-auto px-6">
           <StepsShowcase />
 
