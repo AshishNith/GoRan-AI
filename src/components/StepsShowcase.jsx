@@ -3,7 +3,6 @@ import { motion } from 'motion/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
-  ArrowRight,
   Bot,
   Check,
   Database,
@@ -217,60 +216,53 @@ const steps = [
   },
 ];
 
-const pad = (n) => String(n).padStart(2, '0');
-
-// One step's copy, with no card behind it: just a soft rectangular line round the text and a
-// white glowing dot travelling along it (each step starts its dot at a different point).
+// One step as a dark glass card: a spotlight from the top-left, hairline frame lines that cross the
+// card, and a white dot riding them (each card starts its dot at a different point). The title,
+// a one-line label and the description sit centred in the middle.
 function StepText({ step, index }) {
-  const next = steps[index + 1];
   return (
-    <div className="relative h-full flex flex-col rounded-3xl p-6 md:p-8">
-      <div aria-hidden className="absolute inset-0 rounded-3xl pointer-events-none">
-        <span className="absolute inset-0 rounded-3xl border border-brand-dark/[0.07] blur-[2px]" />
-        <span className="absolute inset-0 rounded-3xl border border-brand-dark/[0.06]" />
-        <span className="card-dot" style={{ animationDelay: `${-index * 3}s` }} />
+    <div
+      className="relative h-full min-h-[280px] flex flex-col items-center justify-center text-center rounded-2xl px-10 py-14 md:px-14 text-white"
+      style={{ background: 'linear-gradient(135deg, #1c1f1f 0%, #0d0f0f 55%, #0b0c0c 100%)' }}
+    >
+      <div aria-hidden className="absolute inset-0 rounded-2xl overflow-hidden pointer-events-none">
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              'radial-gradient(ellipse 45% 50% at 0% 0%, rgba(255,255,255,0.5), transparent 70%), conic-gradient(from 90deg at 0% 0%, transparent 8deg, rgba(255,255,255,0.34) 40deg, transparent 72deg)',
+            maskImage: 'radial-gradient(circle at 0% 0%, #000 0%, #000 25%, transparent 90%)',
+            WebkitMaskImage: 'radial-gradient(circle at 0% 0%, #000 0%, #000 25%, transparent 90%)',
+          }}
+        />
+        <span className="absolute inset-x-0 top-[22px] h-px bg-gradient-to-r from-white/45 via-white/15 to-white/10" />
+        <span className="absolute inset-x-0 bottom-[22px] h-px bg-gradient-to-r from-white/15 to-white/10" />
+        <span className="absolute inset-y-0 left-[26px] w-px bg-gradient-to-b from-white/45 via-white/15 to-white/10" />
+        <span className="absolute inset-y-0 right-[26px] w-px bg-gradient-to-b from-white/15 to-white/10" />
       </div>
+      {/* Edge of the card, brightest where the light lands */}
+      <span
+        aria-hidden
+        className="absolute inset-0 rounded-2xl pointer-events-none p-px"
+        style={{
+          background: 'linear-gradient(135deg, rgba(255,255,255,0.75), rgba(255,255,255,0.1) 30%, rgba(255,255,255,0.06))',
+          mask: 'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)',
+          maskComposite: 'exclude',
+          WebkitMask: 'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)',
+          WebkitMaskComposite: 'xor',
+        }}
+      />
+      <span aria-hidden className="card-dot pointer-events-none" style={{ animationDelay: `${-index * 3.3}s` }} />
 
-      <div className="relative flex items-center justify-between">
-        <span className="inline-flex items-center gap-2 bg-brand-yellow text-brand-dark rounded-full pl-1 pr-3 py-1 text-xs font-bold uppercase tracking-wider">
-          <span className="w-6 h-6 rounded-full bg-brand-dark text-brand-yellow flex items-center justify-center font-heading text-[11px]">{pad(index + 1)}</span>
-          Step
-        </span>
-        <span className="font-mono text-xs text-brand-text-muted/70 tabular-nums">{pad(index + 1)} / {pad(steps.length)}</span>
-      </div>
-
-      <h3 className="relative font-heading font-bold leading-tight text-brand-dark m-0 text-2xl md:text-3xl mt-6">
+      <h3 className="relative font-heading font-bold leading-tight m-0 text-3xl md:text-4xl bg-gradient-to-r from-white to-brand-yellow bg-clip-text text-transparent">
         {step.title}
       </h3>
-      <p className="relative text-brand-text-muted leading-relaxed m-0 mt-4 max-w-[500px] text-[0.95rem] md:text-base">
+      <p className="relative m-0 mt-3 text-xs font-bold uppercase tracking-[0.18em] text-white/70">
+        {step.deliverables.join(' · ')}
+      </p>
+      <p className="relative m-0 mt-5 max-w-[420px] text-sm md:text-[0.95rem] leading-relaxed text-white/55">
         {step.desc}
       </p>
-
-      <ul className="relative list-none m-0 p-0 mt-6 mb-6 flex flex-col gap-3">
-        {step.deliverables.map((item) => (
-          <li key={item} className="flex items-center gap-3 text-sm font-semibold text-brand-dark">
-            <span className="w-5 h-5 rounded-full bg-brand-yellow text-brand-dark flex items-center justify-center shrink-0">
-              <Check size={12} strokeWidth={3} />
-            </span>
-            {item}
-          </li>
-        ))}
-      </ul>
-
-      <div className="relative flex items-center gap-3 border-t border-brand-border mt-auto pt-5 text-sm">
-        {next ? (
-          <>
-            <span className="text-brand-text-muted">Next</span>
-            <ArrowRight size={14} className="text-brand-yellow" />
-            <span className="font-semibold text-brand-dark">{next.title}</span>
-          </>
-        ) : (
-          <>
-            <span className="w-2 h-2 rounded-full bg-emerald-500" />
-            <span className="font-semibold text-brand-dark">Your agent is live</span>
-          </>
-        )}
-      </div>
     </div>
   );
 }
@@ -381,10 +373,8 @@ export default function StepsShowcase() {
                 {/* The dot on the rail */}
                 <span
                   aria-hidden
-                  className="absolute left-5 md:left-1/2 top-6 md:top-1/2 -translate-x-1/2 md:-translate-y-1/2 z-10 w-9 h-9 md:w-10 md:h-10 rounded-full bg-white border-2 border-brand-border text-brand-text-muted flex items-center justify-center font-heading text-sm font-bold transition-all duration-500 group-data-[active=true]/step:bg-brand-yellow group-data-[active=true]/step:border-brand-yellow group-data-[active=true]/step:text-brand-dark group-data-[active=true]/step:scale-110 group-data-[active=true]/step:shadow-[0_0_0_8px_rgba(246,199,68,0.2)]"
-                >
-                  {pad(index + 1)}
-                </span>
+                  className="absolute left-5 md:left-1/2 top-8 md:top-1/2 -translate-x-1/2 md:-translate-y-1/2 z-10 w-5 h-5 rounded-full bg-white border-2 border-brand-border transition-all duration-500 group-data-[active=true]/step:bg-brand-yellow group-data-[active=true]/step:border-brand-yellow group-data-[active=true]/step:scale-125 group-data-[active=true]/step:shadow-[0_0_0_8px_rgba(246,199,68,0.2)]"
+                />
 
                 <div data-reveal className={`${flip ? 'md:order-2' : ''} mb-3 md:mb-0`}>
                   <VisualStage className="h-[240px] md:h-full md:min-h-[320px]">
