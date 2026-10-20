@@ -31,6 +31,7 @@ import WebsitesShowcase from './pages/WebsitesShowcase';
 import LinkedinAutomation from './pages/LinkedinAutomation';
 import Qualification from './pages/Qualification';
 import Demo from './pages/Demo';
+import TravelAgentAIMap from './pages/TravelAgentAIMap';
 import { CalBookingProvider } from './components/CalBookingModal';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -38,7 +39,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 function App() {
   const location = useLocation();
-  const hideHeaderFooter = location.pathname === '/scale' || location.pathname === '/automate' || location.pathname === '/linkedin-automation' || location.pathname === '/qualification' || location.pathname === '/demo';
+  const hideHeaderFooter = location.pathname === '/scale' || location.pathname === '/automate' || location.pathname === '/linkedin-automation' || location.pathname === '/qualification' || location.pathname === '/demo' || location.pathname === '/travel-agent-ai-map';
 
   useEffect(() => {
     // Send pageview to Google Analytics on route change
@@ -92,6 +93,7 @@ function App() {
         <Route path="/linkedin-automation" element={<LinkedinAutomation />} />
         <Route path="/qualification" element={<Qualification />} />
         <Route path="/demo" element={<Demo />} />
+        <Route path="/travel-agent-ai-map" element={<TravelAgentAIMap />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       {!hideHeaderFooter && <Footer />}
