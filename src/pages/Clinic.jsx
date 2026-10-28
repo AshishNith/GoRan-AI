@@ -1,16 +1,15 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import ReactGA from 'react-ga4';
 import {
-  ArrowDown, ArrowRight, CalendarCheck, Languages, Moon, Pause, PhoneCall, PhoneMissed, Play, Sparkles, UserX, Users,
+  ArrowDown, ArrowRight, CalendarCheck, Headphones, Languages, Moon, PhoneCall, PhoneMissed, Sparkles, UserX, Users,
 } from 'lucide-react';
 import SEOHead from '../components/SEOHead';
 import WhatsappIcon from '../components/ui/WhatsappIcon';
 import { useCalBooking } from '../components/CalBookingModal';
 import QualificationLiveDemo from '../components/QualificationLiveDemo';
+import DemoRecordings from '../components/DemoRecordings';
 
-// The clinic call from the "Doctor Sahab" reel. Swap the file in /public/demos to change it.
-const RECORDING_SRC = '/demos/clinic-call.mp3';
 const WHATSAPP_URL = 'https://wa.me/919934225353?text=DEMO%20-%20Main%20clinic%20ke%20liye%20AI%20calling%20agent%20ke%20baare%20mein%20jaanna%20chahta%20hoon.';
 
 const problems = [
@@ -49,106 +48,8 @@ const fixes = [
   },
 ];
 
-const formatTime = (secs) => {
-  if (!Number.isFinite(secs)) return '0:00';
-  const m = Math.floor(secs / 60);
-  const s = Math.floor(secs % 60).toString().padStart(2, '0');
-  return `${m}:${s}`;
-};
-
 function trackEvent(action) {
   ReactGA.event({ category: 'Clinic Demo', action });
-}
-
-function ClinicCallPlayer() {
-  const audioRef = useRef(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [current, setCurrent] = useState(0);
-  const [duration, setDuration] = useState(0);
-  const [failed, setFailed] = useState(false);
-
-  const toggle = () => {
-    const audio = audioRef.current;
-    if (!audio) return;
-    if (audio.paused) {
-      audio.play().catch(() => setFailed(true));
-    } else {
-      audio.pause();
-    }
-  };
-
-  const seek = (e) => {
-    const audio = audioRef.current;
-    const next = Number(e.target.value);
-    if (audio) audio.currentTime = next;
-    setCurrent(next);
-  };
-
-  const progress = duration ? (current / duration) * 100 : 0;
-
-  return (
-    <div className={`w-full max-w-[640px] bg-white border rounded-3xl p-5 sm:p-7 text-left transition-all duration-300 ${isPlaying ? 'border-brand-yellow shadow-card-hover' : 'border-brand-border shadow-card'}`}>
-      <audio
-        ref={audioRef}
-        src={RECORDING_SRC}
-        preload="metadata"
-        onPlay={() => {
-          setFailed(false);
-          setIsPlaying(true);
-          if (audioRef.current?.currentTime < 1) trackEvent('Play recording');
-        }}
-        onPause={() => setIsPlaying(false)}
-        onEnded={() => { setCurrent(0); setIsPlaying(false); trackEvent('Finished recording'); }}
-        onTimeUpdate={(e) => setCurrent(e.currentTarget.currentTime)}
-        onLoadedMetadata={(e) => Number.isFinite(e.currentTarget.duration) && setDuration(e.currentTarget.duration)}
-        onError={() => setFailed(true)}
-      />
-
-      <div className="flex items-center gap-4 sm:gap-5">
-        <button
-          type="button"
-          onClick={toggle}
-          aria-label={isPlaying ? 'Pause the clinic call' : 'Play the clinic call'}
-          className="relative shrink-0 w-16 h-16 sm:w-[72px] sm:h-[72px] rounded-full bg-brand-yellow hover:bg-brand-yellow-hover text-brand-dark flex items-center justify-center border-none cursor-pointer shadow-lg shadow-brand-yellow/30 transition-all duration-200 hover:scale-105 active:scale-95"
-        >
-          {isPlaying && <span className="absolute inset-0 rounded-full border border-brand-yellow animate-ping" style={{ animationDuration: '2s' }} />}
-          {isPlaying ? <Pause size={26} className="fill-current" /> : <Play size={26} className="fill-current ml-1" />}
-        </button>
-
-        <div className="min-w-0 flex-1">
-          <div className="flex items-center gap-2 flex-wrap">
-            <span className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-brand-text-muted">
-              <span className={`w-1.5 h-1.5 rounded-full ${isPlaying ? 'bg-red-500 animate-pulse' : 'bg-brand-text-muted/50'}`} />
-              Recorded call
-            </span>
-            {duration > 0 && <span className="text-[11px] font-mono text-brand-text-muted tabular-nums">· {formatTime(duration)}</span>}
-          </div>
-          <h3 className="font-heading font-bold text-brand-dark text-lg sm:text-xl leading-tight mt-1 mb-1">Patient ki call, AI ne uthayi</h3>
-          <p className="text-brand-text-muted text-sm leading-relaxed m-0">Suniye, AI agent kaise patient se baat karke appointment book karta hai.</p>
-        </div>
-      </div>
-
-      <div className="flex items-center gap-3 mt-6">
-        <span className="text-xs font-mono text-brand-text-muted tabular-nums w-10 text-right">{formatTime(current)}</span>
-        <input
-          type="range"
-          min={0}
-          max={duration || 0}
-          step={0.1}
-          value={current}
-          onChange={seek}
-          aria-label="Seek the clinic call"
-          className="flex-1 h-1.5 rounded-full appearance-none cursor-pointer accent-[#F6C744]"
-          style={{ background: `linear-gradient(to right, #F6C744 ${progress}%, #E5E5E5 ${progress}%)` }}
-        />
-        <span className="text-xs font-mono text-brand-text-muted tabular-nums w-10">{formatTime(duration)}</span>
-      </div>
-
-      {failed && (
-        <p role="alert" className="text-xs text-red-600 mt-3 mb-0">Recording play nahi ho payi. Page refresh karke dobara try kijiye.</p>
-      )}
-    </div>
-  );
 }
 
 function SectionHeading({ eyebrow, title, intro }) {
@@ -196,7 +97,7 @@ export default function Clinic() {
     <main className="w-full bg-white relative overflow-hidden min-h-screen">
       <SEOHead
         title="AI Calling Agent for Clinics"
-        description="Doctor Sahab, ab ek bhi patient call miss nahi hogi. Suniye AI calling agent kaise clinic ki har call uthata hai, appointment book karta hai aur WhatsApp pe reminder bhejta hai."
+        description="Doctor Sahab, ab ek bhi patient call miss nahi hogi. Suniye hamare AI calling agent ki demo calls, phir khud AI se baat kijiye."
         canonicalPath="/clinic"
         noIndex
       />
@@ -222,8 +123,8 @@ export default function Clinic() {
       <div className="absolute top-[3%] right-[-10%] w-140 h-140 rounded-full bg-brand-yellow/10 blur-[120px] pointer-events-none" />
       <div className="absolute top-[30%] left-[-15%] w-120 h-120 rounded-full bg-brand-yellow/5 blur-[100px] pointer-events-none" />
 
-      {/* ── Hero + recording ── */}
-      <section className="relative z-10 pt-28 pb-16 md:pt-36 md:pb-20 px-4 sm:px-6">
+      {/* ── Hero ── */}
+      <section className="relative z-10 pt-28 pb-14 md:pt-36 md:pb-16 px-4 sm:px-6">
         <div className="max-w-[900px] mx-auto text-center flex flex-col items-center">
           <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-brand-yellow/10 border border-brand-yellow/30 text-xs font-bold text-brand-dark uppercase tracking-wider mb-6 animate-fadeIn">
             <Sparkles size={12} className="text-brand-yellow fill-brand-yellow" /> AI Calling Agent · Clinics
@@ -234,20 +135,37 @@ export default function Clinic() {
           </h1>
 
           <p className="text-brand-text-muted text-base sm:text-lg md:text-xl max-w-[680px] leading-relaxed mb-10 animate-fadeIn" style={{ animationDelay: '0.15s' }}>
-            Aapne comment mein "DEMO" likha tha. Ye rahi wo call: suniye AI agent kaise patient ki call uthata hai aur appointment book karta hai.
+            Aapne comment mein "DEMO" likha tha. Ye rahi hamare AI calling agent ki demo calls. Pehle suniye, phir khud AI se baat kijiye.
           </p>
 
-          <div className="w-full flex justify-center animate-fadeIn" style={{ animationDelay: '0.3s' }}>
-            <ClinicCallPlayer />
+          <div className="flex flex-col sm:flex-row items-center gap-4 w-full justify-center animate-fadeIn" style={{ animationDelay: '0.3s' }}>
+            <button
+              onClick={() => scrollTo('recordings')}
+              className="w-full sm:w-auto bg-brand-dark hover:bg-brand-dark-hover text-white font-bold text-base py-4 px-8 rounded-full shadow-lg shadow-black/10 transition-all duration-200 hover:-translate-y-0.5 border-none cursor-pointer flex items-center justify-center gap-2"
+            >
+              <Headphones size={16} />
+              <span>Demo calls suniye</span>
+            </button>
+            <button
+              onClick={() => scrollTo('try-live')}
+              className="w-full sm:w-auto bg-brand-yellow hover:bg-brand-yellow-hover text-brand-dark font-bold text-base py-4 px-8 rounded-full shadow-lg shadow-brand-yellow/10 transition-all duration-200 hover:-translate-y-0.5 border-none cursor-pointer flex items-center justify-center gap-2"
+            >
+              <span>Khud AI se baat kijiye</span>
+              <ArrowDown size={16} />
+            </button>
           </div>
+        </div>
+      </section>
 
-          <button
-            onClick={() => scrollTo('try-live')}
-            className="mt-8 bg-transparent border-none cursor-pointer text-sm font-semibold text-brand-dark inline-flex items-center gap-1.5 hover:underline animate-fadeIn"
-            style={{ animationDelay: '0.45s' }}
-          >
-            Sunne ke baad, khud AI se baat kijiye <ArrowDown size={14} />
-          </button>
+      {/* ── Demo recordings ── */}
+      <section id="recordings" className="relative z-10 pb-20 md:pb-24 px-4 sm:px-6 scroll-mt-20">
+        <div className="max-w-[820px] mx-auto">
+          <SectionHeading
+            eyebrow="Demo Recordings"
+            title="AI calling agent ki demo calls"
+            intro="Kisi bhi recording pe play dabaiye. Headphones se sabse saaf sunai dega."
+          />
+          <DemoRecordings />
         </div>
       </section>
 
