@@ -14,7 +14,9 @@ import * as React from "react"
  *
  * Additions for this site: a slide can carry its own `content` (links and
  * buttons stay clickable), a `blur` flag for a teaser slide, and a `scrim` that
- * darkens the pictures so text on top stays legible.
+ * darkens the pictures so text on top stays legible. With `framed` the pictures
+ * sit in a browser window beside the text instead of behind it: the iris opens
+ * inside the window and the timer runs as a load bar under its address bar.
  */
 
 export type LandPalette = "dawn" | "alpine" | "dusk" | "mist"
@@ -28,6 +30,8 @@ export type Slide = {
   content?: React.ReactNode
   /** Blur the picture, for a "more" teaser slide. */
   blur?: boolean
+  /** Text in the address bar when `framed`. Falls back to `title`. */
+  label?: string
   /** Palette and seed of the painted landscape used when `image` is empty. */
   palette?: LandPalette
   seed?: number
@@ -47,6 +51,8 @@ export type ApertureCarouselProps = {
   scrim?: number
   /** Hide the custom "Next / Prev" cursor lens. */
   plainCursor?: boolean
+  /** Show the pictures in a browser window beside the text rather than full-bleed behind it. */
+  framed?: boolean
   onChange?: (index: number) => void
   className?: string
   style?: React.CSSProperties
@@ -244,6 +250,19 @@ const AP_CSS = [
   ".ap-lens{position:absolute;left:0;top:0;width:76px;height:76px;margin:-38px 0 0 -38px;border-radius:50%;border:1px solid var(--ap-ink);display:grid;place-items:center;font:500 11px/1 ui-sans-serif,system-ui,sans-serif;letter-spacing:.12em;text-transform:uppercase;pointer-events:none;opacity:0;transition:opacity .25s ease;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}",
   ".ap-lens[data-on='1']{opacity:1}",
   ".ap-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}",
+  // framed: one column (window above text) until the carousel is 960px wide, then window right, text left
+  ".ap-framed{container:ap/inline-size;--ap-col:min(calc(100cqw - 32px),620px);--ap-gut:calc((100cqw - var(--ap-col))/2);--ap-top:clamp(16px,4cqw,28px);background:radial-gradient(rgba(169,177,208,.08) 1px,transparent 1px) 0 0/28px 28px,radial-gradient(90% 80% at 50% 0%,rgb(var(--brand-accent-rgb,94 118 227)/.28),transparent 65%),linear-gradient(#12151f,#0b0d13)}",
+  ".ap-frame{position:absolute;left:var(--ap-gut);top:var(--ap-top);width:var(--ap-col);border-radius:12px;overflow:hidden;background:#151827;border:1px solid rgba(255,255,255,.12);box-shadow:0 40px 80px -30px rgba(0,0,0,.75),0 0 60px -10px rgb(var(--brand-accent-rgb,94 118 227)/.35)}",
+  ".ap-chrome{position:relative;height:30px;display:flex;align-items:center;gap:6px;padding:0 12px;background:#1b1f31;border-bottom:1px solid rgba(255,255,255,.08)}",
+  ".ap-chrome>i{flex:none;width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.2)}",
+  ".ap-url{flex:0 1 260px;min-width:0;margin-left:8px;height:18px;padding:0 10px;border-radius:6px;background:rgba(255,255,255,.07);font:500 10.5px/18px ui-sans-serif,system-ui,sans-serif;color:rgba(255,255,255,.62);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}",
+  ".ap-framed .ap-count{position:static;flex:none;margin-left:auto;padding-left:10px;font-size:10px;white-space:nowrap;opacity:.6}",
+  ".ap-framed .ap-track{left:0;right:0;bottom:-1px;height:2px;background:transparent}",
+  ".ap-framed .ap-fill{background:var(--ap-accent,var(--ap-ink))}",
+  ".ap-view{position:relative;aspect-ratio:1500/869;overflow:hidden;background:#0d0f17}",
+  ".ap-view .ap-img{object-position:top}",
+  ".ap-framed .ap-text{left:var(--ap-gut);right:auto;bottom:auto;width:var(--ap-col);top:calc(var(--ap-top) + var(--ap-col)*.5793 + 31px + clamp(24px,5cqw,36px))}",
+  "@container ap (min-width:960px){.ap-frame{left:auto;right:clamp(24px,3.5cqw,56px);top:50%;translate:0 -50%;width:min(56%,920px)}.ap-framed .ap-text{left:clamp(28px,4cqw,64px);width:36%;top:0;bottom:0;display:flex;flex-direction:column;justify-content:center}.ap-framed{background:radial-gradient(rgba(169,177,208,.08) 1px,transparent 1px) 0 0/28px 28px,radial-gradient(60% 90% at 78% 50%,rgb(var(--brand-accent-rgb,94 118 227)/.3),transparent 70%),linear-gradient(#12151f,#0b0d13)}}",
   "@keyframes ap-rise{from{transform:translateY(105%)}to{transform:none}}",
   "@keyframes ap-fill{to{transform:scaleX(1)}}",
   "@media (prefers-reduced-motion:reduce){.ap-line>span{animation:none}}",
@@ -259,6 +278,7 @@ export default function ApertureCarousel({
   ink = "#ffffff",
   scrim = 0,
   plainCursor = false,
+  framed = false,
   onChange,
   className,
   style,
@@ -270,6 +290,7 @@ export default function ApertureCarousel({
   const [incoming, setIncoming] = React.useState(null as null | { to: number; x: number; y: number; id: number })
   const [paused, setPaused] = React.useState(false)
   const rootRef = React.useRef(null as HTMLDivElement | null)
+  const viewRef = React.useRef(null as HTMLDivElement | null)
   const layerRef = React.useRef(null as HTMLDivElement | null)
   const ringRef = React.useRef(null as HTMLDivElement | null)
   const lensRef = React.useRef(null as HTMLDivElement | null)
@@ -301,10 +322,19 @@ export default function ApertureCarousel({
     const layer = layerRef.current
     const ring = ringRef.current
     if (!incoming || !root || !layer) return
-    const w = root.clientWidth
-    const h = root.clientHeight
-    const R = coverRadius(incoming.x, incoming.y, w, h)
-    const at = " at " + incoming.x + "px " + incoming.y + "px)"
+    // The iris lives in the browser window when framed: move the click into its box, clamped to the edge
+    const box = (framed && viewRef.current) || root
+    const w = box.clientWidth
+    const h = box.clientHeight
+    let { x, y } = incoming
+    if (box !== root) {
+      const a = root.getBoundingClientRect()
+      const b = box.getBoundingClientRect()
+      x = Math.min(Math.max(x - (b.left - a.left), 0), w)
+      y = Math.min(Math.max(y - (b.top - a.top), 0), h)
+    }
+    const R = coverRadius(x, y, w, h)
+    const at = " at " + x + "px " + y + "px)"
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches
     const ease = "cubic-bezier(.7,0,.2,1)"
     const anims = [] as Animation[]
@@ -319,9 +349,9 @@ export default function ApertureCarousel({
         anims.push(
           ring.animate(
             [
-              { transform: "translate(" + (incoming.x - R) + "px," + (incoming.y - R) + "px) scale(0)", opacity: 1 },
+              { transform: "translate(" + (x - R) + "px," + (y - R) + "px) scale(0)", opacity: 1 },
               { opacity: 1, offset: 0.7 },
-              { transform: "translate(" + (incoming.x - R) + "px," + (incoming.y - R) + "px) scale(1)", opacity: 0 },
+              { transform: "translate(" + (x - R) + "px," + (y - R) + "px) scale(1)", opacity: 0 },
             ],
             { duration, easing: ease, fill: "both" },
           ),
@@ -339,7 +369,7 @@ export default function ApertureCarousel({
       if (!done) busy.current = false
       anims.forEach((a) => a.cancel())
     }
-  }, [incoming, duration])
+  }, [incoming, duration, framed])
 
   React.useEffect(() => {
     onChange?.(index)
@@ -405,10 +435,33 @@ export default function ApertureCarousel({
   const runFill = autoplay > 0 && n > 1 && !incoming
   const imgClass = (slide: Slide | undefined) => "ap-img" + (slide?.blur ? " ap-blur" : "")
 
+  const pictures = (
+    <>
+      <div className="ap-layer">
+        {srcs[index] ? <img className={imgClass(slides[index])} src={srcs[index]} alt={slides[index]?.alt || slides[index]?.title || ""} draggable={false} /> : null}
+      </div>
+      {incoming ? (
+        <div ref={layerRef} className="ap-layer" key={incoming.id} style={{ clipPath: "circle(0px at 0 0)" }}>
+          {srcs[incoming.to] ? <img className={imgClass(slides[incoming.to])} src={srcs[incoming.to]} alt="" draggable={false} /> : null}
+        </div>
+      ) : null}
+    </>
+  )
+  const count = (
+    <div className="ap-count" aria-hidden="true">
+      {pad2(shown + 1)} — {pad2(n)}
+    </div>
+  )
+  const track = (
+    <div className="ap-track" aria-hidden="true">
+      <div key={"f" + index} className="ap-fill" data-run={runFill ? "1" : "0"} onAnimationEnd={() => go(1)} />
+    </div>
+  )
+
   return (
     <div
       ref={rootRef}
-      className={["ap-root", className].filter(Boolean).join(" ")}
+      className={["ap-root", framed ? "ap-framed" : "", className].filter(Boolean).join(" ")}
       style={{ height, ["--ap-ink" as string]: ink, ["--ap-dur" as string]: autoplay + "ms", ...style }}
       data-paused={paused ? "1" : "0"}
       data-lens={plainCursor ? "0" : "1"}
@@ -423,17 +476,29 @@ export default function ApertureCarousel({
       onPointerUp={onUp}
     >
       <style>{AP_CSS}</style>
-      <div className="ap-layer">
-        {srcs[index] ? <img className={imgClass(slides[index])} src={srcs[index]} alt={slides[index]?.alt || slides[index]?.title || ""} draggable={false} /> : null}
-      </div>
-      {incoming ? (
-        <div ref={layerRef} className="ap-layer" key={incoming.id} style={{ clipPath: "circle(0px at 0 0)" }}>
-          {srcs[incoming.to] ? <img className={imgClass(slides[incoming.to])} src={srcs[incoming.to]} alt="" draggable={false} /> : null}
+      {framed ? (
+        <div className="ap-frame">
+          <div className="ap-chrome">
+            <i />
+            <i />
+            <i />
+            <span className="ap-url" aria-hidden="true">{s.label || s.title}</span>
+            {count}
+            {track}
+          </div>
+          <div ref={viewRef} className="ap-view">
+            {pictures}
+            <div ref={ringRef} className="ap-ring" aria-hidden="true" />
+          </div>
         </div>
-      ) : null}
-      {scrim > 0 ? <div className="ap-scrim" style={{ background: "rgba(8,8,8," + scrim + ")" }} aria-hidden="true" /> : null}
-      <div ref={ringRef} className="ap-ring" aria-hidden="true" />
-      <div className="ap-shade" aria-hidden="true" />
+      ) : (
+        <>
+          {pictures}
+          {scrim > 0 ? <div className="ap-scrim" style={{ background: "rgba(8,8,8," + scrim + ")" }} aria-hidden="true" /> : null}
+          <div ref={ringRef} className="ap-ring" aria-hidden="true" />
+          <div className="ap-shade" aria-hidden="true" />
+        </>
+      )}
       {s.content ? (
         <div className="ap-text" key={"t" + shown}>
           {s.content}
@@ -452,12 +517,12 @@ export default function ApertureCarousel({
           ) : null}
         </div>
       )}
-      <div className="ap-count" aria-hidden="true">
-        {pad2(shown + 1)} — {pad2(n)}
-      </div>
-      <div className="ap-track" aria-hidden="true">
-        <div key={"f" + index} className="ap-fill" data-run={runFill ? "1" : "0"} onAnimationEnd={() => go(1)} />
-      </div>
+      {framed ? null : (
+        <>
+          {count}
+          {track}
+        </>
+      )}
       {plainCursor ? null : (
         <div ref={lensRef} className="ap-lens" data-on={lensOn ? "1" : "0"} aria-hidden="true">
           {lensLabel}

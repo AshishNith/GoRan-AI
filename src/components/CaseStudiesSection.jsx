@@ -69,7 +69,7 @@ function CaseSlide({ item }) {
         </span>
       </Line>
       <Line delay={0.06}>
-        <span className="block pb-1 font-heading font-bold leading-none mt-4 text-6xl md:text-8xl bg-gradient-to-r from-white to-brand-yellow bg-clip-text text-transparent">
+        <span className="block pb-1 font-heading font-bold leading-none mt-4 text-[clamp(3.25rem,6.5cqw,6rem)] bg-gradient-to-r from-white to-brand-yellow bg-clip-text text-transparent">
           {item.metric}
         </span>
       </Line>
@@ -121,6 +121,7 @@ const slides = [
     return {
       image: item.image,
       alt: `${data.name} website`,
+      label: `${data.name} · live site`,
       title: `${data.name}: ${item.metric} ${item.label}`,
       content: <CaseSlide item={item} />,
     };
@@ -129,13 +130,15 @@ const slides = [
     image: CASES[FULL].image,
     alt: '',
     blur: true,
+    label: 'More case studies',
     title: 'More case studies',
     content: <MoreSlide hidden={CASES.length - FULL} />,
   },
 ];
 
-// Our past work: a full-bleed carousel of case studies. Each next slide opens through a circular
-// iris from wherever you click; swipe or use the arrow keys too.
+// Our past work: a carousel of case studies, the story on the left and the client's site in a browser
+// window on the right (stacked on phones). Each next site opens through a circular iris from wherever
+// you click; swipe or use the arrow keys too.
 export default function CaseStudiesSection() {
   return (
     <section className="bg-white border-t border-brand-border py-20 md:py-28" id="case-studies">
@@ -150,12 +153,13 @@ export default function CaseStudiesSection() {
       </div>
 
       <div className="w-full max-w-[1640px] mx-auto px-3 md:px-6 mt-12 md:mt-16">
-        <div className="overflow-hidden rounded-[32px] border border-brand-border/70 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.45)]">
+        <div className="overflow-hidden rounded-[32px] border border-brand-border/70 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.45)] [--cs-h:576px] md:[--cs-h:780px] lg:[--cs-h:clamp(560px,78vh,660px)]">
           <ApertureCarousel
             slides={slides}
-            height="clamp(560px, 80vh, 720px)"
+            height="var(--cs-h)"
             autoplay={7500}
-            scrim={0.42}
+            framed
+            style={{ '--ap-accent': '#AEBBF5' }}
             ariaLabel="Case studies"
           />
         </div>
