@@ -171,6 +171,25 @@ export default function LeadAgent() {
         </div>
       </section>
 
+      {/* Under the hood */}
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 pb-14">
+        <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-brand-text-muted">Under the hood</span>
+        <h2 className="text-2xl sm:text-3xl font-heading font-bold text-brand-dark leading-tight mt-2">
+          The actual n8n workflow
+        </h2>
+        <p className="text-brand-text-muted text-sm sm:text-base leading-relaxed mt-3 max-w-2xl">
+          No black box. This is the live workflow behind the demo below: a webhook, a lead search, a website reader, an AI writer and an email report.
+        </p>
+        <div className="mt-6 rounded-3xl border border-brand-border overflow-hidden bg-[#0f1a14]">
+          <img
+            src="/lead-agent-workflow.png"
+            alt="n8n workflow: webhook, find leads, read each website, extract contacts, Gemini writes a personal email, report emailed"
+            className="w-full h-auto block"
+            loading="lazy"
+          />
+        </div>
+      </section>
+
       {/* Live demo */}
       <section id="run" className="max-w-5xl mx-auto px-4 sm:px-6 pb-16 scroll-mt-20">
         <div className="rounded-3xl border border-brand-border p-6 sm:p-10 grid md:grid-cols-2 gap-10">
