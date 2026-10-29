@@ -106,7 +106,7 @@ export default function Footer() {
             <button
               type="button"
               onClick={openCalBooking}
-              className="inline-flex items-center gap-2 rounded-full border-none bg-brand-yellow px-5 py-2.5 text-sm font-semibold text-brand-dark transition-all duration-200 hover:-translate-y-0.5 hover:bg-brand-yellow-hover cursor-pointer md:text-xs"
+              className="inline-flex items-center gap-2 rounded-btn border-none bg-brand-yellow px-5 py-2.5 text-sm font-semibold text-brand-yellow-ink transition-all duration-200 hover:-translate-y-0.5 hover:bg-brand-yellow-hover cursor-pointer md:text-xs"
             >
               Start a project
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">

@@ -16,23 +16,27 @@ import { ImageStreamHero } from '@/components/ui/image-stream-hero';
 // cards rushing toward the viewer. Each card is an inline SVG drawn on a 180 x 250 canvas (the
 // corridor's 18:25 card ratio), so it scales cleanly at any depth.
 
-const YELLOW = '#F6C744';
-const INK = '#171717';
-const MUTED = '#737373';
-const LINE = '#E5E5E5';
-const SOFT = '#F5F5F5';
+// Xflow palette: lavender fills stand in for the old yellow, with the indigo accent kept for lines
+// and highlights so dark text stays readable on every fill
+const YELLOW = '#CAD3FA';
+const ACCENT = '#5E76E3';
+const INK = '#1F2741';
+const DARK = '#12141D';
+const MUTED = '#4D5578';
+const LINE = '#DDE2F2';
+const SOFT = '#EEF1FA';
 const MONO = 'ui-monospace, SFMono-Regular, Menlo, monospace';
 const HEADING = { fontFamily: 'var(--font-heading)' };
 
 const TONES = {
   light: { bg: '#FFFFFF', border: LINE, text: INK, muted: MUTED, line: LINE, soft: SOFT },
-  dark: { bg: INK, border: INK, text: '#FFFFFF', muted: 'rgba(255,255,255,0.5)', line: 'rgba(255,255,255,0.1)', soft: 'rgba(255,255,255,0.08)' },
-  yellow: { bg: YELLOW, border: YELLOW, text: INK, muted: 'rgba(23,23,23,0.6)', line: 'rgba(23,23,23,0.12)', soft: 'rgba(23,23,23,0.08)' },
+  dark: { bg: DARK, border: '#30374B', text: '#FFFFFF', muted: '#A9B1D0', line: 'rgba(169,177,208,0.16)', soft: 'rgba(169,177,208,0.12)' },
+  yellow: { bg: YELLOW, border: YELLOW, text: INK, muted: 'rgba(31,39,65,0.65)', line: 'rgba(31,39,65,0.12)', soft: 'rgba(31,39,65,0.08)' },
 };
 
 const PILLS = {
   live: ['#ECFDF5', '#047857'],
-  yellow: [YELLOW, INK],
+  yellow: [ACCENT, '#FFFFFF'],
   dark: [INK, '#FFFFFF'],
   soft: [SOFT, MUTED],
 };
@@ -118,7 +122,7 @@ function ScoreCard() {
         cy="86"
         r="34"
         fill="none"
-        stroke={YELLOW}
+        stroke={ACCENT}
         strokeWidth="8"
         strokeLinecap="round"
         strokeDasharray={`${circumference * 0.92} ${circumference}`}
@@ -213,7 +217,7 @@ function FlowCard() {
             <rect x="20" y={y} width="140" height="32" rx="9" fill={ai ? YELLOW : '#FFFFFF'} stroke={ai ? YELLOW : LINE} />
             <rect x="27" y={y + 7} width="18" height="18" rx="5" fill={ai ? INK : SOFT} />
             <Icon x={31} y={y + 11} width={10} height={10} color={ai ? YELLOW : INK} strokeWidth={2} />
-            <text x="52" y={y + 13.5} fontSize="6.5" fontWeight="700" letterSpacing="0.6" fill={ai ? 'rgba(23,23,23,0.6)' : MUTED}>{kind.toUpperCase()}</text>
+            <text x="52" y={y + 13.5} fontSize="6.5" fontWeight="700" letterSpacing="0.6" fill={ai ? 'rgba(31,39,65,0.65)' : MUTED}>{kind.toUpperCase()}</text>
             <text x="52" y={y + 24.5} fontSize="8.5" fontWeight="600" fill={INK}>{title}</text>
           </g>
         );
@@ -240,7 +244,7 @@ function StatsCard() {
           width="9"
           height={height}
           rx="2"
-          fill={idx === BARS.length - 1 ? YELLOW : 'rgba(255,255,255,0.12)'}
+          fill={idx === BARS.length - 1 ? ACCENT : 'rgba(169,177,208,0.16)'}
         />
       ))}
       <line x1="14" x2="166" y1="197" y2="197" stroke={t.line} />
@@ -272,10 +276,10 @@ function CalendarCard() {
         );
       })}
       <rect x="14" y="174" width="152" height="46" rx="10" fill={INK} />
-      <rect x="14" y="174" width="4" height="46" fill={YELLOW} />
+      <rect x="14" y="174" width="4" height="46" fill={ACCENT} />
       <text x="28" y="193" fontSize="9" fontWeight="700" fill="#FFFFFF">Site visit · Priya S.</text>
-      <Clock x={28} y={201} width={8} height={8} color="rgba(255,255,255,0.6)" strokeWidth={2} />
-      <text x="40" y="208" fontSize="7.5" fill="rgba(255,255,255,0.6)">Sat 20 · 11:00 AM</text>
+      <Clock x={28} y={201} width={8} height={8} color="#A9B1D0" strokeWidth={2} />
+      <text x="40" y="208" fontSize="7.5" fill="#A9B1D0">Sat 20 · 11:00 AM</text>
     </Card>
   );
 }
@@ -313,9 +317,9 @@ function AgentCard() {
       <Header t={t} icon={Bot} label="lead-qualifier" pill="Live" pillKind="live" />
       <text x="14" y="76" fontSize="26" fontWeight="700" fill={INK} style={HEADING}>1,284</text>
       <text x="14" y="90" fontSize="8" fill={MUTED}>leads handled this month</text>
-      <polygon points={`14,180 ${line} 166,180`} fill={YELLOW} fillOpacity="0.18" />
-      <polyline points={line} fill="none" stroke={YELLOW} strokeWidth="2.5" strokeLinejoin="round" strokeLinecap="round" />
-      <circle cx={endX} cy={endY} r="4" fill={INK} stroke={YELLOW} strokeWidth="2" />
+      <polygon points={`14,180 ${line} 166,180`} fill={ACCENT} fillOpacity="0.14" />
+      <polyline points={line} fill="none" stroke={ACCENT} strokeWidth="2.5" strokeLinejoin="round" strokeLinecap="round" />
+      <circle cx={endX} cy={endY} r="4" fill={INK} stroke={ACCENT} strokeWidth="2" />
       <line x1="14" x2="166" y1="180" y2="180" stroke={LINE} />
       <CheckDot cx={20} cy={202} fill="#ECFDF5" color="#047857" />
       <text x="32" y="205" fontSize="8" fill={INK}>Synced to CRM</text>
@@ -325,7 +329,7 @@ function AgentCard() {
   );
 }
 
-// Alternating light, dark and yellow so neighbouring cards stand apart in the corridor
+// Alternating light, dark and lavender so neighbouring cards stand apart in the corridor
 const STREAM_CARDS = [
   { alt: 'WhatsApp lead answered in seconds', content: <ChatCard /> },
   { alt: 'Lead score of 92', content: <ScoreCard /> },
@@ -346,7 +350,7 @@ export default function ProcessHero({ className = '' }) {
     <ImageStreamHero
       images={STREAM_CARDS}
       path={STREAM_PATH}
-      className={`steps-visual-bg h-[400px] md:h-[540px] w-full rounded-3xl bg-brand-bg-light border border-brand-border/70 ${className}`}
+      className={`steps-visual-bg h-[400px] md:h-[540px] w-full rounded-[20px] bg-brand-bg-light border border-brand-border/70 ${className}`}
     >
       {/* Fade the top and bottom so the copy stays readable over the cards */}
       <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-2/5 bg-gradient-to-b from-brand-bg-light via-brand-bg-light/80 to-transparent" />

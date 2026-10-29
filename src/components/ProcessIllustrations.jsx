@@ -1,14 +1,14 @@
 import { motion } from 'motion/react';
 
-// Isometric line illustrations for the three process steps: white hairlines on dark fills, one
-// yellow accent each, and a little motion. Drawn on a 260 x 180 canvas.
+// Isometric line illustrations for the three process steps: pale hairlines on navy fills, one
+// accent each, and a little motion. Drawn on a 260 x 180 canvas.
 
-const YELLOW = '#F6C744';
-const LINE = 'rgba(255,255,255,0.55)';
-const FAINT = 'rgba(255,255,255,0.22)';
-const TOP = '#343434';
-const LEFT = '#262626';
-const RIGHT = '#2d2d2d';
+const YELLOW = '#7C90EE';
+const LINE = 'rgba(204,210,233,0.55)';
+const FAINT = 'rgba(204,210,233,0.22)';
+const TOP = '#2E3550';
+const LEFT = '#1C2133';
+const RIGHT = '#242A40';
 
 // Isometric projection: x runs down-right, y runs down-left, z runs up
 const COS = Math.cos(Math.PI / 6);
@@ -149,7 +149,7 @@ export function ConnectIllustration() {
           <polygon
             points={pts([iso(AGENT.x + 8, AGENT.y + 8, BH + AGENT.h), iso(AGENT.x + 24, AGENT.y + 8, BH + AGENT.h), iso(AGENT.x + 24, AGENT.y + 22, BH + AGENT.h), iso(AGENT.x + 8, AGENT.y + 22, BH + AGENT.h)])}
             fill="none"
-            stroke="#171717"
+            stroke="#12141D"
             strokeWidth="1.2"
           />
         </Box>
@@ -175,7 +175,7 @@ export function LaunchIllustration() {
         const [cx, cy] = iso(base[0], base[1], 16 + z);
         return <path key={z} d={`M${cx - 15.9} ${cy} A15.9 9.2 0 0 0 ${cx + 15.9} ${cy}`} fill="none" stroke={FAINT} strokeWidth="1" />;
       })}
-      <Cylinder iso={iso} x={base[0]} y={base[1]} z={90} r={9} h={8} top="#3d3d3d" />
+      <Cylinder iso={iso} x={base[0]} y={base[1]} z={90} r={9} h={8} top="#3A4262" />
       <polygon points={pts([[lx - 9, ly + 2], [lx, ly - 14], [lx + 9, ly + 2]])} fill={TOP} stroke={LINE} strokeWidth="1" strokeLinejoin="round" />
 
       {/* Signal beams sweeping out to the left */}

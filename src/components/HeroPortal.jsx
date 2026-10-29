@@ -7,7 +7,7 @@ import { Button05 } from './ui/arrow-dots-button';
 const HEADING_FACE = '"Outfit", "Arial Black", Arial, sans-serif';
 const FALLBACK_FACE = '"Arial Black", Arial, sans-serif';
 const WORD = 'AUTOPILOT';
-const INK = '#111111';
+const INK = '#0C0E13';
 
 
 const NOISE =
@@ -19,21 +19,29 @@ function heroWordSize(width) {
   return width >= 768 ? clamp(72, width * 0.115, 144) : clamp(48, width * 0.17, 72);
 }
 
-// The original hero card: video, noise, soft orbs and dot grid. It sits under the word and fades
-// out just after the lettering turns white, so the hero ends on plain white.
+// The hero card: a lavender panel (Xflow's hero gradient) with the video tinted into it, noise, soft
+// orbs and a fine white grid. It sits under the word and fades out just after the lettering turns
+// white, so the hero ends on plain white.
 function HeroBackdrop() {
   return (
     <div
-      className="absolute left-[2.5vw] right-[2.5vw] top-20 md:top-24 -bottom-10 rounded-[28px] border border-brand-border overflow-hidden bg-gradient-to-b from-white via-white to-brand-bg-light"
-      style={{ opacity: 'calc(1 - var(--hero-fade, 0))' }}
+      className="absolute left-[2.5vw] right-[2.5vw] top-20 md:top-24 -bottom-10 rounded-[20px] overflow-hidden"
+      style={{ opacity: 'calc(1 - var(--hero-fade, 0))', background: 'linear-gradient(180deg, #E9E9F7 0%, #CAD3FA 100%)' }}
     >
-      <video className="absolute inset-0 w-full h-full object-cover pointer-events-none" autoPlay loop muted playsInline>
+      <video className="absolute inset-0 w-full h-full object-cover pointer-events-none mix-blend-luminosity opacity-70" autoPlay loop muted playsInline>
         <source src="/Herobg_video.mp4" type="video/mp4" />
       </video>
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: NOISE, backgroundRepeat: 'repeat', backgroundSize: '256px 256px' }} />
       <div className="absolute top-[-10%] left-[-5%] w-[70%] h-[70%] rounded-full bg-brand-yellow/[0.03] blur-[120px] pointer-events-none" />
       <div className="absolute bottom-[-10%] right-[-5%] w-[60%] h-[60%] rounded-full bg-purple-500/[0.03] blur-[120px] pointer-events-none" />
-      <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle, #111 0.5px, transparent 0.5px)', backgroundSize: '40px 40px', opacity: 0.04 }} />
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage: 'linear-gradient(rgba(255,255,255,0.55) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.55) 1px, transparent 1px)',
+          backgroundSize: '64px 64px',
+          backgroundPosition: 'center',
+        }}
+      />
     </div>
   );
 }

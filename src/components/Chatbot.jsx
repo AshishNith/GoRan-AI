@@ -346,7 +346,7 @@ export default function Chatbot() {
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="w-14 h-14 bg-brand-yellow hover:bg-brand-yellow-hover text-brand-dark rounded-full shadow-[0_4px_20px_rgba(0,0,0,0.15),0_0_0_1px_rgba(246,199,68,0.2)] flex items-center justify-center cursor-pointer transition-all duration-300 transform hover:scale-105 active:scale-95 group relative"
+          className="w-14 h-14 bg-brand-yellow hover:bg-brand-yellow-hover text-brand-yellow-ink rounded-full shadow-[0_4px_20px_rgba(0,0,0,0.15),0_0_0_1px_rgb(var(--brand-accent-rgb)/0.2)] flex items-center justify-center cursor-pointer transition-all duration-300 transform hover:scale-105 active:scale-95 group relative"
           aria-label="Open Chatbot"
         >
           <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-green-500 rounded-full border-2 border-white animate-pulse" />
@@ -399,7 +399,7 @@ export default function Chatbot() {
               >
                 <div
                   className={`px-3.5 py-2.5 rounded-2xl text-xs text-left shadow-card ${msg.sender === 'user'
-                      ? 'bg-brand-yellow text-brand-text-main rounded-tr-none'
+                      ? 'bg-brand-yellow text-brand-yellow-ink rounded-tr-none'
                       : 'bg-white text-brand-text-main border border-brand-border rounded-tl-none'
                     }`}
                 >

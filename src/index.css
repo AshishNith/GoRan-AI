@@ -36,12 +36,56 @@
   --color-brand-text-muted: #737373;
   --color-brand-border: #E5E7EB;
   --color-brand-bg-light: #FAFAFA;
+  /* Text that sits on the accent fill, and a soft tinted surface (arrow buttons, chips) */
+  --color-brand-yellow-ink: #171717;
+  --color-brand-tint: #F5F5F5;
+
+  /* Corner radius of buttons and of the floating nav bar */
+  --radius-btn: 9999px;
+  --radius-bar: 9999px;
 
   /* Custom Shadow Library */
   --shadow-nav: 0 4px 20px -2px rgba(0, 0, 0, 0.05), 0 2px 6px -1px rgba(0, 0, 0, 0.03);
   --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03);
   --shadow-card-hover: 0 10px 30px -5px rgba(0, 0, 0, 0.08), 0 4px 12px -2px rgba(0, 0, 0, 0.03);
   --shadow-input: 0 4px 30px rgba(0, 0, 0, 0.03);
+}
+
+/* Accent as RGB channels for glows and tinted borders (rgb(var(--brand-accent-rgb) / 0.4)), and the
+   dark glass fill used by the menus and the voice orb */
+:root {
+  --brand-accent-rgb: 246 199 68;
+  --glass-dark: linear-gradient(135deg, #1c1f1f 0%, #0d0f0f 55%, #0b0c0c 100%);
+}
+
+/* Xflow theme (xflowpay.com): lavender surfaces, navy ink, an indigo accent, 12px cards and 8px
+   buttons. The fonts stay ours. App puts this class on <html> on the home page only, so every other
+   page keeps the yellow theme above until it is converted. The yellow-named tokens carry the indigo
+   accent here. */
+html.theme-xflow {
+  --color-brand-yellow: #5E76E3;
+  --color-brand-yellow-hover: #4B63D6;
+  --color-brand-yellow-focus: #5E76E3;
+  --color-brand-yellow-ink: #FFFFFF;
+  --color-brand-dark: #0C0E13;
+  --color-brand-dark-hover: #23283A;
+  --color-brand-text-main: #1F2741;
+  --color-brand-text-muted: #4D5578;
+  --color-brand-border: #CCD2E9;
+  --color-brand-bg-light: #F8F9FD;
+  --color-brand-tint: #E7EBF8;
+
+  --radius-btn: 8px;
+  --radius-bar: 14px;
+
+  --shadow-card-hover: 0 2px 8.7px rgba(129, 139, 175, 0.45);
+
+  --brand-accent-rgb: 94 118 227;
+  --glass-dark: linear-gradient(135deg, #23283A 0%, #12141D 55%, #0C0E13 100%);
+}
+
+html.theme-xflow body {
+  background-color: #FEFEFE;
 }
 
 /* 2. Global Base Adjustments & Grid Layout */
@@ -224,8 +268,8 @@ video {
   width: 1px;
   pointer-events: none;
   filter: blur(0.6px);
-  background: linear-gradient(to bottom, transparent, rgba(23, 23, 23, 0.16) 22%, rgba(23, 23, 23, 0.16) 78%, transparent);
-  box-shadow: 0 0 10px 1px rgba(23, 23, 23, 0.07);
+  background: linear-gradient(to bottom, transparent, rgba(31, 39, 65, 0.16) 22%, rgba(31, 39, 65, 0.16) 78%, transparent);
+  box-shadow: 0 0 10px 1px rgba(31, 39, 65, 0.07);
 }
 
 .faq-loop-rule {
@@ -233,8 +277,8 @@ video {
   margin: 0.5rem 0;
   pointer-events: none;
   filter: blur(0.6px);
-  background: linear-gradient(to right, transparent, rgba(23, 23, 23, 0.16) 18%, rgba(23, 23, 23, 0.16) 82%, transparent);
-  box-shadow: 0 0 10px 1px rgba(23, 23, 23, 0.07);
+  background: linear-gradient(to right, transparent, rgba(31, 39, 65, 0.16) 18%, rgba(31, 39, 65, 0.16) 82%, transparent);
+  box-shadow: 0 0 10px 1px rgba(31, 39, 65, 0.07);
 }
 
 /* Reduced motion: no looping, each row is just a row you can scroll by hand */
@@ -251,7 +295,7 @@ video {
 
 /* Dotted canvas behind the process step visuals */
 .steps-visual-bg {
-  background-image: radial-gradient(circle, rgba(23, 23, 23, 0.09) 1px, transparent 1px);
+  background-image: radial-gradient(circle, rgba(31, 39, 65, 0.1) 1px, transparent 1px);
   background-size: 16px 16px;
 }
 
@@ -303,11 +347,11 @@ video {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.7rem 1.6rem;
-  border-radius: 9999px;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-btn);
   border: 1px solid transparent;
-  background-color: #111111;
-  color: #ffffff;
+  background-color: var(--color-brand-dark);
+  color: #F8F9FD;
   font-weight: 600;
   font-size: 0.95rem;
   line-height: 1;
@@ -321,12 +365,16 @@ video {
 
 .button05[data-variant="light"] {
   background-color: #ffffff;
-  color: #111111;
-  border-color: #e5e7eb;
+  color: var(--color-brand-dark);
+  border-color: var(--color-brand-border);
 }
 
 .button05:hover {
   transform: translateY(-2px);
+}
+
+.button05:not([data-variant="light"]):hover {
+  background-color: var(--color-brand-dark-hover);
 }
 
 /* Shimmer sweep on hover */

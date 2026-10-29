@@ -245,9 +245,9 @@ export default function VoiceAgent() {
         <svg className="absolute bottom-0 left-0 w-full h-auto opacity-[0.06]" viewBox="0 0 1440 120" preserveAspectRatio="none" style={{ filter: 'blur(1px)' }}>
           <defs>
             <linearGradient id="wave-grad" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stopColor="#F6C744" stopOpacity="0" />
-              <stop offset="50%" stopColor="#F6C744" stopOpacity="1" />
-              <stop offset="100%" stopColor="#F6C744" stopOpacity="0" />
+              <stop offset="0%" stopColor="var(--color-brand-yellow)" stopOpacity="0" />
+              <stop offset="50%" stopColor="var(--color-brand-yellow)" stopOpacity="1" />
+              <stop offset="100%" stopColor="var(--color-brand-yellow)" stopOpacity="0" />
             </linearGradient>
           </defs>
           <g style={{ animation: 'wave-drift 12s ease-in-out infinite alternate' }}>
@@ -307,7 +307,7 @@ export default function VoiceAgent() {
                       top: '50%',
                       left: '50%',
                       transform: `rotate(${i * 60}deg) translateX(160px)`,
-                      boxShadow: '0 0 4px rgba(246,199,68,0.3)',
+                      boxShadow: '0 0 4px rgb(var(--brand-accent-rgb) / 0.3)',
                     }}
                   />
                 ))}
@@ -367,9 +367,9 @@ export default function VoiceAgent() {
                       top: '50%',
                       left: '50%',
                       transform: `rotate(${i * 45}deg) translateX(170px)`,
-                      background: activeSpeech === 'agent' ? '#F6C744' : '#E5E7EB',
+                      background: activeSpeech === 'agent' ? 'var(--color-brand-yellow)' : 'var(--color-brand-border)',
                       opacity: activeSpeech === 'agent' ? 0.6 : 0.2,
-                      boxShadow: activeSpeech === 'agent' ? '0 0 6px rgba(246,199,68,0.4)' : 'none',
+                      boxShadow: activeSpeech === 'agent' ? '0 0 6px rgb(var(--brand-accent-rgb) / 0.4)' : 'none',
                     }}
                   />
                 ))}
@@ -383,7 +383,7 @@ export default function VoiceAgent() {
                       top: '50%',
                       left: '50%',
                       transform: `rotate(${i * 60}deg) translateX(150px)`,
-                      background: activeSpeech === 'user' ? '#C084FC' : '#E5E7EB',
+                      background: activeSpeech === 'user' ? '#C084FC' : 'var(--color-brand-border)',
                       opacity: activeSpeech === 'user' ? 0.5 : 0.15,
                     }}
                   />
@@ -394,21 +394,21 @@ export default function VoiceAgent() {
               <div
                 className="absolute w-70 h-70 rounded-full border transition-all duration-500"
                 style={{
-                  borderColor: activeSpeech === 'agent' ? 'rgba(246,199,68,0.3)' : 'rgba(246,199,68,0.08)',
+                  borderColor: activeSpeech === 'agent' ? 'rgb(var(--brand-accent-rgb) / 0.3)' : 'rgb(var(--brand-accent-rgb) / 0.08)',
                   transform: activeSpeech === 'agent' ? 'scale(1.08)' : 'scale(1)',
                 }}
               />
               <div
                 className="absolute w-[320px] h-80 rounded-full border transition-all duration-500"
                 style={{
-                  borderColor: activeSpeech === 'agent' ? 'rgba(246,199,68,0.15)' : 'rgba(246,199,68,0.04)',
+                  borderColor: activeSpeech === 'agent' ? 'rgb(var(--brand-accent-rgb) / 0.15)' : 'rgb(var(--brand-accent-rgb) / 0.04)',
                   transform: activeSpeech === 'agent' ? 'scale(1.06)' : 'scale(1)',
                 }}
               />
               <div
                 className="absolute w-90 h-90 rounded-full border transition-all duration-500"
                 style={{
-                  borderColor: activeSpeech === 'agent' ? 'rgba(246,199,68,0.08)' : 'rgba(246,199,68,0.02)',
+                  borderColor: activeSpeech === 'agent' ? 'rgb(var(--brand-accent-rgb) / 0.08)' : 'rgb(var(--brand-accent-rgb) / 0.02)',
                   transform: activeSpeech === 'agent' ? 'scale(1.04)' : 'scale(1)',
                 }}
               />
@@ -428,7 +428,7 @@ export default function VoiceAgent() {
           {/* Main circle */}
           <div
             className="relative w-56 h-56 sm:w-64 sm:h-64 rounded-full flex items-center justify-center shadow-[0_30px_70px_-25px_rgba(0,0,0,0.7)]"
-            style={{ background: 'linear-gradient(135deg, #1c1f1f 0%, #0d0f0f 55%, #0b0c0c 100%)' }}
+            style={{ background: 'var(--glass-dark)' }}
           >
             {/* Spotlight from the top-left and a bright edge where it lands, as on the other dark cards */}
             <div
@@ -478,7 +478,7 @@ export default function VoiceAgent() {
                     style={{
                       height: `${h}px`,
                       background: activeSpeech === 'agent'
-                        ? '#F6C744'
+                        ? 'var(--color-brand-yellow)'
                         : activeSpeech === 'user'
                           ? '#C084FC'
                           : 'rgba(255,255,255,0.35)',
@@ -506,7 +506,7 @@ export default function VoiceAgent() {
               className={`relative z-10 w-20 h-20 -translate-y-3 rounded-full flex flex-col items-center justify-center transition-all duration-300 cursor-pointer active:scale-90 ${
                 callState === 'CONNECTED'
                   ? 'bg-red-500 text-white hover:bg-red-600 shadow-lg shadow-red-500/20'
-                  : 'bg-brand-yellow text-brand-dark hover:bg-brand-yellow-hover shadow-lg shadow-brand-yellow/20 hover:scale-105'
+                  : 'bg-brand-yellow text-brand-yellow-ink hover:bg-brand-yellow-hover shadow-lg shadow-brand-yellow/20 hover:scale-105'
               }`}
             >
               {callState === 'IDLE' && (
@@ -584,13 +584,13 @@ export default function VoiceAgent() {
                   <span
                     className="w-1.5 h-1.5 rounded-full"
                     style={{
-                      background: activeSpeech === 'agent' ? '#F6C744' : '#C084FC',
+                      background: activeSpeech === 'agent' ? 'var(--color-brand-yellow)' : '#C084FC',
                       animation: 'ping 1s ease-in-out infinite',
                     }}
                   />
                   <span
                     className="text-[9px] font-semibold uppercase tracking-wider"
-                    style={{ color: activeSpeech === 'agent' ? '#F6C744' : '#C084FC' }}
+                    style={{ color: activeSpeech === 'agent' ? 'var(--color-brand-yellow)' : '#C084FC' }}
                   >
                     {activeSpeech === 'user' ? 'You' : 'AI Support Agent'}
                   </span>

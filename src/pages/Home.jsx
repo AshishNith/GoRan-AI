@@ -166,9 +166,9 @@ export default function Home() {
 
       {/* Leadership & Founders Section */}
       <section className="py-20 md:py-28 bg-white border-t border-brand-border relative overflow-hidden" id="leadership">
-        <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle, #111 0.5px, transparent 0.5px)', backgroundSize: '40px 40px', opacity: 0.03 }} />
+        <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle, #1F2741 0.5px, transparent 0.5px)', backgroundSize: '40px 40px', opacity: 0.03 }} />
         <div className="absolute top-1/2 left-[-5%] w-96 h-96 rounded-full bg-brand-yellow/5 blur-[120px] pointer-events-none" />
-        <div className="absolute bottom-0 right-[-5%] w-96 h-96 rounded-full bg-purple-500/5 blur-[120px] pointer-events-none" />
+        <div className="absolute bottom-0 right-[-5%] w-96 h-96 rounded-full bg-brand-yellow/5 blur-[120px] pointer-events-none" />
 
         <div className="w-full max-w-300 mx-auto px-6 relative z-10">
           <div className="text-center mb-16">
@@ -186,15 +186,15 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 max-w-250 mx-auto">
             {/* Ashish Ranjan - Founder */}
-            <div className="rounded-3xl border border-brand-border bg-gradient-to-b from-white to-brand-bg-light/60 p-6 md:p-8 flex flex-col justify-between hover:border-brand-yellow/50 transition-all duration-300 group hover:shadow-xl hover:shadow-black/5">
+            <div className="rounded-xl border border-brand-border bg-[#FEFEFE] p-6 md:p-8 flex flex-col justify-between hover:border-brand-yellow/45 hover:bg-brand-bg-light transition-all duration-300 group hover:shadow-card-hover">
               <div>
-                <div className="relative w-full aspect-[4/5] rounded-2xl overflow-hidden mb-6 border border-brand-border bg-brand-bg-light">
+                <div className="relative w-full aspect-[4/5] rounded-lg overflow-hidden mb-6 border border-brand-border bg-brand-tint">
                   <img
                     src="/Ashish.webp"
                     alt="Ashish Ranjan — Founder & AI Systems Architect"
                     className="w-full h-full object-cover object-top group-hover:scale-[1.03] transition-transform duration-500"
                   />
-                  <div className="absolute top-4 left-4 bg-brand-dark/90 backdrop-blur-md text-white text-[11px] font-semibold uppercase tracking-wider px-3 py-1.5 rounded-full border border-white/10">
+                  <div className="absolute top-4 left-4 bg-brand-dark/90 backdrop-blur-md text-white text-[11px] font-semibold uppercase tracking-wider px-3 py-1.5 rounded-md border border-white/10">
                     Founder
                   </div>
                 </div>
@@ -204,7 +204,7 @@ export default function Home() {
                     href="https://www.linkedin.com/in/ashish-ranjan-goran"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-9 h-9 rounded-full border border-brand-border flex items-center justify-center text-brand-dark hover:bg-brand-yellow hover:border-brand-yellow transition-colors duration-200"
+                    className="w-9 h-9 rounded-btn border border-brand-border bg-brand-tint flex items-center justify-center text-brand-dark hover:bg-brand-yellow hover:border-brand-yellow hover:text-brand-yellow-ink transition-colors duration-200"
                     title="Ashish Ranjan LinkedIn"
                   >
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
@@ -231,15 +231,15 @@ export default function Home() {
             </div>
 
             {/* Piyush Rana - Sales & Marketing Head */}
-            <div className="rounded-3xl border border-brand-border bg-gradient-to-b from-white to-brand-bg-light/60 p-6 md:p-8 flex flex-col justify-between hover:border-brand-yellow/50 transition-all duration-300 group hover:shadow-xl hover:shadow-black/5">
+            <div className="rounded-xl border border-brand-border bg-[#FEFEFE] p-6 md:p-8 flex flex-col justify-between hover:border-brand-yellow/45 hover:bg-brand-bg-light transition-all duration-300 group hover:shadow-card-hover">
               <div>
-                <div className="relative w-full aspect-[4/5] rounded-2xl overflow-hidden mb-6 border border-brand-border bg-brand-bg-light">
+                <div className="relative w-full aspect-[4/5] rounded-lg overflow-hidden mb-6 border border-brand-border bg-brand-tint">
                   <img
                     src="/Piyush.jpg"
                     alt="Piyush Rana — Sales & Marketing Head"
                     className="w-full h-full object-cover object-top group-hover:scale-[1.03] transition-transform duration-500"
                   />
-                  <div className="absolute top-4 left-4 bg-brand-dark/90 backdrop-blur-md text-white text-[11px] font-semibold uppercase tracking-wider px-3 py-1.5 rounded-full border border-white/10">
+                  <div className="absolute top-4 left-4 bg-brand-dark/90 backdrop-blur-md text-white text-[11px] font-semibold uppercase tracking-wider px-3 py-1.5 rounded-md border border-white/10">
                     Sales &amp; Marketing Head
                   </div>
                 </div>
@@ -249,7 +249,7 @@ export default function Home() {
                     href="https://www.linkedin.com/company/goran-ai"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-9 h-9 rounded-full border border-brand-border flex items-center justify-center text-brand-dark hover:bg-brand-yellow hover:border-brand-yellow transition-colors duration-200"
+                    className="w-9 h-9 rounded-btn border border-brand-border bg-brand-tint flex items-center justify-center text-brand-dark hover:bg-brand-yellow hover:border-brand-yellow hover:text-brand-yellow-ink transition-colors duration-200"
                     title="Piyush Rana LinkedIn"
                   >
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
@@ -288,7 +288,7 @@ export default function Home() {
       <section className="py-20 md:py-28 bg-white relative overflow-hidden" id="faq">
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-1/2 left-[-10%] w-150 h-150 rounded-full bg-brand-yellow/3 blur-[120px]" />
-          <div className="absolute bottom-0 right-[-10%] w-125 h-125 rounded-full bg-purple-500/3 blur-[100px]" />
+          <div className="absolute bottom-0 right-[-10%] w-125 h-125 rounded-full bg-brand-yellow/5 blur-[100px]" />
         </div>
         <FaqSection data={faqLoopData} />
       </section>

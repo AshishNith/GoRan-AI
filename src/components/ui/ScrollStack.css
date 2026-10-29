@@ -11,12 +11,11 @@
 .scroll-stack-card {
   width: 100%;
   padding: 2.5rem 2.5rem 2rem;
-  border-radius: 20px;
+  border-radius: 12px;
   box-sizing: border-box;
-  background-color: #FFFFFF;
-  border: 1px solid transparent;
-  border-top: 2px solid rgba(0, 0, 0, 0.04);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+  background-color: #FEFEFE;
+  border: 0.8px solid var(--color-brand-border);
+  box-shadow: none;
   transform-origin: top center;
   will-change: transform, opacity;
   transition:
@@ -30,9 +29,7 @@
 }
 
 .scroll-stack-card:hover {
-  border-top-color: #F6C744;
-  background-color: #FEFDFB;
-  box-shadow:
-    0 8px 30px -8px rgba(0, 0, 0, 0.06),
-    0 2px 8px -2px rgba(0, 0, 0, 0.02);
+  border-color: rgb(var(--brand-accent-rgb) / 0.45);
+  background-color: var(--color-brand-bg-light);
+  box-shadow: var(--shadow-card-hover);
 }

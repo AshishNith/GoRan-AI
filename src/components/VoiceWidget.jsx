@@ -321,7 +321,7 @@ export default function VoiceWidget() {
               ) : (
                 <button
                   onClick={startCall}
-                  className="w-16 h-16 rounded-full bg-brand-yellow hover:bg-brand-yellow-hover text-brand-dark flex items-center justify-center cursor-pointer transition-all hover:scale-105 active:scale-95 shadow-lg shadow-brand-yellow/10"
+                  className="w-16 h-16 rounded-full bg-brand-yellow hover:bg-brand-yellow-hover text-brand-yellow-ink flex items-center justify-center cursor-pointer transition-all hover:scale-105 active:scale-95 shadow-lg shadow-brand-yellow/10"
                 >
                   <Phone className="w-6 h-6" />
                 </button>

@@ -59,7 +59,7 @@ const socials = [
 
 // The dark glass look shared with the step and case study cards: spotlight from the top-left and
 // a bright edge where the light lands
-const DARK_GLASS = { background: 'linear-gradient(135deg, #1c1f1f 0%, #0d0f0f 55%, #0b0c0c 100%)' };
+const DARK_GLASS = { background: 'var(--glass-dark)' };
 const SPOTLIGHT = {
   background:
     'radial-gradient(ellipse 45% 50% at 0% 0%, rgba(255,255,255,0.32), transparent 70%), conic-gradient(from 90deg at 0% 0%, transparent 8deg, rgba(255,255,255,0.18) 40deg, transparent 72deg)',
@@ -86,7 +86,7 @@ function GlassLayers({ rounded = 'rounded-3xl' }) {
 }
 
 function ActiveDot() {
-  return <span aria-hidden className="absolute left-1/2 -bottom-0.5 -translate-x-1/2 w-1 h-1 rounded-full bg-brand-yellow shadow-[0_0_8px_rgba(246,199,68,0.95)]" />;
+  return <span aria-hidden className="absolute left-1/2 -bottom-0.5 -translate-x-1/2 w-1 h-1 rounded-full bg-brand-yellow shadow-[0_0_8px_rgb(var(--brand-accent-rgb)/0.95)]" />;
 }
 
 // One service or agent in the mega menu
@@ -98,7 +98,7 @@ function MenuItem({ item, active, onNavigate }) {
       onClick={onNavigate}
       className={`group/item flex items-start gap-3 rounded-2xl p-3 no-underline transition-colors duration-200 ${active ? 'bg-white/[0.08]' : 'hover:bg-white/[0.06]'}`}
     >
-      <span className={`flex w-9 h-9 shrink-0 items-center justify-center rounded-xl border transition-colors duration-200 ${active ? 'bg-brand-yellow border-brand-yellow text-brand-dark' : 'border-white/10 bg-white/[0.05] text-white group-hover/item:border-brand-yellow/60 group-hover/item:text-brand-yellow'}`}>
+      <span className={`flex w-9 h-9 shrink-0 items-center justify-center rounded-xl border transition-colors duration-200 ${active ? 'bg-brand-yellow border-brand-yellow text-brand-yellow-ink' : 'border-white/10 bg-white/[0.05] text-white group-hover/item:border-brand-yellow/60 group-hover/item:text-brand-yellow'}`}>
         <Icon size={16} strokeWidth={1.9} />
       </span>
       <span className="min-w-0">
@@ -142,18 +142,18 @@ function ServicesMenu({ pathname, onNavigate, onBook, onEnter, onLeave }) {
             ))}
           </div>
           {/* Call to action tile */}
-          <div className="relative flex flex-col justify-between rounded-2xl bg-brand-yellow p-5 text-brand-dark overflow-hidden">
+          <div className="relative flex flex-col justify-between rounded-2xl bg-brand-yellow p-5 text-brand-yellow-ink overflow-hidden">
             <div aria-hidden className="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-white/40 blur-2xl" />
             <div className="relative">
-              <span className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.16em] text-brand-dark/60">
-                <span className="w-1.5 h-1.5 rounded-full bg-brand-dark" /> Not sure where to start?
+              <span className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.16em] text-brand-yellow-ink/70">
+                <span className="w-1.5 h-1.5 rounded-full bg-brand-yellow-ink" /> Not sure where to start?
               </span>
               <p className="m-0 mt-3 font-heading text-xl font-bold leading-tight">Tell us your workflow. We will map the agent.</p>
             </div>
             <button
               type="button"
               onClick={onBook}
-              className="relative mt-6 inline-flex items-center justify-between gap-2 rounded-full bg-brand-dark px-4 py-2.5 text-sm font-semibold text-white border-none cursor-pointer transition-transform duration-200 hover:-translate-y-0.5"
+              className="relative mt-6 inline-flex items-center justify-between gap-2 rounded-btn bg-brand-dark px-4 py-2.5 text-sm font-semibold text-white border-none cursor-pointer transition-transform duration-200 hover:-translate-y-0.5"
             >
               Book a Call <ArrowRight size={14} />
             </button>
@@ -204,7 +204,7 @@ function MobileMenu({ pathname, isActive, isServicesActive, onClose, onBook }) {
                   className={`flex items-center gap-3 py-2 no-underline font-heading text-3xl font-bold ${active ? 'text-brand-yellow' : 'text-white'}`}
                 >
                   {link.label}
-                  {active && <span className="w-2 h-2 rounded-full bg-brand-yellow shadow-[0_0_10px_rgba(246,199,68,0.95)]" />}
+                  {active && <span className="w-2 h-2 rounded-full bg-brand-yellow shadow-[0_0_10px_rgb(var(--brand-accent-rgb)/0.95)]" />}
                 </Link>
               </motion.li>
             );
@@ -241,7 +241,7 @@ function MobileMenu({ pathname, isActive, isServicesActive, onClose, onBook }) {
                             onClick={onClose}
                             className={`flex items-center gap-3 rounded-xl px-2 py-2.5 no-underline text-sm font-medium ${active ? 'bg-white/[0.08] text-brand-yellow' : 'text-white/80'}`}
                           >
-                            <span className={`flex w-8 h-8 shrink-0 items-center justify-center rounded-lg border ${active ? 'bg-brand-yellow border-brand-yellow text-brand-dark' : 'border-white/10 bg-white/[0.05]'}`}>
+                            <span className={`flex w-8 h-8 shrink-0 items-center justify-center rounded-lg border ${active ? 'bg-brand-yellow border-brand-yellow text-brand-yellow-ink' : 'border-white/10 bg-white/[0.05]'}`}>
                               <Icon size={15} strokeWidth={1.9} />
                             </span>
                             {item.label}
@@ -260,7 +260,7 @@ function MobileMenu({ pathname, isActive, isServicesActive, onClose, onBook }) {
           <button
             type="button"
             onClick={onBook}
-            className="flex w-full items-center justify-center gap-2 rounded-full bg-brand-yellow py-3.5 text-sm font-semibold text-brand-dark border-none cursor-pointer"
+            className="flex w-full items-center justify-center gap-2 rounded-btn bg-brand-yellow py-3.5 text-sm font-semibold text-brand-yellow-ink border-none cursor-pointer"
           >
             Book a Call <ArrowRight size={15} />
           </button>
@@ -353,21 +353,21 @@ export default function Header() {
     openCalBooking();
   };
 
-  const linkClass = (active) => `relative z-10 block no-underline text-sm font-medium px-4 py-2 rounded-full transition-colors duration-200 ${active ? 'text-brand-dark' : 'text-brand-text-muted hover:text-brand-dark'}`;
+  const linkClass = (active) => `relative z-10 block no-underline text-sm font-medium px-4 py-2 rounded-btn transition-colors duration-200 ${active ? 'text-brand-dark' : 'text-brand-text-muted hover:text-brand-dark'}`;
 
   return (
     <header
       className={`fixed inset-x-0 top-0 ${mobileOpen ? 'z-[70]' : 'z-50'} flex justify-center px-3 md:px-4 pt-3 transition-transform duration-500 ease-[cubic-bezier(0.2,0.8,0.2,1)] ${hidden && !mobileOpen ? '-translate-y-[130%]' : 'translate-y-0'}`}
     >
       <div
-        className={`relative z-50 flex w-full items-center justify-between gap-3 rounded-full border transition-all duration-500 ease-[cubic-bezier(0.2,0.8,0.2,1)] ${
+        className={`relative z-50 flex w-full items-center justify-between gap-3 rounded-bar border transition-all duration-500 ease-[cubic-bezier(0.2,0.8,0.2,1)] ${
           mobileOpen
             ? 'max-w-[1200px] border-white/10 bg-white/[0.04] pl-2 pr-2 py-2'
-            : `${scrolled ? 'max-w-[1080px] py-1.5 shadow-[0_12px_40px_-12px_rgba(15,23,42,0.25)]' : 'max-w-[1200px] py-2 shadow-[0_6px_24px_-10px_rgba(15,23,42,0.12)]'} border-brand-border/80 bg-white/80 backdrop-blur-xl backdrop-saturate-150 pl-2 pr-2`
+            : `${scrolled ? 'max-w-[1080px] py-1.5 shadow-[0_12px_40px_-12px_rgba(31,39,65,0.25)]' : 'max-w-[1200px] py-2 shadow-[0_6px_24px_-10px_rgba(31,39,65,0.12)]'} border-brand-border/80 bg-white/80 backdrop-blur-xl backdrop-saturate-150 pl-2 pr-2`
         }`}
       >
         {/* Logo */}
-        <Link to="/" aria-label="GoRan AI home" className="flex shrink-0 items-center rounded-full pl-2 no-underline">
+        <Link to="/" aria-label="GoRan AI home" className="flex shrink-0 items-center rounded-btn pl-2 no-underline">
           <img src="/Logo.png" alt="GoRan AI" className={`block w-auto rounded-xl transition-all duration-500 ${scrolled ? 'h-9' : 'h-10'}`} />
         </Link>
 
@@ -379,7 +379,7 @@ export default function Header() {
               return (
                 <li key={link.to} className="relative" onMouseEnter={() => setHovered(link.to)}>
                   {hovered === link.to && (
-                    <motion.span layoutId="nav-hover" className="absolute inset-0 rounded-full bg-black/[0.05]" transition={{ type: 'spring', stiffness: 380, damping: 32 }} />
+                    <motion.span layoutId="nav-hover" className="absolute inset-0 rounded-btn bg-brand-dark/[0.05]" transition={{ type: 'spring', stiffness: 380, damping: 32 }} />
                   )}
                   <Link to={link.to} aria-current={active ? 'page' : undefined} className={linkClass(active)}>
                     {link.label}
@@ -396,7 +396,7 @@ export default function Header() {
             >
               <span className="relative block">
                 {hovered === 'services' && (
-                  <motion.span layoutId="nav-hover" className="absolute inset-0 rounded-full bg-black/[0.05]" transition={{ type: 'spring', stiffness: 380, damping: 32 }} />
+                  <motion.span layoutId="nav-hover" className="absolute inset-0 rounded-btn bg-brand-dark/[0.05]" transition={{ type: 'spring', stiffness: 380, damping: 32 }} />
                 )}
                 <button
                   type="button"
@@ -430,14 +430,14 @@ export default function Header() {
           <button
             type="button"
             onClick={book}
-            className="group hidden md:inline-flex items-center gap-2.5 rounded-full bg-brand-dark py-2.5 pl-4 pr-2.5 text-sm font-semibold text-white border-none cursor-pointer shadow-[0_10px_22px_-8px_rgba(15,23,42,0.45)] transition-all duration-300 hover:bg-brand-dark-hover"
+            className="group hidden md:inline-flex items-center gap-2.5 rounded-btn bg-brand-dark py-2.5 pl-4 pr-2.5 text-sm font-semibold text-white border-none cursor-pointer shadow-[0_10px_22px_-8px_rgba(31,39,65,0.45)] transition-all duration-300 hover:bg-brand-dark-hover"
           >
             <span className="relative flex w-2 h-2">
               <span className="absolute inset-0 rounded-full bg-emerald-400 animate-ping opacity-60" />
               <span className="relative w-2 h-2 rounded-full bg-emerald-400" />
             </span>
             Book a Call
-            <span className="flex w-7 h-7 items-center justify-center rounded-full bg-brand-yellow text-brand-dark transition-transform duration-300 group-hover:rotate-[-45deg]">
+            <span className="flex w-7 h-7 items-center justify-center rounded-[calc(var(--radius-btn)*0.75)] bg-brand-yellow text-brand-yellow-ink transition-transform duration-300 group-hover:rotate-[-45deg]">
               <ArrowRight size={14} strokeWidth={2.4} />
             </span>
           </button>
@@ -446,7 +446,7 @@ export default function Header() {
             onClick={() => setMobileOpen((open) => !open)}
             aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={mobileOpen}
-            className={`md:hidden flex w-11 h-11 items-center justify-center rounded-full border-none cursor-pointer transition-colors duration-300 ${mobileOpen ? 'bg-brand-yellow text-brand-dark' : 'bg-brand-dark text-white'}`}
+            className={`md:hidden flex w-11 h-11 items-center justify-center rounded-btn border-none cursor-pointer transition-colors duration-300 ${mobileOpen ? 'bg-brand-yellow text-brand-yellow-ink' : 'bg-brand-dark text-white'}`}
           >
             <MenuIcon open={mobileOpen} />
           </button>

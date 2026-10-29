@@ -38,10 +38,10 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
     <div
       onClick={() => handleMove(position)}
       className={cn(
-        "absolute left-1/2 top-1/2 cursor-pointer border-2 p-7 sm:p-8 transition-all duration-500 ease-in-out",
+        "absolute left-1/2 top-1/2 cursor-pointer border p-7 sm:p-8 transition-all duration-500 ease-in-out",
         isCenter
-          ? "z-10 bg-brand-dark text-white border-brand-dark"
-          : "z-0 bg-white text-brand-dark border-brand-border hover:border-brand-yellow"
+          ? "z-10 bg-linear-to-b from-[#23283A] to-[#12141D] text-white border-[#30374B]"
+          : "z-0 bg-[#FEFEFE] text-brand-dark border-brand-border hover:border-brand-yellow"
       )}
       style={{
         width: cardSize,
@@ -56,7 +56,7 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
       }}
     >
       <span
-        className={cn("absolute block origin-top-right rotate-45", isCenter ? "bg-white/30" : "bg-brand-border")}
+        className={cn("absolute block origin-top-right rotate-45", isCenter ? "bg-[#30374B]" : "bg-brand-border")}
         style={{
           right: -2,
           top: 48,
@@ -69,13 +69,13 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
           src={testimonial.imgSrc}
           alt={testimonial.by.split(',')[0]}
           className="mb-4 h-14 w-12 bg-brand-bg-light object-cover object-top"
-          style={{ boxShadow: "3px 3px 0px rgba(23,23,23,0.12)" }}
+          style={{ boxShadow: "3px 3px 0px rgba(31,39,65,0.12)" }}
         />
       ) : (
         <span
           aria-hidden="true"
-          className="mb-4 flex h-14 w-12 items-center justify-center bg-brand-yellow font-heading text-base font-bold text-brand-dark"
-          style={{ boxShadow: "3px 3px 0px rgba(23,23,23,0.18)" }}
+          className="mb-4 flex h-14 w-12 items-center justify-center bg-brand-yellow font-heading text-base font-bold text-brand-yellow-ink"
+          style={{ boxShadow: "3px 3px 0px rgba(31,39,65,0.18)" }}
         >
           {testimonial.initials}
         </span>
@@ -91,7 +91,7 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
       <p
         className={cn(
           "absolute bottom-7 sm:bottom-8 left-7 sm:left-8 right-7 sm:right-8 m-0 text-xs sm:text-sm italic leading-snug",
-          isCenter ? "text-white/75" : "text-brand-text-muted"
+          isCenter ? "text-[#A9B1D0]" : "text-brand-text-muted"
         )}
       >
         - {testimonial.by}
@@ -101,7 +101,7 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
 };
 
 const ARROW =
-  "flex h-14 w-14 items-center justify-center text-2xl transition-colors bg-white border-2 border-brand-border text-brand-dark hover:bg-brand-dark hover:border-brand-dark hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-yellow focus-visible:ring-offset-2";
+  "flex h-12 w-12 items-center justify-center rounded-btn text-2xl transition-colors bg-brand-tint border border-transparent text-brand-dark hover:bg-brand-dark hover:border-brand-dark hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-yellow focus-visible:ring-offset-2";
 
 export const StaggerTestimonials: React.FC<{
   items: StaggerItem[];

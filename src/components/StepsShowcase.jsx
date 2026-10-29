@@ -69,20 +69,20 @@ function Path({ className = '' }) {
 function StepCard({ step, index }) {
   const Art = step.art;
   return (
-    <article data-card className="flex h-full flex-col rounded-3xl border border-white/[0.07] bg-[#262626] p-6">
+    <article data-card className="flex h-full flex-col rounded-3xl border border-[#30374B] bg-linear-to-b from-[#23283A] to-[#12141D] p-6">
       <div className="flex items-center gap-3">
         <span className="font-mono text-xs font-semibold text-brand-yellow">{pad(index + 1)}</span>
-        <span className="h-px w-6 bg-white/15" />
-        <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-white/45">{step.tag}</span>
+        <span className="h-px w-6 bg-[#30374B]" />
+        <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#A9B1D0]">{step.tag}</span>
       </div>
       <h3 className="m-0 mt-4 font-heading text-xl md:text-2xl font-bold text-white">{step.title}</h3>
-      <p className="m-0 mt-3 text-sm md:text-[0.95rem] leading-relaxed text-white/55">{step.desc}</p>
+      <p className="m-0 mt-3 text-sm md:text-[0.95rem] leading-relaxed text-[#A9B1D0]">{step.desc}</p>
 
       <div
-        className="relative mt-6 h-[170px] md:h-[180px] rounded-2xl bg-[#202020] overflow-hidden flex items-center justify-center p-3"
+        className="relative mt-6 h-[170px] md:h-[180px] rounded-xl border border-[#30374B]/70 bg-[#0F121A] overflow-hidden flex items-center justify-center p-3"
         style={{
           backgroundImage:
-            'linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px)',
+            'linear-gradient(rgba(169,177,208,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(169,177,208,0.06) 1px, transparent 1px)',
           backgroundSize: '22px 22px',
         }}
       >
@@ -138,13 +138,13 @@ export default function StepsShowcase() {
 
   return (
     <MotionConfig reducedMotion="user">
-      <div ref={rootRef} className="relative overflow-hidden rounded-[32px] bg-[#1c1c1c] text-white px-6 py-14 md:px-12 md:py-20">
+      <div ref={rootRef} className="relative overflow-hidden rounded-3xl bg-brand-dark text-white px-6 py-14 md:px-12 md:py-20">
         <div
           aria-hidden
           className="absolute inset-0 pointer-events-none"
-          style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px)', backgroundSize: '28px 28px' }}
+          style={{ backgroundImage: 'radial-gradient(circle, rgba(169,177,208,0.09) 1px, transparent 1px)', backgroundSize: '28px 28px' }}
         />
-        <div aria-hidden className="absolute -top-40 right-[-10%] w-[520px] h-[520px] rounded-full bg-brand-yellow/[0.06] blur-[120px] pointer-events-none" />
+        <div aria-hidden className="absolute -top-40 right-[-10%] w-[520px] h-[520px] rounded-full bg-brand-yellow/[0.14] blur-[120px] pointer-events-none" />
 
         <div className="relative max-w-[1200px] mx-auto">
           {/* Heading on the left, the pitch and the full roadmap link on the right */}
@@ -155,7 +155,7 @@ export default function StepsShowcase() {
               </h2>
             </div>
             <div className="md:pb-2">
-              <p className="m-0 text-base md:text-lg leading-relaxed text-white/55">
+              <p className="m-0 text-base md:text-lg leading-relaxed text-[#A9B1D0]">
                 Three steps, one team. We handle the complexity, keep it secure, and stay with you after launch.
               </p>
               <Link
@@ -163,7 +163,7 @@ export default function StepsShowcase() {
                 className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-white no-underline group"
               >
                 See the full 6-step roadmap
-                <span className="flex w-7 h-7 items-center justify-center rounded-full bg-brand-yellow text-brand-dark transition-transform duration-300 group-hover:translate-x-1">
+                <span className="flex w-7 h-7 items-center justify-center rounded-btn bg-brand-yellow text-brand-yellow-ink transition-transform duration-300 group-hover:translate-x-1">
                   <ArrowRight size={14} />
                 </span>
               </Link>
@@ -173,7 +173,7 @@ export default function StepsShowcase() {
           {/* The steps climb to the right, joined by a stepped path through a node above each card */}
           <div data-steps className="relative mt-14 md:mt-16">
             <div className="hidden md:block" aria-hidden="true">
-              <Path className="text-white/15" />
+              <Path className="text-[#30374B]" />
               <div data-path-fill className="absolute inset-0" style={{ clipPath: 'inset(0 0 0 0)' }}>
                 <Path className="text-brand-yellow/80" />
               </div>
@@ -186,10 +186,10 @@ export default function StepsShowcase() {
                     data-node
                     data-active="true"
                     aria-hidden="true"
-                    className="group/node absolute left-1/2 hidden md:flex w-10 h-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-[#1c1c1c] transition-colors duration-500 data-[active=true]:border-brand-yellow/40"
+                    className="group/node absolute left-1/2 hidden md:flex w-10 h-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-[#30374B] bg-brand-dark transition-colors duration-500 data-[active=true]:border-brand-yellow/40"
                     style={{ top: nodeY(idx) }}
                   >
-                    <span className="w-2.5 h-2.5 rounded-full bg-white/40 transition-all duration-500 group-data-[active=true]/node:bg-brand-yellow group-data-[active=true]/node:shadow-[0_0_14px_rgba(246,199,68,0.95)]" />
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#4D5578] transition-all duration-500 group-data-[active=true]/node:bg-brand-yellow group-data-[active=true]/node:shadow-[0_0_14px_rgb(var(--brand-accent-rgb)/0.95)]" />
                   </span>
                   <StepCard step={step} index={idx} />
                 </div>

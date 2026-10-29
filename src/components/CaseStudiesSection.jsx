@@ -62,14 +62,14 @@ function CaseSlide({ item }) {
       <Line>
         <span className="flex flex-wrap items-center gap-x-3 gap-y-1">
           <span className="inline-flex items-center gap-2 text-sm font-bold">
-            <span className="w-1.5 h-1.5 rounded-full bg-brand-yellow shadow-[0_0_8px_rgba(246,199,68,0.9)]" />
+            <span className="w-1.5 h-1.5 rounded-full bg-brand-yellow shadow-[0_0_8px_rgb(var(--brand-accent-rgb)/0.9)]" />
             {data.name}
           </span>
           <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-white/60">{data.tag}</span>
         </span>
       </Line>
       <Line delay={0.06}>
-        <span className="block pb-1 font-heading font-bold leading-none mt-4 text-[clamp(3.25rem,6.5cqw,6rem)] bg-gradient-to-r from-white to-brand-yellow bg-clip-text text-transparent">
+        <span className="block pb-1 font-heading font-bold leading-none mt-4 text-[clamp(3.25rem,6.5cqw,6rem)] bg-gradient-to-r from-white to-[#AEBBF5] bg-clip-text text-transparent">
           {item.metric}
         </span>
       </Line>
@@ -82,7 +82,7 @@ function CaseSlide({ item }) {
       <div data-ap-ui className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3 animate-in fade-in slide-in-from-bottom-2 duration-700 fill-mode-both" style={{ animationDelay: '0.35s' }}>
         <Link
           to={`/case-studies/${item.id}`}
-          className="inline-flex items-center gap-2 rounded-full bg-brand-yellow hover:bg-brand-yellow-hover text-brand-dark font-semibold text-sm py-2.5 px-5 transition-all duration-200 hover:-translate-y-0.5 no-underline"
+          className="inline-flex items-center gap-2 rounded-btn bg-brand-yellow hover:bg-brand-yellow-hover text-brand-yellow-ink font-semibold text-sm py-2.5 px-5 transition-all duration-200 hover:-translate-y-0.5 no-underline"
         >
           Read the case study <ArrowRight size={15} />
         </Link>
@@ -100,13 +100,13 @@ function MoreSlide({ hidden }) {
       </Line>
       <Line delay={0.06}>
         <span className="block pb-1 font-heading font-bold leading-[1.05] mt-4 text-4xl md:text-6xl text-balance">
-          There is more where <span className="text-brand-yellow">that came from</span>
+          There is more where <span className="text-[#AEBBF5]">that came from</span>
         </span>
       </Line>
       <div data-ap-ui className="mt-8 animate-in fade-in slide-in-from-bottom-2 duration-700 fill-mode-both" style={{ animationDelay: '0.3s' }}>
         <Link
           to="/case-studies"
-          className="inline-flex items-center gap-2 rounded-full bg-brand-yellow hover:bg-brand-yellow-hover text-brand-dark font-semibold text-base py-3.5 px-8 shadow-[0_18px_40px_-12px_rgba(246,199,68,0.7)] transition-all duration-200 hover:-translate-y-0.5 no-underline"
+          className="inline-flex items-center gap-2 rounded-btn bg-brand-yellow hover:bg-brand-yellow-hover text-brand-yellow-ink font-semibold text-base py-3.5 px-8 shadow-[0_18px_40px_-12px_rgb(var(--brand-accent-rgb)/0.7)] transition-all duration-200 hover:-translate-y-0.5 no-underline"
         >
           Show more <ArrowRight size={16} />
         </Link>
@@ -153,7 +153,7 @@ export default function CaseStudiesSection() {
       </div>
 
       <div className="w-full max-w-[1640px] mx-auto px-3 md:px-6 mt-12 md:mt-16">
-        <div className="overflow-hidden rounded-[32px] border border-brand-border/70 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.45)] [--cs-h:576px] md:[--cs-h:780px] lg:[--cs-h:clamp(560px,78vh,660px)]">
+        <div className="overflow-hidden rounded-3xl border border-brand-border/70 shadow-[0_30px_80px_-30px_rgba(31,39,65,0.45)] [--cs-h:576px] md:[--cs-h:780px] lg:[--cs-h:clamp(560px,78vh,660px)]">
           <ApertureCarousel
             slides={slides}
             height="var(--cs-h)"

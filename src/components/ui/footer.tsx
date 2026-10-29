@@ -21,7 +21,7 @@ const ScrollTopPill = () => {
         <button
           type="button"
           onClick={handleScrollTop}
-          className="group flex h-11 w-11 items-center justify-center rounded-full text-brand-dark transition-colors duration-200 hover:bg-brand-yellow cursor-pointer border-none bg-transparent"
+          className="group flex h-11 w-11 items-center justify-center rounded-full text-brand-dark transition-colors duration-200 hover:bg-brand-yellow hover:text-brand-yellow-ink cursor-pointer border-none bg-transparent"
         >
           <ArrowUp className="h-4 w-4 transition-transform duration-200 group-hover:-translate-y-0.5" strokeWidth={1.75} />
           <span className="sr-only">Back to top</span>

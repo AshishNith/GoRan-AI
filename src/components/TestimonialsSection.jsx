@@ -37,7 +37,7 @@ export default function TestimonialsSection() {
     <section className="border-t border-brand-border bg-white relative overflow-hidden py-16 md:py-24" id="testimonials">
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/3 left-[-5%] w-100 h-100 rounded-full bg-brand-yellow/3 blur-[120px]" />
-        <div className="absolute bottom-1/4 right-[-5%] w-87.5 h-87.5 rounded-full bg-purple-500/3 blur-[100px]" />
+        <div className="absolute bottom-1/4 right-[-5%] w-87.5 h-87.5 rounded-full bg-brand-yellow/5 blur-[100px]" />
       </div>
 
       <div className="relative z-10 flex flex-col">
@@ -62,7 +62,7 @@ export default function TestimonialsSection() {
           </blockquote>
           <figcaption className="mt-4 flex flex-wrap items-center justify-center gap-2">
             {current.tags.map((tag) => (
-              <span key={tag} className="rounded-full border border-brand-border bg-brand-bg-light px-3 py-1 text-xs font-medium text-brand-text-muted">
+              <span key={tag} className="rounded-md border border-brand-border bg-brand-tint px-3 py-1 text-xs font-medium text-brand-text-muted">
                 {tag}
               </span>
             ))}

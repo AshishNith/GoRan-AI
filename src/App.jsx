@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Lenis from 'lenis';
 import gsap from 'gsap';
@@ -33,6 +33,7 @@ import Qualification from './pages/Qualification';
 import Demo from './pages/Demo';
 import TravelAgentAIMap from './pages/TravelAgentAIMap';
 import Clinic from './pages/Clinic';
+import LeadAgent from './pages/LeadAgent';
 import { CalBookingProvider } from './components/CalBookingModal';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -40,7 +41,13 @@ gsap.registerPlugin(ScrollTrigger);
 
 function App() {
   const location = useLocation();
-  const hideHeaderFooter = location.pathname === '/scale' || location.pathname === '/automate' || location.pathname === '/linkedin-automation' || location.pathname === '/qualification' || location.pathname === '/demo' || location.pathname === '/travel-agent-ai-map' || location.pathname === '/clinic';
+  const hideHeaderFooter = location.pathname === '/scale' || location.pathname === '/automate' || location.pathname === '/linkedin-automation' || location.pathname === '/qualification' || location.pathname === '/demo' || location.pathname === '/travel-agent-ai-map' || location.pathname === '/clinic' || location.pathname === '/lead-agent';
+
+  // The home page wears the Xflow theme (see index.css). It goes on <html> so portalled menus and
+  // the chat widgets pick it up too, and before paint so the old colours never flash.
+  useLayoutEffect(() => {
+    document.documentElement.classList.toggle('theme-xflow', location.pathname === '/');
+  }, [location.pathname]);
 
   useEffect(() => {
     // Send pageview to Google Analytics on route change
@@ -96,6 +103,7 @@ function App() {
         <Route path="/demo" element={<Demo />} />
         <Route path="/travel-agent-ai-map" element={<TravelAgentAIMap />} />
         <Route path="/clinic" element={<Clinic />} />
+        <Route path="/lead-agent" element={<LeadAgent />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       {!hideHeaderFooter && <Footer />}

@@ -4,7 +4,7 @@ import { instagramReels } from '../data/instagramReels';
 
 // Bright edge where the light from the top-left lands, shared with the other dark glass cards
 const EDGE = {
-  background: 'linear-gradient(135deg, rgba(255,255,255,0.55), rgba(255,255,255,0.08) 32%, rgba(255,255,255,0.05))',
+  background: 'linear-gradient(135deg, rgba(204,210,233,0.5), rgba(204,210,233,0.1) 32%, rgba(204,210,233,0.06))',
   mask: 'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)',
   maskComposite: 'exclude',
   WebkitMask: 'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)',
@@ -65,7 +65,7 @@ function ReelPhone({ reel, index, total }) {
   return (
     <div className={`group relative shrink-0 w-[80vw] max-w-[360px] snap-center md:w-auto md:max-w-none transition-transform duration-500 ease-out md:hover:-translate-y-2 ${middle ? 'md:-translate-y-8 md:hover:-translate-y-10' : 'md:translate-y-4'}`}>
       <div aria-hidden className="absolute -inset-4 rounded-[52px] bg-brand-yellow/0 blur-2xl transition-colors duration-500 group-hover:bg-brand-yellow/10" />
-      <div className="relative rounded-[40px] bg-[#0d0f0f] p-3 shadow-[0_30px_70px_-25px_rgba(0,0,0,0.9)]">
+      <div className="relative rounded-[40px] bg-linear-to-b from-[#23283A] to-[#12141D] p-3 shadow-[0_30px_70px_-25px_rgba(0,0,0,0.9)]">
         <span aria-hidden className="absolute inset-0 rounded-[40px] p-px pointer-events-none" style={EDGE} />
         <ReelVideo reel={reel} index={index} />
       </div>
@@ -77,24 +77,24 @@ export default function InstagramReels() {
   return (
     <section className="py-12 md:py-16 bg-white" id="instagram">
       <div className="w-full max-w-[95vw] mx-auto">
-        <div className="relative overflow-hidden rounded-[32px] bg-[#1c1c1c] text-white px-6 py-14 md:px-12 md:py-20">
+        <div className="relative overflow-hidden rounded-3xl bg-brand-dark text-white px-6 py-14 md:px-12 md:py-20">
           {/* Dot grid, a spotlight from the top-left and a warm glow, like the process panel */}
           <div
             aria-hidden
             className="absolute inset-0 pointer-events-none"
-            style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px)', backgroundSize: '28px 28px' }}
+            style={{ backgroundImage: 'radial-gradient(circle, rgba(169,177,208,0.09) 1px, transparent 1px)', backgroundSize: '28px 28px' }}
           />
           <div
             aria-hidden
             className="absolute inset-0 pointer-events-none"
             style={{
               background:
-                'radial-gradient(ellipse 40% 45% at 0% 0%, rgba(255,255,255,0.12), transparent 70%), conic-gradient(from 90deg at 0% 0%, transparent 8deg, rgba(255,255,255,0.08) 40deg, transparent 72deg)',
+                'radial-gradient(ellipse 40% 45% at 0% 0%, rgba(174,187,245,0.14), transparent 70%), conic-gradient(from 90deg at 0% 0%, transparent 8deg, rgba(174,187,245,0.08) 40deg, transparent 72deg)',
               maskImage: 'radial-gradient(circle at 0% 0%, #000 0%, #000 25%, transparent 90%)',
               WebkitMaskImage: 'radial-gradient(circle at 0% 0%, #000 0%, #000 25%, transparent 90%)',
             }}
           />
-          <div aria-hidden className="absolute bottom-[-180px] left-1/2 h-[420px] w-[720px] -translate-x-1/2 rounded-full bg-brand-yellow/[0.07] blur-[120px] pointer-events-none" />
+          <div aria-hidden className="absolute bottom-[-180px] left-1/2 h-[420px] w-[720px] -translate-x-1/2 rounded-full bg-brand-yellow/[0.16] blur-[120px] pointer-events-none" />
 
           <div className="relative max-w-[1200px] mx-auto">
             {/* Heading on the left, the pitch and the follow link on the right */}
@@ -103,18 +103,18 @@ export default function InstagramReels() {
                 GoRan AI <span className="text-brand-yellow">in action</span>
               </h2>
               <div className="md:pb-2">
-                <p className="m-0 text-base md:text-lg leading-relaxed text-white/55">
+                <p className="m-0 text-base md:text-lg leading-relaxed text-[#A9B1D0]">
                   See how we build, test and deploy autonomous AI calling agents and workflows. Play our latest reels right here.
                 </p>
                 <a
                   href="https://www.instagram.com/goran.dotin/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group/follow mt-5 inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/[0.04] py-2 pl-4 pr-2 text-sm font-semibold text-white no-underline transition-colors duration-200 hover:border-white/30 hover:bg-white/[0.08]"
+                  className="group/follow mt-5 inline-flex items-center gap-3 rounded-btn border border-[#30374B] bg-white/[0.04] py-2 pl-4 pr-2 text-sm font-semibold text-white no-underline transition-colors duration-200 hover:border-white/30 hover:bg-white/[0.08]"
                 >
                   <InstagramIcon />
                   Follow @goran.dotin
-                  <span className="flex h-7 w-7 items-center justify-center rounded-full bg-brand-yellow text-brand-dark transition-transform duration-300 group-hover/follow:rotate-45">
+                  <span className="flex h-7 w-7 items-center justify-center rounded-md bg-brand-yellow text-brand-yellow-ink transition-transform duration-300 group-hover/follow:rotate-45">
                     <ArrowUpRight size={14} strokeWidth={2.4} />
                   </span>
                 </a>
