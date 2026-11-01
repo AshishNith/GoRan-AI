@@ -164,7 +164,7 @@ function PhoneChat() {
           <AnimatePresence initial={false}>
             {visible.map((m, i) => (
               <motion.div
-                key={`${shown}-${i}-${m.from}`}
+                key={`${i}-${m.from}`}
                 initial={{ opacity: 0, y: 12, scale: 0.96 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0 }}
