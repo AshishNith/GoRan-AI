@@ -1,19 +1,18 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ReactGA from 'react-ga4';
+import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import {
   ArrowRight,
-  BrainCircuit,
+  UserCog,
   MessageCircle,
   PhoneCall,
   ShoppingCart,
   Boxes,
-  Database,
+  NotebookPen,
   UserRound,
   Moon,
-  Zap,
-  ShieldCheck,
-  Clock3,
+  Check,
 } from 'lucide-react';
 import SEOHead from '../components/SEOHead';
 import WhatsappIcon from '../components/ui/WhatsappIcon';
@@ -22,85 +21,294 @@ import { useCalBooking } from '../components/CalBookingModal';
 import { buildBreadcrumbSchema } from '../seo/schemas';
 
 const WHATSAPP_URL =
-  'https://wa.me/919934225353?text=AGENTS%20-%20I%20want%20the%205%20AI%20agents%20blueprint%20for%20my%20D2C%20brand.';
+  'https://wa.me/919934225353?text=AGENTS%20-%20I%20want%20the%205%20AI%20helpers%20for%20my%20brand.';
 const GREEN = '#16A34A';
+const LIGHT_GREEN = '#4ADE80';
 const NIGHT = '#0B1120';
 
-// The six steps from the reel, in the order the sidekick says them.
+// The six steps from the reel, in plain words.
 const steps = [
   {
     n: 1,
-    icon: BrainCircuit,
-    name: 'Orchestrator',
-    tag: 'The brain',
-    line: 'Decides which agent does which job.',
-    text: 'Every message, call, order and alert lands here first. It reads the intent, picks the right agent, and makes sure two agents never trip over the same customer.',
-    tools: ['n8n', 'Claude / Gemini', 'Shopify webhooks'],
+    icon: UserCog,
+    name: 'The Manager',
+    does: 'Reads every message, order and alert, and hands it to the right helper.',
+    means: 'Nothing gets missed. Nothing gets done twice.',
   },
   {
     n: 2,
     icon: MessageCircle,
-    name: 'WhatsApp Agent',
-    tag: 'Replies in seconds',
-    line: 'Answers in seconds, even at 2 AM.',
-    text: '"Price kya hai?", "Size M hai?", "Order kahan hai?" Answered from your catalogue and your shipping tracker. No canned menu. It talks like your best support person.',
-    tools: ['WhatsApp Business API', 'Catalogue', 'Shiprocket / Delhivery'],
+    name: 'WhatsApp Helper',
+    does: 'Answers customer questions in seconds, day or night.',
+    means: 'Price, size, "where is my order": all handled while you sleep.',
   },
   {
     n: 3,
     icon: PhoneCall,
-    name: 'Calling Agent',
-    tag: 'COD confirmation',
-    line: 'Every COD order confirmed before it ships.',
-    text: 'Calls the customer within minutes of a cash-on-delivery order, confirms the address and the intent, and flags the fakes. Your RTO bill is the first thing that drops.',
-    tools: ['Voice AI', 'Hindi + English', 'Shopify order hook'],
+    name: 'Calling Helper',
+    does: 'Phones every cash-on-delivery customer to confirm before you ship.',
+    means: 'Fewer fake orders. Fewer parcels coming back to you.',
   },
   {
     n: 4,
     icon: ShoppingCart,
-    name: 'Cart Agent',
-    tag: 'Recovers checkouts',
-    line: 'Brings back the customers who stopped mid-checkout.',
-    text: 'A WhatsApp nudge 30 minutes after the drop, a second one with the exact product they left, and a small push if your margin allows. Then it stops. Nobody gets spammed.',
-    tools: ['Abandoned checkout events', 'WhatsApp templates', 'Discount rules'],
+    name: 'Cart Helper',
+    does: 'Gently reminds people who added to cart but did not pay.',
+    means: 'Lost sales come back on their own.',
   },
   {
     n: 5,
     icon: Boxes,
-    name: 'Ops Agent',
-    tag: 'Watches stock',
-    line: 'Keeps an eye on inventory so nothing quietly goes out of stock.',
-    text: 'Reads sales velocity per SKU, warns you before a bestseller runs out, and tells the WhatsApp agent what to stop promising. One Slack or WhatsApp message a day to you.',
-    tools: ['Inventory sync', 'Daily digest', 'Low-stock alerts'],
+    name: 'Stock Helper',
+    does: 'Watches your stock and warns you before a bestseller runs out.',
+    means: 'No more "sorry, out of stock" surprises.',
   },
   {
     n: 6,
-    icon: Database,
-    name: 'Shared Memory',
-    tag: 'One customer story',
-    line: 'Every agent knows every customer\'s full story.',
-    text: 'The call the customer had on Monday, the cart they left on Tuesday, the complaint on Wednesday. One record. So no agent ever asks "aapka order number?" twice.',
-    tools: ['Customer record', 'Order history', 'Conversation log'],
+    icon: NotebookPen,
+    name: 'One Shared Notebook',
+    does: 'Every helper reads and writes the same customer history.',
+    means: 'No customer is ever asked the same question twice.',
   },
 ];
 
-// A night and a day, as the agents actually run it.
+// The jobs the Manager hands out in the animated picture. Index points at the helper card.
+const jobs = [
+  { helper: 1, incoming: 'New message: "What is the price?"', result: 'Replied in 3 seconds' },
+  { helper: 2, incoming: 'New cash-on-delivery order', result: 'Called and confirmed' },
+  { helper: 3, incoming: 'Someone left items in their cart', result: 'Reminded. Order placed.' },
+  { helper: 4, incoming: 'Only 9 left of your bestseller', result: 'You have been warned' },
+];
+
+const helpers = [
+  { icon: MessageCircle, name: 'WhatsApp', job: 'Replies' },
+  { icon: PhoneCall, name: 'Calling', job: 'Confirms orders' },
+  { icon: ShoppingCart, name: 'Cart', job: 'Brings buyers back' },
+  { icon: Boxes, name: 'Stock', job: 'Watches stock' },
+];
+
+// The looping 2 AM chat in the hero.
+const chat = [
+  { from: 'customer', text: 'Hi, what is the price of the blue kurta?' },
+  { from: 'typing' },
+  { from: 'agent', text: '₹1,299 with free delivery. It reaches you by Thursday. Shall I place the order?' },
+  { from: 'customer', text: 'Yes please' },
+  { from: 'typing' },
+  { from: 'agent', text: 'Done. Order #4821 is confirmed. You will get the tracking link here.' },
+];
+
+// A day with the helpers, simplified.
 const timeline = [
-  { time: '2:03 AM', who: 'WhatsApp Agent', event: 'Customer asks "price kya hai?" Reply in 4 seconds, with the product link. You are asleep.' },
-  { time: '9:10 AM', who: 'Calling Agent', event: 'Three COD orders overnight. All three called and confirmed before the pickup.' },
-  { time: '1:30 PM', who: 'Cart Agent', event: 'A customer leaves a ₹2,400 cart. Nudged on WhatsApp. Order placed at 2:05 PM.' },
-  { time: '4:00 PM', who: 'Ops Agent', event: 'Bestseller down to 9 units. You get one message. WhatsApp agent stops promising next-day delivery on it.' },
-  { time: '6:45 PM', who: 'Orchestrator', event: 'An angry customer. Handed to a human with the full story attached. No "please explain again".' },
+  { time: '2:03 AM', who: 'WhatsApp Helper', event: 'A customer asks the price. Answered in 3 seconds. You are asleep.' },
+  { time: '9:10 AM', who: 'Calling Helper', event: 'Three cash-on-delivery orders came in overnight. All three customers called and confirmed before pickup.' },
+  { time: '1:30 PM', who: 'Cart Helper', event: 'A customer leaves a ₹2,400 cart. A friendly reminder goes out. Order placed at 2:05 PM.' },
+  { time: '4:00 PM', who: 'Stock Helper', event: 'Your bestseller is down to 9 pieces. You get one message, before anyone is told "out of stock".' },
+  { time: '6:45 PM', who: 'The Manager', event: 'An upset customer. A real person takes over, with the whole story already in front of them.' },
 ];
 
 const proofs = [
-  { icon: Clock3, stat: '< 10 sec', label: 'WhatsApp reply time, 24x7' },
-  { icon: ShieldCheck, stat: '100%', label: 'COD orders called before dispatch' },
-  { icon: Zap, stat: '1 human', label: 'Steps in only when it matters' },
+  { stat: '3 sec', label: 'to answer a customer, any hour' },
+  { stat: 'Every', label: 'cash-on-delivery order confirmed by phone' },
+  { stat: '1 person', label: 'steps in only when it really matters' },
 ];
 
 function trackEvent(action) {
   ReactGA.event({ category: 'Agents Blueprint', action });
+}
+
+const fadeUp = {
+  initial: { opacity: 0, y: 24 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: '-60px' },
+  transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
+};
+
+// Phone with a looping WhatsApp chat. A message appears every 1.4 s; the whole thing restarts after a pause.
+function PhoneChat() {
+  const reduce = useReducedMotion();
+  const [shown, setShown] = useState(reduce ? chat.length : 0);
+
+  useEffect(() => {
+    if (reduce) return undefined;
+    let timer;
+    const tick = () => {
+      setShown((s) => {
+        if (s >= chat.length) {
+          timer = setTimeout(() => setShown(0), 3200);
+          return s;
+        }
+        timer = setTimeout(tick, s + 1 >= chat.length ? 1400 : 1400);
+        return s + 1;
+      });
+    };
+    timer = setTimeout(tick, 900);
+    return () => clearTimeout(timer);
+  }, [reduce]);
+
+  // Hide the typing dots once the next message has arrived.
+  const visible = chat.slice(0, shown).filter((m, i) => m.from !== 'typing' || i === shown - 1);
+
+  return (
+    <div className="relative mx-auto w-[280px] sm:w-[300px]">
+      <div className="rounded-[2.2rem] border-[6px] border-[#1E2638] bg-[#0E1A14] shadow-2xl overflow-hidden">
+        <div className="bg-[#1F2C34] px-4 py-3 flex items-center gap-3">
+          <span className="w-9 h-9 rounded-full flex items-center justify-center text-white" style={{ backgroundColor: GREEN }}>
+            <WhatsappIcon size={16} />
+          </span>
+          <div className="leading-tight">
+            <div className="text-white text-sm font-semibold">Your brand</div>
+            <div className="text-[11px]" style={{ color: LIGHT_GREEN }}>online · 2:03 AM</div>
+          </div>
+        </div>
+        <div className="px-3 py-4 min-h-[330px] flex flex-col justify-end gap-2.5">
+          <AnimatePresence initial={false}>
+            {visible.map((m, i) => (
+              <motion.div
+                key={`${shown}-${i}-${m.from}`}
+                initial={{ opacity: 0, y: 12, scale: 0.96 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.35, ease: 'easeOut' }}
+                className={`max-w-[85%] rounded-2xl px-3 py-2 text-[13px] leading-snug ${
+                  m.from === 'customer'
+                    ? 'self-start bg-[#202C33] text-white rounded-bl-md'
+                    : 'self-end bg-[#005C4B] text-white rounded-br-md'
+                }`}
+              >
+                {m.from === 'typing' ? (
+                  <span className="inline-flex gap-1 py-1">
+                    {[0, 1, 2].map((d) => (
+                      <motion.span
+                        key={d}
+                        className="w-1.5 h-1.5 rounded-full bg-white/70 block"
+                        animate={{ opacity: [0.3, 1, 0.3] }}
+                        transition={{ duration: 0.9, repeat: Infinity, delay: d * 0.2 }}
+                      />
+                    ))}
+                  </span>
+                ) : (
+                  m.text
+                )}
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </div>
+      </div>
+      <div className="absolute -bottom-4 -right-3 sm:-right-8 rounded-full bg-white text-brand-dark text-xs font-semibold px-3.5 py-2 shadow-lg flex items-center gap-1.5">
+        <Moon size={13} /> You: asleep
+      </div>
+    </div>
+  );
+}
+
+// The Manager hands a job to one helper at a time. Plays by itself.
+function ManagerPicture() {
+  const reduce = useReducedMotion();
+  const [idx, setIdx] = useState(0);
+
+  useEffect(() => {
+    if (reduce) return undefined;
+    const t = setInterval(() => setIdx((i) => (i + 1) % jobs.length), 2600);
+    return () => clearInterval(t);
+  }, [reduce]);
+
+  const job = jobs[idx];
+
+  return (
+    <div className="rounded-3xl border border-brand-border p-5 sm:p-8 bg-brand-bg-light">
+      <div className="flex flex-col items-center gap-3">
+        {/* Incoming */}
+        <div className="h-9 flex items-center">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 8 }}
+              transition={{ duration: 0.3 }}
+              className="rounded-full bg-white border border-brand-border px-4 py-1.5 text-xs sm:text-sm text-brand-text-main shadow-sm"
+            >
+              {job.incoming}
+            </motion.div>
+          </AnimatePresence>
+        </div>
+        <motion.div
+          className="w-px h-5"
+          style={{ backgroundColor: GREEN }}
+          animate={reduce ? undefined : { opacity: [0.2, 1, 0.2] }}
+          transition={{ duration: 1.3, repeat: Infinity }}
+        />
+
+        {/* Manager */}
+        <div className="rounded-2xl bg-brand-dark text-white px-5 py-3 flex items-center gap-2.5 text-sm font-semibold">
+          <UserCog size={18} style={{ color: LIGHT_GREEN }} />
+          The Manager
+          <span className="text-white/50 font-normal hidden sm:inline">· picks the right helper</span>
+        </div>
+        <div className="w-px h-5 bg-brand-border" />
+
+        {/* Helpers */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 w-full">
+          {helpers.map(({ icon: Icon, name, job: what }, i) => {
+            const active = i === job.helper - 1;
+            return (
+              <motion.div
+                key={name}
+                animate={{
+                  scale: active ? 1.04 : 1,
+                  borderColor: active ? GREEN : '#E5E7EB',
+                  backgroundColor: active ? '#ECFDF3' : '#FFFFFF',
+                }}
+                transition={{ duration: 0.35 }}
+                className="rounded-2xl border p-3.5 text-center relative"
+              >
+                <span
+                  className="w-9 h-9 rounded-full mx-auto flex items-center justify-center"
+                  style={{ backgroundColor: active ? GREEN : '#ECFDF3', color: active ? '#fff' : GREEN }}
+                >
+                  <Icon size={16} />
+                </span>
+                <div className="text-sm font-bold text-brand-dark mt-2 leading-tight">{name} Helper</div>
+                <div className="text-[11px] text-brand-text-muted mt-0.5 h-4">
+                  <AnimatePresence mode="wait">
+                    {active ? (
+                      <motion.span
+                        key="result"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ delay: 0.5, duration: 0.3 }}
+                        className="inline-flex items-center gap-1 font-semibold"
+                        style={{ color: GREEN }}
+                      >
+                        <Check size={11} /> {job.result}
+                      </motion.span>
+                    ) : (
+                      <motion.span key="job" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                        {what}
+                      </motion.span>
+                    )}
+                  </AnimatePresence>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+        <div className="w-px h-5 bg-brand-border" />
+
+        {/* Notebook */}
+        <div className="w-full rounded-2xl border border-dashed border-brand-dark/30 px-5 py-3 flex items-center justify-center gap-2.5 text-sm font-semibold text-brand-dark">
+          <NotebookPen size={17} style={{ color: GREEN }} />
+          One shared notebook
+          <span className="text-brand-text-muted font-normal hidden sm:inline">· every helper knows every customer's story</span>
+        </div>
+        <div className="inline-flex items-center gap-2 text-xs sm:text-sm text-brand-text-muted mt-1">
+          <UserRound size={15} />
+          A real person steps in only when it really matters.
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default function Agents() {
@@ -111,14 +319,14 @@ export default function Agents() {
   }, []);
 
   return (
-    <main className="w-full bg-white font-body text-brand-text-main">
+    <main className="w-full bg-white font-body text-brand-text-main overflow-x-hidden">
       <SEOHead
-        title="5 AI Agents + 1 Brain: The D2C Blueprint"
-        description="The exact system from the reel: an orchestrator, a WhatsApp agent, a COD calling agent, a cart recovery agent, an ops agent and a shared memory. So you can sleep while the orders get handled."
+        title="5 AI Helpers + 1 Manager: Sleep While Orders Get Handled"
+        description="The simple system from the reel: five AI helpers for WhatsApp, calls, carts and stock, one manager on top, and one shared notebook. So you can sleep while the orders get handled."
         canonicalPath="/agents"
         schema={buildBreadcrumbSchema([
           { name: 'Home', url: '/' },
-          { name: 'AI Agents Blueprint' },
+          { name: 'AI Helpers for Your Brand' },
         ])}
       />
 
@@ -138,51 +346,57 @@ export default function Agents() {
 
       {/* Hero: the 2 AM scene from the reel */}
       <section className="text-white" style={{ backgroundColor: NIGHT }}>
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 pt-12 sm:pt-20 pb-14 sm:pb-20">
-          <span className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.18em] text-white/60">
-            <Moon size={13} /> The blueprint from the reel
-          </span>
-          <h1 className="font-heading font-bold text-4xl sm:text-5xl lg:text-6xl leading-[1.05] mt-4 max-w-3xl">
-            You built a brand.
-            <br />
-            <span className="text-white/50">Not a call centre.</span>
-          </h1>
-          <p className="text-white/70 text-base sm:text-lg leading-relaxed mt-5 max-w-xl">
-            It is 2 AM and you are still replying to "price kya hai?". Here is the system that replies for you:
-            five AI agents, one brain on top, and a shared memory so every customer is handled like a regular.
-          </p>
-          <div className="flex flex-wrap gap-3 mt-8">
-            <a
-              href="#blueprint"
-              className="inline-flex items-center gap-2 text-white font-semibold text-sm py-3 px-6 rounded-full no-underline"
-              style={{ backgroundColor: GREEN }}
-            >
-              See the 6 steps
-              <ArrowRight size={16} />
-            </a>
-            <a
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noreferrer"
-              onClick={() => trackEvent('hero_whatsapp')}
-              className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/15 text-white font-semibold text-sm py-3 px-6 rounded-full no-underline transition-colors"
-            >
-              <WhatsappIcon size={16} />
-              Build this for my brand
-            </a>
-          </div>
-
-          <div className="grid sm:grid-cols-3 gap-3 mt-10 sm:mt-14">
-            {proofs.map(({ icon: Icon, stat, label }) => (
-              <div key={label} className="rounded-2xl bg-white/5 border border-white/10 p-4 flex items-center gap-3">
-                <span className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center shrink-0" style={{ color: '#4ADE80' }}>
-                  <Icon size={16} />
-                </span>
-                <div>
-                  <div className="font-heading font-bold text-xl leading-none">{stat}</div>
-                  <div className="text-xs text-white/60 mt-1">{label}</div>
-                </div>
-              </div>
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 pt-12 sm:pt-20 pb-16 sm:pb-20 grid md:grid-cols-[1.15fr_1fr] gap-12 items-center">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
+            <span className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.18em] text-white/60">
+              <Moon size={13} /> From the reel
+            </span>
+            <h1 className="font-heading font-bold text-4xl sm:text-5xl lg:text-6xl leading-[1.05] mt-4">
+              You built a brand.
+              <br />
+              <span className="text-white/50">Not a call centre.</span>
+            </h1>
+            <p className="text-white/70 text-base sm:text-lg leading-relaxed mt-5 max-w-lg">
+              It is 2 AM and you are still replying to "what is the price?". Here is the simple system that does it for you:
+              five AI helpers, one manager on top. So you can sleep.
+            </p>
+            <div className="flex flex-wrap gap-3 mt-8">
+              <a
+                href="#blueprint"
+                className="inline-flex items-center gap-2 text-white font-semibold text-sm py-3 px-6 rounded-full no-underline"
+                style={{ backgroundColor: GREEN }}
+              >
+                See how it works
+                <ArrowRight size={16} />
+              </a>
+              <a
+                href={WHATSAPP_URL}
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => trackEvent('hero_whatsapp')}
+                className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/15 text-white font-semibold text-sm py-3 px-6 rounded-full no-underline transition-colors"
+              >
+                <WhatsappIcon size={16} />
+                I want this
+              </a>
+            </div>
+          </motion.div>
+          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}>
+            <PhoneChat />
+          </motion.div>
+        </div>
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 pb-14">
+          <div className="grid sm:grid-cols-3 gap-3">
+            {proofs.map(({ stat, label }, i) => (
+              <motion.div
+                key={label}
+                {...fadeUp}
+                transition={{ ...fadeUp.transition, delay: i * 0.1 }}
+                className="rounded-2xl bg-white/5 border border-white/10 p-4"
+              >
+                <div className="font-heading font-bold text-2xl leading-none" style={{ color: LIGHT_GREEN }}>{stat}</div>
+                <div className="text-sm text-white/70 mt-1.5">{label}</div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -190,160 +404,160 @@ export default function Agents() {
 
       {/* The question every founder asks */}
       <section className="max-w-5xl mx-auto px-4 sm:px-6 pt-14 pb-10">
-        <div className="grid md:grid-cols-2 gap-8 items-start">
-          <div>
-            <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-brand-text-muted">The usual fix</span>
+        <div className="grid md:grid-cols-2 gap-6 items-stretch">
+          <motion.div {...fadeUp} className="rounded-3xl border border-brand-border p-6 sm:p-8">
+            <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-brand-text-muted">The usual answer</span>
             <h2 className="text-2xl sm:text-3xl font-heading font-bold text-brand-dark leading-tight mt-2">
-              "So what, I hire five people?"
+              "So I hire five people?"
             </h2>
             <p className="text-brand-text-muted text-sm sm:text-base leading-relaxed mt-3">
-              Five salaries. Five sets of shift timings. Five people who each know a different piece of the customer's story, and none of them is awake at 2 AM.
+              Five salaries. Five shift timings. Five people who each know a different part of the customer's story. And none of them awake at 2 AM.
             </p>
-          </div>
-          <div className="rounded-3xl p-6 sm:p-8" style={{ backgroundColor: '#ECFDF3' }}>
-            <span className="text-[11px] font-bold uppercase tracking-[0.18em]" style={{ color: GREEN }}>The fix that scales</span>
-            <h3 className="text-xl sm:text-2xl font-heading font-bold text-brand-dark leading-tight mt-2">
-              No. Build five AI agents. And one brain on top.
-            </h3>
+          </motion.div>
+          <motion.div {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.12 }} className="rounded-3xl p-6 sm:p-8" style={{ backgroundColor: '#ECFDF3' }}>
+            <span className="text-[11px] font-bold uppercase tracking-[0.18em]" style={{ color: GREEN }}>The better answer</span>
+            <h2 className="text-2xl sm:text-3xl font-heading font-bold text-brand-dark leading-tight mt-2">
+              No. Five AI helpers. And one manager on top.
+            </h2>
             <p className="text-brand-text-main text-sm sm:text-base leading-relaxed mt-3">
-              Each agent owns one job. The orchestrator hands out the work. The shared memory means they all know the same customer. The whole thing runs for less than one hire.
+              Each helper does one job. The manager hands out the work. They all share one notebook, so every customer is remembered. It costs less than one hire.
             </p>
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* System diagram */}
-      <section className="max-w-5xl mx-auto px-4 sm:px-6 pb-14">
-        <div className="rounded-3xl border border-brand-border p-5 sm:p-8 bg-brand-bg-light">
-          <div className="flex flex-col items-center gap-3">
-            <div className="rounded-2xl bg-brand-dark text-white px-5 py-3 flex items-center gap-2.5 text-sm font-semibold">
-              <BrainCircuit size={18} style={{ color: '#4ADE80' }} />
-              Orchestrator
-              <span className="text-white/50 font-normal hidden sm:inline">· decides who does what</span>
-            </div>
-            <div className="w-px h-5 bg-brand-border" />
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 w-full">
-              {steps.slice(1, 5).map(({ icon: Icon, name, tag }) => (
-                <div key={name} className="rounded-2xl bg-white border border-brand-border p-3.5 text-center">
-                  <span className="w-9 h-9 rounded-full mx-auto flex items-center justify-center" style={{ backgroundColor: '#ECFDF3', color: GREEN }}>
-                    <Icon size={16} />
-                  </span>
-                  <div className="text-sm font-bold text-brand-dark mt-2 leading-tight">{name}</div>
-                  <div className="text-[11px] text-brand-text-muted mt-0.5">{tag}</div>
-                </div>
-              ))}
-            </div>
-            <div className="w-px h-5 bg-brand-border" />
-            <div className="w-full rounded-2xl border border-dashed border-brand-dark/30 px-5 py-3 flex items-center justify-center gap-2.5 text-sm font-semibold text-brand-dark">
-              <Database size={17} style={{ color: GREEN }} />
-              Shared memory
-              <span className="text-brand-text-muted font-normal hidden sm:inline">· every agent reads and writes the same customer story</span>
-            </div>
-            <div className="w-px h-5 bg-brand-border" />
-            <div className="inline-flex items-center gap-2 text-xs sm:text-sm text-brand-text-muted">
-              <UserRound size={15} />
-              A human steps in only when it matters, with the full story.
-            </div>
-          </div>
-        </div>
+      {/* Animated picture */}
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 pb-16">
+        <motion.div {...fadeUp}>
+          <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-brand-text-muted">In one picture</span>
+          <h2 className="text-2xl sm:text-3xl font-heading font-bold text-brand-dark leading-tight mt-2">
+            Watch the manager hand out the work
+          </h2>
+          <p className="text-brand-text-muted text-sm sm:text-base leading-relaxed mt-3 max-w-2xl mb-6">
+            Something happens in your store. The manager sees it and gives it to the right helper. The helper does the job. That is the whole idea.
+          </p>
+          <ManagerPicture />
+        </motion.div>
       </section>
 
       {/* The six steps */}
       <section id="blueprint" className="max-w-5xl mx-auto px-4 sm:px-6 pb-16 scroll-mt-20">
-        <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-brand-text-muted">The blueprint</span>
-        <h2 className="text-2xl sm:text-3xl font-heading font-bold text-brand-dark leading-tight mt-2">
-          Six steps. Same order as the reel.
-        </h2>
-        <p className="text-brand-text-muted text-sm sm:text-base leading-relaxed mt-3 max-w-2xl">
-          This is how we build it for a D2C brand. Nothing here is theory. Each piece is something we have shipped.
-        </p>
+        <motion.div {...fadeUp}>
+          <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-brand-text-muted">The six steps</span>
+          <h2 className="text-2xl sm:text-3xl font-heading font-bold text-brand-dark leading-tight mt-2">
+            Same order as the reel
+          </h2>
+          <p className="text-brand-text-muted text-sm sm:text-base leading-relaxed mt-3 max-w-2xl">
+            Each helper does one job and does it well. Here is what each one does, and what it means for you.
+          </p>
+        </motion.div>
 
-        <ol className="list-none p-0 m-0 mt-8 space-y-4">
-          {steps.map(({ n, icon: Icon, name, tag, line, text, tools }) => (
-            <li key={n} className="rounded-3xl border border-brand-border p-5 sm:p-7 grid sm:grid-cols-[auto_1fr] gap-4 sm:gap-6">
-              <div className="flex sm:flex-col items-center sm:items-start gap-3">
-                <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-brand-text-muted">Step {n}</span>
-                <span className="w-11 h-11 rounded-2xl flex items-center justify-center" style={{ backgroundColor: '#ECFDF3', color: GREEN }}>
+        <ol className="list-none p-0 m-0 mt-8 grid sm:grid-cols-2 gap-4">
+          {steps.map(({ n, icon: Icon, name, does, means }, i) => (
+            <motion.li
+              key={n}
+              {...fadeUp}
+              transition={{ ...fadeUp.transition, delay: (i % 2) * 0.1 }}
+              className="rounded-3xl border border-brand-border p-5 sm:p-6"
+            >
+              <div className="flex items-center gap-3">
+                <span className="w-11 h-11 rounded-2xl flex items-center justify-center shrink-0" style={{ backgroundColor: '#ECFDF3', color: GREEN }}>
                   <Icon size={20} />
                 </span>
-              </div>
-              <div>
-                <div className="flex flex-wrap items-center gap-2">
-                  <h3 className="text-xl sm:text-2xl font-heading font-bold text-brand-dark leading-tight m-0">{name}</h3>
-                  <span className="text-[11px] font-semibold px-2.5 py-1 rounded-full bg-brand-tint text-brand-text-main">{tag}</span>
-                </div>
-                <p className="text-brand-dark font-semibold text-sm sm:text-base mt-2">{line}</p>
-                <p className="text-brand-text-muted text-sm sm:text-base leading-relaxed mt-1.5">{text}</p>
-                <div className="flex flex-wrap gap-1.5 mt-3">
-                  {tools.map((t) => (
-                    <span key={t} className="text-[11px] font-medium px-2 py-1 rounded-md border border-brand-border text-brand-text-muted">{t}</span>
-                  ))}
+                <div>
+                  <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-brand-text-muted">Step {n}</span>
+                  <h3 className="text-lg sm:text-xl font-heading font-bold text-brand-dark leading-tight m-0">{name}</h3>
                 </div>
               </div>
-            </li>
+              <p className="text-brand-dark text-sm sm:text-base leading-relaxed mt-4">{does}</p>
+              <p className="text-sm sm:text-base leading-relaxed mt-2 font-semibold" style={{ color: GREEN }}>
+                {means}
+              </p>
+            </motion.li>
           ))}
         </ol>
+
+        <motion.div {...fadeUp} className="mt-4 rounded-3xl bg-brand-tint p-5 sm:p-6 flex items-start gap-3">
+          <span className="w-11 h-11 rounded-2xl bg-white flex items-center justify-center shrink-0 text-brand-dark">
+            <UserRound size={20} />
+          </span>
+          <div>
+            <h3 className="text-lg sm:text-xl font-heading font-bold text-brand-dark leading-tight m-0">And when a customer is upset?</h3>
+            <p className="text-brand-text-main text-sm sm:text-base leading-relaxed mt-1.5">
+              A real person steps in. The helpers hand over the whole story, so the customer never has to explain twice.
+            </p>
+          </div>
+        </motion.div>
       </section>
 
-      {/* A day with the agents */}
+      {/* A day with the helpers */}
       <section className="text-white" style={{ backgroundColor: NIGHT }}>
         <div className="max-w-5xl mx-auto px-4 sm:px-6 py-14 sm:py-16">
-          <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-white/60">What a day looks like</span>
-          <h2 className="text-2xl sm:text-3xl font-heading font-bold leading-tight mt-2">
-            "Will I actually sleep tonight?"
-          </h2>
-          <p className="text-white/70 text-sm sm:text-base leading-relaxed mt-3 max-w-2xl">
-            Yes. Here is one day, start to finish, as the agents run it.
-          </p>
+          <motion.div {...fadeUp}>
+            <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-white/60">One day, start to finish</span>
+            <h2 className="text-2xl sm:text-3xl font-heading font-bold leading-tight mt-2">
+              "Will I actually sleep tonight?"
+            </h2>
+            <p className="text-white/70 text-sm sm:text-base leading-relaxed mt-3 max-w-2xl">
+              Yes. Here is one day, as the helpers run it.
+            </p>
+          </motion.div>
           <ol className="list-none p-0 m-0 mt-8 relative">
             <div className="absolute left-[4.6rem] sm:left-[5.4rem] top-2 bottom-2 w-px bg-white/15" aria-hidden="true" />
-            {timeline.map(({ time, who, event }) => (
-              <li key={time} className="grid grid-cols-[4.2rem_1fr] sm:grid-cols-[5rem_1fr] gap-4 sm:gap-6 py-3.5">
+            {timeline.map(({ time, who, event }, i) => (
+              <motion.li
+                key={time}
+                initial={{ opacity: 0, x: -16 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ duration: 0.5, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                className="grid grid-cols-[4.2rem_1fr] sm:grid-cols-[5rem_1fr] gap-4 sm:gap-6 py-3.5"
+              >
                 <span className="font-heading font-bold text-sm sm:text-base text-white/90 pt-0.5 text-right pr-2">{time}</span>
-                <div className="pl-3">
-                  <div className="text-xs font-semibold" style={{ color: '#4ADE80' }}>{who}</div>
+                <div className="pl-3 relative">
+                  <span className="absolute -left-[0.95rem] sm:-left-[1.05rem] top-1.5 w-2 h-2 rounded-full" style={{ backgroundColor: LIGHT_GREEN }} aria-hidden="true" />
+                  <div className="text-xs font-semibold" style={{ color: LIGHT_GREEN }}>{who}</div>
                   <p className="text-sm sm:text-base text-white/80 leading-relaxed mt-0.5">{event}</p>
                 </div>
-              </li>
+              </motion.li>
             ))}
           </ol>
-          <p className="mt-8 text-white/90 text-base sm:text-lg font-semibold">
-            Haan. So jao. Orders hum sambhaal lenge.
-          </p>
+          <motion.p {...fadeUp} className="mt-8 text-white text-lg sm:text-xl font-heading font-bold">
+            Yes. Go to sleep. We will handle the orders.
+          </motion.p>
         </div>
       </section>
 
-      {/* Hear the calling agent */}
+      {/* Hear the calling helper */}
       <section className="max-w-5xl mx-auto px-4 sm:px-6 py-14">
-        <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-brand-text-muted">Step 3, live</span>
-        <h2 className="text-2xl sm:text-3xl font-heading font-bold text-brand-dark leading-tight mt-2">
-          Hear the calling agent on a real call
-        </h2>
-        <p className="text-brand-text-muted text-sm sm:text-base leading-relaxed mt-3 max-w-2xl">
-          These are recordings from our calling agent. This is the voice that confirms your COD orders before they ship.
-        </p>
+        <motion.div {...fadeUp}>
+          <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-brand-text-muted">Hear it yourself</span>
+          <h2 className="text-2xl sm:text-3xl font-heading font-bold text-brand-dark leading-tight mt-2">
+            The calling helper on a real call
+          </h2>
+          <p className="text-brand-text-muted text-sm sm:text-base leading-relaxed mt-3 max-w-2xl">
+            Press play. This is the voice that confirms your cash-on-delivery orders before they ship.
+          </p>
+        </motion.div>
         <div className="mt-6">
           <DemoRecordings />
         </div>
         <div className="flex flex-wrap gap-x-6 gap-y-2 mt-6 text-sm">
           <Link to="/lead-agent" className="font-semibold text-brand-dark inline-flex items-center gap-1">
-            Try the lead agent live <ArrowRight size={14} />
+            Try our lead-finding helper live <ArrowRight size={14} />
           </Link>
           <Link to="/agents/whatsapp-telegram-agent" className="font-semibold text-brand-dark inline-flex items-center gap-1">
-            The WhatsApp agent <ArrowRight size={14} />
-          </Link>
-          <Link to="/scale" className="font-semibold text-brand-dark inline-flex items-center gap-1">
-            D2C automation audit <ArrowRight size={14} />
+            More on the WhatsApp helper <ArrowRight size={14} />
           </Link>
         </div>
       </section>
 
       {/* CTA */}
       <section className="max-w-5xl mx-auto px-4 sm:px-6 pb-20">
-        <div className="rounded-3xl bg-brand-dark text-white p-8 sm:p-12 text-center">
-          <h2 className="font-heading font-bold text-3xl sm:text-4xl leading-tight">Want this running on your store?</h2>
+        <motion.div {...fadeUp} className="rounded-3xl bg-brand-dark text-white p-8 sm:p-12 text-center">
+          <h2 className="font-heading font-bold text-3xl sm:text-4xl leading-tight">Want this for your brand?</h2>
           <p className="text-white/70 mt-3 max-w-md mx-auto text-sm sm:text-base">
-            We build it around your catalogue, your shipping partner and your WhatsApp number. Message "AGENTS" and we will send you the full breakdown for your brand.
+            We set it up around your products, your delivery partner and your WhatsApp number. Message us "AGENTS" and we will show you exactly how it would work for you.
           </p>
           <div className="flex flex-wrap justify-center gap-3 mt-6">
             <a
@@ -365,9 +579,9 @@ export default function Agents() {
             </button>
           </div>
           <p className="text-xs text-white/40 mt-6">
-            GoRan AI · AI agents for Indian D2C brands · <Link to="/" className="text-white/60">goran.in</Link>
+            GoRan AI · AI helpers for Indian brands · <Link to="/" className="text-white/60">goran.in</Link>
           </p>
-        </div>
+        </motion.div>
       </section>
     </main>
   );
