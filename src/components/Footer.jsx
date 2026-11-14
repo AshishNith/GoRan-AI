@@ -140,7 +140,7 @@ export default function Footer() {
       </div>
 
       {/* Legal */}
-      <div className="mx-auto mb-10 mt-10 flex flex-col items-center justify-between gap-2 text-center text-xs md:max-w-7xl">
+      <div className="mx-auto mb-6 mt-10 flex flex-col items-center justify-between gap-2 text-center text-xs md:max-w-7xl">
         <div className="flex flex-row flex-wrap items-center justify-center gap-1 text-brand-text-muted">
           <span>&copy;</span>
           <span>{new Date().getFullYear()}</span>
@@ -152,6 +152,20 @@ export default function Footer() {
           <span aria-hidden="true">-</span>
           <Link to="/terms" className="no-underline transition-colors hover:text-brand-dark">Terms</Link>
         </div>
+      </div>
+
+      {/* Oversized wordmark: decorative, fades out towards the bottom edge of the page */}
+      <div aria-hidden="true" className="pointer-events-none -mx-2 select-none overflow-hidden">
+        <p
+          className="m-0 -mb-[0.04em] whitespace-nowrap bg-clip-text text-center font-bold leading-[0.85] tracking-tight text-transparent"
+          style={{
+            fontFamily: 'var(--font-heading)',
+            fontSize: 'clamp(3.5rem, 20vw, 19rem)',
+            backgroundImage: 'linear-gradient(to bottom, var(--color-brand-dark) 0%, color-mix(in srgb, var(--color-brand-dark) 12%, transparent) 100%)',
+          }}
+        >
+          GoRan AI
+        </p>
       </div>
     </footer>
   );
