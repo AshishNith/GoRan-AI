@@ -11,7 +11,7 @@ export const organizationSchema = {
   logo: LOGO_URL,
   image: LOGO_URL,
   description: 'GoRan AI is India\'s leading AI automation agency specializing in AI calling agents, voice agents, WhatsApp agents, AI-powered CRM, AI audits, and autonomous business workflow automation.',
-  foundingDate: '2023',
+  foundingDate: '2025',
   founder: [
     {
       '@type': 'Person',
@@ -39,9 +39,9 @@ export const organizationSchema = {
     },
   ],
   sameAs: [
-    'https://www.linkedin.com/company/goran-ai',
-    'https://x.com/GoRanAI',
-    'https://github.com/AshishNith',
+    'https://www.linkedin.com/company/107898890',
+    'https://x.com/goranai',
+    'https://www.instagram.com/goran.dotin/',
   ],
   areaServed: {
     '@type': 'Country',
@@ -75,6 +75,7 @@ export const localBusinessSchema = {
   email: 'goran.dotin@gmail.com',
   address: {
     '@type': 'PostalAddress',
+    addressLocality: 'Delhi',
     addressCountry: 'IN',
   },
   priceRange: '₹₹₹',

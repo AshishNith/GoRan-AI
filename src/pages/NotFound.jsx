@@ -18,7 +18,7 @@ export default function NotFound() {
         className="absolute inset-0 pointer-events-none opacity-40"
         style={{
           backgroundImage:
-            'linear-gradient(rgba(229, 231, 235, 0.25) 1px, transparent 1px), linear-gradient(90deg, rgba(229, 231, 235, 0.25) 1px, transparent 1px)',
+            'linear-gradient(rgba(204, 210, 233, 0.35) 1px, transparent 1px), linear-gradient(90deg, rgba(204, 210, 233, 0.35) 1px, transparent 1px)',
           backgroundSize: '40px 40px',
         }}
       />
@@ -37,17 +37,17 @@ export default function NotFound() {
         </h1>
 
         <p className="text-brand-text-muted text-base leading-relaxed max-w-sm mb-10">
-          This route doesn't exist in our system architecture. The page may have been moved, deleted, or the URL may be incorrect.
+          We couldn't find that page. It may have been moved or deleted, or the link may be mistyped.
         </p>
 
         <Link
           to="/"
-          className="inline-flex items-center gap-2 no-underline bg-brand-dark text-white font-semibold text-sm py-3.5 px-8 rounded-full transition-all duration-300 hover:bg-brand-dark-hover hover:-translate-y-0.5 shadow-[0_4px_12px_rgba(0,0,0,0.1)] group mt-6"
+          className="inline-flex items-center gap-2 no-underline bg-brand-dark text-white font-semibold text-sm py-3.5 px-8 rounded-btn transition-all duration-300 hover:bg-brand-dark-hover hover:-translate-y-0.5 shadow-[0_4px_12px_rgba(0,0,0,0.1)] group mt-6"
         >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="transition-transform group-hover:-translate-x-0.5">
             <path d="M19 12H5M12 19l-7-7 7-7" />
           </svg>
-          Return to Home
+          Back to home
         </Link>
       </div>
     </main>

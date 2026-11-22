@@ -12,7 +12,7 @@ function formatDate(dateStr) {
 }
 
 const categoryColors = {
-  'AI Strategy': { bg: 'rgba(246, 199, 68, 0.08)', text: '#F6C744', border: 'rgba(246, 199, 68, 0.2)' },
+  'AI Strategy': { bg: 'rgba(94, 118, 227, 0.08)', text: '#5E76E3', border: 'rgba(94, 118, 227, 0.2)' },
   'Process': { bg: 'rgba(168, 85, 247, 0.08)', text: '#A855F7', border: 'rgba(168, 85, 247, 0.2)' },
   'Engineering': { bg: 'rgba(59, 130, 246, 0.08)', text: '#3B82F6', border: 'rgba(59, 130, 246, 0.2)' },
   'Business': { bg: 'rgba(236, 72, 153, 0.08)', text: '#EC4899', border: 'rgba(236, 72, 153, 0.2)' },
@@ -87,7 +87,7 @@ function CodeBlock({ code }) {
   };
 
   return (
-    <div className="my-10 rounded-2xl overflow-hidden border border-white/[0.08] bg-[#0E0E0E] w-full max-w-[calc(100vw-3rem)] sm:max-w-none">
+    <div className="my-10 rounded-xl overflow-hidden border border-white/[0.08] bg-[#0E0E0E] w-full max-w-[calc(100vw-3rem)] sm:max-w-none">
       <div className="bg-[#171717] px-5 py-3 flex items-center justify-between border-b border-white/[0.06]">
         <div className="flex items-center gap-2">
           <div className="flex gap-1.5">
@@ -103,7 +103,7 @@ function CodeBlock({ code }) {
         >
           {copied ? (
             <>
-              <Check size={11} className="text-[#F6C744]" />
+              <Check size={11} className="text-brand-yellow" />
               COPIED!
             </>
           ) : (
@@ -196,7 +196,7 @@ export default function BlogPost() {
         <div className="w-full max-w-[800px] mx-auto px-6 text-center pt-20">
           <h1 className="text-3xl font-heading font-bold text-brand-dark mb-4">Post not found</h1>
           <p className="text-brand-text-muted text-sm mb-8">This blog post doesn't exist or may have been removed.</p>
-          <Link to="/blog" className="inline-flex items-center gap-2 bg-brand-dark text-white font-semibold text-sm py-3 px-6 rounded-full no-underline transition-all hover:bg-brand-dark-hover">
+          <Link to="/blog" className="inline-flex items-center gap-2 bg-brand-dark text-white font-semibold text-sm py-3 px-6 rounded-btn no-underline transition-all hover:bg-brand-dark-hover">
             Back to Blog
           </Link>
         </div>
@@ -359,7 +359,7 @@ export default function BlogPost() {
           <article className="flex-1 min-w-0 max-w-[760px]">
             
             {/* COLLAPSIBLE TL;DR SUMMARY DRAWER */}
-            <div className="mb-10 rounded-2xl border border-brand-yellow/20 bg-brand-bg-light/50 overflow-hidden shadow-sm relative">
+            <div className="mb-10 rounded-xl border border-brand-yellow/20 bg-brand-bg-light/50 overflow-hidden shadow-sm relative">
               <div className="absolute top-0 left-0 w-1 h-full bg-brand-yellow" />
               <button 
                 onClick={() => setTldrExpanded(!tldrExpanded)}
@@ -454,7 +454,7 @@ export default function BlogPost() {
                     return <CodeBlock key={i} code={block.text} />;
                   case 'cta':
                     return (
-                      <div key={i} className="flex flex-col sm:flex-row items-center justify-start gap-4 my-10 p-6 bg-brand-bg-light/60 border border-brand-border/80 rounded-2xl relative overflow-hidden select-none">
+                      <div key={i} className="flex flex-col sm:flex-row items-center justify-start gap-4 my-10 p-6 bg-brand-bg-light/60 border border-brand-border/80 rounded-xl relative overflow-hidden select-none">
                         <div className="absolute top-0 right-0 w-24 h-24 bg-brand-yellow/5 rounded-full blur-xl pointer-events-none" />
                         <a
                           href={block.bookingUrl}
@@ -493,7 +493,7 @@ export default function BlogPost() {
             </div>
 
             {/* Author profile card */}
-            <div className="mt-10 rounded-2xl border border-brand-border p-6 sm:p-8 flex items-start gap-5 bg-brand-bg-light/40 relative overflow-hidden">
+            <div className="mt-10 rounded-xl border border-brand-border p-6 sm:p-8 flex items-start gap-5 bg-brand-bg-light/40 relative overflow-hidden">
               <div className="absolute top-0 right-0 w-32 h-32 bg-brand-yellow/[0.01] rounded-full blur-2xl pointer-events-none" />
               <div className="w-12 h-12 rounded-full bg-brand-dark flex items-center justify-center text-white text-sm font-bold font-heading shrink-0 select-none">
                 AR
@@ -569,7 +569,7 @@ export default function BlogPost() {
                   className="w-9 h-9 rounded-xl bg-brand-bg-light border border-brand-border flex items-center justify-center text-brand-text-muted hover:text-[#171717] hover:border-brand-text-muted/40 hover:-translate-y-0.5 transition-all cursor-pointer border-none"
                   title="Copy Link"
                 >
-                  {copiedLink ? <Check size={14} className="text-[#F6C744]" /> : <Share2 size={14} />}
+                  {copiedLink ? <Check size={14} className="text-brand-yellow" /> : <Share2 size={14} />}
                 </button>
               </div>
             </div>
@@ -588,12 +588,12 @@ export default function BlogPost() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {relatedPosts.map((rp, idx) => {
                 const rpColor = categoryColors[rp.category] || categoryColors['AI Strategy'];
-                const accent = ['#F6C744', '#A855F7', '#3B82F6', '#EC4899'][idx % 4];
+                const accent = ['#5E76E3', '#A855F7', '#3B82F6', '#EC4899'][idx % 4];
                 return (
                   <Link
                     key={rp.slug}
                     to={`/blog/${rp.slug}`}
-                    className="group no-underline rounded-2xl border border-brand-border bg-white overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-black/[0.02] hover:-translate-y-0.5"
+                    className="group no-underline rounded-xl border border-brand-border bg-white overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-black/[0.02] hover:-translate-y-0.5"
                   >
                     <div className="h-1 transition-all duration-300" style={{ background: `linear-gradient(90deg, ${accent}, ${accent}44)`, width: '40%' }} />
                     <div className="p-6 md:p-8">
@@ -625,7 +625,7 @@ export default function BlogPost() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
           className="mt-20 rounded-3xl p-6 sm:p-8 md:p-14 text-white text-center relative overflow-hidden"
-          style={{ background: '#0E0E0E' }}
+          style={{ background: 'var(--glass-dark)' }}
         >
           <div className="absolute inset-0 pointer-events-none">
             <div className="absolute top-[-50%] left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-brand-yellow blur-[120px] opacity-10" />
@@ -639,7 +639,7 @@ export default function BlogPost() {
             </p>
             <button
               onClick={openCalBooking}
-              className="bg-brand-yellow hover:bg-brand-yellow-hover text-brand-dark font-semibold text-xs py-3.5 px-8 rounded-full transition-all duration-200 hover:-translate-y-0.5 shadow-lg shadow-brand-yellow/15 border-none cursor-pointer"
+              className="bg-brand-yellow hover:bg-brand-yellow-hover text-brand-yellow-ink font-semibold text-xs py-3.5 px-8 rounded-btn transition-all duration-200 hover:-translate-y-0.5 shadow-lg shadow-brand-yellow/15 border-none cursor-pointer"
             >
               Book a Scoping Call
             </button>

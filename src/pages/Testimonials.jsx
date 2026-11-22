@@ -53,7 +53,7 @@ export default function Testimonials() {
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`py-1.5 px-3 rounded-full text-xs font-semibold border transition-all duration-200 cursor-pointer ${
+              className={`py-1.5 px-3 rounded-btn text-xs font-semibold border transition-all duration-200 cursor-pointer ${
                 activeCategory === cat
                   ? 'bg-brand-dark text-white border-brand-dark'
                   : 'bg-transparent text-brand-text-muted border-brand-border hover:border-brand-text-muted'
@@ -70,7 +70,7 @@ export default function Testimonials() {
             {filtered.map((t) => (
               <div
                 key={t.id}
-                className="rounded-2xl border border-brand-border bg-white p-6 md:p-7 flex flex-col gap-4 transition-all duration-200 hover:shadow-card-hover hover:-translate-y-0.5 group"
+                className="rounded-xl border border-brand-border bg-white p-6 md:p-7 flex flex-col gap-4 transition-all duration-200 hover:shadow-card-hover hover:-translate-y-0.5 group"
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-1">

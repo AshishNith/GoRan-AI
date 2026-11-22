@@ -9,45 +9,45 @@ const steps = [
   {
     number: '01',
     title: 'Discovery & Audit',
-    subtitle: 'Understanding your operational reality',
-    body: 'We immerse ourselves in your operations — interviewing stakeholders, mapping current workflows, and analysing data pipelines. The goal is a complete picture of your business processes and a ranked list of AI automation opportunities.',
-    deliverables: ['Process maps & gap analysis', 'Opportunity scoring matrix', 'Stakeholder interview summaries', 'Draft implementation roadmap'],
+    subtitle: 'Understanding how your business runs today',
+    body: 'We start by learning how your business runs: we talk to the people doing the work, map each process step by step, and look at the tools and data you already have. You get a clear picture of where time is being lost and a ranked list of what is worth automating.',
+    deliverables: ['Process maps and gaps', 'Opportunities ranked by payoff', 'Interview summaries', 'Draft roadmap'],
     duration: '1-2 weeks',
-    color: '#F6C744',
+    color: '#5E76E3',
   },
   {
     number: '02',
     title: 'Architecture & Design',
-    subtitle: 'Blueprinting the agent system',
-    body: 'With a clear opportunity map, we design the system architecture — selecting AI models, designing data flows, planning integrations, and defining success metrics. You receive a detailed blueprint before any code is written.',
-    deliverables: ['System architecture diagram', 'Technology stack selection', 'Data flow & integration design', 'Success metric definitions'],
+    subtitle: 'Planning the system before any code',
+    body: 'With the opportunities agreed, we design the system: which AI models to use, how data moves between your tools, what connects to what, and how we will measure success. You approve the plan before we write a line of code.',
+    deliverables: ['System diagram', 'Chosen tools and models', 'Data flow and integration plan', 'Agreed success measures'],
     duration: '1-2 weeks',
     color: '#A855F7',
   },
   {
     number: '03',
     title: 'Build & Development',
-    subtitle: 'Constructing your production agents',
-    body: 'Our engineering team builds the agent system in iterative sprints. We develop core logic, connect APIs, train or configure models, and build the interface. You see progress weekly with demo sessions.',
-    deliverables: ['Core agent logic & workflows', 'API integrations', 'Model configuration & training', 'Progress demos each sprint'],
+    subtitle: 'Building your agents',
+    body: 'We build in short sprints. Each one adds working pieces: the agent logic, the connections to your tools, the model setup and the screens your team will use. You get a live demo every week, so nothing is a surprise.',
+    deliverables: ['Working agent logic', 'Connections to your tools', 'Model setup and tuning', 'A demo every sprint'],
     duration: '3-6 weeks',
     color: '#3B82F6',
   },
   {
     number: '04',
     title: 'Testing & Security',
-    subtitle: 'Hardening before deployment',
-    body: 'Every agent undergoes rigorous testing — unit tests, integration tests, edge case scenarios, and security audits. We simulate real-world conditions to ensure reliability before any production deployment.',
-    deliverables: ['Test coverage report', 'Security audit results', 'Edge case documentation', 'Performance benchmarks'],
+    subtitle: 'Proving it works before launch',
+    body: 'Before anything goes live we test it hard: each piece on its own, the whole system together, the awkward edge cases, and a security review. We replay real-world situations until the agent handles them reliably.',
+    deliverables: ['Test report', 'Security review results', 'Edge cases documented', 'Speed and load results'],
     duration: '1-2 weeks',
     color: '#4ADE80',
   },
   {
     number: '05',
     title: 'Deployment & Launch',
-    subtitle: 'Going live with zero disruption',
-    body: 'We deploy your agent system to production with a carefully orchestrated rollout — monitoring every metric, handling edge cases in real time, and ensuring zero disruption to existing operations.',
-    deliverables: ['Production deployment', 'Monitoring & alerting setup', 'Rollback procedures', 'Go-live report'],
+    subtitle: 'Going live without disrupting your day',
+    body: 'We roll the system out in stages and watch it closely. If something unexpected comes up we handle it on the spot, and your existing operations carry on as normal throughout.',
+    deliverables: ['Live system', 'Monitoring and alerts', 'A tested way to roll back', 'Go-live report'],
     duration: '1 week',
     color: '#F59E0B',
   },
@@ -55,8 +55,8 @@ const steps = [
     number: '06',
     title: 'Support & Iteration',
     subtitle: 'Continuous improvement',
-    body: 'Post-launch, we provide ongoing support, performance monitoring, and iterative improvements. Your agent system evolves with your business — we add new capabilities, optimise existing workflows, and ensure peak performance.',
-    deliverables: ['Ongoing monitoring & support', 'Performance optimisation', 'Feature enhancements', 'Quarterly business reviews'],
+    body: 'After launch we stay with you. We monitor how the agents perform, fix issues, and keep improving them. As your business changes, we add new abilities and tune the ones you have.',
+    deliverables: ['Monitoring and support', 'Performance tuning', 'New features', 'Quarterly reviews'],
     duration: 'Ongoing',
     color: '#EC4899',
   },
@@ -79,7 +79,7 @@ export default function Process() {
     <main className="w-full bg-white relative overflow-hidden">
       <SEOHead
         title="Our Process | How GoRan AI Builds & Deploys AI Agents"
-        description="GoRan AI's 6-phase process for building custom AI agents: Discovery & Audit, Architecture, Build, Testing, Deployment, and Ongoing Support. From idea to production in 8-14 weeks."
+        description="GoRan AI's 6-phase process for building custom AI agents: Discovery & Audit, Architecture, Build, Testing, Deployment, and Ongoing Support. A single agent goes live in 3-6 weeks; a full multi-system build takes 8-14."
         canonicalPath="/process"
         schema={buildBreadcrumbSchema([
           { name: 'Home', url: '/' },
@@ -93,7 +93,7 @@ export default function Process() {
           className="absolute inset-0 pointer-events-none opacity-40"
           style={{
             backgroundImage:
-              'linear-gradient(rgba(229, 231, 235, 0.25) 1px, transparent 1px), linear-gradient(90deg, rgba(229, 231, 235, 0.25) 1px, transparent 1px)',
+              'linear-gradient(rgba(204, 210, 233, 0.35) 1px, transparent 1px), linear-gradient(90deg, rgba(204, 210, 233, 0.35) 1px, transparent 1px)',
             backgroundSize: '40px 40px',
           }}
         />
@@ -102,7 +102,7 @@ export default function Process() {
         <div className="w-full max-w-[1100px] mx-auto px-6 relative z-10">
           <Link
             to="/"
-            className="inline-flex items-center gap-1.5 no-underline text-brand-text-muted text-sm font-medium mb-10 group transition-colors hover:text-brand-dark"
+            className="flex w-fit items-center gap-1.5 no-underline text-brand-text-muted text-sm font-medium mb-8 group transition-colors hover:text-brand-dark"
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="transition-transform group-hover:-translate-x-0.5">
               <path d="M19 12H5M12 19l-7-7 7-7" />
@@ -121,7 +121,7 @@ export default function Process() {
           </h1>
 
           <p className="text-brand-text-muted text-lg md:text-xl leading-relaxed max-w-2xl mb-12">
-            A proven, linear process that takes your automation vision from initial audit to production deployment — with clear deliverables and no surprises at every stage.
+            A straight-line process that takes you from the first audit to a live system, with clear deliverables at every stage and no surprises.
           </p>
 
           <div className="flex flex-wrap items-center gap-6">
@@ -131,8 +131,8 @@ export default function Process() {
             </div>
             <div className="w-px h-8 bg-brand-border hidden sm:block" />
             <div className="flex flex-col gap-1">
-              <span className="text-[10px] font-semibold uppercase tracking-widest text-brand-text-muted">Average Timeline</span>
-              <span className="text-sm font-semibold text-brand-dark">2–8 Weeks</span>
+              <span className="text-[10px] font-semibold uppercase tracking-widest text-brand-text-muted">Typical Timeline</span>
+              <span className="text-sm font-semibold text-brand-dark">3–14 Weeks</span>
             </div>
             <div className="w-px h-8 bg-brand-border hidden sm:block" />
             <div className="flex flex-col gap-1">
@@ -149,7 +149,7 @@ export default function Process() {
           className="absolute inset-0 pointer-events-none opacity-[0.03]"
           style={{
             backgroundImage:
-              'radial-gradient(circle at 30% 20%, #F6C744 0%, transparent 50%), radial-gradient(circle at 70% 80%, #F6C744 0%, transparent 50%)',
+              'radial-gradient(circle at 30% 20%, var(--color-brand-yellow) 0%, transparent 50%), radial-gradient(circle at 70% 80%, var(--color-brand-yellow) 0%, transparent 50%)',
           }}
         />
         <div className="w-full max-w-[1100px] mx-auto px-6 relative z-10">
@@ -211,7 +211,7 @@ export default function Process() {
       </section>
 
       {/* ── Methodology Section ── */}
-      <section className="py-24 border-t border-brand-border relative" style={{ background: '#0E0E0E' }}>
+      <section className="py-24 border-t border-brand-border relative" style={{ background: 'var(--glass-dark)' }}>
         <div className="absolute inset-0 pointer-events-none opacity-[0.04]"
           style={{
             backgroundImage: 'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)',
@@ -246,7 +246,7 @@ export default function Process() {
             ].map((item, idx) => (
               <motion.div
                 key={idx}
-                className="border border-white/10 rounded-2xl p-6 bg-white/[0.02] hover:bg-white/[0.05] transition-colors duration-300"
+                className="border border-white/10 rounded-xl p-6 bg-white/[0.02] hover:bg-white/[0.05] transition-colors duration-300"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-40px' }}
@@ -263,7 +263,7 @@ export default function Process() {
 
           <motion.div className="mt-8 flex items-center gap-2" {...fadeUp}>
             <span className="inline-block w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-            <span className="text-white/30 text-xs font-mono">principles_active · 3 nodes</span>
+            <span className="text-white/30 text-xs font-mono">3 principles, every project</span>
           </motion.div>
         </div>
       </section>
@@ -274,7 +274,7 @@ export default function Process() {
           className="absolute inset-0 pointer-events-none opacity-40"
           style={{
             backgroundImage:
-              'linear-gradient(rgba(229, 231, 235, 0.25) 1px, transparent 1px), linear-gradient(90deg, rgba(229, 231, 235, 0.25) 1px, transparent 1px)',
+              'linear-gradient(rgba(204, 210, 233, 0.35) 1px, transparent 1px), linear-gradient(90deg, rgba(204, 210, 233, 0.35) 1px, transparent 1px)',
             backgroundSize: '40px 40px',
           }}
         />
@@ -293,7 +293,7 @@ export default function Process() {
             {[
               {
                 q: 'How long does a full engagement typically take?',
-                a: 'Average end-to-end delivery is 8-14 weeks from kickoff to production deployment. Discovery and architecture take 2-4 weeks, build takes 3-6 weeks, and deployment takes 1-2 weeks. Timelines vary based on scope and complexity.',
+                a: 'It depends on scope. A focused build, such as one calling agent or one WhatsApp agent, usually goes live in 3-6 weeks. A full engagement across several systems takes 8-14 weeks: discovery and design take 2-4 weeks, build takes 3-6, and testing and launch take 2-3. Timelines vary based on scope and complexity.',
               },
               {
                 q: 'What does your team need from us?',
@@ -342,13 +342,13 @@ export default function Process() {
               <span className="text-brand-yellow">autonomous.</span>
             </h2>
             <p className="text-brand-text-muted text-base md:text-lg leading-relaxed max-w-lg mx-auto mb-10">
-              Tell us about the workflows you want to automate. We'll map the architecture, build the agents, and deploy them into your stack.
+              Tell us which work you want off your plate. We'll plan it, build the agents, and set them up inside the tools you already use.
             </p>
             <button
               onClick={openCalBooking}
-              className="inline-flex items-center gap-2 bg-brand-dark text-white font-semibold text-sm py-3.5 px-8 rounded-full transition-all duration-300 hover:bg-brand-dark-hover hover:-translate-y-0.5 shadow-[0_4px_12px_rgba(0,0,0,0.1)] border-none cursor-pointer group"
+              className="inline-flex items-center gap-2 bg-brand-dark text-white font-semibold text-sm py-3.5 px-8 rounded-btn transition-all duration-300 hover:bg-brand-dark-hover hover:-translate-y-0.5 shadow-[0_4px_12px_rgba(0,0,0,0.1)] border-none cursor-pointer group"
             >
-              Start a Conversation
+              Book a Call
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-200 group-hover:translate-x-1">
                 <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>

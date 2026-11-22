@@ -176,7 +176,7 @@ export default function Founder() {
       {/* ──────────────────────────────────────── */}
       {/* EXECUTION LOG — Timeline (terminal style) */}
       {/* ──────────────────────────────────────── */}
-      <section className="py-24 border-t border-brand-border" style={{ background: '#0E0E0E' }}>
+      <section className="py-24 border-t border-brand-border" style={{ background: 'var(--glass-dark)' }}>
         <div className="w-full max-w-275 mx-auto px-6">
           <motion.div {...fadeUp}>
             <div className="inline-flex items-center gap-2 mb-8">
@@ -225,7 +225,7 @@ export default function Founder() {
           className="absolute inset-0 pointer-events-none opacity-[0.03]"
           style={{
             backgroundImage:
-              'radial-gradient(circle at 25% 50%, #F6C744 0%, transparent 50%), radial-gradient(circle at 75% 50%, #F6C744 0%, transparent 50%)',
+              'radial-gradient(circle at 25% 50%, var(--color-brand-yellow) 0%, transparent 50%), radial-gradient(circle at 75% 50%, var(--color-brand-yellow) 0%, transparent 50%)',
           }}
         />
         <div className="w-full max-w-275 mx-auto px-6 relative z-10">
@@ -342,7 +342,7 @@ export default function Founder() {
             </p>
             <button
               onClick={openCalBooking}
-              className="inline-flex items-center gap-2 bg-brand-dark text-white font-semibold text-sm py-3.5 px-8 rounded-full transition-all duration-300 hover:bg-brand-dark-hover hover:-translate-y-0.5 shadow-[0_4px_12px_rgba(0,0,0,0.1)] border-none cursor-pointer group"
+              className="inline-flex items-center gap-2 bg-brand-dark text-white font-semibold text-sm py-3.5 px-8 rounded-btn transition-all duration-300 hover:bg-brand-dark-hover hover:-translate-y-0.5 shadow-[0_4px_12px_rgba(0,0,0,0.1)] border-none cursor-pointer group"
             >
               Start a Conversation
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-200 group-hover:translate-x-1">

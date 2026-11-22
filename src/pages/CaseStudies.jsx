@@ -3,9 +3,12 @@ import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { caseStudiesData } from './CaseStudyDetail';
 import { useCalBooking } from '../components/CalBookingModal';
-import { Cpu, ArrowRight, Sparkles, CheckCircle, Database, Layout, PhoneCall, Filter, Terminal, Activity, X, Laptop, Shield } from 'lucide-react';
+import { ArrowRight, CheckCircle } from 'lucide-react';
 import SEOHead from '../components/SEOHead';
+import SitePreviewModal from '../components/SitePreviewModal';
+import WebsiteCard from '../components/WebsiteCard';
 import { buildBreadcrumbSchema } from '../seo/schemas';
+import { featuredWebsites, websites } from '../data/websites';
 
 const serviceCategories = ['All', 'AI Automation', 'Product Development', 'Voice AI', 'AI CRM'];
 
@@ -18,78 +21,25 @@ const categoryColors = {
   'Robotics Web & Automation': { bg: 'rgba(59, 130, 246, 0.08)', text: '#3B82F6', border: 'rgba(59, 130, 246, 0.2)' }
 };
 
-// Projects database split into 3 custom sections
-const immersiveProjects = [
-  {
-    name: "Art Nexus Delta",
-    client: "Art Collective Partner",
-    category: "Immersive UI Website",
-    desc: "Interactive art catalog displaying generative visual portfolios, horizontal scrolling grids, and web canvas layers.",
-    tech: ["React.js", "Tailwind CSS", "Vite", "GSAP"],
-    image: "https://res.cloudinary.com/dvwpxb2oa/image/upload/v1779775605/985b1bdd-6abd-4b58-a529-d5b2a717d7b1.png",
-    url: "https://art-nexus-delta.vercel.app/",
-    status: "Active"
-  },
-  {
-    name: "Aura Grid Layout",
-    client: "Grid Layout Lab",
-    category: "Modern UI Website",
-    desc: "High-end CSS grid landing page showcasing fluid spacing, glassmorphic filters, and interactive UI nodes.",
-    tech: ["HTML5", "Vanilla CSS", "JavaScript", "Vercel"],
-    image: "https://res.cloudinary.com/dvwpxb2oa/image/upload/v1779775525/20046d87-1ce7-488f-848e-8ed38c946e79.png",
-    url: "https://aura-grid-pi.vercel.app/",
-    status: "Active"
-  },
-  {
-    name: "Raw Pressery Clone",
-    client: "Juice Brand Replica",
-    category: "E-Commerce UI",
-    desc: "Cloned juice brand frontend highlighting fluid micro-animations, slide transitions, and typographic layouts.",
-    tech: ["React.js", "Vite", "Tailwind CSS", "Framer Motion"],
-    image: "https://res.cloudinary.com/dvwpxb2oa/image/upload/v1779775722/bfaf00a1-a077-48e0-b43c-568fc5e03df2.png",
-    url: "https://raw-pressery-two.vercel.app/",
-    status: "Active"
-  },
-  {
-    name: "ASME Chapter Hub",
-    client: "ASME Student Body",
-    category: "Educational Portal",
-    desc: "Mechanical engineering student chapter landing page featuring interactive structural timelines and team profiles.",
-    tech: ["React.js", "Vite", "Framer Motion", "Tailwind CSS"],
-    image: "https://res.cloudinary.com/dvwpxb2oa/image/upload/v1779775649/9424cacf-8bc7-4d53-ba8b-83e661e12bf3.png",
-    url: "https://asme-seven.vercel.app/",
-    status: "Active"
-  },
-  {
-    name: "RoboWeek 3.0 Portal",
-    client: "Robotics Symposium",
-    category: "Festival Web App",
-    desc: "Symposium portal loaded with retro cybernetic visuals, scheduler loops, and dynamic registration filters.",
-    tech: ["React.js", "Vite", "Tailwind CSS", "GSAP"],
-    image: "https://res.cloudinary.com/dvwpxb2oa/image/upload/v1779775775/93f94ca9-f704-4e2e-9ff9-572f59a9f6e5.png",
-    url: "https://roboweek-3-0.vercel.app/",
-    status: "Active"
-  }
-];
-
+// The three agents we build most often. Each links to its own page.
 const orchestrationProjects = [
   {
     agentId: 'calling-agent',
     name: 'Calling Agent',
-    tag: 'Autonomous Telephony & Voice AI',
+    tag: 'Voice AI',
     category: 'Voice AI',
-    desc: 'Deploy natural-sounding AI voice agents that dial leads, qualify prospects, handle inbound inquiries, and schedule meetings 24/7 at sub-800ms latency.',
+    desc: 'Voice agents that call your leads, answer incoming enquiries, qualify prospects and book meetings, at any hour of the day.',
     tech: ['LiveKit', 'Gemini Realtime API', 'Twilio', 'WebRTC', 'FastAPI'],
     image: '/agent-calling.png',
-    color: '#F6C744',
+    color: '#5E76E3',
     timeline: '3–5 weeks'
   },
   {
     agentId: 'whatsapp-telegram-agent',
     name: 'WhatsApp & Telegram Agent',
-    tag: 'Conversational Chat Automation',
+    tag: 'Chat automation',
     category: 'Chat Automation',
-    desc: 'Deploy intelligent chat agents inside WhatsApp and Telegram to capture leads, answer questions, display catalogs, and orchestrate orders in real-time.',
+    desc: 'Chat agents inside WhatsApp and Telegram that capture leads, answer questions, share your catalogue and take orders as they come in.',
     tech: ['WhatsApp Cloud API', 'Telegram Bot API', 'Python', 'FastAPI', 'Redis'],
     image: '/agent-whatsapp.png',
     color: '#10B981',
@@ -98,9 +48,9 @@ const orchestrationProjects = [
   {
     agentId: 'ai-powered-crm',
     name: 'AI-Powered CRM',
-    tag: 'Data Pipeline & Lead Automation',
+    tag: 'Lead automation',
     category: 'AI CRM',
-    desc: 'Automate lead scraping, pipeline enrichment, intent scoring, and personalized outreach routing to 10x your sales team\'s operational velocity.',
+    desc: 'A CRM that finds leads, fills in the missing details, scores them and sends the right follow-up, so your sales team only talks to people who are ready to buy.',
     tech: ['Puppeteer', 'LangChain', 'PostgreSQL', 'Airtable API', 'SendGrid'],
     image: '/agent-crm.png',
     color: '#A855F7',
@@ -108,79 +58,10 @@ const orchestrationProjects = [
   }
 ];
 
-// const backendProjects = [
-//   {
-//     name: "Verma Property Lead Router",
-//     client: "Verma Property Consultants",
-//     category: "Database Integration",
-//     desc: "Automated lead scraper scraping portal listings, scoring user intent, and assigning to brokers on WhatsApp.",
-//     tech: ["Node.js", "Puppeteer", "OpenAI API", "Airtable"],
-//     image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&auto=format&fit=crop&q=80",
-//     status: "Active"
-//   },
-//   {
-//     name: "GreenWrench Service Router",
-//     client: "GreenWrench Solutions",
-//     category: "CRM Pipeline",
-//     desc: "AI ticket routing database mapping repair requests to field technicians by location and workload.",
-//     tech: ["React.js", "PostgreSQL", "Google Maps API", "Express.js"],
-//     image: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=800&auto=format&fit=crop&q=80",
-//     status: "Active"
-//   }
-// ];
-
-/* Interactive Browser Iframe Preview Modal */
-function IframePreviewModal({ url, title, onClose }) {
-  if (!url) return null;
-
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8 bg-black/80 backdrop-blur-md animate-fadeIn">
-      <div className="bg-[#121212] w-full h-full max-w-6xl max-h-[85vh] rounded-2xl overflow-hidden flex flex-col border border-white/10 shadow-2xl relative">
-
-        {/* Mock Browser Header */}
-        <div className="bg-[#1c1c1c] px-3 sm:px-4 py-3 flex items-center justify-between gap-3 border-b border-white/[0.06] select-none">
-          {/* Mac window controls */}
-          <div className="flex items-center gap-1.5">
-            <span className="w-3 h-3 rounded-full bg-[#ff5f56] block" />
-            <span className="w-3 h-3 rounded-full bg-[#ffbd2e] block" />
-            <span className="w-3 h-3 rounded-full bg-[#27c93f] block" />
-          </div>
-
-          {/* Address Bar */}
-          <div className="hidden sm:flex bg-white/5 border border-white/10 rounded-lg text-white/50 text-[10.5px] font-mono py-1 px-4 max-w-lg w-full text-center truncate items-center justify-center gap-1.5">
-            <Shield size={10} className="text-green-500" />
-            {url}
-          </div>
-
-          {/* Close trigger */}
-          <button
-            onClick={onClose}
-            className="flex items-center gap-1 text-[11px] font-mono text-white/50 hover:text-white bg-white/5 hover:bg-white/10 px-3 py-1.5 rounded transition-all cursor-pointer border-none"
-          >
-            <X size={12} />
-            CLOSE
-          </button>
-        </div>
-
-        {/* Live Interactive Frame */}
-        <div className="w-full flex-1 bg-white relative">
-          <iframe
-            src={url}
-            className="w-full h-full border-none bg-white"
-            sandbox="allow-scripts allow-same-origin allow-popups"
-            title={title}
-          />
-        </div>
-      </div>
-    </div>
-  );
-}
-
 export default function CaseStudies() {
   const { openCalBooking } = useCalBooking();
   const [activeFilter, setActiveFilter] = useState('All');
-  const [previewUrl, setPreviewUrl] = useState(null);
-  const [previewTitle, setPreviewTitle] = useState('');
+  const [preview, setPreview] = useState(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -228,20 +109,18 @@ export default function CaseStudies() {
         <div className="mb-12 border-b border-brand-border pb-10">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
             <div className="max-w-2xl">
-              <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#F6C744] mb-3.5 block flex items-center gap-1.5 select-none">
-                <Sparkles size={11} className="fill-brand-yellow" />
-                GoRan AI Deployments Portfolio
+              <span className="mb-4 inline-flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-brand-yellow" />
+                <span className="text-xs font-semibold uppercase tracking-widest text-brand-text-muted">Case studies</span>
               </span>
-              <h1 className="text-4xl sm:text-6xl md:text-7xl font-heading font-bold text-brand-dark leading-[0.95] tracking-tight">
-                Proof of concept,<br />
-                <span className="text-brand-yellow relative">
-                  in production.
-                </span>
+              <h1 className="text-4xl sm:text-6xl md:text-7xl font-heading font-bold text-brand-dark leading-[1.02] tracking-tight">
+                Work that is live,<br />
+                <span className="text-brand-yellow">and paying off.</span>
               </h1>
             </div>
             <div className="max-w-xs shrink-0">
-              <p className="text-brand-text-muted text-xs md:text-sm leading-relaxed border-l-2 border-[#A855F7] pl-4 py-1">
-                We design, code, and deploy custom agent pipelines, database architectures, and production-grade applications that drive operational savings.
+              <p className="text-brand-text-muted text-sm leading-relaxed border-l-2 border-brand-yellow pl-4 py-1">
+                What each client was stuck on, what we built for them, and what changed once it went live.
               </p>
             </div>
           </div>
@@ -256,9 +135,11 @@ export default function CaseStudies() {
                 <button
                   key={category}
                   onClick={() => setActiveFilter(category)}
-                  className={`px-4 py-2 rounded-lg text-xs font-semibold cursor-pointer transition-all duration-300 border-none ${isActive
-                      ? 'bg-white text-brand-dark shadow-sm'
-                      : 'text-brand-text-muted hover:text-brand-dark'
+                  type="button"
+                  aria-pressed={isActive}
+                  className={`px-4 py-2 rounded-lg text-sm font-semibold cursor-pointer transition-all duration-200 border-none ${isActive
+                      ? 'bg-brand-yellow text-brand-yellow-ink shadow-sm'
+                      : 'bg-transparent text-brand-text-muted hover:text-brand-dark'
                     }`}
                 >
                   {category}
@@ -267,10 +148,9 @@ export default function CaseStudies() {
             })}
           </div>
 
-          <div className="text-right text-[10px] text-brand-text-muted font-mono uppercase tracking-widest flex items-center gap-1.5">
-            <Filter size={11} />
-            Showing {filteredProjects.length} Deployments
-          </div>
+          <p className="m-0 text-sm text-brand-text-muted" aria-live="polite">
+            Showing {filteredProjects.length} of {allProjects.length}
+          </p>
         </div>
 
         {/* Asymmetric Case Studies Grid */}
@@ -294,21 +174,21 @@ export default function CaseStudies() {
                   >
                     <div>
                       {/* Card Header row */}
-                      <div className="flex justify-between items-center mb-5 text-[10px] font-mono text-brand-text-muted/40 select-none">
-                        <span>SYS_DEPLOY // #{String(index + 1).padStart(2, '0')}</span>
-                        <span>{project.timeline} BUILD</span>
+                      <div className="flex justify-between items-center mb-5 text-xs font-medium text-brand-text-muted">
+                        <span>Case study {String(index + 1).padStart(2, '0')}</span>
+                        <span>Built in {project.timeline.toLowerCase()}</span>
                       </div>
 
                       {/* Tag pill & impact badge */}
                       <div className="flex flex-wrap items-center gap-3.5 mb-4">
                         <span
-                          className="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded"
+                          className="text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded"
                           style={{ backgroundColor: catColor.bg, color: catColor.text, border: `1px solid ${catColor.border}` }}
                         >
                           {project.tag}
                         </span>
-                        <span className="text-[10px] font-mono font-bold text-brand-yellow flex items-center gap-1 bg-brand-yellow/5 px-2 py-0.5 rounded border border-brand-yellow/15 select-none">
-                          <CheckCircle size={10} />
+                        <span className="text-xs font-semibold text-brand-yellow flex items-center gap-1.5 bg-brand-yellow/5 px-2 py-0.5 rounded border border-brand-yellow/20">
+                          <CheckCircle size={12} />
                           {project.impact}
                         </span>
                       </div>
@@ -321,19 +201,19 @@ export default function CaseStudies() {
                       </Link>
 
                       {/* Summary intro */}
-                      <p className="text-[13px] text-brand-text-muted leading-relaxed mb-6 font-body">
-                        {project.challenge.substring(0, 180)}...
+                      <p className="text-sm text-brand-text-muted leading-relaxed mb-6 font-body">
+                        {project.summary}
                       </p>
 
                       {/* Tech stack badges */}
                       <div className="flex flex-wrap gap-1.5 mb-8">
                         {project.techStack.slice(0, 4).map((tech) => (
-                          <span key={tech} className="text-[9.5px] font-mono font-bold px-2 py-0.5 rounded bg-brand-bg-light border border-brand-border/60 text-brand-text-muted">
+                          <span key={tech} className="text-[11px] font-medium px-2 py-0.5 rounded-md bg-white border border-brand-border text-brand-text-muted">
                             {tech}
                           </span>
                         ))}
                         {project.techStack.length > 4 && (
-                          <span className="text-[9.5px] font-mono px-2 py-0.5 rounded bg-brand-bg-light border border-brand-border/60 text-brand-text-muted/40">
+                          <span className="text-[11px] font-medium px-2 py-0.5 rounded-md bg-white border border-brand-border text-brand-text-muted">
                             +{project.techStack.length - 4} more
                           </span>
                         )}
@@ -346,12 +226,12 @@ export default function CaseStudies() {
                         <div className="w-7 h-7 rounded-full bg-brand-dark text-white flex items-center justify-center font-heading font-semibold text-[10px] select-none">
                           {project.name.charAt(0)}
                         </div>
-                        <span className="text-[11px] font-bold text-brand-dark">{project.name}</span>
+                        <span className="text-sm font-bold text-brand-dark">{project.name}</span>
                       </div>
 
                       <Link to={`/case-studies/${project.id}`} className="no-underline group/link">
-                        <span className="flex items-center gap-1.5 text-[11px] font-bold text-brand-dark group-hover/link:text-brand-yellow transition-colors duration-200">
-                          Inspect Spec
+                        <span className="flex items-center gap-1.5 text-sm font-semibold text-brand-dark group-hover/link:text-brand-yellow transition-colors duration-200">
+                          Read case study
                           <ArrowRight size={13} className="transition-transform group-hover/link:translate-x-0.5" />
                         </span>
                       </Link>
@@ -363,101 +243,53 @@ export default function CaseStudies() {
           </div>
         </div>
 
-        {/* SECTION 1: IMMERSIVE INTERFACES & DIGITAL FRONTENDS */}
+        {/* Websites */}
         <section className="mt-44 border-t border-brand-border pt-20">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
             <div>
-              <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#F6C744] mb-2.5 block flex items-center gap-1.5">
-                <Laptop size={11} />
-                CATEGORY // INTERFACE_LAYER
+              <span className="mb-3 inline-flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-brand-yellow" />
+                <span className="text-xs font-semibold uppercase tracking-widest text-brand-text-muted">Websites</span>
               </span>
-              <h2 className="text-2xl sm:text-4xl font-heading font-bold text-brand-dark tracking-tight leading-none">
-                Immersive Interfaces &amp; Digital Frontends
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-brand-dark tracking-tight leading-[1.05] m-0">
+                Websites we have shipped
               </h2>
             </div>
-            <p className="text-brand-text-muted text-xs md:text-sm max-w-sm leading-relaxed border-l-2 border-brand-yellow pl-4 py-1">
-              High-fidelity user experiences, micro-interactive websites, and responsive mobile client clone systems.
+            <p className="text-brand-text-muted text-sm max-w-sm leading-relaxed border-l-2 border-brand-yellow pl-4 py-1 m-0">
+              Stores, company sites and 3D experiences. Click any screenshot to open the live site right here.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {immersiveProjects.map((project, idx) => (
-              <div
-                key={project.name}
-                className="bg-white border border-brand-border hover:border-brand-yellow/30 rounded-2xl overflow-hidden flex flex-col justify-between transition-all duration-300 group shadow-sm hover:shadow-lg hover:shadow-black/[0.02] min-w-0"
-              >
-                {/* Visual Cover image container */}
-                <div className="relative aspect-[16/10] overflow-hidden bg-brand-bg-light border-b border-brand-border select-none">
-                  <img
-                    src={project.image}
-                    alt={project.name}
-                    className="w-full h-full object-cover opacity-90 transition-all duration-500 group-hover:opacity-100 group-hover:scale-102"
-                    loading="lazy"
-                  />
-                  {/* Glassmorphic active status tag overlay on the image */}
-                  <span className="absolute top-3.5 right-3.5 text-[9px] font-mono font-bold px-2 py-0.5 rounded-full bg-black/75 backdrop-blur-sm text-green-400 border border-green-400/20 flex items-center gap-1 select-none">
-                    <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-                    ACTIVE
-                  </span>
-                </div>
-
-                {/* Content details */}
-                <div className="p-6 flex-1 flex flex-col justify-between">
-                  <div>
-                    <div className="flex items-center justify-between mb-3 text-[10px] font-mono text-brand-text-muted/60">
-                      <span>{project.client}</span>
-                      <span className="text-[#F6C744] font-semibold">#{project.category}</span>
-                    </div>
-                    <h4 className="text-base font-bold text-brand-dark font-heading leading-tight mb-2 group-hover:text-brand-yellow transition-colors duration-200">
-                      {project.name}
-                    </h4>
-                    <p className="text-[12px] text-brand-text-muted leading-relaxed mb-6 font-body">
-                      {project.desc}
-                    </p>
-                  </div>
-
-                  <div className="border-t border-brand-border/40 pt-4 mt-auto flex items-center justify-between gap-4">
-                    <div className="flex flex-wrap gap-1">
-                      {project.tech.slice(0, 3).map((t) => (
-                        <span key={t} className="text-[8.5px] font-mono text-brand-text-muted/65 px-1.5 py-0.5 rounded bg-brand-bg-light border border-brand-border/40 select-none">
-                          {t}
-                        </span>
-                      ))}
-                    </div>
-
-                    {project.url && (
-                      <button
-                        onClick={() => {
-                          setPreviewUrl(project.url);
-                          setPreviewTitle(project.name);
-                        }}
-                        className="bg-brand-dark hover:bg-brand-dark-hover text-white text-[10px] font-mono font-bold px-3 py-1.5 rounded-lg border-none cursor-pointer flex items-center gap-1 transition-colors duration-150 shrink-0"
-                      >
-                        Live Sandbox
-                        <ArrowRight size={10} />
-                      </button>
-                    )}
-                  </div>
-                </div>
-              </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+            {featuredWebsites.map((site) => (
+              <WebsiteCard key={site.id} site={site} onPreview={setPreview} />
             ))}
+          </div>
+
+          <div className="mt-10 flex justify-center">
+            <Link
+              to="/services/websites"
+              className="inline-flex items-center gap-2 rounded-btn bg-brand-dark hover:bg-brand-dark-hover text-white font-semibold text-sm py-3 px-6 no-underline transition-all duration-200 hover:-translate-y-0.5"
+            >
+              See all {websites.length} websites <ArrowRight size={15} />
+            </Link>
           </div>
         </section>
 
-        {/* SECTION 2: AUTONOMOUS ORCHESTRATIONS & AGENTS */}
+        {/* AI agents */}
         <section className="mt-44 border-t border-brand-border pt-20">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
             <div>
-              <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#10B981] mb-2.5 block flex items-center gap-1.5">
-                <Cpu size={11} />
-                CATEGORY // INTELLIGENCE_LAYER
+              <span className="mb-3 inline-flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-brand-yellow" />
+                <span className="text-xs font-semibold uppercase tracking-widest text-brand-text-muted">AI agents</span>
               </span>
-              <h2 className="text-2xl sm:text-4xl font-heading font-bold text-brand-dark tracking-tight leading-none">
-                Autonomous Orchestrations &amp; Agents
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-brand-dark tracking-tight leading-[1.05] m-0">
+                Agents you can put to work
               </h2>
             </div>
-            <p className="text-brand-text-muted text-xs md:text-sm max-w-sm leading-relaxed border-l-2 border-[#10B981] pl-4 py-1">
-              AI voice callers, WhatsApp & Telegram bots, and intelligent CRM pipeline automation.
+            <p className="text-brand-text-muted text-sm max-w-sm leading-relaxed border-l-2 border-brand-yellow pl-4 py-1 m-0">
+              The three agents behind most of the results above. Each one plugs into the tools you already use.
             </p>
           </div>
 
@@ -465,7 +297,7 @@ export default function CaseStudies() {
             {orchestrationProjects.map((project) => (
               <div
                 key={project.agentId}
-                className="bg-white border border-brand-border hover:border-brand-yellow/30 rounded-2xl overflow-hidden flex flex-col justify-between transition-all duration-300 group shadow-sm hover:shadow-lg hover:shadow-black/[0.02] min-w-0"
+                className="bg-[#FEFEFE] border border-brand-border hover:border-brand-yellow/50 rounded-xl overflow-hidden flex flex-col justify-between transition-all duration-300 group hover:shadow-card-hover min-w-0"
               >
                 {/* Visual Cover image */}
                 <div className="relative aspect-[16/10] overflow-hidden bg-brand-bg-light border-b border-brand-border select-none">
@@ -477,8 +309,8 @@ export default function CaseStudies() {
                   />
                   {/* Accent color overlay tint */}
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500" style={{ backgroundColor: project.color }} />
-                  <span className="absolute top-3.5 left-3.5 text-[9px] font-mono font-bold px-2 py-0.5 rounded-full backdrop-blur-sm border flex items-center gap-1 select-none" style={{ backgroundColor: `${project.color}22`, color: project.color, borderColor: `${project.color}40` }}>
-                    {project.timeline} SETUP
+                  <span className="absolute top-3 left-3 text-[11px] font-semibold px-2.5 py-1 rounded-full bg-brand-dark/85 text-white backdrop-blur-sm">
+                    Live in {project.timeline}
                   </span>
                 </div>
 
@@ -486,13 +318,12 @@ export default function CaseStudies() {
                 <div className="p-6 flex-1 flex flex-col justify-between">
                   <div>
                     <div className="flex items-center justify-between mb-3">
-                      <span className="text-[9px] font-mono font-bold px-2 py-0.5 rounded" style={{ backgroundColor: `${project.color}15`, color: project.color, border: `1px solid ${project.color}30` }}>#{project.category}</span>
-                      <span className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: project.color }} />
+                      <span className="text-[11px] font-semibold uppercase tracking-wider px-2 py-1 rounded-md bg-brand-tint text-brand-text-muted">{project.tag}</span>
                     </div>
-                    <h4 className="text-base font-bold text-brand-dark font-heading leading-tight mb-2 group-hover:text-brand-yellow transition-colors duration-200">
+                    <h3 className="text-xl font-bold text-brand-dark font-heading leading-tight mb-2">
                       {project.name}
-                    </h4>
-                    <p className="text-[12px] text-brand-text-muted leading-relaxed mb-5 font-body">
+                    </h3>
+                    <p className="text-sm text-brand-text-muted leading-relaxed mb-5 font-body">
                       {project.desc}
                     </p>
                   </div>
@@ -500,18 +331,17 @@ export default function CaseStudies() {
                   <div className="border-t border-brand-border/40 pt-4 mt-auto flex items-center justify-between gap-4">
                     <div className="flex flex-wrap gap-1">
                       {project.tech.slice(0, 3).map((t) => (
-                        <span key={t} className="text-[8.5px] font-mono text-brand-text-muted/65 px-1.5 py-0.5 rounded bg-brand-bg-light border border-brand-border/40 select-none">
+                        <span key={t} className="text-[11px] font-medium text-brand-text-muted px-2 py-0.5 rounded-md bg-white border border-brand-border">
                           {t}
                         </span>
                       ))}
                     </div>
                     <Link
                       to={`/agents/${project.agentId}`}
-                      className="no-underline shrink-0 flex items-center gap-1 text-[10px] font-bold transition-colors duration-200"
-                      style={{ color: project.color }}
+                      className="no-underline shrink-0 flex items-center gap-1.5 text-sm font-semibold text-brand-yellow hover:text-brand-yellow-hover transition-colors duration-200"
                     >
-                      View Spec
-                      <ArrowRight size={11} className="transition-transform group-hover:translate-x-0.5" />
+                      How it works
+                      <ArrowRight size={13} className="transition-transform group-hover:translate-x-0.5" />
                     </Link>
                   </div>
                 </div>
@@ -520,28 +350,25 @@ export default function CaseStudies() {
           </div>
         </section>
 
-        {/* SECTION 3: DISTRIBUTED BACKENDS & CRM ENGINES */}
-       
-
-        {/* Global Operations Metric Section */}
+        {/* The same numbers the home page shows */}
         <div className="mt-40 border-t border-brand-border pt-20 text-center animate-fadeIn">
-          <h4 className="text-xs font-semibold uppercase tracking-wider text-brand-text-muted mb-12 select-none">GoRan AI Global Benchmark Metrics</h4>
+          <h4 className="text-xs font-semibold uppercase tracking-wider text-brand-text-muted mb-12 select-none">Engineered to industry leading standards</h4>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
-            <div className="bg-brand-bg-light border border-brand-border/80 rounded-2xl p-6 shadow-sm">
+            <div className="bg-brand-bg-light border border-brand-border rounded-xl p-6">
               <div className="font-heading text-3xl sm:text-4xl font-bold text-brand-dark leading-none">99.9%</div>
-              <div className="text-xs text-brand-text-muted mt-2 font-medium">Uptime Guarantee</div>
+              <div className="text-xs text-brand-text-muted mt-2 font-medium">System Uptime</div>
             </div>
-            <div className="bg-brand-bg-light border border-brand-border/80 rounded-2xl p-6 shadow-sm">
+            <div className="bg-brand-bg-light border border-brand-border rounded-xl p-6">
               <div className="font-heading text-3xl sm:text-4xl font-bold text-brand-dark leading-none">500k+</div>
-              <div className="text-xs text-brand-text-muted mt-2 font-medium">Actions Orchestrated Daily</div>
+              <div className="text-xs text-brand-text-muted mt-2 font-medium">Agent Executions Daily</div>
             </div>
-            <div className="bg-brand-bg-light border border-brand-border/80 rounded-2xl p-6 shadow-sm">
+            <div className="bg-brand-bg-light border border-brand-border rounded-xl p-6">
               <div className="font-heading text-3xl sm:text-4xl font-bold text-brand-dark leading-none">4.9/5</div>
-              <div className="text-xs text-brand-text-muted mt-2 font-medium">Customer Trust Score</div>
+              <div className="text-xs text-brand-text-muted mt-2 font-medium">Client Satisfaction Rating</div>
             </div>
-            <div className="bg-brand-bg-light border border-brand-border/80 rounded-2xl p-6 shadow-sm">
+            <div className="bg-brand-bg-light border border-brand-border rounded-xl p-6">
               <div className="font-heading text-3xl sm:text-4xl font-bold text-brand-dark leading-none">&lt;5hrs</div>
-              <div className="text-xs text-brand-text-muted mt-2 font-medium">Mean Response Time</div>
+              <div className="text-xs text-brand-text-muted mt-2 font-medium">Avg. Response Time</div>
             </div>
           </div>
         </div>
@@ -553,35 +380,30 @@ export default function CaseStudies() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
           className="mt-28 rounded-3xl p-8 md:p-14 text-white text-center relative overflow-hidden"
-          style={{ background: '#0E0E0E' }}
+          style={{ background: 'var(--glass-dark)' }}
         >
           <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute top-[-50%] left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-brand-yellow blur-[120px] opacity-10" />
+            <div className="absolute top-[-50%] left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-brand-yellow blur-[120px] opacity-25" />
           </div>
           <div className="relative z-10 max-w-xl mx-auto">
             <h2 className="text-2xl md:text-4xl font-heading font-bold leading-tight mb-4">
-              Deploy your own autonomous operations
+              Want results like these?
             </h2>
-            <p className="text-white/60 text-xs md:text-sm leading-relaxed max-w-lg mx-auto mb-8 font-body">
-              Let's analyze your processes, build tailored system logic, and deploy autonomous execution nodes built on standard frameworks.
+            <p className="text-white/70 text-sm md:text-base leading-relaxed max-w-lg mx-auto mb-8 font-body">
+              Tell us which part of your business eats the most time. We will show you what an agent can take over and what it would save you.
             </p>
             <button
               onClick={openCalBooking}
-              className="bg-brand-yellow hover:bg-brand-yellow-hover text-brand-dark font-semibold text-xs py-3.5 px-8 rounded-full transition-all duration-200 hover:-translate-y-0.5 shadow-lg shadow-brand-yellow/15 border-none cursor-pointer"
+              className="bg-brand-yellow hover:bg-brand-yellow-hover text-brand-yellow-ink font-semibold text-xs py-3.5 px-8 rounded-btn transition-all duration-200 hover:-translate-y-0.5 shadow-lg shadow-brand-yellow/15 border-none cursor-pointer"
             >
-              Request Custom Audit
+              Book a Call
             </button>
           </div>
         </motion.div>
 
       </div>
 
-      {/* Interactive Sandbox Iframe Preview Modal */}
-      <IframePreviewModal
-        url={previewUrl}
-        title={previewTitle}
-        onClose={() => setPreviewUrl(null)}
-      />
+      <SitePreviewModal site={preview} onClose={() => setPreview(null)} />
     </main>
   );
 }

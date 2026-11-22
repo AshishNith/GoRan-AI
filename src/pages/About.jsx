@@ -7,27 +7,28 @@ import { buildBreadcrumbSchema } from '../seo/schemas';
 const principles = [
   {
     title: 'Tailored, not templated',
-    body: 'Every solution is built from first principles, never from a template.',
+    body: 'Every system is designed around how your business works, never copied from a template.',
   },
   {
     title: 'Security is non-negotiable',
-    body: 'Encryption by default, compliance-first architecture, zero-trust principles.',
+    body: 'Your data is encrypted in transit and at rest, access is limited to the people who need it, and every agent action is logged.',
   },
   {
     title: 'End-to-end ownership',
-    body: 'We design, build, deploy, and support. No handoffs, no dropped balls.',
+    body: 'We design, build, launch and support it ourselves. One team from the first call to long after go-live.',
   },
   {
     title: 'Human-centred automation',
-    body: 'We automate the tedious, not the meaningful. Your team does more of what matters.',
+    body: 'We automate the tedious work, not the meaningful work. Your team gets more time for what matters.',
   },
 ];
 
+// Kept in step with the timeline on the Founder page
 const milestones = [
-  { year: '2023', label: 'Founded', detail: 'Founded with a vision to make enterprise-grade AI accessible to every business.' },
-  { year: '2024', label: 'Scale', detail: 'Scaled to 40+ agent deployments across fintech, healthcare, logistics, and e-commerce.' },
-  { year: '2025', label: 'Expansion', detail: 'Expanded operations to London and Singapore with a team of 28 engineers and strategists.' },
-  { year: 'Now', label: 'Building', detail: 'Architecting the next generation of autonomous agent systems for global enterprises.' },
+  { year: '2020', label: 'The first script', detail: 'Ashish writes a small automation for local businesses that were typing website leads into spreadsheets by hand. Four hours of work becomes four seconds.' },
+  { year: '2024', label: 'Voice and chat agents', detail: 'Years of backend and AI work turn into low-latency calling agents and message routing that hold up in real operations.' },
+  { year: '2025', label: 'GoRan AI is founded', detail: 'The agency starts in Delhi with one goal: put practical AI to work inside everyday businesses.' },
+  { year: 'Now', label: 'In production', detail: 'Calling agents, WhatsApp agents, AI CRMs and websites running for clients in agriculture, e-commerce, field services and robotics.' },
 ];
 
 export default function About() {
@@ -40,7 +41,7 @@ export default function About() {
     <main className="w-full bg-white relative overflow-hidden">
       <SEOHead
         title="About GoRan AI | AI Automation Agency Founded by Ashish Ranjan"
-        description="GoRan AI is an AI automation agency based in India, building custom AI agents, voice AI systems, WhatsApp bots, and autonomous business workflows. Learn about our mission, team, and approach."
+        description="GoRan AI is an AI automation agency based in Delhi, India, building custom AI agents, voice AI systems, WhatsApp bots, and autonomous business workflows. Learn about our mission, team, and approach."
         canonicalPath="/about"
         schema={buildBreadcrumbSchema([
           { name: 'Home', url: '/' },
@@ -49,13 +50,13 @@ export default function About() {
       />
 
       {/* ── Hero ── */}
-      <section className="pt-36 pb-20 relative">
+      <section className="pt-32 md:pt-36 pb-20 relative">
         {/* Subtle grid background */}
         <div
           className="absolute inset-0 pointer-events-none opacity-40"
           style={{
             backgroundImage:
-              'linear-gradient(rgba(229, 231, 235, 0.25) 1px, transparent 1px), linear-gradient(90deg, rgba(229, 231, 235, 0.25) 1px, transparent 1px)',
+              'linear-gradient(rgba(204, 210, 233, 0.35) 1px, transparent 1px), linear-gradient(90deg, rgba(204, 210, 233, 0.35) 1px, transparent 1px)',
             backgroundSize: '40px 40px',
           }}
         />
@@ -64,16 +65,6 @@ export default function About() {
 
         <div className="w-full max-w-275 mx-auto px-6 relative z-10">
           {/* Back link */}
-          <Link
-            to="/"
-            className="inline-flex items-center gap-1.5 no-underline text-brand-text-muted text-sm font-medium mb-10 group transition-colors hover:text-brand-dark"
-          >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="transition-transform group-hover:-translate-x-0.5">
-              <path d="M19 12H5M12 19l-7-7 7-7" />
-            </svg>
-            Back to Home
-          </Link>
-
           {/* Tag */}
           <div className="inline-flex items-center gap-2 mb-5">
             <span className="w-2 h-2 rounded-full bg-brand-yellow" />
@@ -88,14 +79,14 @@ export default function About() {
 
           {/* Subtitle */}
           <p className="text-brand-text-muted text-lg md:text-xl leading-relaxed max-w-2xl mb-12">
-            GoRan AI was founded on a single conviction — businesses shouldn't be bottlenecked by manual workflows. We build highly tailored AI agents that operate precisely within your existing tools, so your team can focus on what matters most.
+            GoRan AI started from one belief: no business should be held back by manual work. We build AI agents that fit inside the tools you already use, so your team can spend its time on the work that matters.
           </p>
 
           {/* Meta stats row — same pattern as ServiceDetail hero */}
           <div className="flex flex-wrap items-center gap-6">
             <div className="flex flex-col gap-1">
               <span className="text-[10px] font-semibold uppercase tracking-widest text-brand-text-muted">Founded</span>
-              <span className="text-sm font-semibold text-brand-dark">2026</span>
+              <span className="text-sm font-semibold text-brand-dark">2025</span>
             </div>
             <div className="w-px h-8 bg-brand-border hidden sm:block" />
             <div className="flex flex-col gap-1">
@@ -104,8 +95,8 @@ export default function About() {
             </div>
             <div className="w-px h-8 bg-brand-border hidden sm:block" />
             <div className="flex flex-col gap-1">
-              <span className="text-[10px] font-semibold uppercase tracking-widest text-brand-text-muted">Daily Executions</span>
-              <span className="text-sm font-semibold text-brand-dark">10k+</span>
+              <span className="text-[10px] font-semibold uppercase tracking-widest text-brand-text-muted">Based in</span>
+              <span className="text-sm font-semibold text-brand-dark">Delhi, India</span>
             </div>
             <div className="w-px h-8 bg-brand-border hidden sm:block" />
             <div className="flex flex-col gap-1">
@@ -127,12 +118,12 @@ export default function About() {
             <div>
               <p className="text-[10px] font-semibold uppercase tracking-widest text-brand-text-muted mb-4">Our Mission</p>
               <p className="text-brand-text-main text-lg leading-relaxed mb-6">
-                To democratize access to advanced, enterprise-grade AI. We engineer intelligent systems that automate repetitive tasks, reduce operational friction, and scale growth reliably — regardless of company size, industry, or technical maturity.
+                To make serious AI available to every business, not only the big ones. We build systems that take over repetitive work, remove day-to-day friction and keep running as you grow, whatever your size, industry or technical setup.
               </p>
-              <div className="rounded-2xl p-6 border-l-4 bg-brand-yellow/5 border-l-brand-yellow">
+              <div className="rounded-xl p-6 border-l-4 bg-brand-yellow/5 border-l-brand-yellow">
                 <p className="text-[10px] font-semibold uppercase tracking-widest text-brand-yellow mb-2">In practice</p>
                 <p className="text-brand-text-main text-base leading-relaxed">
-                  Every engagement starts with your real workflows. We sit inside your Slack channels, study your Notion boards, shadow your ops calls — then we architect agents that handle the repetitive 80% so your team can own the strategic 20%.
+                  Every project starts with how your business really runs. We look at your enquiries, your follow-ups and the tools your team lives in, then build agents that take the repetitive 80% so your people can own the 20% that needs judgment.
                 </p>
               </div>
             </div>
@@ -141,7 +132,7 @@ export default function About() {
             <div>
               <p className="text-[10px] font-semibold uppercase tracking-widest text-brand-text-muted mb-4">Our Vision</p>
               <p className="text-brand-text-main text-lg leading-relaxed">
-                A future where every organisation co-works with specialised digital agents. We envision a seamless blend of human creativity and automated precision — where businesses don't just use AI, they partner with it as a core part of how they operate, decide, and grow.
+                A future where every business works alongside its own AI agents. People bring the judgment and the creativity, agents bring speed and consistency, and AI becomes a normal part of how a company runs, decides and grows.
               </p>
             </div>
 
@@ -149,10 +140,10 @@ export default function About() {
             <div>
               <p className="text-[10px] font-semibold uppercase tracking-widest text-brand-text-muted mb-4">How we work</p>
               <p className="text-brand-text-main text-lg leading-relaxed mb-4">
-                We don't sell software licences or generic chatbots. We embed with your team, understand your operational reality, and build automation from the inside out.
+                We don't sell software licences or off-the-shelf chatbots. We work alongside your team, learn how the business really runs, and build the automation around that.
               </p>
               <p className="text-brand-text-muted text-base leading-relaxed">
-                Our process is deliberately linear: audit, architect, build, deploy, maintain. Each phase has clear deliverables and exit criteria. No scope creep, no guesswork. You always know where things stand and what's coming next.
+                Our process runs in a straight line: audit, design, build, launch, support. Each step ends with something you can see and sign off, so you always know where things stand and what comes next.
               </p>
             </div>
           </div>
@@ -161,7 +152,7 @@ export default function About() {
           <div className="flex flex-col gap-5 lg:sticky lg:top-28 self-start">
 
             {/* Journey card */}
-            <div className="rounded-2xl border border-brand-border p-6 bg-white">
+            <div className="rounded-xl border border-brand-border p-6 bg-white">
               <p className="text-[10px] font-semibold uppercase tracking-widest text-brand-text-muted mb-4">Our Journey</p>
               <div className="flex flex-col gap-0">
                 {milestones.map((m, idx) => (
@@ -179,21 +170,21 @@ export default function About() {
             </div>
 
             {/* CTA card — same dark style as ServiceDetail */}
-            <div className="rounded-2xl p-6 text-white" style={{ background: '#0E0E0E' }}>
+            <div className="rounded-xl p-6 text-white" style={{ background: 'var(--glass-dark)' }}>
               <p className="font-heading font-bold text-lg mb-2 leading-snug">Want to work with us?</p>
               <p className="text-white/60 text-sm leading-relaxed mb-5">
-                Book a free 30-minute scoping call. We'll review your operations and tell you exactly where AI can help.
+                Book a free 30-minute call. We'll look at how your business runs and tell you where AI can help.
               </p>
               <button
                 onClick={openCalBooking}
-                className="block w-full text-center font-semibold text-sm py-3 px-6 rounded-full bg-brand-yellow text-brand-dark transition-all hover:opacity-90 hover:-translate-y-0.5 border-none cursor-pointer"
+                className="block w-full text-center font-semibold text-sm py-3 px-6 rounded-btn bg-brand-yellow text-brand-yellow-ink transition-all hover:opacity-90 hover:-translate-y-0.5 border-none cursor-pointer"
               >
-                Book a Scoping Call
+                Book a Call
               </button>
             </div>
 
             {/* Quick links */}
-            <div className="rounded-2xl border border-brand-border p-6 bg-white">
+            <div className="rounded-xl border border-brand-border p-6 bg-white">
               <p className="text-[10px] font-semibold uppercase tracking-widest text-brand-text-muted mb-4">Explore</p>
               <div className="flex flex-col gap-1">
                 {[
@@ -201,6 +192,8 @@ export default function About() {
                   { label: 'Product Development', to: '/services/product-development' },
                   { label: 'Product Management', to: '/services/product-management' },
                   { label: 'AI Training', to: '/services/ai-training' },
+                  { label: 'Our Process', to: '/process' },
+                  { label: 'Meet the Founders', to: '/founder' },
                 ].map((link) => (
                   <Link
                     key={link.to}
@@ -229,7 +222,7 @@ export default function About() {
               Why partner with us
             </h2>
             <p className="text-brand-text-muted text-base md:text-lg leading-relaxed">
-              Four principles that define every engagement we take on.
+              Four principles behind every project we take on.
             </p>
           </div>
 
@@ -258,13 +251,13 @@ export default function About() {
             Let's build something <span className="text-brand-yellow">autonomous.</span>
           </h2>
           <p className="text-brand-text-muted text-base md:text-lg leading-relaxed max-w-lg mx-auto mb-10">
-            Tell us about the workflows you want to automate. We'll map the architecture, build the agents, and deploy them into your stack.
+            Tell us which work you want off your plate. We'll plan it, build the agents, and set them up inside the tools you already use.
           </p>
           <button
             onClick={openCalBooking}
-            className="inline-flex items-center gap-2 bg-brand-dark text-white font-semibold text-sm py-3.5 px-8 rounded-full transition-all duration-300 hover:bg-brand-dark-hover hover:-translate-y-0.5 shadow-[0_4px_12px_rgba(0,0,0,0.1)] border-none cursor-pointer group"
+            className="inline-flex items-center gap-2 bg-brand-dark text-white font-semibold text-sm py-3.5 px-8 rounded-btn transition-all duration-300 hover:bg-brand-dark-hover hover:-translate-y-0.5 shadow-[0_4px_12px_rgba(0,0,0,0.1)] border-none cursor-pointer group"
           >
-            Start a Conversation
+            Book a Call
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-200 group-hover:translate-x-1">
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>

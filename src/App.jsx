@@ -44,11 +44,12 @@ function App() {
   const location = useLocation();
   const hideHeaderFooter = location.pathname === '/scale' || location.pathname === '/automate' || location.pathname === '/linkedin-automation' || location.pathname === '/qualification' || location.pathname === '/demo' || location.pathname === '/travel-agent-ai-map' || location.pathname === '/clinic' || location.pathname === '/lead-agent' || location.pathname === '/agents';
 
-  // The home page wears the Xflow theme (see index.css). It goes on <html> so portalled menus and
-  // the chat widgets pick it up too, and before paint so the old colours never flash.
+  // Every page with the site header and footer wears the Xflow theme (see index.css); the standalone
+  // campaign pages keep their own look. It goes on <html> so portalled menus and the chat widgets
+  // pick it up too, and before paint so the old colours never flash.
   useLayoutEffect(() => {
-    document.documentElement.classList.toggle('theme-xflow', location.pathname === '/');
-  }, [location.pathname]);
+    document.documentElement.classList.toggle('theme-xflow', !hideHeaderFooter);
+  }, [hideHeaderFooter]);
 
   useEffect(() => {
     // Send pageview to Google Analytics on route change

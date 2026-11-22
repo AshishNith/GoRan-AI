@@ -81,29 +81,56 @@
     <priority>0.8</priority>
   </url>
 
-  <!-- Case Study Pages -->
+  <!-- Websites and team -->
   <url>
-    <loc>https://goran.in/case-studies/sales-lead-automation</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
+    <loc>https://goran.in/services/websites</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
+  <url>
+    <loc>https://goran.in/co-founder</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Case Study Pages -->
   <url>
     <loc>https://goran.in/case-studies/anaaj-ai</loc>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://goran.in/case-studies/voice-agent-platform</loc>
+    <loc>https://goran.in/case-studies/herbsera</loc>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://goran.in/case-studies/educonsult-ai</loc>
+    <loc>https://goran.in/case-studies/hadoti-farms</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://goran.in/case-studies/codewave</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://goran.in/case-studies/greenwrench</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://goran.in/case-studies/aroboticservices</loc>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <!-- Blog Posts -->
+  <url>
+    <loc>https://goran.in/blog/ecommerce-backend-automation-before-ads</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
   <url>
     <loc>https://goran.in/blog/100-leads-10-minutes-automated-outreach</loc>
     <changefreq>yearly</changefreq>

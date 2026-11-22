@@ -18,7 +18,7 @@ export default function Privacy() {
         className="absolute inset-0 pointer-events-none opacity-40"
         style={{
           backgroundImage:
-            'linear-gradient(rgba(229, 231, 235, 0.25) 1px, transparent 1px), linear-gradient(90deg, rgba(229, 231, 235, 0.25) 1px, transparent 1px)',
+            'linear-gradient(rgba(204, 210, 233, 0.35) 1px, transparent 1px), linear-gradient(90deg, rgba(204, 210, 233, 0.35) 1px, transparent 1px)',
           backgroundSize: '40px 40px',
         }}
       />

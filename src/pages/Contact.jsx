@@ -9,7 +9,7 @@ import WhatsappIcon from '../components/ui/WhatsappIcon';
 
 const budgetOptions = ['< ₹50k', '₹50k – ₹2L', '₹2L – ₹5L', '₹5L – ₹15L', '₹15L+'];
 const timelineOptions = ['Immediate', 'Within 2–4 Weeks', '1–2 Months', '3+ Months', 'Exploring Options'];
-const contactMethods = ['Email', 'WhatsApp', 'Phone Call', 'Google Meet', 'Calendly Booking'];
+const contactMethods = ['Email', 'WhatsApp', 'Phone Call', 'Google Meet', 'Scheduled Call'];
 const projectTypes = [
   'AI Workflow Automation',
   'AI CRM Systems',
@@ -392,7 +392,7 @@ export default function Contact() {
           className="absolute inset-0 opacity-30"
           style={{
             backgroundImage:
-              'linear-gradient(rgba(229, 231, 235, 0.25) 1px, transparent 1px), linear-gradient(90deg, rgba(229, 231, 235, 0.25) 1px, transparent 1px)',
+              'linear-gradient(rgba(204, 210, 233, 0.35) 1px, transparent 1px), linear-gradient(90deg, rgba(204, 210, 233, 0.35) 1px, transparent 1px)',
             backgroundSize: '40px 40px',
           }}
         />
@@ -416,14 +416,14 @@ export default function Contact() {
           <div className="flex flex-col gap-12">
 
             {/* Direct contact */}
-            <div className="rounded-2xl border border-brand-border bg-brand-bg-light p-6">
+            <div className="rounded-xl border border-brand-border bg-brand-bg-light p-6">
               <h3 className="text-[10px] font-semibold uppercase tracking-widest text-brand-text-muted mb-4">
                 Direct contact
               </h3>
               <div className="flex flex-col gap-3">
                 <a href="mailto:goran.dotin@gmail.com" className="no-underline text-brand-dark font-medium text-sm hover:text-brand-yellow transition-colors flex items-center gap-3">
                   <span className="w-8 h-8 rounded-lg bg-brand-yellow/10 flex items-center justify-center shrink-0">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F6C744" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="M22 7l-10 7L2 7" /></svg>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-brand-yellow)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="M22 7l-10 7L2 7" /></svg>
                   </span>
                   goran.dotin@gmail.com
                 </a>
@@ -435,7 +435,7 @@ export default function Contact() {
                 </a>
                 <div className="flex items-center gap-3 text-sm text-brand-text-muted">
                   <span className="w-8 h-8 rounded-lg bg-brand-yellow/10 flex items-center justify-center shrink-0">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F6C744" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></svg>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-brand-yellow)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></svg>
                   </span>
                   Avg. response: <span className="text-brand-dark font-semibold">within a few hours</span>
                 </div>
@@ -473,7 +473,7 @@ export default function Contact() {
             </div>
 
             {/* Trust indicators */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 rounded-2xl border border-brand-border p-6">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 rounded-xl border border-brand-border p-6">
               {[
                 { value: '500k+', label: 'Daily executions' },
                 { value: '99.9%', label: 'System uptime' },
@@ -537,7 +537,7 @@ export default function Contact() {
 
                 {/* ── AI Scoping Blueprint Card ── */}
                 {aiReport && (
-                  <div className="w-full bg-[#0E0E0E] border border-brand-yellow/30 rounded-2xl p-6 md:p-7 text-left my-8 shadow-card-hover relative overflow-hidden animate-fadeIn">
+                  <div className="w-full bg-[#0E0E0E] border border-brand-yellow/30 rounded-xl p-6 md:p-7 text-left my-8 shadow-card-hover relative overflow-hidden animate-fadeIn">
                     {/* Glowing blur background inside card */}
                     <div className="absolute top-0 right-0 w-48 h-48 rounded-full bg-brand-yellow/5 blur-[50px] pointer-events-none" />
 
@@ -585,7 +585,7 @@ export default function Contact() {
                       </p>
                       <button
                         onClick={openCalBooking}
-                        className="w-full bg-brand-yellow hover:bg-brand-yellow-hover text-brand-dark font-semibold text-xs py-3 rounded-xl transition-all duration-200 hover:-translate-y-0.5 shadow-lg shadow-brand-yellow/10 border-none cursor-pointer text-center"
+                        className="w-full bg-brand-yellow hover:bg-brand-yellow-hover text-brand-yellow-ink font-semibold text-xs py-3 rounded-xl transition-all duration-200 hover:-translate-y-0.5 shadow-lg shadow-brand-yellow/10 border-none cursor-pointer text-center"
                       >
                         Schedule Free Scoping Session
                       </button>
@@ -762,10 +762,10 @@ export default function Contact() {
                 <span className="text-[10px] font-bold uppercase tracking-widest text-brand-text-muted select-none">or book directly</span>
                 <div className="h-px bg-brand-border flex-1" />
               </div>
-              <div className="rounded-2xl p-8 text-white" style={{ background: '#0E0E0E' }}>
+              <div className="rounded-xl p-8 text-white" style={{ background: 'var(--glass-dark)' }}>
                 <div className="flex flex-col gap-6">
                   <div className="w-12 h-12 rounded-xl bg-brand-yellow/10 flex items-center justify-center">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F6C744" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-brand-yellow)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <rect x="2" y="4" width="20" height="16" rx="2" />
                       <path d="M22 7l-10 7L2 7" />
                     </svg>
@@ -778,7 +778,7 @@ export default function Contact() {
                   </div>
                   <button
                     onClick={openCalBooking}
-                    className="w-full bg-brand-yellow hover:bg-brand-yellow-hover text-brand-dark font-semibold text-sm py-3.5 px-6 rounded-xl transition-all duration-200 hover:-translate-y-0.5 shadow-lg shadow-brand-yellow/20 border-none cursor-pointer"
+                    className="w-full bg-brand-yellow hover:bg-brand-yellow-hover text-brand-yellow-ink font-semibold text-sm py-3.5 px-6 rounded-xl transition-all duration-200 hover:-translate-y-0.5 shadow-lg shadow-brand-yellow/20 border-none cursor-pointer"
                   >
                     Pick a Time
                   </button>

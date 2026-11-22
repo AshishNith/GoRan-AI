@@ -8,152 +8,152 @@ import { Phone, MessageSquare, Database, ArrowLeft, ArrowRight, ShieldCheck, Che
 
 const agentsData = {
   'calling-agent': {
-    name: 'Calling Agent (AI Voice Caller)',
-    tag: 'Autonomous Telephony & Voice AI',
-    subtitle: 'Deploy natural-sounding, ultra-low latency AI voice agents that dial leads, qualify prospects, handle inbound customer inquiries, and schedule meetings 24/7.',
-    description: 'Our Calling Agent system bridges state-of-the-art conversational LLMs with VoIP telephony. Operating at sub-800ms response latencies, these voice agents understand human context, handle interruptions gracefully, and execute complex business logic—like checking calendar availability or updating a CRM database—mid-conversation.',
-    outcome: 'An active custom voice node configured to your specific business requirements, fully integrated with your phone lines, and connected to your booking systems.',
+    name: 'AI Calling Agent',
+    tag: 'Voice AI',
+    subtitle: 'A natural-sounding voice agent that calls your leads, answers incoming calls, qualifies prospects and books meetings, at any hour of the day.',
+    description: 'The calling agent connects a conversational AI model to your phone lines. It replies in under a second, follows the thread of the conversation, copes when the caller interrupts, and can do real work mid-call, such as checking your calendar or updating a record in your CRM.',
+    outcome: 'A voice agent set up for your business, connected to your phone numbers and your booking system, and ready to take real calls.',
     timeline: '3–5 weeks',
-    color: '#F6C744',
+    color: '#5E76E3',
     icon: Phone,
     scope: [
       {
-        title: 'Outbound Prospecting & Qualification',
-        desc: 'Call newly registered leads within seconds. Qualify them using your sales criteria and dynamically route hot prospects directly to live sales representatives.'
+        title: 'Calls new leads within seconds',
+        desc: 'The agent rings every new lead straight away, asks your qualifying questions, and passes the serious ones to your sales team.'
       },
       {
-        title: 'Inbound Support Triage',
-        desc: 'Answer customer calls instantly with zero wait times. Handle common questions, troubleshoot issues, or transfer calls to human specialists when needed.'
+        title: 'Answers every incoming call',
+        desc: 'No hold music and no missed calls. It handles the common questions itself and transfers to a person when the caller needs one.'
       },
       {
-        title: 'Automated Calendar Scheduling',
-        desc: 'Enable voice agents to read your live calendar availability, offer open slots, book meetings on the fly, and send follow-up confirmation links.'
+        title: 'Books meetings on the call',
+        desc: 'It reads your live calendar, offers open slots, books the meeting and sends the confirmation.'
       },
       {
-        title: 'Real-time CRM Syncing',
-        desc: 'Automatically summarize every call, assign lead scores, and update details directly in Salesforce, HubSpot, or custom databases.'
+        title: 'Keeps your CRM up to date',
+        desc: 'Every call is summarised, scored and saved to Salesforce, HubSpot or your own database, with no typing from your team.'
       }
     ],
     techStack: ['LiveKit', 'Gemini Realtime API', 'Twilio API', 'Vapi / Retell', 'Node.js', 'WebRTC', 'FastAPI'],
-    deliverables: ['Custom Voice Persona & Prompt Config', 'Telephony SIP Trunk Integration', 'Interruption Handling Routines', 'Call Summary & Analytics API', 'Salesforce/Hubspot Sync Webhook'],
+    deliverables: ['A voice and script tuned to your brand', 'Connection to your phone lines', 'Natural handling of interruptions', 'Call summaries and reports', 'Automatic sync with your CRM'],
     process: [
       {
         step: '01',
-        phaseName: 'Voice Persona Design & Script Scoping',
-        description: 'We design your agent\'s vocal tone (pitch, speed, accent) and map out conversational branches. We compile your knowledge bases and script exact safety guardrails to ensure the agent never hallucinates price lists or commitments.',
-        deliverables: ['Voice accent & speed presets', 'Knowledge base vector store index', 'Conversational tree diagrams']
+        phaseName: 'Voice and script',
+        description: 'We choose how your agent sounds (tone, pace, accent) and map out how its conversations should go. We load in what it needs to know about your business and set firm rules, so it never invents a price or makes a promise you would not.',
+        deliverables: ['Chosen voice and pace', 'Your business knowledge loaded in', 'Conversation maps']
       },
       {
         step: '02',
-        phaseName: 'Telephony & Calendar Integration',
-        description: 'We wire up your telephony stack using SIP trunking or Twilio numbers, configure WebRTC channels for crystal-clear real-time communication, and establish active sync webhooks with your scheduling platforms (Calendly/Cal.com).',
-        deliverables: ['Configured SIP trunk/DID routing', 'API event integrations', 'Bi-directional calendar sync nodes']
+        phaseName: 'Phones and calendar',
+        description: 'We connect the agent to your phone numbers, tune the call audio so it sounds clear, and link it to your calendar (Calendly or Cal.com) so bookings land in the right place.',
+        deliverables: ['Phone numbers connected', 'Links to your other tools', 'Two-way calendar sync']
       },
       {
         step: '03',
-        phaseName: 'Simulation & Guardrail Hardening',
-        description: 'We run thousands of automated audio simulation tests to verify fallback logic. We test for voice interruptions, background noise, spelling/pronunciation anomalies, and force-escalation cases to ensure a bulletproof customer experience.',
-        deliverables: ['Interruption response validation', 'Telephony stress test logs', 'Go-live voice configuration']
+        phaseName: 'Testing before launch',
+        description: 'We run thousands of test calls before a real customer hears it. We try interruptions, background noise, unusual names and situations where it should hand over to a person, until it holds up.',
+        deliverables: ['Interruption tests passed', 'Results from heavy call volume', 'Final go-live setup']
       }
     ]
   },
   'whatsapp-telegram-agent': {
     name: 'WhatsApp & Telegram Agent',
-    tag: 'Conversational Chat Automation',
-    subtitle: 'Deploy responsive, intelligent chat agents directly inside WhatsApp and Telegram to capture leads, answer questions, display catalogs, and orchestrate orders.',
-    description: 'Connect with your clients on the platforms they use daily. Our Chat Agents use robust natural language understanding to process user text, recognize attachments, translate languages on the fly, and execute actions like booking tables, routing support tickets, or completing e-commerce checkouts.',
-    outcome: 'An officially verified Meta WhatsApp API node and Telegram bot agent running conversational scripts, catalog displays, and automated lead triage.',
+    tag: 'Chat automation',
+    subtitle: 'A chat agent that lives inside WhatsApp and Telegram. It captures leads, answers questions, shows your catalogue and takes orders, around the clock.',
+    description: 'Talk to customers on the apps they already use every day. The agent understands what people type, reads the photos and files they send, replies in their language, and gets things done: booking a table, raising a support request or completing an order.',
+    outcome: 'An official WhatsApp Business account and a Telegram bot, both answering customers, showing your catalogue and sorting your leads.',
     timeline: '2–4 weeks',
     color: '#10B981',
     icon: MessageSquare,
     scope: [
       {
-        title: 'Verified Business Onboarding',
-        desc: 'Meta Business Manager setup and WhatsApp Cloud API verification, configuring automated template messages and official catalog links.'
+        title: 'Official WhatsApp Business setup',
+        desc: 'We handle the Meta verification, get your message templates approved, and link your product catalogue.'
       },
       {
-        title: 'Autonomous Order & Catalog Browsing',
-        desc: 'Allow users to search products, browse services, query pricing, and place orders directly in the chat with automated payments.'
+        title: 'Browse and order in the chat',
+        desc: 'Customers search products, check prices, place orders and pay without leaving the conversation.'
       },
       {
-        title: 'Multilingual Support & FAQs',
-        desc: 'Understand and answer customer inquiries in over 40 languages instantly, resolving up to 80% of support volume without human intervention.'
+        title: 'Answers in the customer\'s language',
+        desc: 'The agent replies instantly in more than 40 languages and resolves most routine questions without a person stepping in.'
       },
       {
-        title: 'Smart Human Escalation Triage',
-        desc: 'Identify when a user is frustrated or needs complex help, and instantly transfer the conversation to your live chat reps via Slack or CRM.'
+        title: 'Hands over to your team when needed',
+        desc: 'When someone is frustrated or needs detailed help, the chat moves to your team in Slack or your CRM with the full history attached.'
       }
     ],
     techStack: ['WhatsApp Cloud API', 'Telegram Bot API', 'Meta Business SDK', 'Python', 'FastAPI', 'Redis Queue', 'PostgreSQL'],
-    deliverables: ['WhatsApp API Verification Setup', 'Telegram Bot Routing Engine', 'Natural Language FAQ Database', 'Slack Escalation Integration', 'Media Processing Pipeline (Receipts/Docs)'],
+    deliverables: ['Verified WhatsApp Business account', 'Telegram bot', 'Answers to your common questions', 'Handover to your team in Slack', 'Reading of receipts and documents'],
     process: [
       {
         step: '01',
-        phaseName: 'Meta API & Chat Channel Onboarding',
-        description: 'We configure and verify your WhatsApp Cloud API credentials via Meta Developer Console and create Telegram bot handlers. We submit message templates for approval so you can initiate conversations with clients legally and securely.',
-        deliverables: ['Verified Meta Developer App', 'Approved chat templates', 'Bot webhook endpoints']
+        phaseName: 'Account setup',
+        description: 'We set up and verify your WhatsApp Business account with Meta and create your Telegram bot. We submit your message templates for approval, so you can start conversations with customers within the rules.',
+        deliverables: ['Verified Meta account', 'Approved message templates', 'Bot connected and live']
       },
       {
         step: '02',
-        phaseName: 'Conversational Knowledge & RAG Configuration',
-        description: 'We index your business policies, FAQs, and product catalogs. We build specialized Retrieval-Augmented Generation (RAG) loops so the agent can look up real-time inventory and pricing details before answering chat queries.',
-        deliverables: ['Vector database of business policies', 'Product catalog API integration', 'Smart contextual prompt framework']
+        phaseName: 'Teaching it your business',
+        description: 'We load in your policies, FAQs and product catalogue. Before it answers, the agent looks up live stock and prices, so customers always get current information.',
+        deliverables: ['Your policies and FAQs loaded', 'Catalogue connected', 'Replies in your tone of voice']
       },
       {
         step: '03',
-        phaseName: 'Live Escalation & Fallback Routing',
-        description: 'We build integration nodes connecting chat channels to your internal support desk (Slack, Discord, Zendesk, or custom dashboard). When the bot detects complex issues, it seamlessly hands over the history to a human representative.',
-        deliverables: ['Human fallback webhooks', 'Agent chat handover controls', 'Interactive messaging dashboard']
+        phaseName: 'Handover to people',
+        description: 'We connect the chats to your support desk (Slack, Discord, Zendesk or a custom dashboard). When the agent meets something it should not handle, a person takes over with the whole conversation in front of them.',
+        deliverables: ['Handover to your team', 'Controls for taking over a chat', 'A dashboard of every conversation']
       }
     ]
   },
   'ai-powered-crm': {
-    name: 'AI-Powered CRM & Pipeline',
-    tag: 'Data Pipeline & Lead Automation',
-    subtitle: 'Automate lead scraping, pipeline enrichment, intent scoring, and personalized outreach routing to 10x your sales team\'s operational velocity.',
-    description: 'Say goodbye to manual data entry. Our AI-Powered CRM Orchestrator scrapes directories, auto-enriches incoming leads with demographic and company data, scores lead intent using customized models, drafts hyper-personalized responses, and routes deals to the right salesperson.',
-    outcome: 'An automated lead processing pipeline that ingests data from multiple channels, scores leads, writes outreach drafts, and syncs directly with your sales CRM.',
+    name: 'AI-Powered CRM',
+    tag: 'Lead automation',
+    subtitle: 'A CRM that finds leads, fills in the missing details, scores them and drafts the follow-up, so your sales team spends its time selling.',
+    description: 'No more manual data entry. The system gathers leads from your forms, inboxes and public directories, adds company and contact details, scores how likely each lead is to buy, drafts a personal reply, and sends the deal to the right salesperson.',
+    outcome: 'A lead pipeline that runs by itself: leads come in from every channel, get scored and answered, and appear in your CRM ready for your team.',
     timeline: '4–6 weeks',
     color: '#A855F7',
     icon: Database,
     scope: [
       {
-        title: 'Automated Lead Scraping & Ingestion',
-        desc: 'Extract target lead data from business registries, website forms, directories, and emails using secure headless scraping clusters.'
+        title: 'Collects leads automatically',
+        desc: 'Leads are pulled in from website forms, emails, business directories and registries, with no copy and paste.'
       },
       {
-        title: 'AI Demographic & Company Enrichment',
-        desc: 'Look up company details, employee counts, tech stacks, and social profiles automatically to give sales reps a complete dossier on every prospect.'
+        title: 'Fills in the background',
+        desc: 'Company size, the tools they use and their social profiles are looked up for you, so your team knows who they are talking to.'
       },
       {
-        title: 'Predictive Intent Scoring',
-        desc: 'Score incoming leads automatically using specialized classification models trained on your past sales data to prioritize high-value deals.'
+        title: 'Scores every lead',
+        desc: 'Each lead is scored against your past sales, so the best opportunities rise to the top of the list.'
       },
       {
-        title: 'Personalized Outreach Drafting',
-        desc: 'Generate custom-tailored outreach emails or WhatsApp follow-up drafts based on the prospect\'s pain points and company profile.'
+        title: 'Drafts the first message',
+        desc: 'A personal email or WhatsApp follow-up is written for each prospect, based on what they need and who they are.'
       }
     ],
     techStack: ['Puppeteer / Playwright', 'Express.js', 'Airtable API', 'PostgreSQL', 'LangChain', 'OpenAI API', 'Claude API', 'SendGrid'],
-    deliverables: ['Web Scraping Cluster Scripts', 'Intent Scoring Classification Engine', 'Outreach Draft Generator API', 'Slack Lead Routing Alerts', 'Airtable/PostgreSQL Database Architecture'],
+    deliverables: ['Automatic lead collection', 'Lead scoring', 'Drafted outreach messages', 'Slack alerts for hot leads', 'A structured CRM database'],
     process: [
       {
         step: '01',
-        phaseName: 'Data Pipeline & Source Audit',
-        description: 'We audit your sales databases (Airtable, HubSpot, sheets) and identify all target lead sources. We map your current sales reps\' workloads and routing rules to build a logical automated distribution framework.',
-        deliverables: ['Sales funnel data flow diagram', 'Lead scoring parameter sheet', 'Routing assignment matrix']
+        phaseName: 'Reviewing your leads and tools',
+        description: 'We look at where your leads come from and where they are stored today (Airtable, HubSpot, spreadsheets). We map who handles what, so the automated system assigns work the way your team already does.',
+        deliverables: ['A map of your sales process', 'Agreed scoring rules', 'Who gets which leads']
       },
       {
         step: '02',
-        phaseName: 'Scraping & AI Inference Engine Engineering',
-        description: 'We deploy scraper nodes to automatically extract lead profiles and configure LLM inference pipelines that analyze lead queries, assign intent scores, and draft contextual responses.',
-        deliverables: ['Scraper deployment scripts', 'Enrichment API integrations', 'Personalized draft prompts']
+        phaseName: 'Building the pipeline',
+        description: 'We set up the lead collection and the AI that reads each lead, scores it and writes a reply that fits.',
+        deliverables: ['Lead collection running', 'Background details added', 'Message drafts in your voice']
       },
       {
         step: '03',
-        phaseName: 'CRM Webhooks & Alert Routing Launch',
-        description: 'We connect the pipeline to your database. We setup real-time Slack or Microsoft Teams alert channels to notify your sales team instantly when a high-intent, qualified lead is captured.',
-        deliverables: ['Webhook routing handlers', 'Slack notification cards', 'Orchestration dashboard panels']
+        phaseName: 'Connecting your CRM and alerts',
+        description: 'We connect everything to your CRM and set up alerts in Slack or Microsoft Teams, so your sales team hears the moment a strong lead arrives.',
+        deliverables: ['CRM connected', 'Slack alerts', 'A pipeline dashboard']
       }
     ]
   }
@@ -190,11 +190,11 @@ export default function AgentDetail() {
     return (
       <div className="w-full min-h-screen flex flex-col items-center justify-center gap-6 px-6 text-center bg-white text-brand-dark">
         <div className="text-5xl font-mono text-brand-yellow mb-2">404</div>
-        <h2 className="text-3xl font-heading font-bold text-brand-dark">Agent Spec Not Found</h2>
-        <p className="text-brand-text-muted max-w-sm font-body">The autonomous agent configuration you're looking for doesn't exist.</p>
-        <Link to="/case-studies" className="inline-flex items-center gap-2 no-underline bg-brand-dark text-white font-semibold text-sm py-3 px-6 rounded-full mt-2 hover:bg-black transition-colors">
+        <h2 className="text-3xl font-heading font-bold text-brand-dark">Agent not found</h2>
+        <p className="text-brand-text-muted max-w-sm font-body">The agent page you're looking for doesn't exist.</p>
+        <Link to="/case-studies" className="inline-flex items-center gap-2 no-underline bg-brand-dark text-white font-semibold text-sm py-3 px-6 rounded-btn mt-2 hover:bg-black transition-colors">
           <ArrowLeft size={14} />
-          Back to Portfolio
+          All case studies
         </Link>
       </div>
     );
@@ -241,7 +241,7 @@ export default function AgentDetail() {
           className="inline-flex items-center gap-1.5 no-underline text-brand-text-muted hover:text-brand-dark text-xs font-semibold uppercase tracking-widest mb-10 transition-colors"
         >
           <ArrowLeft size={12} />
-          Back to Portfolio
+          All case studies
         </Link>
 
         {/* Hero Header */}
@@ -255,7 +255,7 @@ export default function AgentDetail() {
           </div>
 
           <h1 className="text-4xl sm:text-6xl font-heading font-bold text-brand-dark leading-[0.95] tracking-tight mb-6 flex flex-col sm:flex-row sm:items-center items-start gap-4">
-            <span className="p-3 bg-brand-bg-light rounded-2xl border border-brand-border shrink-0" style={{ color: agent.color }}>
+            <span className="p-3 bg-brand-bg-light rounded-xl border border-brand-border shrink-0" style={{ color: agent.color }}>
               <IconComponent size={36} />
             </span>
             {agent.name}
@@ -274,15 +274,15 @@ export default function AgentDetail() {
           transition={{ duration: 0.6, delay: 0.1 }}
         >
           <div>
-            <span className="text-[10px] font-semibold text-brand-text-muted uppercase tracking-wider block mb-1">Onboarding Timeline</span>
+            <span className="text-[10px] font-semibold text-brand-text-muted uppercase tracking-wider block mb-1">Live in</span>
             <span className="text-lg font-bold font-heading text-brand-dark">{agent.timeline}</span>
           </div>
           <div className="w-full h-px md:w-px md:h-10 bg-brand-border" />
           <div>
-            <span className="text-[10px] font-semibold text-brand-text-muted uppercase tracking-wider block mb-1">Standard Stack</span>
+            <span className="text-[10px] font-semibold text-brand-text-muted uppercase tracking-wider block mb-1">Built with</span>
             <span className="text-lg font-bold font-heading text-brand-dark flex items-center gap-1.5">
               <Cpu size={16} style={{ color: agent.color }} />
-              {agent.techStack.length} core dependencies
+              {agent.techStack.length} proven tools
             </span>
           </div>
         </motion.div>
@@ -297,16 +297,16 @@ export default function AgentDetail() {
             <div>
               <h2 className="text-xs font-semibold uppercase tracking-widest text-brand-text-muted mb-6 flex items-center gap-1.5">
                 <Wrench size={13} style={{ color: agent.color }} />
-                System Overview &amp; capabilities
+                How it works
               </h2>
               <p className="text-brand-text-main text-base leading-relaxed mb-6 font-body">
                 {agent.description}
               </p>
               <div 
-                className="rounded-2xl p-6 border-l-4 bg-brand-bg-light/50 border border-brand-border border-l-brand-yellow" 
+                className="rounded-xl p-6 border-l-4 bg-brand-bg-light/50 border border-brand-border border-l-brand-yellow" 
                 style={{ borderLeftColor: agent.color }}
               >
-                <p className="text-[10px] font-semibold uppercase tracking-wider mb-2" style={{ color: agent.color }}>Expected Outcome</p>
+                <p className="text-[10px] font-semibold uppercase tracking-wider mb-2" style={{ color: agent.color }}>What you end up with</p>
                 <p className="text-brand-text-main text-sm leading-relaxed font-body">{agent.outcome}</p>
               </div>
             </div>
@@ -315,11 +315,11 @@ export default function AgentDetail() {
             <div>
               <h2 className="text-xs font-semibold uppercase tracking-widest text-brand-text-muted mb-8 flex items-center gap-1.5">
                 <ShieldCheck size={13} style={{ color: agent.color }} />
-                Implementation Scope
+                What it does for you
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {agent.scope.map((item, index) => (
-                  <div key={index} className="p-6 rounded-2xl bg-white border border-brand-border hover:border-brand-border-hover hover:shadow-sm transition-all duration-300">
+                  <div key={index} className="p-6 rounded-xl bg-white border border-brand-border hover:border-brand-border-hover hover:shadow-sm transition-all duration-300">
                     <CheckCircle2 size={18} className="mb-4" style={{ color: agent.color }} />
                     <h3 className="text-sm font-semibold text-brand-dark mb-2 font-heading">{item.title}</h3>
                     <p className="text-brand-text-muted text-xs leading-relaxed font-body">{item.desc}</p>
@@ -332,7 +332,7 @@ export default function AgentDetail() {
             <div>
               <h2 className="text-xs font-semibold uppercase tracking-widest text-brand-text-muted mb-8 flex items-center gap-1.5">
                 <Settings size={13} style={{ color: agent.color }} />
-                Step-by-step Setup Process
+                How we set it up
               </h2>
               <div className="flex flex-col gap-10 relative pl-4 border-l border-brand-border ml-2">
                 {agent.process.map((step, index) => (
@@ -345,7 +345,7 @@ export default function AgentDetail() {
                     </div>
 
                     <div className="flex flex-col gap-2">
-                      <span className="text-[10px] font-mono text-brand-text-muted">PHASE {step.step}</span>
+                      <span className="text-[10px] font-semibold uppercase tracking-wider text-brand-text-muted">Step {step.step}</span>
                       <h3 className="text-lg font-bold font-heading text-brand-dark">{step.phaseName}</h3>
                       <p className="text-brand-text-muted text-xs leading-relaxed max-w-2xl font-body">{step.description}</p>
                       
@@ -371,8 +371,8 @@ export default function AgentDetail() {
           <div className="flex flex-col gap-6 lg:sticky lg:top-28 self-start">
             
             {/* Tech Stack list */}
-            <div className="rounded-2xl border border-brand-border p-6 bg-white shadow-sm">
-              <span className="text-[10px] font-semibold text-brand-text-muted uppercase tracking-widest block mb-4">Core Dependencies</span>
+            <div className="rounded-xl border border-brand-border p-6 bg-white shadow-sm">
+              <span className="text-[10px] font-semibold text-brand-text-muted uppercase tracking-widest block mb-4">Tools we use</span>
               <div className="flex flex-wrap gap-2">
                 {agent.techStack.map((tech, idx) => (
                   <span 
@@ -386,8 +386,8 @@ export default function AgentDetail() {
             </div>
 
             {/* Core Deliverables list */}
-            <div className="rounded-2xl border border-brand-border p-6 bg-white shadow-sm">
-              <span className="text-[10px] font-semibold text-brand-text-muted uppercase tracking-widest block mb-4">Standard Deliverables</span>
+            <div className="rounded-xl border border-brand-border p-6 bg-white shadow-sm">
+              <span className="text-[10px] font-semibold text-brand-text-muted uppercase tracking-widest block mb-4">What you get</span>
               <div className="flex flex-col gap-3">
                 {agent.deliverables.map((del, idx) => (
                   <div key={idx} className="flex items-center gap-2.5">
@@ -399,7 +399,7 @@ export default function AgentDetail() {
             </div>
 
             {/* Booking call Card */}
-            <div className="rounded-3xl p-8 text-white relative overflow-hidden" style={{ background: '#0E0E0E' }}>
+            <div className="rounded-3xl p-8 text-white relative overflow-hidden" style={{ background: 'var(--glass-dark)' }}>
               <div className="absolute inset-0 pointer-events-none">
                 <div 
                   className="absolute top-[-30%] left-[20%] w-[200px] h-[200px] rounded-full blur-[80px] opacity-15" 
@@ -407,23 +407,23 @@ export default function AgentDetail() {
                 />
               </div>
               <div className="relative z-10">
-                <h4 className="font-heading font-bold text-lg mb-2 leading-snug">Let's scope this integration</h4>
+                <h4 className="font-heading font-bold text-lg mb-2 leading-snug">Want this agent in your business?</h4>
                 <p className="text-white/60 text-xs leading-relaxed mb-6 font-body">
-                  Schedule a scoping session. We will examine your software infrastructure and define the custom agent rules.
+                  Book a free call. We'll look at how you work today and tell you what this agent would take off your plate.
                 </p>
                 <button 
                   onClick={openCalBooking} 
                   className="block w-full text-center font-bold text-xs py-3 px-6 rounded-full transition-all hover:-translate-y-0.5 shadow-md border-none cursor-pointer" 
-                  style={{ backgroundColor: agent.color, color: '#0E0E0E' }}
+                  style={{ backgroundColor: agent.color, color: '#FFFFFF' }}
                 >
-                  Book Scoping Session
+                  Book a Call
                 </button>
               </div>
             </div>
 
             {/* Other Agents solutions Links */}
-            <div className="rounded-2xl border border-brand-border p-6 bg-white shadow-sm">
-              <span className="text-[10px] font-semibold text-brand-text-muted uppercase tracking-widest block mb-4">Other Agent Systems</span>
+            <div className="rounded-xl border border-brand-border p-6 bg-white shadow-sm">
+              <span className="text-[10px] font-semibold text-brand-text-muted uppercase tracking-widest block mb-4">Other agents</span>
               <div className="flex flex-col gap-1.5">
                 {Object.entries(agentsData).filter(([id]) => id !== agentId).map(([id, item]) => (
                   <Link 

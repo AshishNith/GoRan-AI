@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { blogPostsList, categories } from '../data/blog';
-import { Grid, List, BookOpen, Search, ArrowRight, X, Cpu, Clock, Calendar, CornerDownRight, Tag, Sparkles } from 'lucide-react';
+import { Grid, List, BookOpen, Search, ArrowRight, X, Cpu, Clock, Calendar, CornerDownRight, Tag } from 'lucide-react';
 import SEOHead from '../components/SEOHead';
 import { buildBreadcrumbSchema } from '../seo/schemas';
 
 const categoryColors = {
-  'AI Strategy': { bg: 'rgba(246, 199, 68, 0.08)', text: '#F6C744', border: 'rgba(246, 199, 68, 0.2)' },
+  'AI Strategy': { bg: 'rgba(94, 118, 227, 0.08)', text: '#5E76E3', border: 'rgba(94, 118, 227, 0.2)' },
   'Process': { bg: 'rgba(168, 85, 247, 0.08)', text: '#A855F7', border: 'rgba(168, 85, 247, 0.2)' },
   'Engineering': { bg: 'rgba(59, 130, 246, 0.08)', text: '#3B82F6', border: 'rgba(59, 130, 246, 0.2)' },
   'Business': { bg: 'rgba(236, 72, 153, 0.08)', text: '#EC4899', border: 'rgba(236, 72, 153, 0.2)' },
@@ -19,7 +19,7 @@ const categoryColors = {
   'Industry': { bg: 'rgba(107, 114, 128, 0.08)', text: '#6B7280', border: 'rgba(107, 114, 128, 0.2)' }
 };
 
-const accentColors = ['#F6C744', '#A855F7', '#3B82F6', '#EC4899', '#14B8A6', '#F97316'];
+const accentColors = ['#5E76E3', '#A855F7', '#3B82F6', '#EC4899', '#14B8A6', '#F97316'];
 const popularSearches = ['Agents', 'ROI', 'WhatsApp', 'Safety', 'Architecture'];
 
 function formatDate(dateStr) {
@@ -32,39 +32,39 @@ function AgentOrchestratorBlueprint() {
 
   const nodes = {
     ingest: {
-      title: '1. Inbound Ingest',
-      metrics: { latency: '< 12ms', source: 'Webhooks/WhatsApp', status: 'Listening' },
-      desc: 'Ingests raw unstructured triggers—emails, PDFs, database rows, or real-time voice calls. Normalizes payloads instantly.',
+      title: '1. Something comes in',
+      metrics: { from: 'Calls, WhatsApp, email, forms', job: 'Listen and tidy up' },
+      desc: 'A call, a WhatsApp message, an email or a form arrives. The agent picks it up straight away and turns it into something it can work with.',
       x: 60, y: 70
     },
     orchestrator: {
-      title: '2. LLM Orchestrator',
-      metrics: { latency: '85ms', model: 'GoRan-Reasoning-v2', status: 'Processing' },
-      desc: 'Breaks down complex requirements into sequential tasks. Dynamically matches tool parameters and schedules execution paths.',
+      title: '2. The agent plans',
+      metrics: { uses: 'A language model', job: 'Break the task into steps' },
+      desc: 'The agent works out what is being asked, breaks it into steps, and decides which tools it needs for each one.',
       x: 180, y: 140
     },
     workers: {
-      title: '3. Specialized Workers',
-      metrics: { speed: '120 t/s', active: '5 Sub-agents', status: 'Standby' },
-      desc: 'Micro-agents execute domain tasks (e.g., parsing compliance rules, query building, writing outbound templates).',
+      title: '3. Helpers do the work',
+      metrics: { uses: 'Smaller, focused agents', job: 'One task each' },
+      desc: 'Smaller agents each take one job: looking up a record, checking a rule, or drafting a reply.',
       x: 300, y: 70
     },
     verification: {
-      title: '4. Guardrails & Validation',
-      metrics: { threshold: '98.5%', method: 'Dual-pass verify', status: 'Armed' },
-      desc: 'Validates outputs against schemas and business rules. Automatically routes anomalies to Human-in-the-Loop escalation.',
+      title: '4. Every answer is checked',
+      metrics: { checks: 'Your business rules', 'if unsure': 'Hand over to a person' },
+      desc: 'Before anything goes out, the result is checked against your rules. Anything unusual is passed to a person instead of being sent.',
       x: 300, y: 210
     },
     dispatch: {
-      title: '5. Action Dispatcher',
-      metrics: { channels: 'APIs/CRM/Slack', rate: '500k/day', status: 'Ready' },
-      desc: 'Executes approved actions: writing records to Salesforce, sending WhatsApp replies, or triggering local database hooks.',
+      title: '5. The action happens',
+      metrics: { 'acts in': 'CRM, WhatsApp, email, Slack', job: 'Finish the task' },
+      desc: 'The approved action is carried out: the CRM is updated, the reply is sent, the meeting is booked.',
       x: 60, y: 210
     }
   };
 
   return (
-    <div className="bg-[#0e0e0e] rounded-2xl border border-white/[0.06] p-6 lg:p-8 flex flex-col justify-between h-full min-h-[380px] text-white font-mono select-none overflow-hidden relative">
+    <div style={{ background: 'var(--glass-dark)' }} className="rounded-xl border border-white/[0.06] p-6 lg:p-8 flex flex-col justify-between h-full min-h-[380px] text-white font-mono select-none overflow-hidden relative">
       <style>{`
         @keyframes marquee-path {
           to { stroke-dashoffset: -160; }
@@ -81,9 +81,9 @@ function AgentOrchestratorBlueprint() {
       <div className="flex items-center justify-between border-b border-white/10 pb-4 relative z-10">
         <div className="flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-          <span className="text-[10px] text-white/50 tracking-wider">SYSTEM: ACTIVE_BLUEPRINT</span>
+          <span className="text-[10px] text-white/50 tracking-wider">HOW AN AGENT HANDLES A TASK</span>
         </div>
-        <span className="text-[9px] text-[#F6C744] bg-[#F6C744]/10 px-2 py-0.5 rounded border border-[#F6C744]/20">99.9% Uptime</span>
+        <span className="text-[9px] text-[#AEBBF5] bg-brand-yellow/15 px-2 py-0.5 rounded border border-brand-yellow/30">5 steps</span>
       </div>
 
       {/* SVG Canvas Area */}
@@ -93,23 +93,23 @@ function AgentOrchestratorBlueprint() {
             {/* Animated paths between nodes */}
             {/* Ingest -> Orchestrator */}
             <path d="M 60 70 L 180 140" stroke="rgba(255, 255, 255, 0.08)" strokeWidth="2" />
-            <path d="M 60 70 L 180 140" stroke={activeNode === 'ingest' ? '#F6C744' : 'rgba(246, 199, 68, 0.2)'} strokeWidth="1.5" strokeDasharray="8 8" className="animate-marquee-path" />
+            <path d="M 60 70 L 180 140" stroke={activeNode === 'ingest' ? '#5E76E3' : 'rgba(94, 118, 227, 0.2)'} strokeWidth="1.5" strokeDasharray="8 8" className="animate-marquee-path" />
 
             {/* Orchestrator -> Workers */}
             <path d="M 180 140 L 300 70" stroke="rgba(255, 255, 255, 0.08)" strokeWidth="2" />
-            <path d="M 180 140 L 300 70" stroke={activeNode === 'orchestrator' ? '#F6C744' : 'rgba(246, 199, 68, 0.2)'} strokeWidth="1.5" strokeDasharray="8 8" className="animate-marquee-path" />
+            <path d="M 180 140 L 300 70" stroke={activeNode === 'orchestrator' ? '#5E76E3' : 'rgba(94, 118, 227, 0.2)'} strokeWidth="1.5" strokeDasharray="8 8" className="animate-marquee-path" />
 
             {/* Workers -> Verification */}
             <path d="M 300 70 L 300 210" stroke="rgba(255, 255, 255, 0.08)" strokeWidth="2" />
-            <path d="M 300 70 L 300 210" stroke={activeNode === 'workers' ? '#F6C744' : 'rgba(246, 199, 68, 0.2)'} strokeWidth="1.5" strokeDasharray="8 8" className="animate-marquee-path" />
+            <path d="M 300 70 L 300 210" stroke={activeNode === 'workers' ? '#5E76E3' : 'rgba(94, 118, 227, 0.2)'} strokeWidth="1.5" strokeDasharray="8 8" className="animate-marquee-path" />
 
             {/* Verification -> Dispatch */}
             <path d="M 300 210 L 60 210" stroke="rgba(255, 255, 255, 0.08)" strokeWidth="2" />
-            <path d="M 300 210 L 60 210" stroke={activeNode === 'verification' ? '#F6C744' : 'rgba(246, 199, 68, 0.2)'} strokeWidth="1.5" strokeDasharray="8 8" className="animate-marquee-path" />
+            <path d="M 300 210 L 60 210" stroke={activeNode === 'verification' ? '#5E76E3' : 'rgba(94, 118, 227, 0.2)'} strokeWidth="1.5" strokeDasharray="8 8" className="animate-marquee-path" />
 
             {/* Dispatch -> Ingest */}
             <path d="M 60 210 L 60 70" stroke="rgba(255, 255, 255, 0.08)" strokeWidth="2" />
-            <path d="M 60 210 L 60 70" stroke={activeNode === 'dispatch' ? '#F6C744' : 'rgba(246, 199, 68, 0.2)'} strokeWidth="1.5" strokeDasharray="8 8" className="animate-marquee-path" />
+            <path d="M 60 210 L 60 70" stroke={activeNode === 'dispatch' ? '#5E76E3' : 'rgba(94, 118, 227, 0.2)'} strokeWidth="1.5" strokeDasharray="8 8" className="animate-marquee-path" />
 
             {/* Interactive Circles / Nodes */}
             {Object.entries(nodes).map(([key, node]) => {
@@ -125,8 +125,8 @@ function AgentOrchestratorBlueprint() {
                     cx={node.x} 
                     cy={node.y} 
                     r="18" 
-                    fill={isActive ? '#F6C744' : '#171717'} 
-                    stroke={isActive ? '#F6C744' : 'rgba(255,255,255,0.25)'} 
+                    fill={isActive ? '#5E76E3' : '#171717'} 
+                    stroke={isActive ? '#5E76E3' : 'rgba(255,255,255,0.25)'} 
                     strokeWidth="1.5" 
                     className="transition-all duration-300 group-hover:scale-110"
                   />
@@ -135,7 +135,7 @@ function AgentOrchestratorBlueprint() {
                       cx={node.x} 
                       cy={node.y} 
                       r="23" 
-                      stroke="#F6C744" 
+                      stroke="var(--color-brand-yellow)" 
                       strokeWidth="1" 
                       fill="none" 
                       className="animate-ping opacity-25" 
@@ -149,7 +149,7 @@ function AgentOrchestratorBlueprint() {
                     fontSize="8.5" 
                     fontWeight="bold"
                   >
-                    {key === 'ingest' ? 'IN' : key === 'orchestrator' ? 'LLM' : key === 'workers' ? 'WRK' : key === 'verification' ? 'VRF' : 'DSP'}
+                    {key === 'ingest' ? '1' : key === 'orchestrator' ? '2' : key === 'workers' ? '3' : key === 'verification' ? '4' : '5'}
                   </text>
                 </g>
               );
@@ -159,7 +159,7 @@ function AgentOrchestratorBlueprint() {
 
         {/* Info panel */}
         <div className="flex flex-col justify-center min-h-[170px] bg-white/[0.02] border border-white/5 rounded-xl p-4">
-          <div className="text-[10px] text-[#F6C744] font-bold uppercase tracking-wider mb-1 flex items-center gap-1.5">
+          <div className="text-[10px] text-[#AEBBF5] font-bold uppercase tracking-wider mb-1 flex items-center gap-1.5">
             <Cpu size={10} />
             {nodes[activeNode].title}
           </div>
@@ -179,8 +179,8 @@ function AgentOrchestratorBlueprint() {
 
       {/* Footer */}
       <div className="border-t border-white/10 pt-4 flex items-center justify-between text-[9px] text-white/30">
-        <span>RUNNING: ORCHESTRATION_CORE_v2.0</span>
-        <span>HOVER OR CLICK NODES</span>
+        <span>A simplified view</span>
+        <span>Hover or tap a step</span>
       </div>
     </div>
   );
@@ -221,7 +221,7 @@ export default function Blog() {
     <main className="w-full bg-white relative overflow-hidden pt-36 pb-24 font-body">
       <SEOHead
         title="GoRan AI Blog | AI Automation, Voice Agents & Business AI Insights"
-        description="Deep-dives into multi-agent systems, AI automation playbooks, voice agent architectures, WhatsApp bots, and operational ROI metrics from GoRan AI."
+        description="Practical guides from GoRan AI on AI agents, voice agents, WhatsApp automation and AI CRMs, and what they are worth to a business."
         canonicalPath="/blog"
         schema={buildBreadcrumbSchema([
           { name: 'Home', url: '/' },
@@ -240,20 +240,18 @@ export default function Blog() {
         <div className="mb-12 border-b border-brand-border pb-10">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
             <div className="max-w-2xl">
-              <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#A855F7] mb-3.5 block flex items-center gap-1.5">
-                <Sparkles size={11} className="text-brand-yellow" />
-                GoRan AI Intelligence Journal
+              <span className="mb-4 inline-flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-brand-yellow" />
+                <span className="text-xs font-semibold uppercase tracking-widest text-brand-text-muted">The GoRan AI blog</span>
               </span>
-              <h1 className="text-4xl sm:text-6xl md:text-7xl font-heading font-bold text-brand-dark leading-[0.95] tracking-tight">
-                Architecting<br />
-                <span className="text-brand-yellow relative">
-                  autonomous systems.
-                </span>
+              <h1 className="text-4xl sm:text-6xl md:text-7xl font-heading font-bold text-brand-dark leading-[1.02] tracking-tight">
+                How AI agents<br />
+                <span className="text-brand-yellow">run a business.</span>
               </h1>
             </div>
             <div className="max-w-xs shrink-0">
-              <p className="text-brand-text-muted text-xs md:text-sm leading-relaxed border-l-2 border-brand-yellow pl-4 py-1">
-                Deep-dives into multi-agent systems, engineering playbooks, operational ROI metrics, and automation design principles.
+              <p className="text-brand-text-muted text-sm leading-relaxed border-l-2 border-brand-yellow pl-4 py-1">
+                Practical guides on what to automate, how the agents work behind the scenes, and what it is worth to your business.
               </p>
             </div>
           </div>
@@ -267,39 +265,39 @@ export default function Blog() {
               onClick={() => setLayoutMode('editorial')}
               className={`flex shrink-0 items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-semibold cursor-pointer transition-all duration-300 ${
                 layoutMode === 'editorial'
-                  ? 'bg-white text-brand-dark shadow-sm'
-                  : 'text-brand-text-muted hover:text-brand-dark'
+                  ? 'bg-brand-yellow text-brand-yellow-ink shadow-sm'
+                  : 'bg-transparent border-none text-brand-text-muted hover:text-brand-dark'
               }`}
             >
-              <BookOpen size={13} className={layoutMode === 'editorial' ? 'text-brand-yellow' : ''} />
-              Editorial Journal
+              <BookOpen size={13}  />
+              Magazine
             </button>
             <button
               onClick={() => setLayoutMode('grid')}
               className={`flex shrink-0 items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-semibold cursor-pointer transition-all duration-300 ${
                 layoutMode === 'grid'
-                  ? 'bg-white text-brand-dark shadow-sm'
-                  : 'text-brand-text-muted hover:text-brand-dark'
+                  ? 'bg-brand-yellow text-brand-yellow-ink shadow-sm'
+                  : 'bg-transparent border-none text-brand-text-muted hover:text-brand-dark'
               }`}
             >
-              <Grid size={13} className={layoutMode === 'grid' ? 'text-brand-yellow' : ''} />
-              Grid Cards
+              <Grid size={13}  />
+              Grid
             </button>
             <button
               onClick={() => setLayoutMode('technical')}
               className={`flex shrink-0 items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-semibold cursor-pointer transition-all duration-300 ${
                 layoutMode === 'technical'
-                  ? 'bg-white text-brand-dark shadow-sm'
-                  : 'text-brand-text-muted hover:text-brand-dark'
+                  ? 'bg-brand-yellow text-brand-yellow-ink shadow-sm'
+                  : 'bg-transparent border-none text-brand-text-muted hover:text-brand-dark'
               }`}
             >
-              <List size={13} className={layoutMode === 'technical' ? 'text-brand-yellow' : ''} />
-              Technical Logs
+              <List size={13}  />
+              List
             </button>
           </div>
 
-          <div className="text-right text-[10px] text-brand-text-muted font-mono uppercase tracking-widest hidden md:block">
-            Displaying {filtered.length} of {blogPostsList.length} articles
+          <div className="text-right text-sm text-brand-text-muted hidden md:block">
+            Showing {filtered.length} of {blogPostsList.length} articles
           </div>
         </div>
 
@@ -313,10 +311,10 @@ export default function Blog() {
           >
             <div className="text-[10px] font-bold uppercase tracking-wider text-brand-text-muted mb-4 flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-brand-yellow animate-pulse" />
-              Featured Spotlight
+              Featured
             </div>
             
-            <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-8 lg:gap-14 bg-brand-bg-light/45 border border-brand-border rounded-3xl p-6 lg:p-10 transition-all duration-500 hover:border-brand-yellow/30 hover:shadow-[0_12px_40px_rgba(246,199,68,0.04)] relative">
+            <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-8 lg:gap-14 bg-brand-bg-light/45 border border-brand-border rounded-3xl p-6 lg:p-10 transition-all duration-500 hover:border-brand-yellow/30 hover:shadow-[0_12px_40px_rgba(94, 118, 227,0.04)] relative">
               {/* Left side: content info */}
               <div className="flex flex-col justify-between py-2 min-w-0">
                 <div className="flex flex-col gap-5">
@@ -365,7 +363,7 @@ export default function Blog() {
 
                   <Link to={`/blog/${featuredPost.slug}`} className="no-underline group/link">
                     <span className="flex items-center gap-2 text-xs font-bold text-brand-dark group-hover/link:text-brand-yellow transition-colors duration-300">
-                      Read Blueprint
+                      Read article
                       <ArrowRight size={14} className="transition-transform duration-300 group-hover/link:translate-x-1" />
                     </span>
                   </Link>
@@ -393,7 +391,7 @@ export default function Blog() {
               <div className="relative">
                 <input
                   type="text"
-                  placeholder="Query system files..."
+                  placeholder="Search articles..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="w-full bg-brand-bg-light/60 border border-brand-border rounded-xl pl-10 pr-10 py-2.5 text-xs text-brand-text-main font-mono outline-none focus:border-brand-yellow/60 focus:ring-2 focus:ring-brand-yellow/5 transition-all duration-200"
@@ -457,7 +455,7 @@ export default function Blog() {
                           className="w-1.5 h-1.5 rounded-full transition-all duration-300"
                           style={{
                             backgroundColor: isActive 
-                              ? (categoryColors[cat]?.text || '#F6C744')
+                              ? (categoryColors[cat]?.text || '#5E76E3')
                               : 'transparent',
                             border: isActive 
                               ? 'none' 
@@ -476,11 +474,11 @@ export default function Blog() {
             </div>
 
             {/* Micro Author Biography Profile */}
-            <div className="rounded-2xl border border-brand-border bg-brand-bg-light/40 p-5 relative overflow-hidden">
+            <div className="rounded-xl border border-brand-border bg-brand-bg-light/40 p-5 relative overflow-hidden">
               <div className="absolute top-0 right-0 w-24 h-24 bg-purple-500/3 rounded-full blur-2xl pointer-events-none" />
               <h4 className="text-[10px] font-bold uppercase tracking-widest text-brand-text-muted mb-4 select-none flex items-center gap-1.5">
                 <Cpu size={10} className="text-purple-400" />
-                Principal Architect
+                About the author
               </h4>
               <div className="flex gap-4 items-start">
                 <div className="w-9 h-9 rounded-full bg-brand-dark text-white flex items-center justify-center font-heading font-semibold text-xs shrink-0 select-none">
@@ -489,7 +487,7 @@ export default function Blog() {
                 <div>
                   <h4 className="text-xs font-bold text-brand-dark">Ashish Ranjan</h4>
                   <p className="text-[10.5px] text-brand-text-muted leading-relaxed mt-1">
-                    Designs autonomous multi-agent networks and API system loops. Advises enterprises on operational automation scaling.
+                    Founder of GoRan AI. Designs and builds the AI agents described in these articles, and writes about what works in practice.
                   </p>
                 </div>
               </div>
@@ -524,7 +522,7 @@ export default function Blog() {
                           <div className="grid grid-cols-1 md:grid-cols-[1.4fr_1fr] gap-6 md:gap-10">
                             <div>
                               <div className="flex justify-between items-center mb-4 text-[10px] font-mono text-brand-text-muted/40 select-none">
-                                <span>SYSTEM_FILE // #{String(totalIndex + 1).padStart(2, '0')}</span>
+                                <span>#{String(totalIndex + 1).padStart(2, '0')}</span>
                                 <span>{formatDate(post.date)}</span>
                               </div>
                               <div className="flex items-center gap-3.5 mb-3.5">
@@ -558,23 +556,23 @@ export default function Blog() {
                                 </div>
                                 <Link to={`/blog/${post.slug}`} className="no-underline">
                                   <span className="flex items-center gap-1 text-[11px] font-bold text-brand-dark hover:text-brand-yellow transition-colors duration-200">
-                                    Analyze
+                                    Read article
                                     <ArrowRight size={12} />
                                   </span>
                                 </Link>
                               </div>
                             </div>
-                            <div className="hidden md:flex bg-brand-bg-light/60 border border-brand-border/80 rounded-2xl p-6 flex-col justify-between select-none relative overflow-hidden group-hover:border-brand-yellow/20 transition-all duration-300">
+                            <div className="hidden md:flex bg-brand-bg-light/60 border border-brand-border/80 rounded-xl p-6 flex-col justify-between select-none relative overflow-hidden group-hover:border-brand-yellow/20 transition-all duration-300">
                               <div className="absolute top-0 right-0 w-32 h-32 bg-brand-yellow/[0.02] rounded-full blur-xl" />
-                              <div className="font-mono text-[9px] text-brand-text-muted/30">METRIC_LOG // {post.category.toUpperCase()}</div>
-                              <div className="my-auto font-mono text-[10.5px] text-brand-text-muted leading-relaxed space-y-1">
-                                <div>&gt; _STATUS: ARCHITECTED</div>
-                                <div>&gt; _KEYWORD: {post.tags[0] || 'SYSTEM'}</div>
-                                <div>&gt; _READ_CYCLE: {post.readTime}</div>
+                              <div className="text-[11px] font-semibold uppercase tracking-wider text-brand-text-muted">In this article</div>
+                              <div className="my-auto text-sm text-brand-text-muted leading-relaxed space-y-1.5">
+                                <div>Topic: <span className="font-semibold text-brand-dark">{post.category}</span></div>
+                                <div>Covers: <span className="font-semibold text-brand-dark">{post.tags.slice(0, 2).join(', ')}</span></div>
+                                <div>Reading time: <span className="font-semibold text-brand-dark">{post.readTime}</span></div>
                               </div>
-                              <span className="text-[9.5px] font-mono text-brand-yellow/60 font-semibold tracking-wider flex items-center gap-1">
-                                <CornerDownRight size={10} />
-                                DEPLOYED SPEC
+                              <span className="text-xs text-brand-yellow font-semibold flex items-center gap-1">
+                                <CornerDownRight size={12} />
+                                {formatDate(post.date)}
                               </span>
                             </div>
                           </div>
@@ -646,20 +644,20 @@ export default function Blog() {
                           <div className="col-span-full my-8 bg-brand-bg-light/40 border border-brand-border rounded-3xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden select-none">
                             <div className="absolute top-0 right-0 w-64 h-64 bg-brand-yellow/5 rounded-full blur-[80px] pointer-events-none" />
                             <div className="max-w-md">
-                              <span className="text-[9.5px] font-mono uppercase text-brand-yellow tracking-widest block mb-2 font-bold">INSIGHT ARCHITECT</span>
+                              <span className="text-[11px] uppercase text-brand-yellow tracking-widest block mb-2 font-bold">How we work</span>
                               <h4 className="text-base sm:text-lg font-heading font-bold text-brand-dark leading-snug">
-                                "Our system integration methodology is simple: we map business operations first, then build autonomous agents with safety gates. No black-boxes."
+                                "Our method is simple: we map how your business runs first, then build agents with checks at every step. No black boxes."
                               </h4>
                               <span className="text-[10px] text-brand-text-muted mt-2.5 block">— Ashish Ranjan, Founder</span>
                             </div>
                             <div className="shrink-0 flex gap-2.5 text-center">
-                              <div className="bg-white border border-brand-border rounded-2xl p-4 min-w-[90px] shadow-sm">
+                              <div className="bg-white border border-brand-border rounded-xl p-4 min-w-[90px] shadow-sm">
                                 <div className="text-xl font-bold font-heading text-brand-dark">500k+</div>
-                                <div className="text-[8.5px] text-brand-text-muted uppercase tracking-wider font-mono">Daily Tasks</div>
+                                <div className="text-[10px] text-brand-text-muted uppercase tracking-wider">Daily tasks</div>
                               </div>
-                              <div className="bg-white border border-brand-border rounded-2xl p-4 min-w-[90px] shadow-sm">
-                                <div className="text-xl font-bold font-heading text-brand-dark">92%</div>
-                                <div className="text-[8.5px] text-brand-text-muted uppercase tracking-wider font-mono">ROI Saved</div>
+                              <div className="bg-white border border-brand-border rounded-xl p-4 min-w-[90px] shadow-sm">
+                                <div className="text-xl font-bold font-heading text-brand-dark">99.9%</div>
+                                <div className="text-[10px] text-brand-text-muted uppercase tracking-wider">Uptime</div>
                               </div>
                             </div>
                           </div>
@@ -686,7 +684,7 @@ export default function Blog() {
                       <motion.article
                         key={post.slug}
                         layout
-                        className="bg-white border border-brand-border hover:border-brand-yellow/30 hover:shadow-lg hover:shadow-black/[0.02] rounded-2xl p-6 flex flex-col justify-between transition-all duration-300 group min-w-0"
+                        className="bg-white border border-brand-border hover:border-brand-yellow/30 hover:shadow-lg hover:shadow-black/[0.02] rounded-xl p-6 flex flex-col justify-between transition-all duration-300 group min-w-0"
                       >
                         <div>
                           <div className="flex justify-between items-center mb-4 text-[10px] font-mono text-brand-text-muted/40">
@@ -736,14 +734,14 @@ export default function Blog() {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.3 }}
-                  className="border border-brand-border/80 rounded-2xl bg-white overflow-hidden divide-y divide-brand-border/40 font-mono text-xs shadow-sm"
+                  className="border border-brand-border/80 rounded-xl bg-white overflow-hidden divide-y divide-brand-border/40 font-mono text-xs shadow-sm"
                 >
                   {/* Table Header */}
                   <div className="hidden sm:grid sm:grid-cols-[60px_100px_130px_1fr_90px] bg-brand-bg-light px-6 py-3.5 text-[9.5px] text-brand-text-muted font-bold tracking-widest uppercase border-b border-brand-border/80">
                     <span>Index</span>
                     <span>Date</span>
                     <span>Category</span>
-                    <span>Spec Title</span>
+                    <span>Title</span>
                     <span className="text-right">Read Time</span>
                   </div>
 
@@ -774,7 +772,7 @@ export default function Blog() {
                           {post.title}
                         </span>
                         <span className="text-right text-brand-text-muted text-[11px] flex sm:inline-flex items-center justify-between sm:justify-end gap-1.5">
-                          <span className="sm:hidden text-brand-text-muted/30">Read cycle:</span>
+                          <span className="sm:hidden text-brand-text-muted/30">Read time:</span>
                           {post.readTime}
                         </span>
                       </Link>
@@ -789,8 +787,8 @@ export default function Blog() {
                 <div className="w-12 h-12 rounded-xl bg-brand-bg-light border border-brand-border flex items-center justify-center mx-auto mb-4 select-none">
                   <X size={20} className="text-brand-text-muted/60" />
                 </div>
-                <h4 className="text-xs font-semibold text-brand-dark mb-1">No operational files matching query</h4>
-                <p className="text-[11px] text-brand-text-muted">No posts found with search terms or active filters. Try clearing inputs.</p>
+                <h4 className="text-xs font-semibold text-brand-dark mb-1">No articles found</h4>
+                <p className="text-[11px] text-brand-text-muted">Nothing matches that search or filter. Try clearing them.</p>
                 <button 
                   onClick={() => { setSearchQuery(''); setActiveFilter('All'); }}
                   className="mt-4 px-4 py-2 bg-brand-dark hover:bg-brand-dark-hover text-white text-[11px] font-bold rounded-lg border-none cursor-pointer"
@@ -825,7 +823,7 @@ export default function Blog() {
             </p>
             <Link
               to="/contact"
-              className="inline-flex items-center gap-2 bg-brand-dark hover:bg-brand-dark-hover text-white font-semibold text-xs py-3.5 px-8 rounded-full no-underline transition-all duration-300 hover:-translate-y-0.5 shadow-[0_4px_12px_rgba(0,0,0,0.1)] group"
+              className="inline-flex items-center gap-2 bg-brand-dark hover:bg-brand-dark-hover text-white font-semibold text-xs py-3.5 px-8 rounded-btn no-underline transition-all duration-300 hover:-translate-y-0.5 shadow-[0_4px_12px_rgba(0,0,0,0.1)] group"
             >
               Propose a Topic
               <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />

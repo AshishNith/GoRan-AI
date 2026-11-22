@@ -21,7 +21,7 @@ const servicesData = {
     techStack: ['Notion', 'Figma', 'Miro', 'Airtable', 'Google Workspace', 'Slack'],
     deliverables: ['AI Opportunity Report', 'ROI Scoring Matrix', '8-Week Roadmap', 'Tool Recommendations', 'Executive Presentation'],
     timeline: '2–3 weeks',
-    color: '#F6C744',
+    color: '#5E76E3',
   },
   'product-development': {
     name: 'Product Development',
@@ -68,7 +68,7 @@ const servicesData = {
     checklist: [
       'Role-specific curriculum: tailored tracks for executives, ops teams, sales teams, and developers — not one-size-fits-all content.',
       'Prompt engineering fundamentals: teaching your team how to extract high-quality outputs from LLMs for their specific job functions.',
-      'No-code AI tool workshops: hands-on sessions building automations with tools like Make, Zapier, and ChatGPT Plugins.',
+      'No-code AI tool workshops: hands-on sessions building automations with tools like Make, Zapier, and ChatGPT.',
       'Internal tooling labs: guided sessions where your team builds real internal AI tools (chatbots, document summarisers, email drafters).',
       'Ongoing learning resources: recorded sessions, prompt libraries, and a private knowledge base your team can reference independently.'
     ],
@@ -109,7 +109,7 @@ export default function ServiceDetail() {
         <div className="text-5xl mb-2">404</div>
         <h2 className="text-3xl font-heading font-bold text-brand-dark">Service Not Found</h2>
         <p className="text-brand-text-muted max-w-sm">The service page you're looking for doesn't exist or may have moved.</p>
-        <Link to="/" className="inline-flex items-center gap-2 no-underline bg-brand-dark text-white font-medium text-sm py-3 px-6 rounded-full mt-2 hover:bg-black transition-colors">
+        <Link to="/" className="inline-flex items-center gap-2 no-underline bg-brand-dark text-white font-medium text-sm py-3 px-6 rounded-btn mt-2 hover:bg-black transition-colors">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
           Back to Home
         </Link>
@@ -143,11 +143,11 @@ export default function ServiceDetail() {
         <div className="w-full max-w-[1100px] mx-auto px-6 relative z-10">
 
           {/* Back link */}
-          <Link to="/" className="inline-flex items-center gap-1.5 no-underline text-brand-text-muted text-sm font-medium mb-10 group transition-colors hover:text-brand-dark">
+          <Link to="/" className="flex w-fit items-center gap-1.5 no-underline text-brand-text-muted text-sm font-medium mb-8 group transition-colors hover:text-brand-dark">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="transition-transform group-hover:-translate-x-0.5">
               <path d="M19 12H5M12 19l-7-7 7-7"/>
             </svg>
-            All Services
+            Back to home
           </Link>
 
           {/* Tag */}
@@ -197,7 +197,7 @@ export default function ServiceDetail() {
             <div>
               <p className="text-[10px] font-semibold uppercase tracking-widest text-brand-text-muted mb-4">Overview</p>
               <p className="text-brand-text-main text-lg leading-relaxed mb-6">{service.description}</p>
-              <div className="rounded-2xl p-6 border-l-4" style={{ background: `${service.color}0D`, borderLeftColor: service.color }}>
+              <div className="rounded-xl p-6 border-l-4" style={{ background: `${service.color}0D`, borderLeftColor: service.color }}>
                 <p className="text-[10px] font-semibold uppercase tracking-widest mb-2" style={{ color: service.color }}>What you get</p>
                 <p className="text-brand-text-main text-base leading-relaxed">{service.outcome}</p>
               </div>
@@ -236,7 +236,7 @@ export default function ServiceDetail() {
           <div className="flex flex-col gap-5 lg:sticky lg:top-28 self-start">
 
             {/* Deliverables card */}
-            <div className="rounded-2xl border border-brand-border p-6 bg-white">
+            <div className="rounded-xl border border-brand-border p-6 bg-white">
               <p className="text-[10px] font-semibold uppercase tracking-widest text-brand-text-muted mb-4">Deliverables</p>
               <div className="flex flex-col gap-2.5">
                 {service.deliverables.map((d, idx) => (
@@ -249,13 +249,13 @@ export default function ServiceDetail() {
             </div>
 
             {/* Timeline card */}
-            <div className="rounded-2xl border border-brand-border p-6 bg-white">
+            <div className="rounded-xl border border-brand-border p-6 bg-white">
               <p className="text-[10px] font-semibold uppercase tracking-widest text-brand-text-muted mb-2">Typical Timeline</p>
               <p className="text-2xl font-heading font-bold text-brand-dark">{service.timeline}</p>
             </div>
 
             {/* CTA card */}
-            <div className="rounded-2xl p-6 text-white" style={{ background: '#0E0E0E' }}>
+            <div className="rounded-xl p-6 text-white" style={{ background: 'var(--glass-dark)' }}>
               <p className="font-heading font-bold text-lg mb-2 leading-snug">Ready to get started?</p>
               <p className="text-white/60 text-sm leading-relaxed mb-5">
                 Book a free 30-minute scoping call. We'll review your situation and tell you exactly what's possible.
@@ -266,7 +266,7 @@ export default function ServiceDetail() {
             </div>
 
             {/* Other services */}
-            <div className="rounded-2xl border border-brand-border p-6 bg-white">
+            <div className="rounded-xl border border-brand-border p-6 bg-white">
               <p className="text-[10px] font-semibold uppercase tracking-widest text-brand-text-muted mb-4">Other services</p>
               <div className="flex flex-col gap-1">
                 {Object.entries(servicesData).filter(([id]) => id !== serviceId).map(([id, s]) => (

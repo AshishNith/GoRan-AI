@@ -31,7 +31,8 @@ export default function SEOHead({
   article,
 }) {
   const location = useLocation();
-  const fullTitle = noSuffix ? title : `${title} | ${SITE_NAME}`;
+  // Titles that already name the brand don't get it appended a second time
+  const fullTitle = noSuffix || title.includes(SITE_NAME) ? title : `${title} | ${SITE_NAME}`;
   const metaDescription = description || DEFAULT_DESCRIPTION;
   const canonical = `${SITE_URL}${canonicalPath || location.pathname}`;
   const ogImg = ogImage || DEFAULT_OG_IMAGE;

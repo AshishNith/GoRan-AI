@@ -95,7 +95,7 @@ export default function CoFounder() {
               <div className="flex items-center gap-4">
                 <button
                   onClick={openCalBooking}
-                  className="inline-flex items-center gap-2 bg-brand-dark text-white font-semibold text-sm py-3.5 px-7 rounded-full transition-all duration-300 hover:bg-brand-dark-hover hover:-translate-y-0.5 border-none cursor-pointer group shadow-md"
+                  className="inline-flex items-center gap-2 bg-brand-dark text-white font-semibold text-sm py-3.5 px-7 rounded-btn transition-all duration-300 hover:bg-brand-dark-hover hover:-translate-y-0.5 border-none cursor-pointer group shadow-md"
                 >
                   Schedule Sales Scoping Call
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-200 group-hover:translate-x-1">
@@ -116,7 +116,7 @@ export default function CoFounder() {
               </div>
             </div>
 
-            <div className="w-full aspect-3/4 max-h-125 border border-brand-border bg-brand-bg-light overflow-hidden rounded-2xl shadow-lg">
+            <div className="w-full aspect-3/4 max-h-125 border border-brand-border bg-brand-bg-light overflow-hidden rounded-xl shadow-lg">
               <img
                 src="/Piyush.jpg"
                 alt="Piyush Rana — Sales & Marketing Head at GoRan AI"
@@ -139,7 +139,7 @@ export default function CoFounder() {
             <motion.div className="relative" {...fadeUp}>
               <div className="sticky top-32">
                 <div className="flex flex-col items-start gap-6">
-                  <div className="w-full aspect-square max-w-50 border border-brand-border bg-white rounded-2xl flex items-center justify-center p-6 shadow-sm">
+                  <div className="w-full aspect-square max-w-50 border border-brand-border bg-white rounded-xl flex items-center justify-center p-6 shadow-sm">
                     <div className="flex flex-col items-center gap-2 text-center">
                       <div className="w-14 h-14 rounded-full border-2 border-brand-yellow bg-brand-yellow/10 flex items-center justify-center">
                         <span className="font-heading font-bold text-brand-dark text-xl">PR</span>
@@ -173,7 +173,7 @@ export default function CoFounder() {
                 {salesPillars.map((p, idx) => (
                   <motion.div
                     key={idx}
-                    className="p-6 rounded-2xl border border-brand-border bg-white"
+                    className="p-6 rounded-xl border border-brand-border bg-white"
                     {...fadeUp}
                   >
                     <h4 className="font-heading font-bold text-base text-brand-dark mb-2">{p.label}</h4>
@@ -198,7 +198,7 @@ export default function CoFounder() {
             {salesMilestones.map((m, idx) => (
               <motion.div
                 key={idx}
-                className="flex flex-col sm:flex-row items-start gap-4 sm:gap-8 p-6 rounded-2xl border border-brand-border bg-white hover:border-brand-yellow/50 transition-all duration-300"
+                className="flex flex-col sm:flex-row items-start gap-4 sm:gap-8 p-6 rounded-xl border border-brand-border bg-white hover:border-brand-yellow/50 transition-all duration-300"
                 {...fadeUp}
               >
                 <span className="font-heading font-bold text-brand-yellow bg-brand-yellow/10 px-4 py-2 rounded-xl text-sm shrink-0">
@@ -225,7 +225,7 @@ export default function CoFounder() {
             {salesStack.map((s, idx) => (
               <motion.div
                 key={idx}
-                className="p-6 rounded-2xl border border-brand-border bg-white flex flex-col gap-2"
+                className="p-6 rounded-xl border border-brand-border bg-white flex flex-col gap-2"
                 {...fadeUp}
               >
                 <span className="text-xs font-bold font-heading text-brand-yellow uppercase tracking-widest">{s.category}</span>
@@ -249,7 +249,7 @@ export default function CoFounder() {
             </p>
             <button
               onClick={openCalBooking}
-              className="inline-flex items-center gap-2 bg-brand-dark text-white font-semibold text-sm py-3.5 px-8 rounded-full transition-all duration-300 hover:bg-brand-dark-hover hover:-translate-y-0.5 shadow-[0_4px_12px_rgba(0,0,0,0.1)] border-none cursor-pointer group"
+              className="inline-flex items-center gap-2 bg-brand-dark text-white font-semibold text-sm py-3.5 px-8 rounded-btn transition-all duration-300 hover:bg-brand-dark-hover hover:-translate-y-0.5 shadow-[0_4px_12px_rgba(0,0,0,0.1)] border-none cursor-pointer group"
             >
               Book Call with Sales & Marketing Head
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-200 group-hover:translate-x-1">
